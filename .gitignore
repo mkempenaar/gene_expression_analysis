@@ -5,3 +5,5 @@ packrat/src/
 _book/
 _bookdown_files/
 .Rhistory
+.DS_Store
+.RData
