@@ -1,0 +1,7 @@
+packrat/lib*/
+.Rproj.user
+packrat/src/
+.Rprofile
+_book/
+_bookdown_files/
+.Rhistory
