@@ -1,0 +1,11 @@
+name: Analysis of Gene Expression Analysis Project
+markdown: redcarpet
+highlighter: pygments
+
+rmd_files: ['index.Rmd',
+            'Introduction.Rmd',
+            'SRADataSets.Rmd',
+            'ExploratoryAnalysis.Rmd',
+            'DiscoverDEGs.Rmd',
+            'AnnotatingData.Rmd',
+            'DataAnalysis.Rmd']

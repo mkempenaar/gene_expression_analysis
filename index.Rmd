@@ -12,23 +12,27 @@ github-repo: marcelk/BFVH15CAPSTONE
 description: "Course Syllabus for the BFVH15CAPSTONE course"
 ---
 
-# Prerequisites
+# Capstone Project Schedule
 
-This is a _sample_ book written in **Markdown**. You can use anything that Pandoc's Markdown supports, e.g., a math equation $a^2 + b^2 = c^2$.
+The subject in bold is discussed in this document:
 
-For now, you have to install the development versions of **bookdown** from Github:
-
-```{r eval=FALSE}
-devtools::install_github("rstudio/bookdown")
-```
-
-Remember each Rmd file contains one and only one chapter, and a chapter is defined by the first-level heading `#`.
-
-To compile this example to PDF, you need to install XeLaTeX.
+* ~~Find a public experiment of interest [weeks one and two]~~
+    + ~~Techniques used: SQLite~~
+* ~~Data Gathering and Literature Research [week three]~~
+    + ~~Make a final project choice~~
+    + ~~Retrieve the accompanying publication~~
+    + ~~Download and inspect the supplementary files~~
+    + ~~Write and present a project proposal~~
+* **Data Analysis [weeks four through six]**
+    + Exploratory Data Analysis *(this document)*
+    + Data Annotation *(this document)*
+    + Discovering Differentially Expressed Genes (DEGs) *(this document)*
+    + Multiple Testing
+    + Analyzing and Visualizing your results
+    + Techniques used: R with bioconductor, the EdgeR package, RMarkdown
+* Finalizing analysis and start writing a final report [weeks 7 and 8] *(this document)*
 
 ```{r include=FALSE}
 # automatically create a bib database for R packages
-knitr::write_bib(c(
-  .packages(), 'bookdown', 'knitr', 'rmarkdown'
-), 'packages.bib')
+knitr::write_bib(c(.packages(), 'bookdown', 'knitr', 'rmarkdown'), 'packages.bib')
 ```

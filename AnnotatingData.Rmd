@@ -1,0 +1,11 @@
+# Annotating an RNA-Seq Experiment
+
+## Gathering Gene Information
+
+### Using `AnnotationDBI`
+
+### Using `biomaRt`
+
+## Functional Annotation
+
+### Gene Ontology
