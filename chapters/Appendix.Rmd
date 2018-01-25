@@ -1,0 +1,86 @@
+# Appendix A: SQLiteStudio installation {#sqlite-studio}
+
+```{r, echo=FALSE}
+# code that is visible
+```
+  
+```{r, echo=FALSE}
+library(png)
+library(grid)
+```
+
+Accessing the SRA meta-database from the commandline can be cumbersome due to the size of the database, the large number of column in the tables and - especially - the large amount of text in some of these columns (e.g. sometimes complete article abstracts in the `description` columns). For that purpose it is adviced to use a *Graphical User Interface* (GUI) for SQLite3 in the form of the free standalone (meaning that you only need to download (and extract) it instead of download and install) [SQLiteStudio](http://sqlitestudio.pl) application. This document describes how to download and extract this software and connect it to the locally available SRAdb SQLite file.
+
+## Installation Instructions: Linux and the Bioinformatics network
+
+First, we need to download the software and unpack its contents. To do this, open a terminal and type the following commands:
+
+```bash
+# Create a folder to place the software in
+mkdir software
+cd software
+
+# Download the software using 'wget'
+wget http://sqlitestudio.pl/files/sqlitestudio3/complete/linux64/sqlitestudio-3.1.1.tar.xz
+
+# Extract the software
+tar -xf sqlitestudio-3.0.7.tar.xz
+```
+
+This results in a local folder `software/SQLiteStudio/` containing the *executable* named `sqlitestudio`. In your homefolder there is a folder named `bin`, meaning that this is a place that could hold executable files for easy access. All executable files you place in this folder can be started by just typing its name, regardless the folder you are currently in. Use the following command to create a symbolic link (shortcut) to the executable file:
+
+```bash
+cd ~/bin
+# Create a 'symlink' (do not foget the dot at the end!)
+ln -s ~/software/SQLiteStudio/sqlitestudio .
+```
+
+You can now start SQLiteStudio from the terminal with the `sqlitestudio` command. Once opened, go to the `Database` menu and click on `Add a database`. You will be presented with the following screen:
+
+```{r SQLiteStudio-select_db, fig.width=10,echo=FALSE}
+img <- readPNG("chapters/images/SQLiteStudio-select_DB.png")
+grid.raster(img)
+```
+
+Add the locally stored SRAdb file by browsing to `/data/storage/databases/sradb/SRAmetadb.sqlite`. Leave everything default and click on 'OK'. In the left-hand menu pane you will now see the `SRAmetadb` database icon. By double-clicking you can expand the database and get an overview of its tables:
+
+```{r SQLiteStudio, fig.width=3, fid.heigth=4,echo=FALSE}
+img <- readPNG("chapters/images/SQLiteStudio-view_DB.png")
+grid.raster(img)
+```
+
+## Installation Instructions: Windows or Mac @ home
+
+The SQLiteStudio software is also available for the Microsoft Windows operating system and can be downloaded from the web at [http://sqlitestudio.pl/?act=download](http://sqlitestudio.pl/?act=download) (the top *Windows* link). This will download a **ZIP** file that you can extract where you want resulting in a folder containing the executable that you can open to start the software.
+
+### Downloading the `SRAmetadb.sqlite` file
+
+You will need to download the complete SRAmetadb SQLite file to be able to do the assignments at home. The easiest method for Windows is by using the `MobaXterm` software to connect to our bioinformatics network. This Windows (only) program can be downloaded from [here](http://mobaxterm.mobatek.net).
+
+Once downloaded, start the program and connect to our network using `ssh username@bioinf.nl`. Once logged in, you can see your files in the left-hand column, for example:
+
+```{r sftp, fig.width=8,echo=FALSE}
+img <- readPNG("chapters/images/sftp-browser.png")
+grid.raster(img)
+```
+
+Browse to the following location to find a **ZIP** file containing the full database located at: `/commons/Themas/Minor02/`. You can then select this file and press the `download` button in the menu.
+
+Go to your downloads folder (or the folder you've downloaded the database file to) and extract or unzip the `SRAmetadb.zip` file (remember, the resulting file is **18 GB** in size!). Once unzipped, refer to the instructions above to load the database into SQLiteStudio.
+
+Alternatively - and a good solution for Mac users - is downloading the file yourself from its origin (pick one from the list below):
+
+* [URL 1 `SRAmetadb.sqlite.gz`](http://gbnci.abcc.ncifcrf.gov/backup/SRAmetadb.sqlite.gz)
+* [URL 2 `SRAmetadb.sqlite.gz`](http://watson.nci.nih.gov/~zhujack/SRAmetadb.sqlite.gz)
+* [URL 3 `SRAmetadb.sqlite.gz`](http://dl.dropbox.com/u/51653511/SRAmetadb.sqlite.gz)
+
+The download is a `gzipped tar-file` which you can extract by either double-clicking it our typing `tar -xf SRAmetadb.sqlite.gz` in the terminal. The only downside to this method is that this database is updated very regularly which might result in database records that you can find at home, but not on the Bioinformatics network. 
+
+## Using SQLiteStudio
+
+To execute SQL-queries, go to the `Tools` menu and click on `Open SQL Editor`. Here you can enter your SQL code and press the blue `play` icon in the top to execute the query and view the results:
+
+```{r SRA_query_results, fig.width=10,echo=FALSE}
+img <- readPNG("chapters/images/SQLiteStudio-run_query.png")
+grid.raster(img)
+```

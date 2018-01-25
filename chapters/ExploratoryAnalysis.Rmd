@@ -1,0 +1,343 @@
+# Exploratory Data Analysis {#EDA}
+
+We will be performing some exploratory data analysis with the goal of getting to grips with your chosen data set to properly identify a strategy for the actual analysis steps. During this exploration we will also keep an eye on the quality of the data. Even though the downloadable data is 'processed', there might be samples present that deviate too much from the other group of samples (a so called *outlier*). Creating basic visualizations of the data will give the necessary insight before we continue. We first start by downloading and loading in the actual count data.
+
+## Exploring the Available Project Data {#expl-data}
+
+Whether you've found a dataset through the SRA or GEO, we want to get the data into R to start working with it. For now, we will only download the **count data** which is most likely stored in a `TXT` or `XLS(X)` file format:
+
+**Data formats**:
+
+* **TXT**: simple text file containing a minimum of two columns (either tab or comma separated containing i.e. gene / transcript identifier and one of the above mentioned data types).
+    + However it can also contain up to 10 data columns either including more information regarding the gene/ transcript (i.e. gene ID, name, symbol, chromosome, start/ stop position, length, etc.) or more numerical columns (i.e. raw read count, normalized readcount, FPKM, etc.).
+* **XLS(X)**: Microsoft Excel file containing the same data columns as mentioned in the TXT files.
+
+**Data types**: 
+
+* **Read Count** (simple *raw* count of mapped reads to a certain gene or transcript).
+* **FPKM** (Fragments Per Kilobase Million, **F** for *Fragment*, paired-end sequencing),
+* **RPKM** (Reads Per Kilobase Million, **R** for *Read*, single-end sequencing),
+    + **Note**: if you want to use this, make sure that the raw data is *actually* single-end (should be stated in the article)
+* **TPM** (Transcripts Per Kilobase Million, **T** for *Transcript*, technique independent),
+
+**Layouts**
+
+* Either one or more files **per sample** with one of the above data types or
+* One file containing the data types for **all samples** (with the samples as data columns in the file)
+
+**Please watch** the video and read the page found at the [RNA-Seq blog](http://www.rna-seqblog.com/rpkm-fpkm-and-tpm-clearly-explained/) regarding the meaning and calculation of the above mentioned expression data formats or a more technical document found at [The farrago blog page](https://haroldpimentel.wordpress.com/2014/05/08/what-the-fpkm-a-review-rna-seq-expression-units/).
+
+On GEO you can see what data *might* be availalbe in the `Supplementary` column, as shown below: 
+
+```{r GEO_RNA-Seq, include=FALSE, fig.height=4, fig.cap="Finding an experiment on GEO with a TXT file as supplementary data"}
+img <- readPNG("chapters/images/geo_data-overview.png")
+grid.raster(img)
+```
+
+
+![*Finding an experiment on GEO with a TXT file as supplementary data*](chapters/images/geo_data-overview.png)
+
+This overview on GEO contains many links which are *not* direct links to the items for that dataset, but can be used as *filter* for browsing the results. If you want to actually download the data, click on the **GSE** identifier (first column) which brings you to an overview for this experiment containing a lot of information about the experiment (subject, research institute, publication, design, etc.) and links to each individual sample (**GSM** identifier). Following the link to a sample shows information on how this sample was retrieved with often many (lab) protocols used. Sometimes there is a segment regarding "*Data Processing*" that refers to techniques and software used for the full analysis and might contain something like:
+
+>  ... Differential expression testing between sample groups was performed in Rstudio (v. 1.0.36) using DESeq2 (v.1.14.1) ...
+
+Back on the experiment overview page you'll see a (variable) number of links to data files belonging to this experiment, see \ref{fig:GEO_Data-download}. For now we are only interested in the count-data which is stored in the `TXT`-file (see the column `File type/resource`) called `GSE97406_RAW.tar`. This file contains *all* the data that we need, even though it is only **220Kb** in size where the experiment started with about **5Gb** of read-data for a small bacteria:
+
+```{r GEO_Data-download, include=FALSE, fig.cap="Finding the supplementary data in a GEO record"}
+img <- readPNG("chapters/images/geo_data-download.png")
+grid.raster(img)
+```
+
+![*Finding the supplementary data in a GEO record*](chapters/images/geo_data-download.png)
+
+As a bioinformatician we love to compress all the files so for this particular example, we download the `tar`-archive file, extract it to find a folder with another archive file for each sample. After extracting these files we end up with 12 `TXT`-files with just two columns; a *gene* identifier and a semi-raw *count* value (~4500 rows of data per sample):
+
+Table: (\#tab:foo) Contents of a `TXT`-file for sample [`GSM2563998`](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM2563998)
+
+| Gene ID | Count Value |
+|---------|----------|
+| aaaD| 	0 | 
+| aaaE| 	0 |
+| aaeA| 	3 |
+| aaeB| 	3 |
+| aaeR| 	50 |
+| aaeX| 	0 |
+| aas| 	118 |
+| aat| 	43 |
+| abgA| 	6 |
+| abgB| 	21 |
+| abgR| 	56 |
+| abgT| 	0 |
+| abrB| 	11 |
+| accA| 	453 |
+| accB| 	2492 |
+| accC| 	1197 |
+
+Other experiments combine their samples in a single file where each column represents a sample. If you do get an experiment with one file per sample, it's a small task to combine these (just a few lines of R-code). 
+
+## Loading data into R {#loading-data}
+
+R works best with data in simple text formats. If your project data is offered as an Excel file it is therefore advised to open it in Excel (or OpenOffice Calc) and save/ export the file as a *tab-separated* text file, alternatively you can search for how to import an Excel file into R.
+
+Once you have one or more column based text files they can be read into R simply by using the `read.table()` function.
+
+Follow the following steps to read in the data and start the exploratory data analysis. The resulting document should be semi-treated as a lab journal where you log the process from loading the data to the final analysis steps.
+
+* Open RStudio
+* Create a new R Markdown document
+    + Give it a proper title and select the **PDF** format
+* Give the document some structure; e.g. create a segment called *Exploratory Data Analysis* for this week's work.
+* Whenever you add code to your document make sure that it is both readable (keep the maximum line length < 100 if possible) and there is sufficient documentation either by text **around** the code 'chunks' or by using comments **in** the code chunk. 
+* Read in the data file(s)
+    + For the remainder of the document, try to show either the contents, structure or - in this case - dimensions of relevant R objects
+        * Show the first five lines of the loaded data set. Including tables in a markdown document can be done using the `pander` function from the `pander` R-library.
+        * Give the dimensions (with `dim()` and the structure (with `str()`) of the loaded data set.
+        * Check the output of the `str` function to see if all columns are of the expected R data type (e.g. `values`, `factors`, `character`, etc.)
+* Examine the samples included in the experiment and create as many R character objects as needed to store the classification.
+    + For instance, if you have eight samples divided into case/ control columns you create an object called `case` in which you store the column **indices** of the respective columns in the data set and an object called `control` with the remaining four data column **indices**. These are for later use.
+
+If you want to include including external images to your log and to better control properties such as *height* and *width* for individual images you can use the following code (requires the import of the `png` and `grid` libraries). Note: the code below is an *example* and you need to replace the `ImageToInclude.png` file reference to an actual image.):
+
+```{r image_demo, eval=FALSE, echo=TRUE}
+# Use the following to the code chunk header to control figure height and width:
+#    {r, fig.height=5, fig.width=4, echo=FALSE}
+library(png)
+library(grid)
+img <- readPNG("ImageToInclude.png")
+grid.raster(img)
+```
+
+## *EDA* Part 1; `summary`, `boxplot`, `scatterplot` & `MA-plot` {#EDA_part1}
+
+This segment describes some of the basic steps and visualizations that can be performed during Exploratory Data Analysis. In this part we work with the unnormalized count data. In part this data is normalized before analyzing it further. As mentioned above, the focus of EDA is to get an overview of the data set and while this often requires visualizing the data, these figures do not need to be very pretty. Simple figures are perfectly fine in this stage. Try to create these figures for your own data (and keep them in your log).
+
+Also note that these steps are just a selection. Furthermore, make sure that for every visualization you make, add proper axis-labels containing the measurement units (important!). 
+
+### Statistics {#eda_statistics}
+
+Even the most basic statistics can give some insight into the data such as performing a 6-number-statistic on the data **columns** using the `summary()` function.
+
+### Boxplots {#eda_boxplots}
+
+A visual representation of these values can be shown in a boxplot. Boxplots are very easy to create from an R data frame object by just passing in the data columns. The following boxplot shows the data for the complete experiment with a separate boxplot for each sample.
+
+![*Boxplot comparing basic statistics for all genes across multiple samples*](chapters/images/RNAboxplot.png)
+
+### Scatterplots {#eda_scatter_plot}
+
+Scatterplots are good for spotting correlations between two sets of numerical data. Data that is similar will show up as a diagonal line in a scatter plot and the more they differ, the bigger the spread of points relative to the diagonal. Downside is that a scatterplot can only contain data from two columns and it *might* not always be useful to plot all samples from the condition group to all samples from the control group. Other possibilities include each sample against the **average** of its group (should be fairly diagonal), the averages of both groups in one scatterplot (this probably shows a fair amount of variation depending on the experiment).
+
+A scatterplot can be made simply using the `plot()` functions with the `type` argument set to `p` (points). To show the correlation more clearly you can add a *linear regression* line using `abline(lm(y ~ x, col='red', lwd=2)`. If the regression line points more downwards from the diagonal, the values in sample `x` are higher and vice versa.
+
+![*A simple scatterplot showing the correlation between two samples or experiments (see the text above). This image shows the values log2 transformed which in most cases gives a clearer picture.*](chapters/images/RNAscatterplot.png)
+
+### MA-plots {#MA_plot}
+
+An **MA-plot** is a scatterplot comparing the average expression value per gene (**A**) against the log-fold-change (**M**; a log2 value indicating expression change across samples which is taken as the `log2(sample1 / sample2))`). The points in this plot *should* be centered around the horizontal 0-value with an even spread both above and below the line. If there are (far) more points above or below the 0 on the y-axis, there is a *bias* in the data.
+
+An MA-plot can be very helpful (it has the same constraints mentioned with the scatterplot) but might not be easy/ possible to create as this is mostly done on *normalized count data* other than FPKM or RPKM. If you have raw or normalized count data in your data set you can search various [online resources](https://en.wikipedia.org/wiki/MA_plot) on how to create this plot.
+
+![*An MA-plot showing the average normalized count values (**A**, x-axis) vs. the log2 fold-change (**M**, y-axis).*](chapters/images/RNAmaplot.png)
+
+
+## *EDA* Part 2; `heatmap`, `MDS` & `PCA` {#EDA_part2}
+
+This section adds a few Exploratory Data Analysis techniques where we will measure and look at *distances* between samples. Measuring distances between two data objects (samples in our case) is a common task in cluster analysis to compare similarity (low distance indicates similar data). In this case we will calculate the distances between our samples and visualize them in a `heatmap` and using `multidimensional scaling` (MDS) techniques. 
+
+### Normalization {#normalization}
+
+In the [previous section]({#EDA_part1}) we used the raw count data. You might have one or more samples that have different values (i.e. shifted) compared to other samples. While we need the raw count data to use R packages such as `edgeR` and `DeSEQ(2)`, calculating sample distances should be done on some form of normalized data. This data can either be RPKM/FPKM/TPM/CPM or log-transformed (raw-)read counts. A proper method of transforming raw read count data is using the `rlog` method from the `DESeq2` R Bioconductor library which is shown below. 
+
+The following code examples shows how to use this library to normalize the count data to rlog-normalized data before we calculate a distance metric. The data used for this example is available at the GEO (Accession [GSE80128](http://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE80128), titled *Evidence for two protein coding transcripts at the Igf2as locus* consisting of 8 samples from mouse skeletal muscle tissue; 4 wild-type [WT] and 4 $\Delta$DMR1-U2  [KO] variants).
+
+```{r load_example_data, eval=TRUE, echo=TRUE}
+gse80128 <- read.table('./data/GSE80128_P035_DESeq_KO-WT_pathway.txt', 
+                       sep = '\t', header = TRUE)
+
+# Only use the actual count data as this file contains a lot more descriptive columns
+counts <- as.matrix(gse80128[, 2:9])
+rownames(counts) <- gse80128$geneID
+```
+
+```{r .pre-processing_example_data, echo=FALSE, message=FALSE, warning=FALSE}
+library(pander)
+library(DESeq2)
+
+# Preparing sample labels
+.sample.labels <- strsplit(colnames(counts), '.', fixed = TRUE)
+.sample.labels <- matrix(unlist(.sample.labels), ncol=2, byrow=TRUE)[,2]
+colnames(counts) <- .sample.labels
+pander(head(counts), caption = 'Table 1; Raw count data for `GSE80128`')
+```
+
+If you look at `Table 1` you immediately see a huge difference between the two groups for each of the genes. The first gene (`Igf2as`) shows > 10 more expression in the wild-type group compared to the KO group, but it is unknown if this is only caused by the experiment itself by just looking at these numbers. One very simple and quick inspection is looking at the total number of mapped reads per sample as the *sequencing-depth* might vary across samples.
+
+```{r mapped_read_millions, eval=TRUE, echo=TRUE}
+# Show the number of mapped reads per sample in millions
+pander( colSums(counts) / 1e6, caption = 'Mapped reads per sample (millions)')
+```
+
+The numbers shown in `Table 2` immediately clearify that it is not just the experimental condition that might have caused this large difference between sample counts but the sequencing depth shows a substantial difference too. One more reason that we will normalize the data with `DESeq2`'s `rlog` method. Check the `Packages` tab in Rstudio to see if you have the `DESeq2` package installed and load it with the `library` command. If you are missing this package, install and load the library using the code below:
+
+```{r biocLite_DESeq2, eval=FALSE, echo=TRUE}
+# Install if the library is not available
+source('http://bioconductor.org/biocLite.R')
+biocLite('DESeq2')
+
+# Load the library
+library('DESeq2')
+```
+
+To use the `rlog` function from the `DESeq2` library we must contruct a `DESeqDataSet` object consisting of the count data combined with sample annotation. Since we only want to use it (for now) for performing a log-transformation we use the most basic form with the sample names as annotation (the `colData` argument):
+```{r create_deseqdataset_from_matrix, eval=TRUE, echo=TRUE}
+# Put the sample names in a separate vector
+coldata <- colnames(counts)
+
+# DESeq2 will now construct a SummarizedExperiment object and combine this 
+# into a 'DESeqDataSet' object. The 'design' argument usually indicates the 
+# experimental design using the sample names as a 'factor', for now we use just '~ 1'
+(ddsMat <- DESeqDataSetFromMatrix(countData = counts,
+                                  colData = data.frame(samples=coldata),
+                                  design = ~ 1))
+```
+
+We now have a proper `DESeqDataSet` object as you can see above, containing 23336 rows and 8 columns (genes and samples) with the gene symbols as rownames. Usually this object would hold more data, but as this is only a requirement to perform the `rlog` transformation it is good enough for now. Next step is performing this transformation (results in a `Large DESeqTransform` object) and retrieving the actual data from this with the `assay` function as this object too contains a lot of meta-data. The table below shows the updated values which are now comparable across genes whereas the raw count data was harder to compare.
+
+```{r rlog_transformation, eval=TRUE, echo=TRUE}
+# Perform normalization
+rld.dds <- rlog(ddsMat)
+# 'Extract' normalized values
+rld <- assay(rld.dds)
+```
+
+```{r .pander_rlog_data, eval=TRUE, echo=FALSE}
+.rld.table <- rld
+colnames(.rld.table) <- .sample.labels
+pander(head(.rld.table), caption = 'Table 3; RLog transformed count data')
+rm(.rld.table)
+```
+
+### Distance Calculation {#eda_distance}
+
+We now have normalized data that we can use for distance calculation. We need to transpose the matrix or data frame of values using `t()`, because the `dist` function expects the different samples as rows and the genes as columns. Note that the output matrix is symmetric.
+
+```{r calculate_distance, echo=TRUE, eval=TRUE}
+# Calculate basic distance metric (using euclidean distance, see '?dist')
+sampledists <- dist( t( rld ))
+```
+
+```{r .pander_distances, echo=FALSE, eval=TRUE}
+.dist.mat <- as.matrix(sampledists)
+colnames(.dist.mat) <- .sample.labels
+pander(.dist.mat, 'Table 4; Sample distances (Euclidean method)')
+```
+
+### Sample Distances using a Heatmap {#eda_heatmap}
+
+If you have both (raw-)count data *and* an other normalized format (TPM, RPKM, etc.), follow the above procedure for your count data and create a heatmap for **both** formats to see if this makes any difference. The reason for this is that while the RNA-Seq method exists for over 10 years, there are still ongoing discussions on the subject of data processing, especially regarding subjects like which data format to use for which data analysis. 
+
+The following code block creates a heatmap using the `pheatmap` library which offers on of the many available heatmap functions. The resulting heatmap shows an interesting comparison across all samples. Where all of the wild-type samples cluster nicely together, one of the knockout samples deviates from all other samples and might be classified as an outlier in this case. Since we have 4 samples per category, we retain statistical power if we eventually were to remove this sample.
+
+```{r pheatmap, echo=TRUE, eval=TRUE}
+# We use the 'pheatmap' library (install with install.packages('pheatmap'))
+library(pheatmap)
+
+# Convert the 'dist' object into a matrix for creating a heatmap
+sampleDistMatrix <- as.matrix(sampledists)
+# Give the matrix row and column names
+rownames(sampleDistMatrix) <- coldata
+colnames(sampleDistMatrix) <- coldata
+
+# The annotation is an extra layer that will be plotted above the heatmap columns
+# indicating the cell type 
+annotation <- data.frame(Variant = factor(c(1, 1, 1, 1, 2, 2, 2, 2), 
+                                          labels = c('KO', 'WT')))
+# Set the rownames of the annotation dataframe to the sample names (required)
+rownames(annotation) <- coldata
+
+pheatmap(sampleDistMatrix, show_colnames = FALSE,
+         annotation = annotation,
+         clustering_distance_rows = sampledists,
+         clustering_distance_cols = sampledists)
+```
+
+### Sample Distances using MDS {#eda_mds}
+
+The following code example shows how to perform Multidimensional scaling that displays the previously calculated distances in a 2D-plot. With an experiment like this with two groups of samples, we hope to see two clusters forming separating these two groups, however as we've seen in the heatmap, sample `KO1B` showed a large deviation which we will also note using MDS.
+
+**Note**: all figures below are plotted using `ggplot2`, a more advanced method of plotting in R. While these plots are preferred over base-R plotting, it is always sufficient to use just that as it can be very challenging to alter the example code shown in this section. The data objects plotted are always shown and they usually contain simple X- and Y-coordinates.
+
+```{r mds, echo=TRUE, eval=TRUE}
+# Perform MDS using the 'cmdscale' function. The resulting data can simply be
+# plotted using basic R plotting, here we will use 'ggplot2'
+mdsData <- data.frame(cmdscale(sampleDistMatrix))
+pander(mdsData, caption = 'MDS coordinates used for plotting the distances')
+
+# Separate the annotation factor (as the variable name is used as label)
+(Variant <- annotation$Variant)
+
+library(ggplot2)
+ggplot(mdsData, aes(X1, X2, color = Variant, label = coldata)) + 
+  geom_text(size = 4) + ggtitle('Multi Dimensional Scaling - Euclidean Distance')
+```
+
+As a demonstration of a different distance metric (instead of the default `euclidean` used in the `dist` function) the following code shows how to calculate a maybe more fitting distance called the *Poisson Distance*. This library was specifically designed to handle read count data. Note that again, the code below is only usable for **count** data as this function requires: 
+> A n-by-p data matrix with observations on the rows, and p features on the columns. The (i,j) element of x is the **number of reads** in observation i that mapped to feature (e.g. gene or exon) j`.
+
+```{r mds_poisson, echo=TRUE, eval=TRUE}
+library('PoiClaClu')
+# Use the raw (not r-log transformed) counts
+dds <- assay(ddsMat)
+poisd <- PoissonDistance( t(dds) )
+# Extract the matrix with distances
+samplePoisDistMatrix <- as.matrix(poisd$dd)
+# Calculate the MDS and get the X- and Y-coordinates
+(mdsPoisData <- data.frame(cmdscale(samplePoisDistMatrix)))
+```
+
+```{r mds_poisson_plot, echo=TRUE, eval=TRUE}
+# Create the plot using ggplot
+ggplot(mdsPoisData, aes(X1, X2, color = Variant, label = coldata)) + 
+  geom_text(size = 4) + 
+  ggtitle('Multi Dimensional Scaling - Poisson Distance')
+```
+
+Comparing both figures shows similar results, we clearly see a separation of both sample sets, however within the knockout (KO) group there is a large spread and if we were to apply a proper clustering technique, we would see clusters forming containing mixed samples. Once we have a set of genes identified as being differentially expressed we can repeat this step with the expectation of a more clear clustering.
+
+An alternative method of showing sample relations which is often preferred over MDS (but a bit harder to perform with pre-normalized data formats) is *Principal Component Analysis* (PCA). The code below shows PCA on our `DESeqTransform` object `rld.dds`. 
+
+```{r pca, echo=TRUE, eval=TRUE}
+# Calculate PCA data
+data <- plotPCA(rld.dds, intgroup = c('samples'), returnData = TRUE)
+
+# Calculate the percentage of each principal component
+# Only used in the axis-labels
+percentVar <- round(100 * attr(data, 'percentVar'))
+
+# Separate the annotation factor (as the variable name is used as label)
+Variant <- annotation$Variant
+
+# Create the plot using ggplot
+ggplot(data, aes(PC1, PC2, color=Variant, label = coldata)) + 
+  geom_text(size=4) +
+  ggtitle("Principal Component Analysis for RNA-Seq data") + 
+  xlab(paste0("PC1: ", percentVar[1], "% variance")) + 
+  ylab(paste0("PC2: ", percentVar[2], "% variance"))
+```
+
+Or on FPKM/RPKM data (only perform if you want to compare normalization techniques and have FPKM data. Output is not shown):
+```{r pca_fpkm, echo=TRUE, eval=FALSE}
+# PCA done with the 'prcomp' function in base-R. Replace 'rld' with a matrix
+# containing the normalized data (genes as rows, samples as columns)
+pca.data <- prcomp( t(rld) )
+
+# Extract coordinates for PC1 and PC2
+components <- data.frame(mds.labels, pca.data$x[, 1:2])
+pander(components)
+
+# Plot using ggplot2
+ggplot(data = components, aes(PC1, PC2, color = Variant, label = coldata)) + 
+  geom_text(size = 4) +
+  ggtitle("Principal Component Analysis for RNA-Seq data")
+```
+

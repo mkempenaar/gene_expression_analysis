@@ -1,0 +1,278 @@
+# Discovering Differentialy Expressed Genes (DEGs) {#discover-degs}
+
+The first 'real' analysis step we will do is finding genes that show a difference in expression between sample groups; the *differentially expressed genes*. The concept might sound rather simple; calculate the ratios for all genes between samples to determine the **fold-change** (FC) denoting the factor of change in expression between groups. Then, filter out only those genes that actually show a difference. While this does give a list of genes showing different behavious across samples, we need to focus on genes that do not only show a difference, but are also *statistically significant*!
+
+To determine whether or not a gene can be classified as a significant DEG we are going to use - at least - two techniques:
+
+* We will start with manually performing statistical test(s)
+* and compare these results from those given by using one or more Bioconductor libraries (mostly `edgeR` and `DeSEQ2`)
+
+## Pre-processing
+
+Given the results of the exploratory data analysis performed in [chapter 4](), you might have concluded that there are one or more samples that show (very) deviating expression patterns compared to samples from the same group. *If* you have more then enough (> 3) samples in a group, you might opt to remove a sample to reduce the noise, as the statistical tests are very sensitive to this. Since we are performing all analysis steps programatically it is also very easy to test for DEGs with and without the sample(s) in question and see if the removal results in lower p-values (= higher significance). If this is the case you can continue on without those sample(s). As always, be sure to properly document this, including the reason why you choose to remove them.
+
+Another step we need to take - and this might be guided by your article - is to filter out (partially) inactive genes. Most datasets available contains a lot of 0-measurements, transcripts where no read has mapped. In an experiment with two groups, three replicates each, if three out of those six samples have 0-reads mapped, it is often adviced to remove the gene completely. But this can be very subjective to the experiment, it might be expected when comparing different tissues or knockout experiments. Also, genes with a (very) low read count can give a very high (artificial) FC value (see the lefthand side of an MA-plot). Comparing two samples where one has a value of 2 and the other 11, this reads as a down-regulated gene by a factor *5.5* while it might actually just be *noise*!
+
+* **Assignment**: Search through your article for any advice on how to filter out zero values or low count genes. If there is nothing stated on this subject, think of your own tactic (or search the literature/ online!). It is perfectly fine to discuss with your peers.
+    + Perform the filtering on your dataset. For this you will most likely need to use one of the `apply` functions, combined with for maybe the `which`, `all` and `any` functions.
+    + Manually verify that the rows removed were correctly filtered.
+    + Properly document how many genes have been filtered out! 
+
+## The *Fold Change* Value
+
+The FC is usually given as the calculated `log2` of the *case/control* ratio. For example, gene A has an average expression of 30 mapped reads in the control group and 88 reads in the experiment group, the ratio *case/control* is `2.93`. Values > 1 indicate increased expression in the experiment in relation to the control and values between 0 and 1 indicate lower expression. The `log2(2.93)` is `1.55`. If the counts were reversed, the ratio would have been `30/88`, which is `0.34`. The previously calculated value of `2.93` means a 3-fold up regulation while the `0.34` value means 3-fold down regulation but you can see the range of numbers is very different. Comparing log2 values this would be `1.55` and `-1.55` which compares much better. 
+
+While - in R, or even Excel - it is very easy to calculate the FC for all genes at once, a simple FC value doesn't mean much, yet! We still need to use the power that lie within the replicates we have for each sample group. Using these replicates we want to determine if the observed FC is not just biological noise or a sequencing error. If a calculated FC shows a large change in expression between groups this means nothing if the variation *within* a group is very high. For this reason we use some form of statistical test that checks both the variation in each group *and* the difference between groups of samples. In the simplest form this usually comes down to using a [*t*-test](https://en.wikipedia.org/wiki/Student%27s_t-test):
+
+> "It can be used to determine if two sets of data are significantly different from each other"
+
+It does however depend on your experimental setup when it comes down to deciding the proper statistical test to perform and for that it is best to look at your experiment article to see what the authors used for method.
+
+The output of finding DEG's is always includes - but is not limited to -  a list of p-values, usually one p-value per gene. This value indicates whether that gene is a *statistically differentially expressed gene* (SDEG) and to find these genes of interest all we need to do is get all genes with a p-value below our threshold (i.e. `0.05`). Because we will get at least two p-values per gene (one found using manually statistical testing and one through the use of a library) we can make multiple selections, i.e. compare methods, find genes that have a low p-value in both methods and visualize these results in a *venn-diagram* (see section [visualization](#deg-visualization)).
+
+## Using Manual Methods (`t-test` & `ANOVA`) {#deg-manual}
+
+Performing the statistical tests yourself consists of performing either a t-test or an ANOVA based analysis. Both of these methods have multiple forms and the one to choose fully depends on what question you'd like to ask. Again, refer to your experimental setup and any hints found in the article *or* formulate your own question and base the decision on that. 
+
+Manually performing a t-test or ANOVA on gene expression opposed to using one of the specialized libraries can have advantages since every gene is processed individually, while `edgeR` and `DESeq2` look at *all* genes and this might 'smooth' the results which is not always wanted. We will find out later if and how this affects your data set.
+
+If your data **only** consists of the read counts there is an extra normalisation step to perform (only for the manual methods explained in this section, keep the count data stored as well!). One generally accepted method of normalizing count data is to calculate the *fragments per million mapped fragments* (FPM) value and then transform this with log2. Opposed to FPKM and RPKM this does not include the gene-length in its calculation (which you most likely don't have) but as said before we apply the test per gene and do not need to compare multiple genes. If your dataset also includes FPKM or RPKM (pre-normalized), you are allowed to use this data too. Always clearly document if you did so! Once you performed a manual statistical text, be sure to read the section on [Multiple Testing Correction](#deg-mtc) further on in this chapter.
+
+```{r fpm_normalization, echo=TRUE, eval=TRUE}
+# Perform FPM normalization using DESeq2 'fpm' and perform log2 transformation
+# The 'ddsMat' object is the 'DESeqDataSet' created in chapter 4.
+# NOTE: only for count data
+counts.fpm <- log2( fpm(ddsMat, robust = TRUE) )
+```
+
+Next is selecting the test to perform, the following links show diagrams that can be used once the experimental design is known:
+
+*What test to use* links
+
+* [Institute for Digital Research and Education](https://stats.idre.ucla.edu/other/mult-pkg/whatstat/choosestat-html/)
+* [Biochemia - image at the bottom of the article](http://www.biochemia-medica.com/content/comparing-groups-statistical-differences-how-choose-right-statistical-test)
+* [PracicallyScience](http://www.practicallyscience.com/wp-content/uploads/2015/07/significance-tests-v4-op2.jpg)
+
+### Students T-test {#deg-ttest}
+
+In order to test if one or more genes are significantly differentially expressed between two conditions one can perform a t-test. The t-test will test the *null hypothesis* that there is no difference between the mean of the two populations. Usually, if the p-value is below the significance threshold chosen (also called alpha-value, usually set at $\alpha$ `0.05`) you reject the null hypothesis and conclude that there is a significant difference between the means. Note that you need to perform a single t-test for *every* gene (row) of your data set, including all replicates for the involved group.
+
+*t.test* tutorials:
+
+* [Quick-R @ statmethods](http://www.statmethods.net/stats/ttest.html)
+* [Whitehead Institute](http://jura.wi.mit.edu/bio/education/bioinfo2007/arrays/array_exercises_2R.html): based on microarray analysis, but it's still expression data and the basics are the same.
+
+```{r .ttest_TEST, echo=FALSE, eval=FALSE}
+setwd('~/Dropbox/Hanze/Minor/Rscripts/')
+## Testing t-test on COUNT data
+
+## Loading new data set with count data (many samples, used for normality check)
+gse74329 <- read.table('gse74329.txt', sep = '\t', header = TRUE, row.names = 1)
+# Create a factor with sample sets (split the colnames and convert to factor)
+sample.factor <- as.factor(sapply(strsplit(colnames(gse74329), "_", perl=FALSE), function(x) x[1]))
+sample.table <- table(sample.factor)
+
+# Filter for zeros
+table(rowSums(gse74329) <= 5)
+gse74329 <- gse74329[-which(rowSums(gse74329) <= 71), ]
+
+# Load the 'rowttests' library
+library(genefilter)
+
+# Normality test
+ntest <- function(num) {
+  shapiro.test(num)$p.value
+}
+
+# Unnormalized
+gse74329.ttest <- data.frame(norm.test=apply(gse74329, 1, ntest))
+
+RUvsIL <- as.matrix(cbind(subset(gse74329, select = (sample.factor == 'RU')),
+                              subset(gse74329, select = (sample.factor == 'IL'))))
+
+gse74329.ttest$UN <- rowttests(RUvsIL, factor(c(rep('RU', sample.table['RU']),
+                                                rep('IL', sample.table['IL']))))$p.value
+
+# Unnormalized - log2
+gse74329.ttest$UN.LOG2 <- rowttests(log2(RUvsIL), factor(c(rep('RU', sample.table['RU']),
+                                                           rep('IL', sample.table['IL']))))$p.value
+
+# Normalize using TMM
+library(edgeR)
+gse74329.dgelist <- DGEList(counts=gse74329, group=sample.factor)
+tmm <- calcNormFactors(gse74329.dgelist)
+norm.factor <- tmm$samples$norm.factors
+# Useless since all samples have almost equal library sizes (0.98M reads)
+```
+
+### Analysis of Variance (`ANOVA`) {#deg-anova}
+
+If you have decided that you need to perform an ANOVA analysis the experimental design as well as the question to ask become much more important. 
+
+```{r test-ANOVA, echo=FALSE, eval=FALSE}
+## NOTE: uses data from the t-test TEST above ##
+
+```
+
+*ANOVA* tutorials
+
+* [Quick-R @ statmethods](http://www.statmethods.net/stats/anova.html)
+* [R-bloggers](http://www.r-bloggers.com/one-way-analysis-of-variance-anova/)
+
+## Multiple Testing Correction {#deg-mtc}
+
+Read the text about **Multiple comparisons** at the [biostathandbook](http://www.biostathandbook.com/multiplecomparisons.html) and the help of the `p.adjust R` function. Your article is a possible source to see which correction method they applied and this is not mentioned there it is probably best to use the `fdr` method (also called the `Benjamini Hochberg` method).
+
+An expected side-effect of correcting for multiple-testing is the lower number of genes with a resulting p-value < 0.05 (caused by hopefuly removing false-positives). In some cases though, you end up with **0** genes that have a low p-value and thus you have no DEGs. 
+
+## Using Bioconductor {#deg-bioconductor}
+
+This section demonstrates the use of two packages to perform DEG-analysis on **count** data and one library for processed FPKM/RPKM data. There are many packages available on Bioconductor for similar analysis, such as `DSS`, `EBSeq` and `BaySeq` but here we will focus on `edgeR` and `DESeq2` for processing count-based data and briefly take a look at `limma` for processing FPKM/RPKM data. 
+
+Both `edgeR` and `DESeq2` apply their own normalization methods (described in the sections below) therefore they only work on the count data. You can choose one of these two packages to use, or use both since it could increase statistical power and they are not very hard to use once you understand how to model the data as we'll show next.
+
+### The `Design` (matrix) {#deg-design}
+
+For all of these packages you need to properly specify *how* your samples are grouped. We have seen examples of this using an `R factor` object with the heatmap, MDS and PCA visualizations to tell which groups of samples we have and to which group each sample belongs. Reading the documentation for the below packages shows that this is an important part of performing DE-analysis. For example, the following code is shown in de `edgeR` documentation on page 8 where two sample groups are defined (numbered `1` and `2`), placed in a `factor` object and used as input in the `model.matrix` function. 
+
+```{r design_matrix, echo=TRUE, eval=TRUE}
+group <- factor(c(1,1,2,2), labels = c("Control", "Case"))
+(design <- model.matrix( ~ group))
+```
+
+As mentioned before we **need** to think about the *question* we want to aks; which difference do we want to know? With two sample groups as used here the question is rather easy; 'which genes show an effect between case/ control samples?'. With more then two sample groups however the question becomes more difficult. If we have an experiment comparing influence of three kinds of drugs (thus three groups) *combined* with effect over time, do we then want to focus on the influence of the *drugs* or the *time*? Both are valid questions but they define the way of how to create the `design matrix`.
+
+Documentation on this subject is plenty, however it often contains overwhelming information. [This page](http://genomicsclass.github.io/book/pages/expressing_design_formula.html) contains some valuable details (you can safely start reading at **Choice of design**), including the following text which is based on the same example used in the `edgeR` documentation:
+
+> "For the examples we cover here, we use linear models to make comparisons between different groups. Hence, the design matrices that we ultimately work with will have at least two columns: an intercept column, which consists of a column of 1’s, and a second column, which specifies which samples are in a second group. In this case, two coefficients are fit in the linear model: the intercept, which represents the population average of the first group, and a second coefficient, which represents the difference between the population averages of the second group and the first group. The latter is typically the coefficient we are interested in when we are performing statistical tests: we want to know if their is a difference between the two groups."
+
+If you have more then two sample groups and you want to change the *question* (i.e. test the influence of a different group), read the section about **Releveling** the `factor`.
+
+### `DESeq2` {#deg-deseq2}
+
+We have used the `DESeq2` library before and for DEG analysis we could re-use the `DESeqDataSet` object but it is adviced to create a new object with more data added, e.g. the sample annotation we retrieved from the GEO and the proper design formula instead of the `~ 1` we used before.
+
+There is no need to normalize the data using the previously used `rlog` function because the `DESeq2` library will normalize the count data for you as follows:
+
+> "DESeq computes a scaling factor for a given sample by computing the median of the ratio, for each gene, of its read count over its geometric mean across all samples. It then uses the assumption that most genes are not DE and uses this median of ratios to obtain the scaling factor associated with this sample."
+
+For our example data with just two groups we use the design `~ groups` where groups is a simple factor with two levels (`KO` and `WT`). One note of importance though is that the first level in the factor is taken as the reference, or for expression analysis, the *control* group. In the example factor the `KO` level is the first which is the *experiment* group. Therefore we need to *relevel* the data (check the help and documentation if this is unclear): 
+
+```{r relevel, echo=TRUE, eval=TRUE}
+(groups <- factor(c(1, 1, 1, 2, 2, 2, 2), labels = c('KO', 'WT')))
+(groups <- relevel(groups, 'WT'))
+```
+
+```{r .deseq2-TEST, eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE}
+# Put the sample names in a separate vector
+coldata <- colnames(counts)
+counts[is.na(counts)] <- 0
+
+dds <- DESeqDataSetFromMatrix(countData = subset(counts, select = -KO1B),
+                              colData = data.frame(groups),
+                              design = ~ groups)
+
+dds <- DESeq(dds)
+res <- results(dds, contrast = c("groups", "KO", "WT"), 
+               alpha = 0.05)
+```
+
+Once you have a proper `DESeqDataSet` all you need to do is run the `DESeq` function on this object. Then, using the `results` function you can extract the DEGs as a `DESeqResults` object. Applying the `summary` function on this object shows the number of up and down regulated DEGs:
+
+```{r show_dge_summary_deseq, echo=FALSE, eval=TRUE}
+summary(res)
+```
+
+The output of the `results` function contains the following columns for each gene:
+
+```{r .pander_deseq2_results, echo=FALSE, eval=TRUE}
+dtable <- mcols(res, use.names = TRUE)
+dframe <- cbind(dtable@rownames, as.data.frame(dtable@listData))
+colnames(dframe) <- c("Column", "Type", "Description")
+pander(dframe)
+
+dge.data.frame <- as.data.frame(res@listData)
+spval <- sum(dge.data.frame$padj < 0.05, na.rm = TRUE)
+```
+
+*How* you call the `results` function depends heavily on your experiment. As you can see from the output of the `summary` function, there are no details given about *which* comparison is shown (and also, a p-value of 0.1 is used instead of 0.05).
+
+Depending on the *design* used to create the `DESeqDataSet` with, one or more comparisons can be made (applying the `DESeq` function calculates all and you filter with the `results` function). Read the help for the `results` function carefully; especially regarding the `contrast` argument where you define the comparison to retrieve. The following code is used for our example experiment:
+
+```{r deseq_results, eval=FALSE}
+res <- results(dds, contrast = c("groups", "KO", "WT"), 
+               alpha = 0.05)
+```
+
+**Links**
+
+* [Analyzing RNA-seq data with DESeq2](https://www.bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html) A *very* comprehensive guide to analyzing RNA-Seq data using DESeq2 (part of this document has been used in this material too!). It is adviced to read the first few sections of this guide and take a good look at the index of the document because there are many interesting sections that might be of help later.
+* [Publication](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-014-0550-8), an accompanying article showing differences in performance compared to other methods and packages.
+
+### `edgeR` {#deg-edger}
+
+One of the most mature libraries for RNA-Seq data analysis is the `edgeR` library available on [Bioconductor](). There is a very complete (sometimes a bit complex) manual available of which you need to read [Chapter 2](https://bioconductor.org/packages/release/bioc/vignettes/edgeR/inst/doc/edgeRUsersGuide.pdf) with a focus on 2.1 to 2.7, 2.9 and - if you have a more complex design - 2.10. Section 1.4 (Quickstart) shows a code example on the steps needed to do DEG analysis using count data using the two `glm` methods (*quasi-likelihood F-tests* and *likelihood ratio tests*). All the steps shown there are identical for the non-`glm` method up to calculating the `fit` object which can be replaced by performing the `exactTest` function as shown in sectino 2.9.2.
+
+The `edgeR` library will normalize the count data for you as follows:
+
+> "The trimmed means of M values (TMM) from Robinson and Oshlack, which is implemented in edgeR, computes a scaling factor between two experiments by using the weighted average of the subset of genes after excluding genes that exhibit high average read counts and genes that have large differences in expression."
+
+Running edgeR requires the raw count data together with the grouping-factor packaged in a `DGEList` object (with the `DGEList()` function). Furthermore, a proper `model.matrix` object (see the section on [design](#deg-design)) is needed as input for the `estimateDisp` function. The exact steps to take (there are more variations then with DeSEQ) must be searched in the documentation linked above.
+
+Gene annotation has been added to the `DGEList` object that is used to run edgeR with the `genes` parameter. This data has been taken from the `AnnotationDbi` package as [shown in chapter 5](#annotationDBI).
+
+Once the analysis is done you can retrieve the actual results with the `topTags` function:
+
+```{r .edger-TEST, echo=FALSE, eval=TRUE, warning=FALSE, message=FALSE, error=FALSE}
+library(edgeR)
+# Replace NA-values with zeros
+counts[is.na(counts)] <- 0
+y <- DGEList(counts=subset(counts, select = -KO1B), group=groups,
+             genes=cbind(EntrezID=gse80128$EntrezID,
+                         EnsemblID=gse80128$Ensembl))
+
+## Filter for low-counts
+y.cpm <- cpm(y)
+keep <- which(rowSums(y.cpm) >= 2)
+rm(y.cpm)
+
+y <- y[keep,]
+
+## Normalize
+y <- calcNormFactors(y, method="TMM")
+
+# Relevel groups, putting WT (control) as first level
+groups <- relevel(groups, 'WT')
+design <- model.matrix(~groups)
+y <- estimateDisp(y,design)
+# Find DEGs
+et <- exactTest(y)
+
+pander(as.data.frame(topTags(et)), caption = 'Most significant genes given by edgeR')
+```
+
+The package also contains a few plotting methods that you can use at intermediate steps during the analysis. For instance, after calculating the normalization factors (`calcNormFactors`), you can perform multi-dimensional scaling with the `plotMDS` function:
+
+```{r}
+plotMDS(y)
+```
+
+Or the *dispersion* after running the `estimateDisp` function with the `plotBCV` function:
+
+```{r}
+plotBCV(y)
+```
+
+Or the log-fold changes for all genes, once we have the output of the `exactTest` function (output `et` is an `DGEExact` object) with the `plotSmear` function. The `abline` shows a log-FC threshold:
+
+```{r}
+deGenes <- decideTestsDGE(et, p=0.001)
+deGenes <- rownames(et)[as.logical(deGenes)]
+plotSmear(et, de.tags=deGenes)
+abline(h=c(-1, 1), col=2)
+```
+
+**Links**
+
+* [Differential Expression Analysis using edgeR](http://bioinformatics-core-shared-training.github.io/cruk-bioinf-sschool/Day3/rnaSeq_DE.pdf) tutorial
+* [Another tutorial](https://gist.github.com/jdblischak/11384914) hosted on GitHub

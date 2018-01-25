@@ -1,0 +1,337 @@
+# Data Analysis and Visualization
+
+At this point we have one or more sets of DEGs from our experiment. It might be just one set or it might be a large number of comparisons made with a set of DEGs per comparison. This chapter offers some guidance to visualize and - finally - connect some biological relevance to the results.
+
+## Volcano Plot {#volcano}
+
+A volcano plot is often the first visualization of the data once the DEGs are known. This plot shows data for *all* genes and we highlight those genes that are considered DEG by using thresholds for both the (adjusted) p-value and a fold-change.
+
+This scatterplot places the `-log10(pvalue)` values on the y-axis and the log-FC on the x-axis. Coloring is done based on the thresholds (-log10(0.05) for the pvalue and log2(1.75) (±0.8) for the log-FC). Note: the FC-value has been arbitrarily chosen to limit the number of visible DEG's.
+
+The code below shows how to get data from DeSEQ2 and format this in a usable dataframe to create the figures below. Basically it's a combination of `rlog`-normalized count data from the `rld`-object (to calculate the fold-changes manually, see the heatmap below), results from DeSEQ (to filter for significant genes) and the Entrez IDs that we will use in the [pathway analysis](#pathway-analysis) *for all genes*. The `threshold` variable is used to subset the complete dataset for DEGs  that are also filtered for their log-FC value (stored in the `deg` dataframe). 
+
+```{r, deseq_data_analysis_data_prep}
+# Combine results into a single dataframe
+deseq.results <- cbind(rld, as.data.frame(res@listData), 
+                       EntrezID=gse80128$EntrezID,
+                       EnsemblID=gse80128$Ensembl)
+# Remove rows with NA-values in the adjusted P-value
+deseq.results <- deseq.results[complete.cases(deseq.results),]
+
+# Find DEGs (FDR < 0.05 and absolute (non-log)fold change >= 1.75x)
+deseq.threshold <- as.factor(abs(deseq.results$log2FoldChange) >= 0.807 & 
+                             deseq.results$padj < 0.05)
+
+# Get the indices of interesting genes using the threshold
+xi <- which(deseq.threshold == TRUE)
+# Create dataframe to hold both the normalized (rlog) count data and the edgeR output
+deseq.degs <- cbind(subset(rld, select = -KO1B)[xi,],
+                    as.data.frame(res@listData)[xi,],
+                    EntrezID=deseq.results$EntrezID[xi])
+
+# Nubmer of DEGs with log-FC >= 0.807
+nrow(deseq.degs)
+```
+
+```{r, edger_data_analysis_data_prep, echo=FALSE}
+# Get the results for all genes from edgeR
+ttags <- as.data.frame(topTags(et, n = nrow(y)))
+
+# Combine results into a single dataframe
+edgeR.results <- cbind(y$counts, ttags, #as.data.frame(res@listData), 
+                       EntrezID=y$genes$EntrezID,
+                       EnsemblID=y$genes$EnsemblID)
+# Remove rows with NA-values in the adjusted P-value
+edgeR.results <- edgeR.results[complete.cases(edgeR.results),]
+
+# Find DEGs (FDR < 0.05 and absolute (non-log)fold change >= 1.75x)
+edgeR.threshold <- as.factor(abs(edgeR.results$logFC) >= 1.5 & 
+                             edgeR.results$FDR < 0.05)
+
+# Get the indices of interesting genes using the threshold
+xi <- which(edgeR.threshold == TRUE)
+# Create dataframe to hold both the normalized (rlog) count data and the edgeR output
+edgeR.degs <- cbind(y$counts[xi,], ttags[xi,],
+                    EntrezID=deseq.results$EntrezID[xi])
+
+# Nubmer of DEGs with log-FC >= 0.807
+#nrow(edgeR.degs)
+```
+
+```{r, echo=FALSE}
+pander(vector.to.table(names(deseq.degs), nrow = 7, colname = "Columns"), caption = "Column names from the DeSEQ-`deg` object")
+```
+
+The volcano plot below is created on the *complete* dataset (the `deseq.results` dataframe from the chunk above) where the coloring is done based on the `threshold` variable. Genes with an adjusted p-value of 1 (shown as `log10(1)`) are included (`y=0`). It is perfectly fine to use the standard R plot method combined with the `abline` function to separate the DEGs from the other genes. If you already have experience with `ggplot2`, you can use the code below to reproduce this image. Note that when you have used edgeR instead you need to change the names of the columns used in this example.
+
+```{r edger_volcano, echo=FALSE, eval=FALSE, warning=FALSE}
+library(ggplot2)
+library(ggrepel)
+
+g = ggplot(data=edgeR.results, 
+           aes(x=logFC, y=-log10(FDR), 
+               # Colour based on the threshold defined before
+               colour=edgeR.threshold)) +
+  # Define the look of the points
+  geom_point(alpha=0.4, size=1.75) +
+  # Hide the legend
+  theme(legend.position = "none") +
+  # Add the lines separating the DEGs
+  geom_vline(xintercept = 1.5) +
+  geom_vline(xintercept = -1.5) +
+  geom_hline(yintercept = -log10(0.05)) +
+  xlim(c(-3, 3)) + ylim(c(0, 12)) +
+  xlab("log2 fold change") + ylab("-log10 p-value") +
+  ggtitle("DEGs according to EdgeR with FDR <= 0.05 and log-FC >= 1.75") +
+  # Add the text labels only for DEGs. Using `ggrepel` to make sure labels don't overlap
+  geom_text_repel(aes(label=ifelse(FDR < 0.05 & abs(logFC) >= 1.5,
+                                   row.names(edgeR.degs), '')),
+                  size=3)
+
+# Show the plot
+g
+```
+
+```{r deseq_volcano, warning=FALSE}
+library(ggplot2)
+library(ggrepel)
+
+g = ggplot(data=deseq.results, 
+           aes(x=log2FoldChange, y=-log10(padj), 
+               # Colour based on the threshold defined before
+               colour=deseq.threshold)) +
+  # Define the look of the points
+  geom_point(alpha=0.4, size=1.75) +
+  # Hide the legend
+  theme(legend.position = "none") +
+  # Add the lines separating the DEGs
+  geom_vline(xintercept = 0.807) +
+  geom_vline(xintercept = -0.807) +
+  geom_hline(yintercept = -log10(0.05)) +
+  xlim(c(-2.5, 2.5)) + ylim(c(0, 18)) +
+  xlab("log2 fold change") + ylab("-log10 p-value") +
+  ggtitle("DEGs according to EdgeR with FDR <= 0.05 and absolute FC >= 1.75") +
+  # Add the text labels only for DEGs. Using `ggrepel` to make sure labels don't overlap
+  geom_text_repel(aes(label=ifelse(padj < 0.05 & abs(log2FoldChange) >= 0.807,
+                                   row.names(deseq.degs), '')))
+
+# Show the plot
+g
+```
+
+```{r, eval=FALSE, echo=FALSE}
+gene_list <- topTags(et, n=1000000, sort.by="logFC")
+with(gene_list$table, plot(logFC, -log10(FDR), pch=20, main="Volcano plot", xlim=c(-4,4), ylim=c(0,15)))
+
+with(subset(gene_list$table, FDR<.05 ), points(logFC, -log10(FDR), pch=20, col="red"))
+with(subset(gene_list$table, abs(logFC)>1), points(logFC, -log10(FDR), pch=20, col="orange"))
+with(subset(gene_list$table, FDR<.05 & abs(logFC)>1), points(logFC, -log10(FDR), pch=20, col="green"))
+```
+
+## Venn Diagram {#venn-diagram}
+
+Another common visualization is a Venn-diagram. In this document for instance, both DeSEQ2 and edgeR have been used to find DEGs. To quickly compare the results from these packages we can create a single diagram showing how many DEGs are found by both packages and - more interesting - the number of genes (not which) that are found by both approaches. Most likely you will be comparing DEGs between *groups* instead of methods.
+
+Creating a Venn-diagram can be a good method for selecting a (sub)set of DEGs, for instance by selecting the set of DEGs that are shared between groups or the other way around, only the DEGs that are unique for a group. Keep this in mind when continuing on to the [clustering](#clustering) section below where it is most likely not useful to cluster all combinations you might have.
+
+```{r venn-diagram}
+# edgeR:
+#   Get the set of topTags from the output of the `exactTest` for *all* genes
+ttags <- as.data.frame(topTags(et, n = nrow(y)), row.names = row.names(y))
+# Filter on adjusted p-value and get the rownames
+edgeR.degs <- row.names(ttags[ttags$FDR < 0.05,])
+# DeSEQ
+DeSEQ.degs <- row.names(counts)[which(res@listData$padj < 0.05)]
+
+# Venn-diagram using the `VennDiagram` library (see below for alternative method)
+library(VennDiagram)
+# Create a list of DEGs and calculate their overlap
+overlap <- calculate.overlap(list(edgeR = edgeR.degs, 
+                                  DeSEQ = DeSEQ.degs))
+# The overlap object is a three-element list that we can use to draw a Venn-diagram with
+# Many more functions are available for triple, quad and quantuple diagrams
+venn.plot <- draw.pairwise.venn(area1 = length(overlap[[1]]), area2 = length(overlap[[2]]),
+                                cross.area = length(overlap[[3]]), category = c("edgeR", "DeSEQ2"),
+                                fill = c("light blue", "pink"), alpha = rep(0.5, 2), 
+                                cat.pos = c(-10, 10))
+
+# Actually plot the plot
+grid.draw(venn.plot)
+```
+
+An easier alternative (especially when you have > 2 groups) is the `venn` function from the `gplots` library. This only needs a list containing either the row-numbers or the gene-names of the DEGs which is easier (but offers less adjustability to make it prettier).
+
+```{r alternative_venn}
+# Alternative method using the `gplots` library
+library(gplots)
+# Create a Venn-diagram given just the list of gene-names for both sets
+venn(list(edgeR = edgeR.degs,
+          DeSEQ = DeSEQ.degs))
+```
+
+
+There is a large overlap between both techniques although they both do find > 100 unique genes. A much larger difference however is in the calculated fold changes between these two approaches. The following boxplot for example shows - for all DEGs - the distribution of the log-FC values where edgeR has a far wider range of values. This is possibly due to different normalization and the many choices of models to choose from for the analysis.
+
+```{r, echo=FALSE}
+boxplot(ttags$logFC[ttags$FDR < 0.05], 
+        res@listData$log2FoldChange[which(res@listData$padj < 0.05)],
+        names=c('edgeR', 'DeSEQ2'), main = 'log-FC values for all DEGs by package')
+```
+
+Let's quickly compare these log-FC values on a per-gene basis and see that there is something *really* strange going on! (*A follow-up will follow!*)
+```{r, echo=FALSE}
+# Manually calculate fold-changes from rlog and CPM normalized data
+.rld.fc <- as.data.frame(rld)
+.rld.fc$WTavg <- as.vector(rowMeans(.rld.fc[,4:7]))
+.rld.fc$KOavg <- as.vector(rowMeans(.rld.fc[,1:3]))
+.rld.fc$lFC <- as.vector(.rld.fc$KOavg - .rld.fc$WTavg)
+
+.y.cpm.fc <- as.data.frame(cpm(y$counts, log = TRUE))
+.y.cpm.fc$WTavg <- as.vector(rowMeans(.y.cpm.fc[,4:7]))
+.y.cpm.fc$KOavg <- as.vector(rowMeans(.y.cpm.fc[,1:3]))
+.y.cpm.fc$lFC <- as.vector(.y.cpm.fc$KOavg - .y.cpm.fc$WTavg)
+
+genes <- head(row.names(edgeR.results))
+
+pander(data.frame(Gene=head(row.names(edgeR.results)),
+                  edgeR.FC=head(edgeR.results$logFC),
+                  DeSEQ.FC=head(deseq.results$log2FoldChange),
+                  rlog.FC=.rld.fc[genes, "lFC"],
+                  cpm.FC=.y.cpm.fc[genes, "lFC"]),
+       caption = "Comparing FC-values from edgeR, DeSEQ and manually using rlog- and cpm-normalized data")
+
+rm(.rld.fc, .y.cpm.fc)
+```
+
+
+## Clustering {#clustering}
+
+One of the basic visualization steps to show expression data and patterns accross samples. Here, we can create a heatmap of the found DEGs for all samples where the colors show the fold-change value. Usually this heatmap is shown with a two color gradient; from red (downregulated) to green (upregulated). This is however optional and using the default colors from `pheatmap` for example is perfectly fine as long as a proper legend is present.
+
+There are multiple methods of creating a heatmap (one of which you've already used) and most of these directly apply clustering in the visualization. This clustering can be applied to the expression pattern of a gene (row-clustering), the expression pattern of a sample (column-clustering) or both (default for `pheatmap`). The example shown here does not use column-based clustering as it is a simple two-group experiment, this is mostly interesting when multiple groups are shown in the same figure.
+
+A limitation of a heatmap will show itself when more then 100 DEGs are found; this just doesn't fit well in a single figure and causes the clustering and especially the gene names/ labels to be unreadable. It is therefore always adviced to not only filter on the adjusted P-value, but also on the log-FC value to reduce the number of genes shown.
+
+The columns in the heatmap show the four separate knockout (KO) replicates compared to the **average** of the control (WT) replicates. The `KOvsWT` column contains the contents of the `log2FoldChange` data from DeSEQ.
+
+```{r, echo=FALSE, eval=TRUE}
+# Add the averages for both groups and (manually) calculate the log-FC
+deseq.degs$WTavg <- as.vector(rowMeans(deseq.degs[,4:7]))
+deseq.degs$KOavg <- as.vector(rowMeans(deseq.degs[,1:3]))
+deseq.degs$lFC <- as.vector(deseq.degs$KOavg - deseq.degs$WTavg)
+
+KO.fc <- deseq.degs[,1:3] - deseq.degs$WTavg
+KO.fc$KOvsWT <- deseq.degs$log2FoldChange
+pheatmap::pheatmap(KO.fc, cluster_cols = FALSE,
+                   main="Heatmap of all DEGs for KO vs WT with an absolute-FC >= 1.75 (DeSEQ)")
+```
+
+
+
+## Pathway Analysis {#pathway-analysis}
+
+In some cases you'll see hundreds or even thousands of DEGs as a result of an analysis. These large amounts of DEGs are too much for most visualization approaches or to easily say something about the biological context for that many genes.
+
+One approach for tackling such a large set of DEGs is *pathway analysis* where through different methods genes are grouped by pathway to get an overview of affected pathways in the experiment.
+
+This section will demonstrate two methods for this analysis, one using an online platform for *gene-annotation enrichment* analysis and an R-method for *signaling pathway impact analysis*. 
+
+### Gene-annotation Enrichment
+
+The online [DAVID](https://david.ncifcrf.gov/home.jsp) tool suite allows for multiple - functional - annotation methods, one of these can be used for enrichment analysis based on gene annotation. To use the DAVID tools we need to have the list of gene names, ID's or other identifyable information (no need for p-values or fold-changes). The basics of this method consist of grouping genes in pathways, count how many genes are in each pathway and compare this with what you would expect if you take a *random* sample from the genome with the same size as the number of your DEGs.
+
+For example, if the **RNA transport** pathway contains a total of 50 genes out of the total of 25.000 for the whole mouse genome. This means **0.2%** of **all** mouse genes have a role in this pathway.
+
+If you uploaded a total of 1000 DEGs for analysis, you expect 0.2% = **2** genes from your DEG list to be placed in this pathway. But, it seems that there are **10** genes from the **RNA transport** pathway in the set of 1000 genes, which is **5** times as much as expected. This difference between expected and observed gene counts per pathway allows to say if a particular pathway is *enriched*. 
+
+The following example code writes the gene *symbols* for both analysis approaches to a file for upload on DAVID.
+
+```{r, eval=FALSE}
+# Write gene names to a file
+write.table(edgeR.degs, file = "../data/edger-deg-names.txt",
+            row.names = FALSE, quote = FALSE, col.names = FALSE)
+write.table(DeSEQ.degs, file = "../data/deseq-deg-names.txt",
+            row.names = FALSE, quote = FALSE, col.names = FALSE)
+```
+
+TODO: complete DAVID manual. For now, create a/the file(s) and choose the **Gene Functional Classification** tool in the left-hand menu on the DAVID website and follow instructions.
+
+### Signaling Pathway Impact Analysis {#spia}
+
+To also look at the *topology* of *how* genes interact with each other, we can use the [SPIA](http://bioconductor.org/packages/release/bioc/html/SPIA.html) Bioconductor package. This package takes a list of Entrez gene IDs for all DEGs and the complete list of Entrez IDs for all present genes and evaluates - per pathway - if genes are involved and if the pathway is either inhibited or activated. 
+
+The code below uses data objects that were not always shown before, see the tables below for their contents.
+
+```{r spia_data_prep}
+# Bioconductor package for "Signaling Pathway Impact Analysis"
+# (install with biocLite("SPIA") if it is not installed)
+library(SPIA)
+# Only used for the `subset` function
+library(dplyr)
+
+# Get a vector of log(FC) values for all significant genes
+sig_genes <- subset(edgeR.results, FDR<0.05)$logFC
+# Make it a named vector by assigning the Entrez ID's to each log(FC) value
+names(sig_genes) <- subset(edgeR.results, FDR<0.05)$EntrezID
+# A complete list of Entrez IDs for all genes in this experiment
+all_genes <- edgeR.results$EntrezID
+```
+
+The input `sig_genes` named vector contents:
+```{r spia_contents, echo=FALSE}
+library(pander)
+.sig.genes <- head(data.frame(EntrezID=names(sig_genes),
+                              "logFC"=sig_genes, 
+                              row.names=NULL), n=10)
+
+pander(.sig.genes, caption = "(subset) of EdgeR DEGs with their Entrez ID and log2(FC) value")
+```
+
+And the `all_genes` vector or Entrez IDs input:
+```{r}
+pander(head(all_genes, n=10))
+```
+
+To start processing all pathways looking for influenced signal pathway, execute the `spia` function for the proper organism (Mus Musculus, or `mmu` in this case):
+
+```{r spia_processing, eval=FALSE, message=FALSE, warning=FALSE}
+# Process all signaling pathways to see if they are inhibited or activated
+spia_result <- spia(de=sig_genes, all=all_genes, organism="mmu", plots=TRUE)
+```
+
+Running this function will print a list of (> 100) pathways it will analyze, so this will take a while:
+
+```
+Done pathway 1 : RNA transport..
+Done pathway 2 : RNA degradation..
+Done pathway 3 : PPAR signaling pathway..
+Done pathway 4 : Fanconi anemia pathway..
+Done pathway 5 : MAPK signaling pathway..
+Done pathway 6 : ErbB signaling pathway..
+Done pathway 7 : Calcium signaling pathway..
+Done pathway 8 : Cytokine-cytokine receptor int..
+Done pathway 9 : Chemokine signaling pathway..
+Done pathway 10 : NF-kappa B signaling pathway..
+Done pathway 11 : Phosphatidylinositol signaling..
+Done pathway 12 : Neuroactive ligand-receptor in..
+Done pathway 13 : Cell cycle..
+...
+Done pathway 132 : Graft-versus-host disease..
+Done pathway 133 : Arrhythmogenic right ventricul..
+Done pathway 134 : Dilated cardiomyopathy..
+Done pathway 135 : Viral myocarditis..
+```
+
+The resulting data frame is ordered by a p-value and contains the following information:
+
+```{r spia_result_table, echo=FALSE}
+load(file = "./data/spia.RData")
+pander(head(spia_result[,1:11], n=5), caption = "Top signaling pathways ")
+```
+
+To get an overal picture we can create a plot where each pathway is a point which is placed according to the `spia` calculated over-representation p-value and pNDE (which is the probability to observe at least nDE genes on the pathway). In this case it is obvious that Alzheimer's and Parkinson's pathways with ID's 05010 and 05012 respectively are the most influenced by this experiment, according to this method.
+
+```{r spia_result_plotP, eval=TRUE}
+plotP(spia_result)
+```
+
