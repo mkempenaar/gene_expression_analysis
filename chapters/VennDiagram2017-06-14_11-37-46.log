@@ -1,7 +1,0 @@
-INFO [2017-06-14 11:37:46] [[1]]
-INFO [2017-06-14 11:37:46] as.list(edgeR.degs, DeSEQ.degs)
-INFO [2017-06-14 11:37:46] 
-INFO [2017-06-14 11:37:46] $filename
-INFO [2017-06-14 11:37:46] NULL
-INFO [2017-06-14 11:37:46] 
-ERROR [2017-06-14 11:37:46] Incorrect number of elements.

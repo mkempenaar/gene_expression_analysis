@@ -1,4 +1,18 @@
-# Exploratory Data Analysis {#EDA}
+```{r internal_functions, echo=FALSE, message=FALSE, warning=FALSE, results='hide'}
+## Prereqs
+# Enable caching
+knitr::opts_chunk$set(cache=TRUE)
+
+# libraries
+library(pander)
+library(png)
+library(grid)
+
+# Source some helper functions
+source('utils.R')
+```
+
+# Exploratory Data Analysis {#chapter-3}
 
 We will be performing some exploratory data analysis with the goal of getting to grips with your chosen data set to properly identify a strategy for the actual analysis steps. During this exploration we will also keep an eye on the quality of the data. Even though the downloadable data is 'processed', there might be samples present that deviate too much from the other group of samples (a so called *outlier*). Creating basic visualizations of the data will give the necessary insight before we continue. We first start by downloading and loading in the actual count data.
 
@@ -29,13 +43,9 @@ Whether you've found a dataset through the SRA or GEO, we want to get the data i
 
 On GEO you can see what data *might* be availalbe in the `Supplementary` column, as shown below: 
 
-```{r GEO_RNA-Seq, include=FALSE, fig.height=4, fig.cap="Finding an experiment on GEO with a TXT file as supplementary data"}
-img <- readPNG("chapters/images/geo_data-overview.png")
-grid.raster(img)
+```{r GEO_RNA-Seq, echo=FALSE, fig.height=4, fig.cap="Finding an experiment on GEO with a TXT file as supplementary data"}
+knitr::include_graphics("chapters/images/geo_data-overview.png")
 ```
-
-
-![*Finding an experiment on GEO with a TXT file as supplementary data*](chapters/images/geo_data-overview.png)
 
 This overview on GEO contains many links which are *not* direct links to the items for that dataset, but can be used as *filter* for browsing the results. If you want to actually download the data, click on the **GSE** identifier (first column) which brings you to an overview for this experiment containing a lot of information about the experiment (subject, research institute, publication, design, etc.) and links to each individual sample (**GSM** identifier). Following the link to a sample shows information on how this sample was retrieved with often many (lab) protocols used. Sometimes there is a segment regarding "*Data Processing*" that refers to techniques and software used for the full analysis and might contain something like:
 
@@ -47,8 +57,6 @@ Back on the experiment overview page you'll see a (variable) number of links to 
 img <- readPNG("chapters/images/geo_data-download.png")
 grid.raster(img)
 ```
-
-![*Finding the supplementary data in a GEO record*](chapters/images/geo_data-download.png)
 
 As a bioinformatician we love to compress all the files so for this particular example, we download the `tar`-archive file, extract it to find a folder with another archive file for each sample. After extracting these files we end up with 12 `TXT`-files with just two columns; a *gene* identifier and a semi-raw *count* value (~4500 rows of data per sample):
 
@@ -90,7 +98,7 @@ Follow the following steps to read in the data and start the exploratory data an
 * Whenever you add code to your document make sure that it is both readable (keep the maximum line length < 100 if possible) and there is sufficient documentation either by text **around** the code 'chunks' or by using comments **in** the code chunk. 
 * Read in the data file(s)
     + For the remainder of the document, try to show either the contents, structure or - in this case - dimensions of relevant R objects
-        * Show the first five lines of the loaded data set. Including tables in a markdown document can be done using the `pander` function from the `pander` R-library.
+        * Show the first five lines of the loaded data set. Including tables in a markdown document can be done using the `pander` function from the `pander`[@R-pander] R-library.
         * Give the dimensions (with `dim()` and the structure (with `str()`) of the loaded data set.
         * Check the output of the `str` function to see if all columns are of the expected R data type (e.g. `values`, `factors`, `character`, etc.)
 * Examine the samples included in the experiment and create as many R character objects as needed to store the classification.
@@ -107,7 +115,9 @@ img <- readPNG("ImageToInclude.png")
 grid.raster(img)
 ```
 
-## *EDA* Part 1; `summary`, `boxplot`, `scatterplot` & `MA-plot` {#EDA_part1}
+# (PART) *EDA* Part 1 {-}
+
+## Visualizing using `summary`, `boxplot`, `scatterplot` & `MA-plot` {#EDA_part1}
 
 This segment describes some of the basic steps and visualizations that can be performed during Exploratory Data Analysis. In this part we work with the unnormalized count data. In part this data is normalized before analyzing it further. As mentioned above, the focus of EDA is to get an overview of the data set and while this often requires visualizing the data, these figures do not need to be very pretty. Simple figures are perfectly fine in this stage. Try to create these figures for your own data (and keep them in your log).
 
@@ -140,13 +150,15 @@ An MA-plot can be very helpful (it has the same constraints mentioned with the s
 ![*An MA-plot showing the average normalized count values (**A**, x-axis) vs. the log2 fold-change (**M**, y-axis).*](chapters/images/RNAmaplot.png)
 
 
-## *EDA* Part 2; `heatmap`, `MDS` & `PCA` {#EDA_part2}
+# (PART) *EDA* Part 2 {-}
+
+## Visualizing using `heatmap`, `MDS` & `PCA` {#EDA_part2}
 
 This section adds a few Exploratory Data Analysis techniques where we will measure and look at *distances* between samples. Measuring distances between two data objects (samples in our case) is a common task in cluster analysis to compare similarity (low distance indicates similar data). In this case we will calculate the distances between our samples and visualize them in a `heatmap` and using `multidimensional scaling` (MDS) techniques. 
 
 ### Normalization {#normalization}
 
-In the [previous section]({#EDA_part1}) we used the raw count data. You might have one or more samples that have different values (i.e. shifted) compared to other samples. While we need the raw count data to use R packages such as `edgeR` and `DeSEQ(2)`, calculating sample distances should be done on some form of normalized data. This data can either be RPKM/FPKM/TPM/CPM or log-transformed (raw-)read counts. A proper method of transforming raw read count data is using the `rlog` method from the `DESeq2` R Bioconductor library which is shown below. 
+In the [previous section]({#EDA_part1}) we used the raw count data. You might have one or more samples that have different values (i.e. shifted) compared to other samples. While we need the raw count data to use R packages such as `edgeR` [@R-edgeR] and `DeSEQ2` [@R-DESeq2], calculating sample distances should be done on some form of normalized data. This data can either be RPKM/FPKM/TPM/CPM or log-transformed (raw-)read counts. A proper method of transforming raw read count data is using the `rlog` method from the `DESeq2` R Bioconductor library which is shown below. 
 
 The following code examples shows how to use this library to normalize the count data to rlog-normalized data before we calculate a distance metric. The data used for this example is available at the GEO (Accession [GSE80128](http://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE80128), titled *Evidence for two protein coding transcripts at the Igf2as locus* consisting of 8 samples from mouse skeletal muscle tissue; 4 wild-type [WT] and 4 $\Delta$DMR1-U2  [KO] variants).
 
@@ -160,7 +172,6 @@ rownames(counts) <- gse80128$geneID
 ```
 
 ```{r .pre-processing_example_data, echo=FALSE, message=FALSE, warning=FALSE}
-library(pander)
 library(DESeq2)
 
 # Preparing sample labels
