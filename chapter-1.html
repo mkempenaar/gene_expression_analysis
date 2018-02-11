@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Analysis of Gene Expression</title>
+  <meta name="description" content="Course Syllabus for the Theme 7 course">
+  <meta name="generator" content="bookdown 0.5.16 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Analysis of Gene Expression" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Course Syllabus for the Theme 7 course" />
+  <meta name="github-repo" content="mkempenaar/BFVH15CAPSTONE" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Analysis of Gene Expression" />
+  
+  <meta name="twitter:description" content="Course Syllabus for the Theme 7 course" />
+  
+
+<meta name="author" content="Marcel Kempenaar">
+
+
+<meta name="date" content="2018-02-11">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="index.html">
+<link rel="next" href="chapter-2.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; position: absolute; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; }
+pre.numberSource a.sourceLine:empty
+  { position: absolute; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Theme 07 - Analysis of Gene Expression</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
+<li class="chapter" data-level="1" data-path="chapter-1.html"><a href="chapter-1.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1.1" data-path="chapter-1.html"><a href="chapter-1.html#theme-7---analysis-of-gene-expression-project"><i class="fa fa-check"></i><b>1.1</b> Theme 7 - Analysis of Gene Expression Project</a></li>
+<li class="chapter" data-level="1.2" data-path="chapter-1.html"><a href="chapter-1.html#project-deliverables"><i class="fa fa-check"></i><b>1.2</b> Project Deliverables</a></li>
+<li class="chapter" data-level="1.3" data-path="chapter-1.html"><a href="chapter-1.html#project-schedule"><i class="fa fa-check"></i><b>1.3</b> Project Schedule</a></li>
+<li class="chapter" data-level="1.4" data-path="chapter-1.html"><a href="chapter-1.html#grading"><i class="fa fa-check"></i><b>1.4</b> Grading</a><ul>
+<li class="chapter" data-level="1.4.1" data-path="chapter-1.html"><a href="chapter-1.html#project-proposal"><i class="fa fa-check"></i><b>1.4.1</b> Project Proposal</a></li>
+<li class="chapter" data-level="1.4.2" data-path="chapter-1.html"><a href="chapter-1.html#keeping-a-log-a-lab-journal"><i class="fa fa-check"></i><b>1.4.2</b> Keeping a Log (a <em>lab journal</em>)</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="chapter-1.html"><a href="chapter-1.html#article"><i class="fa fa-check"></i><b>1.5</b> Article</a><ul>
+<li class="chapter" data-level="1.5.1" data-path="chapter-1.html"><a href="chapter-1.html#installing-rstudio-templates"><i class="fa fa-check"></i><b>1.5.1</b> Installing RStudio Templates</a></li>
+<li class="chapter" data-level="1.5.2" data-path="chapter-1.html"><a href="chapter-1.html#using-the-template"><i class="fa fa-check"></i><b>1.5.2</b> Using the template</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="chapter-2.html"><a href="chapter-2.html"><i class="fa fa-check"></i><b>2</b> Discovering Data Sets</a><ul>
+<li class="chapter" data-level="2.1" data-path="chapter-2.html"><a href="chapter-2.html#finding-public-data"><i class="fa fa-check"></i><b>2.1</b> Finding Public Data Sets of Interest</a></li>
+<li class="chapter" data-level="2.2" data-path="chapter-2.html"><a href="chapter-2.html#ncbi-geo"><i class="fa fa-check"></i><b>2.2</b> The NCBI <em>Gene Expression Omnibus</em></a></li>
+<li class="chapter" data-level="2.3" data-path="chapter-2.html"><a href="chapter-2.html#project-proposal_ch2"><i class="fa fa-check"></i><b>2.3</b> Creating a Project Proposal</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="chapter-3.html"><a href="chapter-3.html"><i class="fa fa-check"></i><b>3</b> Exploratory Data Analysis</a><ul>
+<li class="chapter" data-level="3.1" data-path="chapter-3.html"><a href="chapter-3.html#expl-data"><i class="fa fa-check"></i><b>3.1</b> Exploring the Available Project Data</a></li>
+<li class="chapter" data-level="3.2" data-path="chapter-3.html"><a href="chapter-3.html#loading-data"><i class="fa fa-check"></i><b>3.2</b> Loading data into R</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="eda-part-i.html"><a href="eda-part-i.html"><i class="fa fa-check"></i>EDA - Part I</a><ul>
+<li class="chapter" data-level="3.3" data-path="eda-part-i.html"><a href="eda-part-i.html#EDA_part1"><i class="fa fa-check"></i><b>3.3</b> Visualizing using <code>summary</code>, <code>boxplot</code>, <code>scatterplot</code> &amp; <code>MA-plot</code></a><ul>
+<li class="chapter" data-level="3.3.1" data-path="eda-part-i.html"><a href="eda-part-i.html#eda_statistics"><i class="fa fa-check"></i><b>3.3.1</b> Statistics</a></li>
+<li class="chapter" data-level="3.3.2" data-path="eda-part-i.html"><a href="eda-part-i.html#eda_boxplots"><i class="fa fa-check"></i><b>3.3.2</b> Boxplots</a></li>
+<li class="chapter" data-level="3.3.3" data-path="eda-part-i.html"><a href="eda-part-i.html#eda_scatter_plot"><i class="fa fa-check"></i><b>3.3.3</b> Scatterplots</a></li>
+<li class="chapter" data-level="3.3.4" data-path="eda-part-i.html"><a href="eda-part-i.html#MA_plot"><i class="fa fa-check"></i><b>3.3.4</b> MA-plots</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="eda-part-ii.html"><a href="eda-part-ii.html"><i class="fa fa-check"></i>EDA - Part II</a><ul>
+<li class="chapter" data-level="3.4" data-path="eda-part-ii.html"><a href="eda-part-ii.html#EDA_part2"><i class="fa fa-check"></i><b>3.4</b> Visualizing using <code>heatmap</code>, <code>MDS</code> &amp; <code>PCA</code></a><ul>
+<li class="chapter" data-level="3.4.1" data-path="eda-part-ii.html"><a href="eda-part-ii.html#normalization"><i class="fa fa-check"></i><b>3.4.1</b> Normalization</a></li>
+<li class="chapter" data-level="3.4.2" data-path="eda-part-ii.html"><a href="eda-part-ii.html#eda_distance"><i class="fa fa-check"></i><b>3.4.2</b> Distance Calculation</a></li>
+<li class="chapter" data-level="3.4.3" data-path="eda-part-ii.html"><a href="eda-part-ii.html#eda_heatmap"><i class="fa fa-check"></i><b>3.4.3</b> Sample Distances using a Heatmap</a></li>
+<li class="chapter" data-level="3.4.4" data-path="eda-part-ii.html"><a href="eda-part-ii.html#eda_mds"><i class="fa fa-check"></i><b>3.4.4</b> Sample Distances using MDS</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://bioinf.nl">
+Part of the bioinformatics study @ the Hanze University of Applied Sciences</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Analysis of Gene Expression</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="chapter-1" class="section level1">
+<h1><span class="header-section-number"></span> Introduction</h1>
+<div id="theme-7---analysis-of-gene-expression-project" class="section level2">
+<h2><span class="header-section-number">1.1</span> Theme 7 - Analysis of Gene Expression Project</h2>
+<p>The use of RNA-Sequencing techniques for measuring gene expression is relatively new and replaces <em>microarrays</em>, though in some cases microarrays are still used. Gene expression data gives valuable insights into the workings of cells in certain conditions. Especially when comparing for instance healthy and diseased samples it can become clear which genes are causal or under influence of a specific condition. Finding the genes of interest (genes showing differing expression accross conditions, called the Differentially Expressed Genes (DEGs)) is the goal of this project.</p>
+<p>While there is no golden standard for analyzing RNA-sequencing datasets as there are many tools (all manufacturers of sequencing equiptment also deliver software packages) we will use proven R libraries for processing, visualizing and analyzing publically available datasets. While in some cases you are allowed to use the actual <em>raw</em> data that is available, it is highly recommended to use the pre-processed data which often is a table with a <em>count</em> value for each gene. This count is the number of reads that was mapped to that gene which corresponds to the relative number of transcripts (mRNA sequences) of that gene present in the cell at the time of sampling.</p>
+</div>
+<div id="project-deliverables" class="section level2">
+<h2><span class="header-section-number">1.2</span> Project Deliverables</h2>
+<p>The end products of this course consist of three deliverables; a PDF output file from an RMarkdown ‘lab journal’ where you have logged all steps performed to get to the end result, a final report in the form of a short article and a poster to be presented - if selected - during the Life Science and Technology Poster session at the end of this quarter.</p>
+</div>
+<div id="project-schedule" class="section level2">
+<h2><span class="header-section-number">1.3</span> Project Schedule</h2>
+<p>The aim is to keep to the below schedule during this course. Use the first two weeks to see if you need to focus more on one of the points below and discuss changes to the planning with your teacher.</p>
+<ul>
+<li>Find a public experiment of interest [week one]
+<ul>
+<li>Using online resources</li>
+</ul></li>
+<li>Data Gathering and Literature Research [week two]
+<ul>
+<li>Make a final project choice</li>
+<li>Retrieve the accompanying publication</li>
+<li>Download and inspect the supplementary files</li>
+<li>Write and present a short project proposal</li>
+</ul></li>
+<li>Data Analysis [weeks three and four]
+<ul>
+<li>Exploratory Data Analysis</li>
+<li>Data Annotation</li>
+<li>Discovering Differentially Expressed Genes (DEGs)</li>
+<li>Multiple Testing</li>
+<li>Techniques used: R with bioconductor, the EdgeR and/ or DESeq2 packages, RMarkdown</li>
+</ul></li>
+<li>Result Analysis [weeks five and six]
+<ul>
+<li>Analyzing and Visualizing your results</li>
+<li>Techniques used: clustering, pathway analysis, gene-enrichment analysis</li>
+</ul></li>
+<li>Finalizing analysis and start writing the final report and design a poster [weeks 7 and 8]</li>
+</ul>
+</div>
+<div id="grading" class="section level2">
+<h2><span class="header-section-number">1.4</span> Grading</h2>
+<p>The final grade consists of a weighted average of the work done for weeks 1 &amp; 2 (resulting in the <em>project proposal</em>) (<strong>15%</strong>), the <em>lab journal</em> containing all performed steps, their code and outputs (<strong>50%</strong>), the <em>article</em> report <em>and</em> poster (<strong>25%</strong>) and finally your <em>work attitude</em> (<strong>10%</strong>). A grade higher then a <strong>5.5</strong> will give a total of 5 EC. The rest of this chapter explains the expected contents for the three graded products (each of these elements is explained in greater detail in other chapters).</p>
+<div id="project-proposal" class="section level3">
+<h3><span class="header-section-number">1.4.1</span> Project Proposal</h3>
+<p>As you are free to choose from thousands of public data sets on a large variety of biological subjects, it is important to demonstrate a good understanding of the experiment, biology and the available data. This is demonstrated by presenting a short project proposal where you briefly explain the subject of the chosen research article, the experimental setup (how many samples were used, etc.) and what types of data are available for you to use.</p>
+</div>
+<div id="keeping-a-log-a-lab-journal" class="section level3">
+<h3><span class="header-section-number">1.4.2</span> Keeping a Log (a <em>lab journal</em>)</h3>
+<p>As you know from previous projects and (maybe from) working in the laboratory, it is essential to keep a proper lab journal detailing every step you have done during the experiment. The log is to be kept in an R markdown file, showing which steps have been taken in the analysis of the data set. This markdown should be <em>knitted</em> into a single PDF-file once the project is completed thus containing text detailling the steps and any decisions you’ve made, R-code (always visible!) and their resulting output/ images. As a general advice; do not wait with knitting this whole document until the project is done!</p>
+</div>
+</div>
+<div id="article" class="section level2">
+<h2><span class="header-section-number">1.5</span> Article</h2>
+<p>The final report is written in article form which is a bit different from a usual report, mainly in its size. The article-report has a <em>maximum</em> number of pages of <strong>4</strong> including all images and references (no appendices!). Contents for this article should be extracted from the lab journal combined with part introduction and part conclusion/ discussion. The sections below describe a template that is available for writing this report and example report(s) will be made available for inspiration. Refer to this chapter again once you start writing the report.</p>
+<div id="installing-rstudio-templates" class="section level3">
+<h3><span class="header-section-number">1.5.1</span> Installing RStudio Templates</h3>
+<p>The templates are available in an R package and contains both <code>RMarkdown</code> and (another layer on top of the actual <a href="https://nl.wikipedia.org/wiki/TeX">markup language</a>, yes, another language…) files. RStudio can use templates for a number of documents, including article-templates. These templates can be installed from a package called <code>rticles</code> by running the <code>install.packages</code> function (note: might already be installed):</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">install.packages</span>(<span class="st">&quot;rticles&quot;</span>, <span class="dt">type =</span> <span class="st">&quot;source&quot;</span>)</a></code></pre></div>
+</div>
+<div id="using-the-template" class="section level3">
+<h3><span class="header-section-number">1.5.2</span> Using the template</h3>
+<p>Now that you have the templates package (<code>rticles</code>) installed you can download and use the template project (ZIP-file) available from <a href="https://github.com/mkempenaar/BFVH15CAPSTONE/blob/BFVH3TH7_2018_dev/article/report-template.zip" class="uri">https://github.com/mkempenaar/BFVH15CAPSTONE/blob/BFVH3TH7_2018_dev/article/report-template.zip</a>. Download this file to your project folder, extract its contents and open the <code>report-template.Rmd</code> file contained within the folder in RStudio. Verify that everything is setup correctly by hitting the <code>Knit</code> button at the top, this should create a PDF version of the report. Note that - somehow - the resulting PDF file is named <code>RJwrapper.pdf</code> instead of the expected <code>report-template.pdf</code>. If everything checks out ok you can rename the file to your liking and start editing.</p>
+<p>This template is based on the <code>R Journal Submission</code> template that you can also find in RStudio in the <code>New file -&gt; R Markdown -&gt; From Template</code> menu. Articles published in the <code>R-journal</code> are based on this template which you can browse for inspiration at the [R Journal Website]((<a href="https://journal.r-project.org/archive/2015-2/" class="uri">https://journal.r-project.org/archive/2015-2/</a>).</p>
+<p>The available template shows an <em>example</em> of segments/ chapters and briefly describes what each section could or should contain. If you want to write your report in the Dutch language, you can create a new file from the template and change the segment names and content to Dutch. There will however still be some headings added by the template in English which is fine with me, but if you want to keep everything Dutch you can either edit the <code>RJournal.sty</code> file manually (<em>not recommended</em>) or start a new file by yourself and add some nice headings and page options.</p>
+<p>The top part of the template (between the dashes <code>---</code>) contains some settings that you need to change such as <code>title</code>, <code>author</code> and <code>abstract</code>. Compare for instance a newly created article from this template with the one offered from the project-repository website.</p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="chapter-2.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": null,
+"download": ["_main.pdf", "_main.epub", "_main.mobi"],
+"toc": {
+"collapse": "subsection"
+},
+"toolbar": {
+"position": "fixed"
+},
+"search": true
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

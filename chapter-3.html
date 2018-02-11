@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Analysis of Gene Expression</title>
+  <meta name="description" content="Course Syllabus for the Theme 7 course">
+  <meta name="generator" content="bookdown 0.5.16 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Analysis of Gene Expression" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Course Syllabus for the Theme 7 course" />
+  <meta name="github-repo" content="mkempenaar/BFVH15CAPSTONE" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Analysis of Gene Expression" />
+  
+  <meta name="twitter:description" content="Course Syllabus for the Theme 7 course" />
+  
+
+<meta name="author" content="Marcel Kempenaar">
+
+
+<meta name="date" content="2018-02-11">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="chapter-2.html">
+<link rel="next" href="eda-part-i.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; position: absolute; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; }
+pre.numberSource a.sourceLine:empty
+  { position: absolute; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Theme 07 - Analysis of Gene Expression</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
+<li class="chapter" data-level="1" data-path="chapter-1.html"><a href="chapter-1.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1.1" data-path="chapter-1.html"><a href="chapter-1.html#theme-7---analysis-of-gene-expression-project"><i class="fa fa-check"></i><b>1.1</b> Theme 7 - Analysis of Gene Expression Project</a></li>
+<li class="chapter" data-level="1.2" data-path="chapter-1.html"><a href="chapter-1.html#project-deliverables"><i class="fa fa-check"></i><b>1.2</b> Project Deliverables</a></li>
+<li class="chapter" data-level="1.3" data-path="chapter-1.html"><a href="chapter-1.html#project-schedule"><i class="fa fa-check"></i><b>1.3</b> Project Schedule</a></li>
+<li class="chapter" data-level="1.4" data-path="chapter-1.html"><a href="chapter-1.html#grading"><i class="fa fa-check"></i><b>1.4</b> Grading</a><ul>
+<li class="chapter" data-level="1.4.1" data-path="chapter-1.html"><a href="chapter-1.html#project-proposal"><i class="fa fa-check"></i><b>1.4.1</b> Project Proposal</a></li>
+<li class="chapter" data-level="1.4.2" data-path="chapter-1.html"><a href="chapter-1.html#keeping-a-log-a-lab-journal"><i class="fa fa-check"></i><b>1.4.2</b> Keeping a Log (a <em>lab journal</em>)</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="chapter-1.html"><a href="chapter-1.html#article"><i class="fa fa-check"></i><b>1.5</b> Article</a><ul>
+<li class="chapter" data-level="1.5.1" data-path="chapter-1.html"><a href="chapter-1.html#installing-rstudio-templates"><i class="fa fa-check"></i><b>1.5.1</b> Installing RStudio Templates</a></li>
+<li class="chapter" data-level="1.5.2" data-path="chapter-1.html"><a href="chapter-1.html#using-the-template"><i class="fa fa-check"></i><b>1.5.2</b> Using the template</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="chapter-2.html"><a href="chapter-2.html"><i class="fa fa-check"></i><b>2</b> Discovering Data Sets</a><ul>
+<li class="chapter" data-level="2.1" data-path="chapter-2.html"><a href="chapter-2.html#finding-public-data"><i class="fa fa-check"></i><b>2.1</b> Finding Public Data Sets of Interest</a></li>
+<li class="chapter" data-level="2.2" data-path="chapter-2.html"><a href="chapter-2.html#ncbi-geo"><i class="fa fa-check"></i><b>2.2</b> The NCBI <em>Gene Expression Omnibus</em></a></li>
+<li class="chapter" data-level="2.3" data-path="chapter-2.html"><a href="chapter-2.html#project-proposal_ch2"><i class="fa fa-check"></i><b>2.3</b> Creating a Project Proposal</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="chapter-3.html"><a href="chapter-3.html"><i class="fa fa-check"></i><b>3</b> Exploratory Data Analysis</a><ul>
+<li class="chapter" data-level="3.1" data-path="chapter-3.html"><a href="chapter-3.html#expl-data"><i class="fa fa-check"></i><b>3.1</b> Exploring the Available Project Data</a></li>
+<li class="chapter" data-level="3.2" data-path="chapter-3.html"><a href="chapter-3.html#loading-data"><i class="fa fa-check"></i><b>3.2</b> Loading data into R</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="eda-part-i.html"><a href="eda-part-i.html"><i class="fa fa-check"></i>EDA - Part I</a><ul>
+<li class="chapter" data-level="3.3" data-path="eda-part-i.html"><a href="eda-part-i.html#EDA_part1"><i class="fa fa-check"></i><b>3.3</b> Visualizing using <code>summary</code>, <code>boxplot</code>, <code>scatterplot</code> &amp; <code>MA-plot</code></a><ul>
+<li class="chapter" data-level="3.3.1" data-path="eda-part-i.html"><a href="eda-part-i.html#eda_statistics"><i class="fa fa-check"></i><b>3.3.1</b> Statistics</a></li>
+<li class="chapter" data-level="3.3.2" data-path="eda-part-i.html"><a href="eda-part-i.html#eda_boxplots"><i class="fa fa-check"></i><b>3.3.2</b> Boxplots</a></li>
+<li class="chapter" data-level="3.3.3" data-path="eda-part-i.html"><a href="eda-part-i.html#eda_scatter_plot"><i class="fa fa-check"></i><b>3.3.3</b> Scatterplots</a></li>
+<li class="chapter" data-level="3.3.4" data-path="eda-part-i.html"><a href="eda-part-i.html#MA_plot"><i class="fa fa-check"></i><b>3.3.4</b> MA-plots</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="eda-part-ii.html"><a href="eda-part-ii.html"><i class="fa fa-check"></i>EDA - Part II</a><ul>
+<li class="chapter" data-level="3.4" data-path="eda-part-ii.html"><a href="eda-part-ii.html#EDA_part2"><i class="fa fa-check"></i><b>3.4</b> Visualizing using <code>heatmap</code>, <code>MDS</code> &amp; <code>PCA</code></a><ul>
+<li class="chapter" data-level="3.4.1" data-path="eda-part-ii.html"><a href="eda-part-ii.html#normalization"><i class="fa fa-check"></i><b>3.4.1</b> Normalization</a></li>
+<li class="chapter" data-level="3.4.2" data-path="eda-part-ii.html"><a href="eda-part-ii.html#eda_distance"><i class="fa fa-check"></i><b>3.4.2</b> Distance Calculation</a></li>
+<li class="chapter" data-level="3.4.3" data-path="eda-part-ii.html"><a href="eda-part-ii.html#eda_heatmap"><i class="fa fa-check"></i><b>3.4.3</b> Sample Distances using a Heatmap</a></li>
+<li class="chapter" data-level="3.4.4" data-path="eda-part-ii.html"><a href="eda-part-ii.html#eda_mds"><i class="fa fa-check"></i><b>3.4.4</b> Sample Distances using MDS</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://bioinf.nl">
+Part of the bioinformatics study @ the Hanze University of Applied Sciences</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Analysis of Gene Expression</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="chapter-3" class="section level1">
+<h1><span class="header-section-number"></span> Exploratory Data Analysis</h1>
+<p>We will be performing some exploratory data analysis with the goal of getting to grips with your chosen data set to properly identify a strategy for the actual analysis steps. During this exploration we will also keep an eye on the quality of the data. Even though the downloadable data is ‘processed’, there might be samples present that deviate too much from the other group of samples (a so called <em>outlier</em>). Another problem that might surface with your data is a <em>sample-swap</em>, where two samples are labeled incorrectly. There is a great deal of administration required when researchers want to publish their data, and such mistakes can happen. Creating basic visualizations of the data will give the necessary insight before we continue. We first start by downloading and loading in the actual <strong>count</strong> data.</p>
+<div id="expl-data" class="section level2">
+<h2><span class="header-section-number">3.1</span> Exploring the Available Project Data</h2>
+<p>Whether you’ve found a dataset through NCBI’s <em>Short Read Archive</em> or the <em>Gene Expression Omnibus</em>, we want to get the data into R to start working with it. For now, we will only download the <strong>count data</strong> which is most likely stored in a <code>TXT</code> or <code>XLS(X)</code> file format:</p>
+<p><strong>Data formats</strong>:</p>
+<ul>
+<li><strong>TXT</strong>: simple text file containing a minimum of two columns (either tab or comma separated containing i.e. gene / transcript identifier and one of the above mentioned data types).
+<ul>
+<li>However it can also contain up to 10 data columns either including more information regarding the gene/ transcript (i.e. gene ID, name, symbol, chromosome, start/ stop position, length, etc.) or more numerical columns (i.e. raw read count, normalized readcount, FPKM, etc.).</li>
+</ul></li>
+<li><strong>XLS(X)</strong>: Microsoft Excel file containing the same data columns as mentioned in the TXT files.</li>
+</ul>
+<p><strong>Data types</strong>:</p>
+<ul>
+<li><strong>Read Count</strong> (simple <em>raw</em> count of mapped reads to a certain gene or transcript).</li>
+<li><strong>FPKM</strong> (Fragments Per Kilobase Million, <strong>F</strong> for <em>Fragment</em>, paired-end sequencing),</li>
+<li><strong>RPKM</strong> (Reads Per Kilobase Million, <strong>R</strong> for <em>Read</em>, single-end sequencing),
+<ul>
+<li><strong>Note</strong>: if you want to use this, make sure that the raw data is <em>actually</em> single-end (should be stated in the article)</li>
+</ul></li>
+<li><strong>TPM</strong> (Transcripts Per Kilobase Million, <strong>T</strong> for <em>Transcript</em>, technique independent),</li>
+</ul>
+<p><strong>Layouts</strong></p>
+<ul>
+<li>Either one or more files <strong>per sample</strong> with one of the above data types or</li>
+<li>One file containing the data types for <strong>all samples</strong> (with the samples as data columns in the file)</li>
+</ul>
+<p><strong>Please watch</strong> the video and read the page found at the <a href="http://www.rna-seqblog.com/rpkm-fpkm-and-tpm-clearly-explained/">RNA-Seq blog</a> regarding the meaning and calculation of the above mentioned expression data formats or a more technical document found at <a href="https://haroldpimentel.wordpress.com/2014/05/08/what-the-fpkm-a-review-rna-seq-expression-units/">The farrago blog page</a>.</p>
+<p>On GEO you can see what data <em>might</em> be availalbe in the <code>Supplementary</code> column, as shown below:</p>
+<div class="figure">
+<img src="chapters/images/geo_data-overview.png" alt="Finding an experiment on GEO with a TXT file as supplementary data" width="1114" />
+<p class="caption">
+(#fig:GEO_RNA-Seq)Finding an experiment on GEO with a TXT file as supplementary data
+</p>
+</div>
+<p>This overview on GEO contains many links which are <em>not</em> direct links to the items for that dataset, but can be used as <em>filter</em> for browsing the results. If you want to actually download the data, click on the <strong>GSE</strong> identifier (first column) which brings you to an overview for this experiment containing a lot of information about the experiment (subject, research institute, publication, design, etc.) and links to each individual sample (<strong>GSM</strong> identifier). Following the link to a sample shows information on how this sample was retrieved with often many (lab) protocols used. Sometimes there is a segment regarding “<em>Data Processing</em>” that refers to techniques and software used for the full analysis and might contain something like:</p>
+<blockquote>
+<p>… Differential expression testing between sample groups was performed in Rstudio (v. 1.0.36) using DESeq2 (v.1.14.1) …</p>
+</blockquote>
+<p>Back on the experiment overview page you’ll see a (variable) number of links to data files belonging to this experiment, see . For now we are only interested in the count-data which is stored in the <code>TXT</code>-file (see the column <code>File type/resource</code>) called <code>GSE97406_RAW.tar</code>. This file contains <em>all</em> the data that we need, even though it is only <strong>220Kb</strong> in size where the experiment started with about <strong>5Gb</strong> of read-data for a small bacteria:</p>
+<p>As a bioinformatician we love to compress all the files so for this particular example, we download the <code>tar</code>-archive file, extract it to find a folder with another archive file for each sample. After extracting these files we end up with 12 <code>TXT</code>-files with just two columns; a <em>gene</em> identifier and a semi-raw <em>count</em> value (~4500 rows of data per sample):</p>
+<table>
+<caption><span id="tab:foo">Table 3.1: </span> Contents of a <code>TXT</code>-file for sample <a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM2563998"><code>GSM2563998</code></a></caption>
+<thead>
+<tr class="header">
+<th>Gene ID</th>
+<th>Count Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>aaaD</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>aaaE</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>aaeA</td>
+<td>3</td>
+</tr>
+<tr class="even">
+<td>aaeB</td>
+<td>3</td>
+</tr>
+<tr class="odd">
+<td>aaeR</td>
+<td>50</td>
+</tr>
+<tr class="even">
+<td>aaeX</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>aas</td>
+<td>118</td>
+</tr>
+<tr class="even">
+<td>aat</td>
+<td>43</td>
+</tr>
+<tr class="odd">
+<td>abgA</td>
+<td>6</td>
+</tr>
+<tr class="even">
+<td>abgB</td>
+<td>21</td>
+</tr>
+<tr class="odd">
+<td>abgR</td>
+<td>56</td>
+</tr>
+<tr class="even">
+<td>abgT</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>abrB</td>
+<td>11</td>
+</tr>
+<tr class="even">
+<td>accA</td>
+<td>453</td>
+</tr>
+<tr class="odd">
+<td>accB</td>
+<td>2492</td>
+</tr>
+<tr class="even">
+<td>accC</td>
+<td>1197</td>
+</tr>
+</tbody>
+</table>
+<p>Other experiments combine their samples in a single file where each column represents a sample. If you do get an experiment with one file per sample, it’s a small task to combine these (just a few lines of R-code).</p>
+</div>
+<div id="loading-data" class="section level2">
+<h2><span class="header-section-number">3.2</span> Loading data into R</h2>
+<p>R works best with data in simple text formats. If your project data is offered as an Excel file it is therefore advised to open it in Excel (or OpenOffice Calc) and save/ export the file as a <em>tab-separated</em> text file, alternatively you can search for how to import an Excel file into R.</p>
+<p>Once you have one or more column based text files they can be read into R simply by using the <code>read.table()</code> function.</p>
+<p>Follow the following steps to read in the data and start the exploratory data analysis. The resulting document should be semi-treated as a lab journal where you log the process from loading the data to the final analysis steps.</p>
+<ul>
+<li>Open RStudio</li>
+<li>Create a new R Markdown document
+<ul>
+<li>Give it a proper title and select the <strong>PDF</strong> format</li>
+</ul></li>
+<li>Give the document some structure; e.g. create a segment called <em>Exploratory Data Analysis</em> for this week’s work.</li>
+<li>Whenever you add code to your document make sure that it is both readable (keep the maximum line length &lt; 100 if possible) and there is sufficient documentation either by text <strong>around</strong> the code ‘chunks’ or by using comments <strong>in</strong> the code chunk.</li>
+<li>Read in the data file(s)
+<ul>
+<li>For the remainder of the document, try to show either the contents, structure or - in this case - dimensions of relevant R objects
+<ul>
+<li>Show the first five lines of the loaded data set. Including tables in a markdown document can be done using the <code>pander</code> function from the <code>pander</code><span class="citation">(Daróczi and Tsegelskyi <a href="#ref-R-pander">2017</a>)</span> R-library.</li>
+<li>Give the dimensions (with <code>dim()</code> and the structure (with <code>str()</code>) of the loaded data set.</li>
+<li>Check the output of the <code>str</code> function to see if all columns are of the expected R data type (e.g. <code>values</code>, <code>factors</code>, <code>character</code>, etc.)</li>
+</ul></li>
+</ul></li>
+<li>Examine the samples included in the experiment and create as many R character objects as needed to store the classification.
+<ul>
+<li>For instance, if you have eight samples divided into case/ control columns you create an object called <code>case</code> in which you store the column <strong>indices</strong> of the respective columns in the data set and an object called <code>control</code> with the remaining four data column <strong>indices</strong>. These are for later use.</li>
+</ul></li>
+</ul>
+<p>If you want to include including external images to your log and to better control properties such as <em>height</em> and <em>width</em> for individual images you can use the following code (requires the import of the <code>png</code> and <code>grid</code> libraries). Note: the code below is an <em>example</em> and you need to replace the <code>ImageToInclude.png</code> file reference to an actual image.):</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="co"># Use the following to the code chunk header to control figure height and width:</span></a>
+<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="co">#    {r, fig.height=5, fig.width=4, echo=FALSE}</span></a>
+<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="kw">library</span>(png)</a>
+<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="kw">library</span>(grid)</a>
+<a class="sourceLine" id="cb2-5" data-line-number="5">img &lt;-<span class="st"> </span><span class="kw">readPNG</span>(<span class="st">&quot;ImageToInclude.png&quot;</span>)</a>
+<a class="sourceLine" id="cb2-6" data-line-number="6"><span class="kw">grid.raster</span>(img)</a></code></pre></div>
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-R-pander">
+<p>Daróczi, Gergely, and Roman Tsegelskyi. 2017. <em>Pander: An R ’Pandoc’ Writer</em>. <a href="https://CRAN.R-project.org/package=pander" class="uri">https://CRAN.R-project.org/package=pander</a>.</p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="chapter-2.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="eda-part-i.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": null,
+"download": ["_main.pdf", "_main.epub", "_main.mobi"],
+"toc": {
+"collapse": "subsection"
+},
+"toolbar": {
+"position": "fixed"
+},
+"search": true
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

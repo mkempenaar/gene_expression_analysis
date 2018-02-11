@@ -1,0 +1,11 @@
+packrat/lib*/
+packrat/src*/
+.Rproj.user
+.Rprofile
+_book/
+_bookdown_files/
+.Rhistory
+.DS_Store
+.RData
+data/
+_main*.*
