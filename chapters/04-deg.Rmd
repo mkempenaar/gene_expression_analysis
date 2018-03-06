@@ -1,6 +1,6 @@
 # Discovering Differentialy Expressed Genes (DEGs) {#discover-degs}
 
-The first 'real' analysis step we will do is finding genes that show a difference in expression between sample groups; the *differentially expressed genes*. The concept might sound rather simple; calculate the ratios for all genes between samples to determine the **fold-change** (FC) denoting the factor of change in expression between groups. Then, filter out only those genes that actually show a difference. While this does give a list of genes showing different behavious across samples, we need to focus on genes that do not only show a difference, but are also *statistically significant*!
+The first 'real' analysis step we will do is finding genes that show a difference in expression between sample groups; the *differentially expressed genes*. The concept might sound rather simple; calculate the ratios for all genes between samples to determine the **fold-change** (FC) denoting the factor of change in expression between groups. Then, filter out only those genes that actually show a difference. While this does give a list of genes showing different behaviour across samples, we need to focus on genes that do not only show a difference, but are also *statistically significant*!
 
 To determine whether or not a gene can be classified as a significant DEG we are going to use - at least - two techniques:
 
@@ -9,12 +9,12 @@ To determine whether or not a gene can be classified as a significant DEG we are
 
 ## Pre-processing
 
-Given the results of the exploratory data analysis performed in [chapter 4](), you might have concluded that there are one or more samples that show (very) deviating expression patterns compared to samples from the same group. *If* you have more then enough (> 3) samples in a group, you might opt to remove a sample to reduce the noise, as the statistical tests are very sensitive to this. Since we are performing all analysis steps programatically it is also very easy to test for DEGs with and without the sample(s) in question and see if the removal results in lower p-values (= higher significance). If this is the case you can continue on without those sample(s). As always, be sure to properly document this, including the reason why you choose to remove them.
+Given the results of the exploratory data analysis performed in [chapter 3](#chapter-3), you might have concluded that there are one or more samples that show (very) deviating expression patterns compared to samples from the same group. *If* you have more then enough (> 3) samples in a group, you might opt to remove a sample to reduce the noise, as the statistical tests are very sensitive to this. Since we are performing all analysis steps programatically it is also very easy to test for DEGs with and without the sample(s) in question and see if the removal results in lower p-values (= higher significance). If this is the case you can continue on without those sample(s). As always, be sure to properly document this, including the reason why you chose to remove them.
 
-Another step we need to take - and this might be guided by your article - is to filter out (partially) inactive genes. Most datasets available contains a lot of 0-measurements, transcripts where no read has mapped. In an experiment with two groups, three replicates each, if three out of those six samples have 0-reads mapped, it is often adviced to remove the gene completely. But this can be very subjective to the experiment, it might be expected when comparing different tissues or knockout experiments. Also, genes with a (very) low read count can give a very high (artificial) FC value (see the lefthand side of an MA-plot). Comparing two samples where one has a value of 2 and the other 11, this reads as a down-regulated gene by a factor *5.5* while it might actually just be *noise*!
+Another step we need to take - and this might be guided by your article - is to filter out (partially) inactive genes. Most datasets available contains a lot of 0-measurements, transcripts where no reads have mapped. In an experiment with two groups, three replicates each, if three out of those six samples have 0-reads mapped, it is often adviced to remove the gene completely. But this can be very subjective to the experiment, it might be expected (thus important) when comparing different tissues or knockout experiments. Also, genes with a (very) low read count can give a very high (artificial) FC value (see the lefthand side of an MA-plot). Comparing two samples where one has a value of 2 and the other 11, this reads as an up-regulated gene by a factor of *5.5* while it might actually just be *noise*!
 
 * **Assignment**: Search through your article for any advice on how to filter out zero values or low count genes. If there is nothing stated on this subject, think of your own tactic (or search the literature/ online!). It is perfectly fine to discuss with your peers.
-    + Perform the filtering on your dataset. For this you will most likely need to use one of the `apply` functions, combined with for maybe the `which`, `all` and `any` functions.
+    + Perform the filtering on your dataset. For this you will most likely need to use one of the `apply` functions, combined with maybe the `which`, `all` and `any` functions.
     + Manually verify that the rows removed were correctly filtered.
     + Properly document how many genes have been filtered out! 
 
@@ -22,13 +22,23 @@ Another step we need to take - and this might be guided by your article - is to 
 
 The FC is usually given as the calculated `log2` of the *case/control* ratio. For example, gene A has an average expression of 30 mapped reads in the control group and 88 reads in the experiment group, the ratio *case/control* is `2.93`. Values > 1 indicate increased expression in the experiment in relation to the control and values between 0 and 1 indicate lower expression. The `log2(2.93)` is `1.55`. If the counts were reversed, the ratio would have been `30/88`, which is `0.34`. The previously calculated value of `2.93` means a 3-fold up regulation while the `0.34` value means 3-fold down regulation but you can see the range of numbers is very different. Comparing log2 values this would be `1.55` and `-1.55` which compares much better. 
 
-While - in R, or even Excel - it is very easy to calculate the FC for all genes at once, a simple FC value doesn't mean much, yet! We still need to use the power that lie within the replicates we have for each sample group. Using these replicates we want to determine if the observed FC is not just biological noise or a sequencing error. If a calculated FC shows a large change in expression between groups this means nothing if the variation *within* a group is very high. For this reason we use some form of statistical test that checks both the variation in each group *and* the difference between groups of samples. In the simplest form this usually comes down to using a [*t*-test](https://en.wikipedia.org/wiki/Student%27s_t-test):
+While it is very easy to calculate the FC for all genes at once, a simple FC value doesn't mean much, yet! We still need to use the power that lie within the replicates we have for each sample group. Using these replicates, we want to determine if the observed FC is not just biological noise or a sequencing error.
+
+**Challenge**: Create a `histogram` of your log2-FC values for *all* genes. Apply the following steps to do this (note, we will do something similar later on too):
+
+* average the replicates,
+* calculate the ratios,
+* perform a log2-transformation (now you have the log2-FC values),
+* plot the data using the `hist(logFC_column, breaks=60)` function (change the `breaks` argument if needed),
+* Add two vertical lines at `-1` and `1` (using `abline(v=...)`) to indicate some significance (2-fold change).
+
+If a calculated FC shows a large change in expression between groups this means nothing if the variation *within* a group is very high. For this reason we use some form of statistical test that checks both the variation in each group *and* the difference between groups of samples. In the simplest form this usually comes down to using a [*t*-test](https://en.wikipedia.org/wiki/Student%27s_t-test):
 
 > "It can be used to determine if two sets of data are significantly different from each other"
 
 It does however depend on your experimental setup when it comes down to deciding the proper statistical test to perform and for that it is best to look at your experiment article to see what the authors used for method.
 
-The output of finding DEG's is always includes - but is not limited to -  a list of p-values, usually one p-value per gene. This value indicates whether that gene is a *statistically differentially expressed gene* (SDEG) and to find these genes of interest all we need to do is get all genes with a p-value below our threshold (i.e. `0.05`). Because we will get at least two p-values per gene (one found using manually statistical testing and one through the use of a library) we can make multiple selections, i.e. compare methods, find genes that have a low p-value in both methods and visualize these results in a *venn-diagram* (see section [visualization](#deg-visualization)).
+The output of finding DEG's always includes - but is not limited to - a list of p-values, usually one p-value per gene. This value indicates whether that gene is a *statistically differentially expressed gene* (SDEG) and to find these genes of interest all we need to do is get all genes with a p-value below our threshold (i.e. `0.05`). Because we will get at least two p-values per gene (one found using manually statistical testing and one through the use of a library) we can make multiple selections, i.e. compare methods, find genes that have a low p-value in both methods and visualize these results in a *venn-diagram* (see section [visualization](#deg-visualization)).
 
 ## Using Manual Methods (`t-test` & `ANOVA`) {#deg-manual}
 
@@ -57,17 +67,18 @@ Next is selecting the test to perform, the following links show diagrams that ca
 
 In order to test if one or more genes are significantly differentially expressed between two conditions one can perform a t-test. The t-test will test the *null hypothesis* that there is no difference between the mean of the two populations. Usually, if the p-value is below the significance threshold chosen (also called alpha-value, usually set at $\alpha$ `0.05`) you reject the null hypothesis and conclude that there is a significant difference between the means. Note that you need to perform a single t-test for *every* gene (row) of your data set, including all replicates for the involved group.
 
+From the output of the t-test you only need to keep the calculated *p-value*; one value per gene (row) in your data set. In R, you can append this as a column to your dataframe/ matrix containing the normalized count values.
+
 *t.test* tutorials:
 
 * [Quick-R @ statmethods](http://www.statmethods.net/stats/ttest.html)
 * [Whitehead Institute](http://jura.wi.mit.edu/bio/education/bioinfo2007/arrays/array_exercises_2R.html): based on microarray analysis, but it's still expression data and the basics are the same.
 
 ```{r .ttest_TEST, echo=FALSE, eval=FALSE}
-setwd('~/Dropbox/Hanze/Minor/Rscripts/')
 ## Testing t-test on COUNT data
 
 ## Loading new data set with count data (many samples, used for normality check)
-gse74329 <- read.table('gse74329.txt', sep = '\t', header = TRUE, row.names = 1)
+gse74329 <- read.table('../data/gse74329.txt', sep = '\t', header = TRUE, row.names = 1)
 # Create a factor with sample sets (split the colnames and convert to factor)
 sample.factor <- as.factor(sapply(strsplit(colnames(gse74329), "_", perl=FALSE), function(x) x[1]))
 sample.table <- table(sample.factor)

@@ -191,7 +191,7 @@ pander( colSums(counts) / 1e6, caption = 'Mapped reads per sample (millions)')
 The numbers shown in `Table 2` immediately clearify that it is not just the experimental condition that might have caused this large difference between sample counts but the sequencing depth shows a substantial difference too. One more reason that we will normalize the data with `DESeq2`'s `rlog` method. Check the `Packages` tab in Rstudio to see if you have the `DESeq2` package installed and load it with the `library` command. If you are missing this package, install and load the library using the code below:
 
 ```{r biocLite_DESeq2, eval=FALSE, echo=TRUE}
-# Install if the library is not available
+# Install -if- the library is not available
 source('http://bioconductor.org/biocLite.R')
 biocLite('DESeq2')
 

@@ -36,11 +36,11 @@ The aim is to keep to the below schedule during this course. Use the first two w
 
 The final grade consists of a weighted average of the work done for weeks 1 & 2 (resulting in the *project proposal*) (**15%**), the *lab journal* containing all performed steps, their code and outputs (**50%**), the *article* report *and* poster (**25%**) and finally your *work attitude* (**10%**). A grade higher then a **5.5** will give a total of 5 EC. The rest of this chapter explains the expected contents for the three graded products (each of these elements is explained in greater detail in other chapters).
 
-### Project Proposal
+## Project Proposal
 
 As you are free to choose from thousands of public data sets on a large variety of biological subjects, it is important to demonstrate a good understanding of the experiment, biology and the available data. This is demonstrated by presenting a short project proposal where you briefly explain the subject of the chosen research article, the experimental setup (how many samples were used, etc.) and what types of data are available for you to use.
 
-### Keeping a Log (a *lab journal*)
+## *Lab Journal*
 
 As you know from previous projects and (maybe from) working in the laboratory, it is essential to keep a proper lab journal detailing every step you have done during the experiment. The log is to be kept in an R markdown file, showing which steps have been taken in the analysis of the data set. This markdown should be *knitted* into a single PDF-file once the project is completed thus containing text detailling the steps and any decisions you've made, R-code (always visible!) and their resulting output/ images. As a general advice; do not wait with knitting this whole document until the project is done!
 
@@ -48,7 +48,7 @@ As you know from previous projects and (maybe from) working in the laboratory, i
 
 The final report is written in article form which is a bit different from a usual report, mainly in its size. The article-report has a *maximum* number of pages of **4** including all images and references (no appendices!). Contents for this article should be extracted from the lab journal combined with part introduction and part conclusion/ discussion. The sections below describe a template that is available for writing this report and example report(s) will be made available for inspiration. Refer to this chapter again once you start writing the report.
 
-### Installing RStudio Templates
+### Installing the Article Template
 
 The templates are available in an R package and contains both `RMarkdown` and \LaTeX (another layer on top of the actual [\TeX markup language](https://nl.wikipedia.org/wiki/TeX), yes, another language...) files. RStudio can use templates for a number of documents, including article-templates. These templates can be installed from a package called `rticles` by running the `install.packages` function (note: might already be installed):
 
@@ -56,11 +56,11 @@ The templates are available in an R package and contains both `RMarkdown` and \L
 install.packages("rticles", type = "source")
 ```
 
-### Using the template
+### Using the Template
 
-Now that you have the templates package (`rticles`) installed you can download and use the template project (ZIP-file) available from [https://github.com/mkempenaar/BFVH15CAPSTONE/blob/BFVH3TH7_2018_dev/article/report-template.zip](https://github.com/mkempenaar/BFVH15CAPSTONE/blob/BFVH3TH7_2018_dev/article/report-template.zip). Download this file to your project folder, extract its contents and open the `report-template.Rmd` file contained within the folder in RStudio. Verify that everything is setup correctly by hitting the `Knit` button at the top, this should create a PDF version of the report. Note that - somehow - the resulting PDF file is named `RJwrapper.pdf` instead of the expected `report-template.pdf`. If everything checks out ok you can rename the file to your liking and start editing.
+Now that you have the templates package (`rticles`) installed you can download and use the template project (ZIP-file) available from [the course website](https://mkempenaar.github.io/gene_expression_analysis/article/report-template.zip). Download this file to your project folder, extract its contents and open the `report-template.Rmd` file contained within the folder in RStudio. Verify that everything is setup correctly by hitting the `Knit` button at the top, this should create a PDF version of the report. Note that - somehow - the resulting PDF file is named `RJwrapper.pdf` instead of the expected `report-template.pdf`. If everything checks out ok you can rename the file to your liking and start editing.
 
-This template is based on the `R Journal Submission` template that you can also find in RStudio in the `New file -> R Markdown -> From Template` menu. Articles published in the `R-journal` are based on this template which you can browse for inspiration at the [R Journal Website]((https://journal.r-project.org/archive/2015-2/). 
+This template is based on the `R Journal Submission` template that you can also find in RStudio in the `New file -> R Markdown -> From Template` menu. Articles published in the `R-journal` are based on this template which you can browse for inspiration at the [R Journal Website](https://journal.r-project.org/archive/2015-2/). 
 
 The available template shows an *example* of segments/ chapters and briefly describes what each section could or should contain. If you want to write your report in the Dutch language, you can create a new file from the template and change the segment names and content to Dutch. There will however still be some headings added by the template in English which is fine with me, but if you want to keep everything Dutch you can either edit the `RJournal.sty` file manually (*not recommended*) or start a new file by yourself and add some nice headings and page options. 
 
