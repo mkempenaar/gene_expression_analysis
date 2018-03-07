@@ -103,6 +103,8 @@ Follow the following steps to read in the data and start the exploratory data an
         * Check the output of the `str` function to see if all columns are of the expected R data type (e.g. `values`, `factors`, `character`, etc.)
 * Examine the samples included in the experiment and create as many R character objects as needed to store the classification.
     + For instance, if you have eight samples divided into case/ control columns you create an object called `case` in which you store the column **indices** of the respective columns in the data set and an object called `control` with the remaining four data column **indices**. These are for later use.
+    
+> **Note**: For some datasets the order in which the samples are listed in your loaded dataset is different from the order that is shown on the GEO website. Most often, the names are different too or they are lacking any description and all you have are the `GSM` IDs. When creating these variables such as `control` that need to point to all control samples, you need to make sure that you have the right columns from your dataframe. Go to [chapter 5; annotation](#download-geo) if the order is unclear or you just have a large number of samples as there might be supporting data available that can help making sense of your sample layout.
 
 If you want to include including external images to your log and to better control properties such as *height* and *width* for individual images you can use the following code (requires the import of the `png` and `grid` libraries). Note: the code below is an *example* and you need to replace the `ImageToInclude.png` file reference to an actual image.):
 
@@ -121,17 +123,19 @@ grid.raster(img)
 
 This segment describes some of the basic steps and visualizations that can be performed during Exploratory Data Analysis. In this part we work with the unnormalized count data. In part this data is normalized before analyzing it further. As mentioned above, the focus of EDA is to get an overview of the data set and while this often requires visualizing the data, these figures do not need to be very pretty. Simple figures are perfectly fine in this stage. Try to create these figures for your own data (and keep them in your log).
 
-Also note that these steps are just a selection. Furthermore, make sure that for every visualization you make, add proper axis-labels containing the measurement units (important!). 
+Also note that these steps are just a selection. Furthermore, make sure that for every visualization you make, add proper axis-labels containing the measurement units (important!). The following three plots are based on [GSE74329](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE74329) titled *Transcriptome anlaysis of gastrointestinal tract of pre-weaned cavles*. As you might be able to see, all values are *log-transformed* using the `log2` because very often the numerical values have a very high range which will 'hide' the details on the plots. See the section about the [Fold Change value](#deg-fc) in chapter 4 for further details. It is fine to use non-log-transformed (simply the raw-)data, otherwise use for instance `boxplot(log2(dataset))` for plotting.
+
+> **Note**: instead of using the basic R-plotting library (i.e. `plot`, `boxplot`, `hist`, etc.) you can also opt for using the (challenging) [`ggplot2`](http://ggplot2.tidyverse.org/index.html) library that is also used for the following three figures. While constructing a `ggplot2` plot feels like learning yet another language, there are many resources available online that you can follow.
 
 ### Statistics {#eda_statistics}
 
-Even the most basic statistics can give some insight into the data such as performing a 6-number-statistic on the data **columns** using the `summary()` function.
+Even the most basic statistics can give some insight into the data such as performing a 6-number-statistic on the data **columns** using the `summary()` function. Note: you can also use the `pander` function to *pretty-print* a summary from a markdown document.
 
 ### Boxplots {#eda_boxplots}
 
 A visual representation of these values can be shown in a boxplot. Boxplots are very easy to create from an R data frame object by just passing in the data columns. The following boxplot shows the data for the complete experiment with a separate boxplot for each sample.
 
-![*Boxplot comparing basic statistics for all genes across multiple samples*](chapters/images/RNAboxplot.png)
+![*Boxplot comparing basic statistics for all genes across multiple samples*](chapters/images/RNAboxplot_ggplot2.png)
 
 ### Scatterplots {#eda_scatter_plot}
 
@@ -139,15 +143,15 @@ Scatterplots are good for spotting correlations between two sets of numerical da
 
 A scatterplot can be made simply using the `plot()` functions with the `type` argument set to `p` (points). To show the correlation more clearly you can add a *linear regression* line using `abline(lm(y ~ x, col='red', lwd=2)`. If the regression line points more downwards from the diagonal, the values in sample `x` are higher and vice versa.
 
-![*A simple scatterplot showing the correlation between two samples or experiments (see the text above). This image shows the values log2 transformed which in most cases gives a clearer picture.*](chapters/images/RNAscatterplot.png)
+![*A simple scatterplot showing the correlation between two samples or experiments (see the text above). This image shows the values log2 transformed which in most cases gives a clearer picture.*](chapters/images/RNAscatterplot_ggplot2.png)
 
-### MA-plots {#MA_plot}
+### MA-plot {#MA_plot}
 
 An **MA-plot** is a scatterplot comparing the average expression value per gene (**A**) against the log-fold-change (**M**; a log2 value indicating expression change across samples which is taken as the `log2(sample1 / sample2))`). The points in this plot *should* be centered around the horizontal 0-value with an even spread both above and below the line. If there are (far) more points above or below the 0 on the y-axis, there is a *bias* in the data.
 
 An MA-plot can be very helpful (it has the same constraints mentioned with the scatterplot) but might not be easy/ possible to create as this is mostly done on *normalized count data* other than FPKM or RPKM. If you have raw or normalized count data in your data set you can search various [online resources](https://en.wikipedia.org/wiki/MA_plot) on how to create this plot.
 
-![*An MA-plot showing the average normalized count values (**A**, x-axis) vs. the log2 fold-change (**M**, y-axis).*](chapters/images/RNAmaplot.png)
+![*An MA-plot showing the average normalized count values (**A**, x-axis) vs. the log2 fold-change (**M**, y-axis).*](chapters/images/RNAmaplot_ggplot2.png)
 
 
 # (PART) *EDA* Part 2 {-}
@@ -191,7 +195,7 @@ pander( colSums(counts) / 1e6, caption = 'Mapped reads per sample (millions)')
 The numbers shown in `Table 2` immediately clearify that it is not just the experimental condition that might have caused this large difference between sample counts but the sequencing depth shows a substantial difference too. One more reason that we will normalize the data with `DESeq2`'s `rlog` method. Check the `Packages` tab in Rstudio to see if you have the `DESeq2` package installed and load it with the `library` command. If you are missing this package, install and load the library using the code below:
 
 ```{r biocLite_DESeq2, eval=FALSE, echo=TRUE}
-# Install -if- the library is not available
+# Install -only if- the library is not available
 source('http://bioconductor.org/biocLite.R')
 biocLite('DESeq2')
 

@@ -10,7 +10,7 @@ The goal of this chapter is to - at least - find a Gene Symbol or common ID (NCB
 
 Even though you might be lucky and either already have your data or a simple GEO query results in everything you want/ need, you are tasked to *also* perform the manual annotation phase even of you will not use any found annotation data. Having written the code to access these sources is a good excercise in using complex Bioconductor packages. Also, you can always use this to find more information should you require this later on.
 
-## Downloading annotation data from GEO
+## Downloading annotation data from GEO {#download-geo}
 
 Given the `GSE****` id of your experiment you can download any available (annotation)data from GEO using the `GEOquery` library. For the example experiment used previously, the following code downloads two files; a `series_matrix.txt.gz` file and a `.soft` file. Note the `destdir` argument for storing it in a known location instead of the `/tmp` folder.
 
