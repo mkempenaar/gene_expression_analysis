@@ -500,16 +500,16 @@ vs WT</td>
 </table>
 <p>The package also contains a few plotting methods that you can use at intermediate steps during the analysis. For instance, after calculating the normalization factors (<code>calcNormFactors</code>), you can perform multi-dimensional scaling with the <code>plotMDS</code> function:</p>
 <div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1"><span class="kw">plotMDS</span>(y)</a></code></pre></div>
-<p><img src="_main_files/figure-html4/unnamed-chunk-1-1.png" width="672" /></p>
+<p><img src="gene_expression_files/figure-html4/unnamed-chunk-1-1.png" width="672" /></p>
 <p>Or the <em>dispersion</em> after running the <code>estimateDisp</code> function with the <code>plotBCV</code> function:</p>
 <div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" data-line-number="1"><span class="kw">plotBCV</span>(y)</a></code></pre></div>
-<p><img src="_main_files/figure-html4/unnamed-chunk-2-1.png" width="672" /></p>
+<p><img src="gene_expression_files/figure-html4/unnamed-chunk-2-1.png" width="672" /></p>
 <p>Or the log-fold changes for all genes, once we have the output of the <code>exactTest</code> function (output <code>et</code> is an <code>DGEExact</code> object) with the <code>plotSmear</code> function. The <code>abline</code> shows a log-FC threshold:</p>
 <div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" data-line-number="1">deGenes &lt;-<span class="st"> </span><span class="kw">decideTestsDGE</span>(et, <span class="dt">p=</span><span class="fl">0.001</span>)</a>
 <a class="sourceLine" id="cb31-2" data-line-number="2">deGenes &lt;-<span class="st"> </span><span class="kw">rownames</span>(et)[<span class="kw">as.logical</span>(deGenes)]</a>
 <a class="sourceLine" id="cb31-3" data-line-number="3"><span class="kw">plotSmear</span>(et, <span class="dt">de.tags=</span>deGenes)</a>
 <a class="sourceLine" id="cb31-4" data-line-number="4"><span class="kw">abline</span>(<span class="dt">h=</span><span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>), <span class="dt">col=</span><span class="dv">2</span>)</a></code></pre></div>
-<p><img src="_main_files/figure-html4/unnamed-chunk-3-1.png" width="672" /></p>
+<p><img src="gene_expression_files/figure-html4/unnamed-chunk-3-1.png" width="672" /></p>
 <p><strong>Links</strong></p>
 <ul>
 <li><a href="http://bioinformatics-core-shared-training.github.io/cruk-bioinf-sschool/Day3/rnaSeq_DE.pdf">Differential Expression Analysis using edgeR</a> tutorial</li>
