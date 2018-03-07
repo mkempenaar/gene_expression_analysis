@@ -133,7 +133,9 @@ Even the most basic statistics can give some insight into the data such as perfo
 
 ### Boxplots {#eda_boxplots}
 
-A visual representation of these values can be shown in a boxplot. Boxplots are very easy to create from an R data frame object by just passing in the data columns. The following boxplot shows the data for the complete experiment with a separate boxplot for each sample.
+A visual representation of these values can be shown in a boxplot. Boxplots are very easy to create from an R data frame object by just passing in the data columns. The following boxplot shows the data for an experiment with a separate boxplot for each sample. This allows a quick overview for spotting irregularities (i.e. checking if the replicates within a sample-group show similar expression profiles). Of course if we consider the amount of data in this single plot, it can only hint at any problems, we need to look in much more detail when doing quality control. Creating a boxplot from a `dataframe` is easy, but as we can see with using the `summary` function; the data has a large range with the maximum and average values being very far apart. This will create a lot of *outliers* in the plot which will be interesting later on, but for the boxplot we can either:
+* hide them completely using the `outliers = FALSE` argument to `boxplot()` (do say so in the figure description!), or
+* perform a `log2()` transformation as you can see below.
 
 ![*Boxplot comparing basic statistics for all genes across multiple samples*](chapters/images/RNAboxplot_ggplot2.png)
 

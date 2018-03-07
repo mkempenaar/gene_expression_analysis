@@ -57,11 +57,11 @@ counts.fpm <- log2( fpm(ddsMat, robust = TRUE) )
 
 Next is selecting the test to perform, the following links show diagrams that can be used once the experimental design is known:
 
-*What test to use* links
+*What test to use* links:
 
 * [Institute for Digital Research and Education](https://stats.idre.ucla.edu/other/mult-pkg/whatstat/choosestat-html/)
 * [Biochemia - image at the bottom of the article](http://www.biochemia-medica.com/content/comparing-groups-statistical-differences-how-choose-right-statistical-test)
-* [PracicallyScience](http://www.practicallyscience.com/wp-content/uploads/2015/07/significance-tests-v4-op2.jpg)
+* [PracticallyScience](http://www.practicallyscience.com/wp-content/uploads/2015/07/significance-tests-v4-op2.jpg)
 
 ### Students T-test {#deg-ttest}
 
