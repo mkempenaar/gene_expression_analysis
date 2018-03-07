@@ -9,3 +9,4 @@ _bookdown_files/
 .RData
 data/
 _main*.*
+.DS_Store
