@@ -179,6 +179,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.5.3" data-path="chapter-4.html"><a href="chapter-4.html#deg-edger"><i class="fa fa-check"></i><b>4.5.3</b> <code>edgeR</code></a></li>
 </ul></li>
 </ul></li>
+<li class="chapter" data-level="5" data-path="chapter-5.html"><a href="chapter-5.html"><i class="fa fa-check"></i><b>5</b> Annotating an RNA-Seq Experiment</a><ul>
+<li class="chapter" data-level="5.1" data-path="chapter-5.html"><a href="chapter-5.html#download-geo"><i class="fa fa-check"></i><b>5.1</b> Downloading annotation data from GEO</a></li>
+<li class="chapter" data-level="5.2" data-path="chapter-5.html"><a href="chapter-5.html#manually-annotate"><i class="fa fa-check"></i><b>5.2</b> Manual Data Annotation</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="chapter-5.html"><a href="chapter-5.html#annotationDBI"><i class="fa fa-check"></i><b>5.2.1</b> Using <code>AnnotationDBI</code></a></li>
+<li class="chapter" data-level="5.2.2" data-path="chapter-5.html"><a href="chapter-5.html#using-biomart"><i class="fa fa-check"></i><b>5.2.2</b> Using <code>biomaRt</code></a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="chapter-5.html"><a href="chapter-5.html#functional-annotation"><i class="fa fa-check"></i><b>5.3</b> Functional Annotation</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="chapter-5.html"><a href="chapter-5.html#gene-ontology"><i class="fa fa-check"></i><b>5.3.1</b> Gene Ontology</a></li>
+</ul></li>
+</ul></li>
 </ul>
 
       </nav>
@@ -345,7 +355,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <div class="rmdtip">
 <p>
-For some datasets the order in which the samples are listed in your loaded dataset is different from the order that is shown on the GEO website. Most often, the names are different too or they are lacking any description and all you have are the <code>GSM</code> IDs. When creating these variables such as <code>control</code> that need to point to all control samples, you need to make sure that you have the right columns from your dataframe. Go to <a href="#download-geo">chapter 5; annotation</a> if the order is unclear or you just have a large number of samples as there might be supporting data available that can help making sense of your sample layout.
+For some datasets the order in which the samples are listed in your loaded dataset is different from the order that is shown on the GEO website. Most often, the names are different too or they are lacking any description and all you have are the <code>GSM</code> IDs. When creating these variables such as <code>control</code> that need to point to all control samples, you need to make sure that you have the right columns from your dataframe. Go to <a href="chapter-5.html#download-geo">chapter 5; annotation</a> if the order is unclear or you just have a large number of samples as there might be supporting data available that can help making sense of your sample layout.
 </p>
 </div>
 <p>If you want to include including external images to your log and to better control properties such as <em>height</em> and <em>width</em> for individual images you can use the following code (requires the import of the <code>png</code> and <code>grid</code> libraries). Note: the code below is an <em>example</em> and you need to replace the <code>ImageToInclude.png</code> file reference to an actual image.):</p>

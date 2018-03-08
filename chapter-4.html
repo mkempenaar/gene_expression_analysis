@@ -33,7 +33,7 @@
   
   
 <link rel="prev" href="chapter-3.html">
-
+<link rel="next" href="chapter-5.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -177,6 +177,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.5.1" data-path="chapter-4.html"><a href="chapter-4.html#deg-design"><i class="fa fa-check"></i><b>4.5.1</b> The <code>Design</code> (matrix)</a></li>
 <li class="chapter" data-level="4.5.2" data-path="chapter-4.html"><a href="chapter-4.html#deg-deseq2"><i class="fa fa-check"></i><b>4.5.2</b> <code>DESeq2</code></a></li>
 <li class="chapter" data-level="4.5.3" data-path="chapter-4.html"><a href="chapter-4.html#deg-edger"><i class="fa fa-check"></i><b>4.5.3</b> <code>edgeR</code></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="chapter-5.html"><a href="chapter-5.html"><i class="fa fa-check"></i><b>5</b> Annotating an RNA-Seq Experiment</a><ul>
+<li class="chapter" data-level="5.1" data-path="chapter-5.html"><a href="chapter-5.html#download-geo"><i class="fa fa-check"></i><b>5.1</b> Downloading annotation data from GEO</a></li>
+<li class="chapter" data-level="5.2" data-path="chapter-5.html"><a href="chapter-5.html#manually-annotate"><i class="fa fa-check"></i><b>5.2</b> Manual Data Annotation</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="chapter-5.html"><a href="chapter-5.html#annotationDBI"><i class="fa fa-check"></i><b>5.2.1</b> Using <code>AnnotationDBI</code></a></li>
+<li class="chapter" data-level="5.2.2" data-path="chapter-5.html"><a href="chapter-5.html#using-biomart"><i class="fa fa-check"></i><b>5.2.2</b> Using <code>biomaRt</code></a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="chapter-5.html"><a href="chapter-5.html#functional-annotation"><i class="fa fa-check"></i><b>5.3</b> Functional Annotation</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="chapter-5.html"><a href="chapter-5.html#gene-ontology"><i class="fa fa-check"></i><b>5.3.1</b> Gene Ontology</a></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -489,7 +499,7 @@ vs WT</td>
 <p>“The trimmed means of M values (TMM) from Robinson and Oshlack, which is implemented in edgeR, computes a scaling factor between two experiments by using the weighted average of the subset of genes after excluding genes that exhibit high average read counts and genes that have large differences in expression.”</p>
 </blockquote>
 <p>Running edgeR requires the raw count data together with the grouping-factor packaged in a <code>DGEList</code> object (with the <code>DGEList()</code> function). Furthermore, a proper <code>model.matrix</code> object (see the section on <a href="chapter-4.html#deg-design">design</a>) is needed as input for the <code>estimateDisp</code> function. The exact steps to take (there are more variations then with DeSEQ) must be searched in the documentation linked above.</p>
-<p>Gene annotation has been added to the <code>DGEList</code> object that is used to run edgeR with the <code>genes</code> parameter. This data has been taken from the <code>AnnotationDbi</code> package as <a href="#annotationDBI">shown in chapter 5</a>.</p>
+<p>Gene annotation has been added to the <code>DGEList</code> object that is used to run edgeR with the <code>genes</code> parameter. This data has been taken from the <code>AnnotationDbi</code> package as <a href="chapter-5.html#annotationDBI">shown in chapter 5</a>.</p>
 <p>Once the analysis is done you can retrieve the actual results with the <code>topTags</code> function:</p>
 <table style="width:81%;">
 <caption>Most significant genes given by edgeR</caption>
@@ -600,20 +610,6 @@ vs WT</td>
 <li><a href="https://gist.github.com/jdblischak/11384914">Another tutorial</a> hosted on GitHub</li>
 </ul>
 
-<div id="refs" class="references">
-<div>
-<p>al., Patrick Deelen et. 2015. “Calling Genotypes from Public Rna-Sequencing Data Enables Identification of Genetic Variants That Affect Gene-Expression Levels.” <em>Genome Medicine</em> 7 (30).</p>
-</div>
-<div>
-<p>Chen, Yunshun, Aaron Lun, Davis McCarthy, Xiaobei Zhou, Mark Robinson, and Gordon Smyth. 2018. <em>EdgeR: Empirical Analysis of Digital Gene Expression Data in R</em>. <a href="http://bioinf.wehi.edu.au/edgeR" class="uri">http://bioinf.wehi.edu.au/edgeR</a>.</p>
-</div>
-<div>
-<p>Daróczi, Gergely, and Roman Tsegelskyi. 2017. <em>Pander: An R ’Pandoc’ Writer</em>. <a href="https://CRAN.R-project.org/package=pander" class="uri">https://CRAN.R-project.org/package=pander</a>.</p>
-</div>
-<div>
-<p>Love, Michael, Simon Anders, and Wolfgang Huber. 2017. <em>DESeq2: Differential Gene Expression Analysis Based on the Negative Binomial Distribution</em>. <a href="https://github.com/mikelove/DESeq2" class="uri">https://github.com/mikelove/DESeq2</a>.</p>
-</div>
-</div>
 </div>
 </div>
 </div>
@@ -622,8 +618,8 @@ vs WT</td>
           </div>
         </div>
       </div>
-<a href="chapter-3.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="chapter-3.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="chapter-5.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
