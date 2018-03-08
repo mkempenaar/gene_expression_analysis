@@ -25,7 +25,7 @@
 <meta name="author" content="Marcel Kempenaar">
 
 
-<meta name="date" content="2018-03-07">
+<meta name="date" content="2018-03-08">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -152,17 +152,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3" data-path="chapter-3.html"><a href="chapter-3.html"><i class="fa fa-check"></i><b>3</b> Exploratory Data Analysis</a><ul>
 <li class="chapter" data-level="3.1" data-path="chapter-3.html"><a href="chapter-3.html#expl-data"><i class="fa fa-check"></i><b>3.1</b> Exploring the Available Project Data</a></li>
 <li class="chapter" data-level="3.2" data-path="chapter-3.html"><a href="chapter-3.html#loading-data"><i class="fa fa-check"></i><b>3.2</b> Loading data into R</a></li>
-</ul></li>
-<li class="part"><span><b>I <em>EDA</em> Part 1</b></span><ul>
-<li class="chapter" data-level="3.3" data-path="chapters/04-deg.html"><a href="#EDA_part1"><i class="fa fa-check"></i><b>3.3</b> Visualizing using <code>summary</code>, <code>boxplot</code>, <code>scatterplot</code> &amp; <code>MA-plot</code></a><ul>
+<li class="chapter" data-level="3.3" data-path="chapter-3.html"><a href="chapter-3.html#EDA_part1"><i class="fa fa-check"></i><b>3.3</b> Visualizing using <code>summary</code>, <code>boxplot</code>, <code>scatterplot</code> &amp; <code>MA-plot</code></a><ul>
 <li class="chapter" data-level="3.3.1" data-path="chapter-3.html"><a href="chapter-3.html#eda_statistics"><i class="fa fa-check"></i><b>3.3.1</b> Statistics</a></li>
 <li class="chapter" data-level="3.3.2" data-path="chapter-3.html"><a href="chapter-3.html#eda_boxplots"><i class="fa fa-check"></i><b>3.3.2</b> Boxplots</a></li>
 <li class="chapter" data-level="3.3.3" data-path="chapter-3.html"><a href="chapter-3.html#eda_scatter_plot"><i class="fa fa-check"></i><b>3.3.3</b> Scatterplots</a></li>
 <li class="chapter" data-level="3.3.4" data-path="chapter-3.html"><a href="chapter-3.html#MA_plot"><i class="fa fa-check"></i><b>3.3.4</b> MA-plot</a></li>
 </ul></li>
-</ul></li>
-<li class="part"><span><b>II <em>EDA</em> Part 2</b></span><ul>
-<li class="chapter" data-level="3.4" data-path="chapters/04-deg.html"><a href="#EDA_part2"><i class="fa fa-check"></i><b>3.4</b> Visualizing using <code>heatmap</code>, <code>MDS</code> &amp; <code>PCA</code></a><ul>
+<li class="chapter" data-level="3.4" data-path="chapter-3.html"><a href="chapter-3.html#EDA_part2"><i class="fa fa-check"></i><b>3.4</b> Visualizing using <code>heatmap</code>, <code>MDS</code> &amp; <code>PCA</code></a><ul>
 <li class="chapter" data-level="3.4.1" data-path="chapter-3.html"><a href="chapter-3.html#normalization"><i class="fa fa-check"></i><b>3.4.1</b> Normalization</a></li>
 <li class="chapter" data-level="3.4.2" data-path="chapter-3.html"><a href="chapter-3.html#eda_distance"><i class="fa fa-check"></i><b>3.4.2</b> Distance Calculation</a></li>
 <li class="chapter" data-level="3.4.3" data-path="chapter-3.html"><a href="chapter-3.html#eda_heatmap"><i class="fa fa-check"></i><b>3.4.3</b> Sample Distances using a Heatmap</a></li>
@@ -248,10 +244,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Performing the statistical tests yourself consists of performing either a t-test or an ANOVA based analysis. Both of these methods have multiple forms and the one to choose fully depends on what question you’d like to ask. Again, refer to your experimental setup and any hints found in the article <em>or</em> formulate your own question and base the decision on that.</p>
 <p>Manually performing a t-test or ANOVA on gene expression opposed to using one of the specialized libraries can have advantages since every gene is processed individually, while <code>edgeR</code> and <code>DESeq2</code> look at <em>all</em> genes and this might ‘smooth’ the results which is not always wanted. We will find out later if and how this affects your data set.</p>
 <p>If your data <strong>only</strong> consists of the read counts there is an extra normalisation step to perform (only for the manual methods explained in this section, keep the count data stored as well!). One generally accepted method of normalizing count data is to calculate the <em>fragments per million mapped fragments</em> (FPM) value and then transform this with log2. Opposed to FPKM and RPKM this does not include the gene-length in its calculation (which you most likely don’t have) but as said before we apply the test per gene and do not need to compare multiple genes. If your dataset also includes FPKM or RPKM (pre-normalized), you are allowed to use this data too. Always clearly document if you did so! Once you performed a manual statistical text, be sure to read the section on <a href="chapter-4.html#deg-mtc">Multiple Testing Correction</a> further on in this chapter.</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1"><span class="co"># Perform FPM normalization using DESeq2 &#39;fpm&#39; and perform log2 transformation</span></a>
-<a class="sourceLine" id="cb20-2" data-line-number="2"><span class="co"># The &#39;ddsMat&#39; object is the &#39;DESeqDataSet&#39; created in chapter 4.</span></a>
-<a class="sourceLine" id="cb20-3" data-line-number="3"><span class="co"># </span><span class="al">NOTE</span><span class="co">: only for count data</span></a>
-<a class="sourceLine" id="cb20-4" data-line-number="4">counts.fpm &lt;-<span class="st"> </span><span class="kw">log2</span>( <span class="kw">fpm</span>(ddsMat, <span class="dt">robust =</span> <span class="ot">TRUE</span>) )</a></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1"><span class="co"># Perform FPM normalization using DESeq2 &#39;fpm&#39; and perform log2 transformation</span></a>
+<a class="sourceLine" id="cb19-2" data-line-number="2"><span class="co"># The &#39;ddsMat&#39; object is the &#39;DESeqDataSet&#39; created in chapter 4.</span></a>
+<a class="sourceLine" id="cb19-3" data-line-number="3"><span class="co"># </span><span class="al">NOTE</span><span class="co">: only for count data</span></a>
+<a class="sourceLine" id="cb19-4" data-line-number="4">counts.fpm &lt;-<span class="st"> </span><span class="kw">log2</span>( <span class="kw">fpm</span>(ddsMat, <span class="dt">robust =</span> <span class="ot">TRUE</span>) )</a></code></pre></div>
 <p>Next is selecting the test to perform, the following links show diagrams that can be used once the experimental design is known:</p>
 <p><em>What test to use</em> links:</p>
 <ul>
@@ -261,8 +257,92 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <div id="deg-ttest" class="section level3">
 <h3><span class="header-section-number">4.3.1</span> Students T-test</h3>
-<p>In order to test if one or more genes are significantly differentially expressed between two conditions one can perform a t-test. The t-test will test the <em>null hypothesis</em> that there is no difference between the mean of the two populations. Usually, if the p-value is below the significance threshold chosen (also called alpha-value, usually set at <span class="math inline">\(\alpha\)</span> <code>0.05</code>) you reject the null hypothesis and conclude that there is a significant difference between the means. Note that you need to perform a single t-test for <em>every</em> gene (row) of your data set, including all replicates for the involved group.</p>
-<p>From the output of the t-test you only need to keep the calculated <em>p-value</em>; one value per gene (row) in your data set. In R, you can append this as a column to your dataframe/ matrix containing the normalized count values.</p>
+<p>In order to test if one or more genes are significantly differentially expressed between two conditions one can perform a t-test. The t-test will test the <em>null hypothesis</em> that there is no difference between the mean of the two populations. Usually, if the p-value is below the significance threshold chosen (also called alpha-value, usually set at <span class="math inline">\(\alpha\)</span> <code>0.05</code>) you reject the null hypothesis and conclude that there is a significant difference between the means.</p>
+<div class="rmdtip">
+<p>
+Note that it is necessary to perform a single t-test for <em>every</em> gene (row) of your data set, including all replicates for the involved group. This means that you need to either use one of the <code>apply()</code> set of functions or find a different method (there is one specifically for this problem) to make sure that you test each gene separately. From the output of the t-test you only need to keep the calculated <em>p-value</em>; one value per gene (row) in your data set. In R, you can append this as a column to your dataframe/ matrix containing the normalized count values.
+</p>
+</div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1">## Loading data set with count data (71 samples, 21000+ genes)</a>
+<a class="sourceLine" id="cb20-2" data-line-number="2">gse74329 &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&#39;data/gse74329.txt&#39;</span>, <span class="dt">sep =</span> <span class="st">&#39;</span><span class="ch">\t</span><span class="st">&#39;</span>, <span class="dt">header =</span> <span class="ot">TRUE</span>, <span class="dt">row.names =</span> <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb20-3" data-line-number="3">case &lt;-<span class="st"> </span><span class="dv">14</span><span class="op">:</span><span class="dv">18</span></a>
+<a class="sourceLine" id="cb20-4" data-line-number="4">control &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">3</span></a>
+<a class="sourceLine" id="cb20-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb20-6" data-line-number="6">## Executing single t-test for single gene (row 1)</a>
+<a class="sourceLine" id="cb20-7" data-line-number="7">test &lt;-<span class="st"> </span><span class="kw">t.test</span>(gse74329[<span class="dv">5000</span>, case], gse74329[<span class="dv">5000</span>, control])</a></code></pre></div>
+<table style="width:100%;">
+<caption>Data for t-test, RU_42 (case) vs RU_0 (control)</caption>
+<colgroup>
+<col width="24%" />
+<col width="8%" />
+<col width="8%" />
+<col width="8%" />
+<col width="9%" />
+<col width="9%" />
+<col width="9%" />
+<col width="9%" />
+<col width="9%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center"> </th>
+<th align="center">RU_0_1</th>
+<th align="center">RU_0_2</th>
+<th align="center">RU_0_3</th>
+<th align="center">RU_42_1</th>
+<th align="center">RU_42_2</th>
+<th align="center">RU_42_3</th>
+<th align="center">RU_42_4</th>
+<th align="center">RU_42_5</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><strong>ENSBTAG00000007712</strong></td>
+<td align="center">27</td>
+<td align="center">32</td>
+<td align="center">37</td>
+<td align="center">18</td>
+<td align="center">21</td>
+<td align="center">21</td>
+<td align="center">18</td>
+<td align="center">18</td>
+</tr>
+</tbody>
+</table>
+<p>The following table shows the numeric values from performing a t-test. Here we see that this gene is identified as a DEG because its <span class="math inline">\(\alpha\)</span> &lt; <code>0.05</code>. Since the t-test compares the mean of two groups, the difference between these two values (19.2 for the ‘case’ group and 32 for the ‘control’ group) are deemed significant. Do note that ‘noise’ within a group of replicates has a lot of effect on the p-value.</p>
+<table>
+<caption>Welch Two Sample t-test: <code>gse74329[5000, case]</code> and <code>gse74329[5000, control]</code></caption>
+<colgroup>
+<col width="19%" />
+<col width="9%" />
+<col width="13%" />
+<col width="29%" />
+<col width="13%" />
+<col width="13%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">Test statistic</th>
+<th align="center">df</th>
+<th align="center">P value</th>
+<th align="center">Alternative hypothesis</th>
+<th align="center">mean of x</th>
+<th align="center">mean of y</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">-4.297</td>
+<td align="center">2.263</td>
+<td align="center">0.04007 *</td>
+<td align="center">two.sided</td>
+<td align="center">19.2</td>
+<td align="center">32</td>
+</tr>
+</tbody>
+</table>
+<p>Again, we are only interested in the p-value for each gene, store this in either the original data frame or a new one where it is coupled to the gene identifier (name, symbol, etc.).</p>
 <p><em>t.test</em> tutorials:</p>
 <ul>
 <li><a href="http://www.statmethods.net/stats/ttest.html">Quick-R @ statmethods</a></li>
@@ -282,7 +362,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="deg-mtc" class="section level2">
 <h2><span class="header-section-number">4.4</span> Multiple Testing Correction</h2>
 <p>Read the text about <strong>Multiple comparisons</strong> at the <a href="http://www.biostathandbook.com/multiplecomparisons.html">biostathandbook</a> and the help of the <code>p.adjust R</code> function. Your article is a possible source to see which correction method they applied and this is not mentioned there it is probably best to use the <code>fdr</code> method (also called the <code>Benjamini Hochberg</code> method).</p>
-<p>An expected side-effect of correcting for multiple-testing is the lower number of genes with a resulting p-value &lt; 0.05 (caused by hopefuly removing false-positives). In some cases though, you end up with <strong>0</strong> genes that have a low p-value and thus you have no DEGs.</p>
+<div class="rmdtip">
+<p>
+An expected side-effect of correcting for multiple-testing is the lower number of genes with a resulting p-value &lt; 0.05 (caused by hopefuly removing false-positives). In some cases though, you end up with <strong>0</strong> genes that have a low p-value and thus you have no DEGs.
+</p>
+</div>
 </div>
 <div id="deg-bioconductor" class="section level2">
 <h2><span class="header-section-number">4.5</span> Using Bioconductor</h2>
@@ -500,16 +584,16 @@ vs WT</td>
 </table>
 <p>The package also contains a few plotting methods that you can use at intermediate steps during the analysis. For instance, after calculating the normalization factors (<code>calcNormFactors</code>), you can perform multi-dimensional scaling with the <code>plotMDS</code> function:</p>
 <div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1"><span class="kw">plotMDS</span>(y)</a></code></pre></div>
-<p><img src="gene_expression_files/figure-html4/unnamed-chunk-1-1.png" width="672" /></p>
+<p><img src="gene_expression_files/figure-html4/unnamed-chunk-6-1.png" width="672" /></p>
 <p>Or the <em>dispersion</em> after running the <code>estimateDisp</code> function with the <code>plotBCV</code> function:</p>
 <div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" data-line-number="1"><span class="kw">plotBCV</span>(y)</a></code></pre></div>
-<p><img src="gene_expression_files/figure-html4/unnamed-chunk-2-1.png" width="672" /></p>
+<p><img src="gene_expression_files/figure-html4/unnamed-chunk-7-1.png" width="672" /></p>
 <p>Or the log-fold changes for all genes, once we have the output of the <code>exactTest</code> function (output <code>et</code> is an <code>DGEExact</code> object) with the <code>plotSmear</code> function. The <code>abline</code> shows a log-FC threshold:</p>
 <div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" data-line-number="1">deGenes &lt;-<span class="st"> </span><span class="kw">decideTestsDGE</span>(et, <span class="dt">p=</span><span class="fl">0.001</span>)</a>
 <a class="sourceLine" id="cb31-2" data-line-number="2">deGenes &lt;-<span class="st"> </span><span class="kw">rownames</span>(et)[<span class="kw">as.logical</span>(deGenes)]</a>
 <a class="sourceLine" id="cb31-3" data-line-number="3"><span class="kw">plotSmear</span>(et, <span class="dt">de.tags=</span>deGenes)</a>
 <a class="sourceLine" id="cb31-4" data-line-number="4"><span class="kw">abline</span>(<span class="dt">h=</span><span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>), <span class="dt">col=</span><span class="dv">2</span>)</a></code></pre></div>
-<p><img src="gene_expression_files/figure-html4/unnamed-chunk-3-1.png" width="672" /></p>
+<p><img src="gene_expression_files/figure-html4/unnamed-chunk-8-1.png" width="672" /></p>
 <p><strong>Links</strong></p>
 <ul>
 <li><a href="http://bioinformatics-core-shared-training.github.io/cruk-bioinf-sschool/Day3/rnaSeq_DE.pdf">Differential Expression Analysis using edgeR</a> tutorial</li>
