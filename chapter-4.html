@@ -25,7 +25,7 @@
 <meta name="author" content="Marcel Kempenaar">
 
 
-<meta name="date" content="2018-03-08">
+<meta name="date" content="2018-03-15">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -152,17 +152,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3" data-path="chapter-3.html"><a href="chapter-3.html"><i class="fa fa-check"></i><b>3</b> Exploratory Data Analysis</a><ul>
 <li class="chapter" data-level="3.1" data-path="chapter-3.html"><a href="chapter-3.html#expl-data"><i class="fa fa-check"></i><b>3.1</b> Exploring the Available Project Data</a></li>
 <li class="chapter" data-level="3.2" data-path="chapter-3.html"><a href="chapter-3.html#loading-data"><i class="fa fa-check"></i><b>3.2</b> Loading data into R</a></li>
-<li class="chapter" data-level="3.3" data-path="chapter-3.html"><a href="chapter-3.html#EDA_part1"><i class="fa fa-check"></i><b>3.3</b> Visualizing using <code>summary</code>, <code>boxplot</code>, <code>scatterplot</code> &amp; <code>MA-plot</code></a><ul>
+<li class="chapter" data-level="3.3" data-path="chapter-3.html"><a href="chapter-3.html#EDA_part1"><i class="fa fa-check"></i><b>3.3</b> Visualizing using <code>summary</code>, <code>boxplot</code>, <code>density plot</code>, <code>scatterplot</code> &amp; <code>MA-plot</code></a><ul>
 <li class="chapter" data-level="3.3.1" data-path="chapter-3.html"><a href="chapter-3.html#eda_statistics"><i class="fa fa-check"></i><b>3.3.1</b> Statistics</a></li>
 <li class="chapter" data-level="3.3.2" data-path="chapter-3.html"><a href="chapter-3.html#eda_boxplots"><i class="fa fa-check"></i><b>3.3.2</b> Boxplots</a></li>
-<li class="chapter" data-level="3.3.3" data-path="chapter-3.html"><a href="chapter-3.html#eda_scatter_plot"><i class="fa fa-check"></i><b>3.3.3</b> Scatterplots</a></li>
-<li class="chapter" data-level="3.3.4" data-path="chapter-3.html"><a href="chapter-3.html#MA_plot"><i class="fa fa-check"></i><b>3.3.4</b> MA-plot</a></li>
+<li class="chapter" data-level="3.3.3" data-path="chapter-3.html"><a href="chapter-3.html#eda_density_plot"><i class="fa fa-check"></i><b>3.3.3</b> Density Plots</a></li>
+<li class="chapter" data-level="3.3.4" data-path="chapter-3.html"><a href="chapter-3.html#eda_scatter_plot"><i class="fa fa-check"></i><b>3.3.4</b> Scatterplots</a></li>
+<li class="chapter" data-level="3.3.5" data-path="chapter-3.html"><a href="chapter-3.html#MA_plot"><i class="fa fa-check"></i><b>3.3.5</b> MA-plot</a></li>
 </ul></li>
 <li class="chapter" data-level="3.4" data-path="chapter-3.html"><a href="chapter-3.html#EDA_part2"><i class="fa fa-check"></i><b>3.4</b> Visualizing using <code>heatmap</code>, <code>MDS</code> &amp; <code>PCA</code></a><ul>
 <li class="chapter" data-level="3.4.1" data-path="chapter-3.html"><a href="chapter-3.html#normalization"><i class="fa fa-check"></i><b>3.4.1</b> Normalization</a></li>
 <li class="chapter" data-level="3.4.2" data-path="chapter-3.html"><a href="chapter-3.html#eda_distance"><i class="fa fa-check"></i><b>3.4.2</b> Distance Calculation</a></li>
 <li class="chapter" data-level="3.4.3" data-path="chapter-3.html"><a href="chapter-3.html#eda_heatmap"><i class="fa fa-check"></i><b>3.4.3</b> Sample Distances using a Heatmap</a></li>
-<li class="chapter" data-level="3.4.4" data-path="chapter-3.html"><a href="chapter-3.html#eda_mds"><i class="fa fa-check"></i><b>3.4.4</b> Sample Distances using MDS</a></li>
+<li class="chapter" data-level="3.4.4" data-path="chapter-3.html"><a href="chapter-3.html#eda_mds"><i class="fa fa-check"></i><b>3.4.4</b> Multi-Dimensional Scaling</a></li>
+<li class="chapter" data-level="3.4.5" data-path="chapter-3.html"><a href="chapter-3.html#eda_pca"><i class="fa fa-check"></i><b>3.4.5</b> Principal Component Analysis</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="chapter-4.html"><a href="chapter-4.html"><i class="fa fa-check"></i><b>4</b> Discovering Differentialy Expressed Genes (DEGs)</a><ul>
@@ -172,11 +174,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.3.1" data-path="chapter-4.html"><a href="chapter-4.html#deg-ttest"><i class="fa fa-check"></i><b>4.3.1</b> Students T-test</a></li>
 <li class="chapter" data-level="4.3.2" data-path="chapter-4.html"><a href="chapter-4.html#deg-anova"><i class="fa fa-check"></i><b>4.3.2</b> Analysis of Variance (<code>ANOVA</code>)</a></li>
 </ul></li>
-<li class="chapter" data-level="4.4" data-path="chapter-4.html"><a href="chapter-4.html#deg-mtc"><i class="fa fa-check"></i><b>4.4</b> Multiple Testing Correction</a></li>
-<li class="chapter" data-level="4.5" data-path="chapter-4.html"><a href="chapter-4.html#deg-bioconductor"><i class="fa fa-check"></i><b>4.5</b> Using Bioconductor</a><ul>
+<li class="chapter" data-level="4.4" data-path="chapter-4.html"><a href="chapter-4.html#deg-mtc"><i class="fa fa-check"></i><b>4.4</b> Multiple Testing Correction</a><ul>
+<li class="chapter" data-level="4.4.1" data-path="chapter-4.html"><a href="chapter-4.html#inspecting-manual-test-results"><i class="fa fa-check"></i><b>4.4.1</b> Inspecting Manual Test Results</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="chapter-4.html"><a href="chapter-4.html#deg-bioconductor"><i class="fa fa-check"></i><b>4.5</b> Using Bioconductor Packages</a><ul>
 <li class="chapter" data-level="4.5.1" data-path="chapter-4.html"><a href="chapter-4.html#deg-design"><i class="fa fa-check"></i><b>4.5.1</b> The <code>Design</code> (matrix)</a></li>
 <li class="chapter" data-level="4.5.2" data-path="chapter-4.html"><a href="chapter-4.html#deg-deseq2"><i class="fa fa-check"></i><b>4.5.2</b> <code>DESeq2</code></a></li>
 <li class="chapter" data-level="4.5.3" data-path="chapter-4.html"><a href="chapter-4.html#deg-edger"><i class="fa fa-check"></i><b>4.5.3</b> <code>edgeR</code></a></li>
+<li class="chapter" data-level="4.5.4" data-path="chapter-4.html"><a href="chapter-4.html#deg-limma"><i class="fa fa-check"></i><b>4.5.4</b> <code>limma</code></a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="chapter-5.html"><a href="chapter-5.html"><i class="fa fa-check"></i><b>5</b> Annotating an RNA-Seq Experiment</a><ul>
@@ -188,6 +193,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.3" data-path="chapter-5.html"><a href="chapter-5.html#functional-annotation"><i class="fa fa-check"></i><b>5.3</b> Functional Annotation</a><ul>
 <li class="chapter" data-level="5.3.1" data-path="chapter-5.html"><a href="chapter-5.html#gene-ontology"><i class="fa fa-check"></i><b>5.3.1</b> Gene Ontology</a></li>
 </ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="chapter-6.html"><a href="chapter-6.html"><i class="fa fa-check"></i><b>6</b> Data Analysis and Visualization</a><ul>
+<li class="chapter" data-level="6.1" data-path="chapter-6.html"><a href="chapter-6.html#volcano"><i class="fa fa-check"></i><b>6.1</b> Volcano Plot</a></li>
+<li class="chapter" data-level="6.2" data-path="chapter-6.html"><a href="chapter-6.html#venn-diagram"><i class="fa fa-check"></i><b>6.2</b> Venn Diagram</a></li>
+<li class="chapter" data-level="6.3" data-path="chapter-6.html"><a href="chapter-6.html#clustering"><i class="fa fa-check"></i><b>6.3</b> Clustering</a></li>
+<li class="chapter" data-level="6.4" data-path="chapter-6.html"><a href="chapter-6.html#pathway-analysis"><i class="fa fa-check"></i><b>6.4</b> Pathway Analysis</a><ul>
+<li class="chapter" data-level="6.4.1" data-path="chapter-6.html"><a href="chapter-6.html#gene-annotation-enrichment"><i class="fa fa-check"></i><b>6.4.1</b> Gene-annotation Enrichment</a></li>
+<li class="chapter" data-level="6.4.2" data-path="chapter-6.html"><a href="chapter-6.html#spia"><i class="fa fa-check"></i><b>6.4.2</b> Signaling Pathway Impact Analysis</a></li>
+</ul></li>
+</ul></li>
+<li class="appendix"><span><b>Appendix</b></span></li>
+<li class="chapter" data-level="A" data-path="a1-batch-data-loading.html"><a href="a1-batch-data-loading.html"><i class="fa fa-check"></i><b>A</b> Appendix A: Batch Loading Expression Data in R</a><ul>
+<li class="chapter" data-level="A.1" data-path="a1-batch-data-loading.html"><a href="a1-batch-data-loading.html#decompressing"><i class="fa fa-check"></i><b>A.1</b> Decompressing</a></li>
+<li class="chapter" data-level="A.2" data-path="a1-batch-data-loading.html"><a href="a1-batch-data-loading.html#determining-data-format"><i class="fa fa-check"></i><b>A.2</b> Determining Data Format</a></li>
+<li class="chapter" data-level="A.3" data-path="a1-batch-data-loading.html"><a href="a1-batch-data-loading.html#loading-data-1"><i class="fa fa-check"></i><b>A.3</b> Loading Data</a></li>
+<li class="chapter" data-level="A.4" data-path="a1-batch-data-loading.html"><a href="a1-batch-data-loading.html#references"><i class="fa fa-check"></i><b>A.4</b> References</a></li>
 </ul></li>
 </ul>
 
@@ -208,7 +229,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="chapter-4" class="section level1">
 <h1><span class="header-section-number"></span> Discovering Differentialy Expressed Genes (DEGs)</h1>
-<p>The first ‘real’ analysis step we will do is finding genes that show a difference in expression between sample groups; the <em>differentially expressed genes</em>. The concept might sound rather simple; calculate the ratios for all genes between samples to determine the <strong>fold-change</strong> (FC) denoting the factor of change in expression between groups. Then, filter out only those genes that actually show a difference. While this does give a list of genes showing different behaviour across samples, we need to focus on genes that do not only show a difference, but are also <em>statistically significant</em>!</p>
+<p>The first and most important ‘real’ analysis step we will do is finding genes that show a difference in expression between sample groups; the <em>differentially expressed genes</em> (DEGs). The concept might sound rather simple; calculate the ratios for all genes between samples to determine the <strong>fold-change</strong> (FC) denoting the factor of change in expression between groups. Then, filter out only those genes that actually show a difference. While this does give a list of genes showing different behaviour across samples, we need to focus on genes that do not only show a difference, but are also <em>statistically significant</em>!</p>
 <p>To determine whether or not a gene can be classified as a significant DEG we are going to use - at least - two techniques:</p>
 <ul>
 <li>We will start with manually performing statistical test(s)</li>
@@ -278,10 +299,11 @@ Note that it is necessary to perform a single t-test for <em>every</em> gene (ro
 <a class="sourceLine" id="cb20-3" data-line-number="3">case &lt;-<span class="st"> </span><span class="dv">14</span><span class="op">:</span><span class="dv">18</span></a>
 <a class="sourceLine" id="cb20-4" data-line-number="4">control &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">3</span></a>
 <a class="sourceLine" id="cb20-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb20-6" data-line-number="6">## Executing single t-test for single gene (row 1)</a>
-<a class="sourceLine" id="cb20-7" data-line-number="7">test &lt;-<span class="st"> </span><span class="kw">t.test</span>(gse74329[<span class="dv">5000</span>, case], gse74329[<span class="dv">5000</span>, control])</a></code></pre></div>
+<a class="sourceLine" id="cb20-6" data-line-number="6">## Convert to simple numeric vectors, used for the variance test</a>
+<a class="sourceLine" id="cb20-7" data-line-number="7">case.exp &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(gse74329[<span class="dv">5000</span>, case])</a>
+<a class="sourceLine" id="cb20-8" data-line-number="8">control.exp &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(gse74329[<span class="dv">5000</span>, control])</a></code></pre></div>
 <table style="width:100%;">
-<caption>Data for t-test, RU_42 (case) vs RU_0 (control)</caption>
+<caption>Data for t-test, RU_42 (case, 5 samples) vs RU_0 (control, 3 samples)</caption>
 <colgroup>
 <col width="24%" />
 <col width="8%" />
@@ -320,7 +342,43 @@ Note that it is necessary to perform a single t-test for <em>every</em> gene (ro
 </tr>
 </tbody>
 </table>
-<p>The following table shows the numeric values from performing a t-test. Here we see that this gene is identified as a DEG because its <span class="math inline">\(\alpha\)</span> &lt; <code>0.05</code>. Since the t-test compares the mean of two groups, the difference between these two values (19.2 for the ‘case’ group and 32 for the ‘control’ group) are deemed significant. Do note that ‘noise’ within a group of replicates has a lot of effect on the p-value.</p>
+<p>First, we test (F-test) if the variance (the average of the squared differences from the mean) in the two sample groups is equal as we need to supply the t-test with this information (by default, it assumes different variance). Note that before performing an F-test, it should first be validated that the data is normally distributed, i.e. using a Shapiro-Wilk test.</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1">## Test for equal variance (H0 = &#39;equal variance&#39;)</a>
+<a class="sourceLine" id="cb21-2" data-line-number="2">variance &lt;-<span class="st"> </span><span class="kw">var.test</span>(case.exp, control.exp, <span class="dt">alternative =</span> <span class="st">&#39;two.sided&#39;</span>)</a></code></pre></div>
+<table>
+<caption>F test to compare two variances: <code>case.exp</code> and <code>control.exp</code></caption>
+<colgroup>
+<col width="18%" />
+<col width="9%" />
+<col width="11%" />
+<col width="10%" />
+<col width="27%" />
+<col width="21%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">Test statistic</th>
+<th align="center">num df</th>
+<th align="center">denom df</th>
+<th align="center">P value</th>
+<th align="center">Alternative hypothesis</th>
+<th align="center">ratio of variances</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">0.108</td>
+<td align="center">4</td>
+<td align="center">2</td>
+<td align="center">0.06311</td>
+<td align="center">two.sided</td>
+<td align="center">0.108</td>
+</tr>
+</tbody>
+</table>
+<p>In this case, it seems that the variance does <strong>not</strong> differ significantly (P-value of <code>0.063</code> &gt; <code>0.05</code>) between the two sample groups, therefore set the <code>var.equal</code> argument in the <code>t.test</code> function to <code>TRUE</code>. Most experiments are unpaired; meaning that the expression for a replicate in group A is from a different subject/ person then the expression for a replicate in group B. If however you have time-series data where the same subjects/ persons are used in multiple sample groups, you should set the <code>paired</code> option in the <code>t.test</code> function to <code>TRUE</code>. In most other situations, keep this setting to its default; <code>FALSE</code>.</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1">test &lt;-<span class="st"> </span><span class="kw">t.test</span>(case.exp, control.exp, <span class="dt">alternative =</span> <span class="st">&#39;two.sided&#39;</span>, <span class="dt">var.equal =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<p>The following table shows the numeric values from performing a t-test. Here we see that this gene is identified as a DEG because its <span class="math inline">\(\alpha\)</span> &lt; <code>0.05</code>. Since the t-test compares the mean of two groups, the difference between these two values (19.2 for the ‘case’ group and 32 for the ‘control’ group) are deemed significant. Do note that ‘noise’ or large variance within a group of replicates has a lot of effect on the p-value.</p>
 <table>
 <caption>Welch Two Sample t-test: <code>gse74329[5000, case]</code> and <code>gse74329[5000, control]</code></caption>
 <colgroup>
@@ -355,38 +413,640 @@ Note that it is necessary to perform a single t-test for <em>every</em> gene (ro
 <p>Again, we are only interested in the p-value for each gene, store this in either the original data frame or a new one where it is coupled to the gene identifier (name, symbol, etc.).</p>
 <p><em>t.test</em> tutorials:</p>
 <ul>
+<li><a href="https://bioinf.nl/~michiel/courses/R_minor/ttest.html#the-t-test">M. A. Noback, DAVuR Course Syllabus</a></li>
 <li><a href="http://www.statmethods.net/stats/ttest.html">Quick-R @ statmethods</a></li>
 <li><a href="http://jura.wi.mit.edu/bio/education/bioinfo2007/arrays/array_exercises_2R.html">Whitehead Institute</a>: based on microarray analysis, but it’s still expression data and the basics are the same.</li>
 </ul>
 </div>
 <div id="deg-anova" class="section level3">
 <h3><span class="header-section-number">4.3.2</span> Analysis of Variance (<code>ANOVA</code>)</h3>
-<p>If you have decided that you need to perform an ANOVA analysis the experimental design as well as the question to ask become much more important.</p>
+<p>If you have decided that you need to perform ANOVA analysis, the experimental design as well as the question to ask become much more important. Usually it is required to perform ANOVA instead of a t-test when there are multiple (&gt; 2) conditions involved or it is a time series experiment. It is impossible to compare more than two conditions using a t-test unless using a <em>divide-and-conquer</em> approach (comparing all conditions against each other) but this is advised against since it will introduce Type I errors (false-positives). Experiments where conditions are combined (i.e. age + multiple drugs) can also be analysed using ANOVA where the question can either be the overall effect of a drug or the influence of age on the effect of a drug. The method of specifying these questions uses the same formula notation as for example the linear model (<code>lm</code>) function, i.e. <code>~ group + treatment + group:treatment</code> where group could be an <em>age</em> group and treatment a different <em>drug</em>. The most simple form of this formula is <code>~ condition</code>. Note that in this case condition is most likely an R <code>factor</code> dividing the samples in <em>case</em>/ <em>control</em> groups.</p>
+
+<div class="rmdtip">
+<p>Let us first consider a theoretical example and work towards a practical example in R. Given an experiment with <span class="math inline">\(k\)</span> conditions as shown in the table below where each gene <span class="math inline">\(i\)</span> is measured <span class="math inline">\(n_i\)</span> times.</p>
+<table>
+<caption><span class="math inline">\(Condition\)</span></caption>
+<thead>
+<tr class="header">
+<th align="left">1</th>
+<th align="left">2</th>
+<th align="left">…</th>
+<th align="left">i</th>
+<th align="left">…</th>
+<th align="left"><span class="math inline">\(k\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><span class="math inline">\(X_{11}\)</span></td>
+<td align="left"><span class="math inline">\(X_{21}\)</span></td>
+<td align="left">…</td>
+<td align="left"><span class="math inline">\(X_{i1}\)</span></td>
+<td align="left">…</td>
+<td align="left"><span class="math inline">\(X_{k1}\)</span></td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math inline">\(X_{12}\)</span></td>
+<td align="left"><span class="math inline">\(X_{22}\)</span></td>
+<td align="left">…</td>
+<td align="left"><span class="math inline">\(X_{i2}\)</span></td>
+<td align="left">…</td>
+<td align="left"><span class="math inline">\(X_{k2}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left"><span class="math inline">\(\vdots\)</span></td>
+<td align="left"><span class="math inline">\(\vdots\)</span></td>
+<td align="left">…</td>
+<td align="left"><span class="math inline">\(\vdots\)</span></td>
+<td align="left">…</td>
+<td align="left"><span class="math inline">\(\vdots\)</span></td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math inline">\(X_{1n_{1}}\)</span></td>
+<td align="left"><span class="math inline">\(X_{2n_{2}}\)</span></td>
+<td align="left">…</td>
+<td align="left"><span class="math inline">\(X_{in_{i}}\)</span></td>
+<td align="left">…</td>
+<td align="left"><span class="math inline">\(X_{kn_{k}}\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>A typical question to ask is whether there are any differences between the expression level <span class="math inline">\(X\)</span> of the given gene between these conditions. However we need to carefully formulate the null and research hypotheses. The null hypothesis is pretty easy; <em>the different conditions are not really different and, therefore, all measurements actually come from a single distribution.</em> The effect is that all means would be the same, for all conditions: <span class="math inline">\(H_0 : \mu_{1} = \mu_{2} = \cdots = \mu_{k}\)</span>. It is not clear however whether the alternate or research hypothesis requires all <span class="math inline">\(k\)</span> conditions or a subset of these conditions to be different from each other. This results in the following three possible hypotheses for <span class="math inline">\(H_a\)</span>:</p>
+<ol style="list-style-type: decimal">
+<li><span class="math inline">\(H_a\)</span> : All means are different for each other.</li>
+<li><span class="math inline">\(H_a\)</span> : Several but not all means are different from each other.</li>
+<li><span class="math inline">\(H_a\)</span> : There is at least one pair of means that are different from each other.</li>
+</ol>
+<p>The first two hyptheses are not suitable for the question asked thus the following set of hypotheses remain:</p>
+<p><span class="math inline">\(H_0\)</span>: <span class="math inline">\(\mu_{1} = \mu_{2} = \cdots = \mu_{k}\)</span></p>
+<p><span class="math inline">\(H_a\)</span>: There is at least one pair of means that are different from each other.</p>
+This set of hypotheses is called a <strong>Model I</strong> or <strong>fixed effects</strong>, <strong>ANOVA</strong>. The general idea behind this form of ANOVA is very simple. The measurements of each condition vary around the condition-mean (<em>within-group</em> variance). At the same time, the means of each condition will vary around an overall mean (<em>inter-group</em> variance). The idea behind ANOVA is to study the relationship between the inter-group and the within-group variances.
+</div>
+
+<p>The following practical example uses the <code>airway</code> experiment data package in R which contains RNA-Seq read count data for 8 samples. From the abstract, a brief description of the RNA-Seq experiment on airway smooth muscle (ASM) cell lines<span class="citation">(Himes BE <a href="#ref-jiang14">2014</a>)</span>:</p>
+<blockquote>
+<p>Using RNA-Seq, a high-throughput sequencing method, we characterized transcriptomic changes in four primary human ASM cell lines that were treated with dexamethasone - a potent synthetic glucocorticoid (1 micromolar for 18 hours).</p>
+</blockquote>
+<p>The data available in the experiment package is of a certain <em>class</em> (Large <code>RangedSummarizedExperiment</code>) and contains both the count data as well as some metadata describing the experiment. Looking at the sample description table below, we can see a few columns describing variables that are used to define the experiment. In this case these are the <strong>cell</strong> (an identifier for a certain cell where each cell originates from the same subject) and <strong>dex</strong> (<code>trt</code> indicates treatment of each cell with 1 <span class="math inline">\(\mu M\)</span> <em>dexamethasone</em>, <code>untrt</code> indicates control) columns.</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1"><span class="kw">library</span>(airway)</a>
+<a class="sourceLine" id="cb23-2" data-line-number="2"><span class="kw">data</span>(airway)</a>
+<a class="sourceLine" id="cb23-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb23-4" data-line-number="4">## Sample description</a>
+<a class="sourceLine" id="cb23-5" data-line-number="5"><span class="kw">colData</span>(airway)</a></code></pre></div>
+<table>
+<caption>Sample metadata for the airway experiment (continued below)</caption>
+<colgroup>
+<col width="20%" />
+<col width="15%" />
+<col width="12%" />
+<col width="9%" />
+<col width="9%" />
+<col width="15%" />
+<col width="15%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center"> </th>
+<th align="center">SampleName</th>
+<th align="center">cell</th>
+<th align="center">dex</th>
+<th align="center">albut</th>
+<th align="center">Run</th>
+<th align="center">avgLength</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><strong>SRR1039508</strong></td>
+<td align="center">GSM1275862</td>
+<td align="center">N61311</td>
+<td align="center">untrt</td>
+<td align="center">untrt</td>
+<td align="center">SRR1039508</td>
+<td align="center">126</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>SRR1039509</strong></td>
+<td align="center">GSM1275863</td>
+<td align="center">N61311</td>
+<td align="center">trt</td>
+<td align="center">untrt</td>
+<td align="center">SRR1039509</td>
+<td align="center">126</td>
+</tr>
+<tr class="odd">
+<td align="center"><strong>SRR1039512</strong></td>
+<td align="center">GSM1275866</td>
+<td align="center">N052611</td>
+<td align="center">untrt</td>
+<td align="center">untrt</td>
+<td align="center">SRR1039512</td>
+<td align="center">126</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>SRR1039513</strong></td>
+<td align="center">GSM1275867</td>
+<td align="center">N052611</td>
+<td align="center">trt</td>
+<td align="center">untrt</td>
+<td align="center">SRR1039513</td>
+<td align="center">87</td>
+</tr>
+<tr class="odd">
+<td align="center"><strong>SRR1039516</strong></td>
+<td align="center">GSM1275870</td>
+<td align="center">N080611</td>
+<td align="center">untrt</td>
+<td align="center">untrt</td>
+<td align="center">SRR1039516</td>
+<td align="center">120</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>SRR1039517</strong></td>
+<td align="center">GSM1275871</td>
+<td align="center">N080611</td>
+<td align="center">trt</td>
+<td align="center">untrt</td>
+<td align="center">SRR1039517</td>
+<td align="center">126</td>
+</tr>
+<tr class="odd">
+<td align="center"><strong>SRR1039520</strong></td>
+<td align="center">GSM1275874</td>
+<td align="center">N061011</td>
+<td align="center">untrt</td>
+<td align="center">untrt</td>
+<td align="center">SRR1039520</td>
+<td align="center">101</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>SRR1039521</strong></td>
+<td align="center">GSM1275875</td>
+<td align="center">N061011</td>
+<td align="center">trt</td>
+<td align="center">untrt</td>
+<td align="center">SRR1039521</td>
+<td align="center">98</td>
+</tr>
+</tbody>
+</table>
+<table style="width:78%;">
+<colgroup>
+<col width="23%" />
+<col width="18%" />
+<col width="16%" />
+<col width="19%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center"> </th>
+<th align="center">Experiment</th>
+<th align="center">Sample</th>
+<th align="center">BioSample</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><strong>SRR1039508</strong></td>
+<td align="center">SRX384345</td>
+<td align="center">SRS508568</td>
+<td align="center">SAMN02422669</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>SRR1039509</strong></td>
+<td align="center">SRX384346</td>
+<td align="center">SRS508567</td>
+<td align="center">SAMN02422675</td>
+</tr>
+<tr class="odd">
+<td align="center"><strong>SRR1039512</strong></td>
+<td align="center">SRX384349</td>
+<td align="center">SRS508571</td>
+<td align="center">SAMN02422678</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>SRR1039513</strong></td>
+<td align="center">SRX384350</td>
+<td align="center">SRS508572</td>
+<td align="center">SAMN02422670</td>
+</tr>
+<tr class="odd">
+<td align="center"><strong>SRR1039516</strong></td>
+<td align="center">SRX384353</td>
+<td align="center">SRS508575</td>
+<td align="center">SAMN02422682</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>SRR1039517</strong></td>
+<td align="center">SRX384354</td>
+<td align="center">SRS508576</td>
+<td align="center">SAMN02422673</td>
+</tr>
+<tr class="odd">
+<td align="center"><strong>SRR1039520</strong></td>
+<td align="center">SRX384357</td>
+<td align="center">SRS508579</td>
+<td align="center">SAMN02422683</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>SRR1039521</strong></td>
+<td align="center">SRX384358</td>
+<td align="center">SRS508580</td>
+<td align="center">SAMN02422677</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" data-line-number="1">## Count data</a>
+<a class="sourceLine" id="cb24-2" data-line-number="2"><span class="kw">head</span>(<span class="kw">assay</span>(airway))</a></code></pre></div>
+<table>
+<caption>Count data for the airway experiment (continued below)</caption>
+<colgroup>
+<col width="29%" />
+<col width="17%" />
+<col width="17%" />
+<col width="17%" />
+<col width="17%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center"> </th>
+<th align="center">SRR1039508</th>
+<th align="center">SRR1039509</th>
+<th align="center">SRR1039512</th>
+<th align="center">SRR1039513</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><strong>ENSG00000000003</strong></td>
+<td align="center">679</td>
+<td align="center">448</td>
+<td align="center">873</td>
+<td align="center">408</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>ENSG00000000005</strong></td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr class="odd">
+<td align="center"><strong>ENSG00000000419</strong></td>
+<td align="center">467</td>
+<td align="center">515</td>
+<td align="center">621</td>
+<td align="center">365</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>ENSG00000000457</strong></td>
+<td align="center">260</td>
+<td align="center">211</td>
+<td align="center">263</td>
+<td align="center">164</td>
+</tr>
+<tr class="odd">
+<td align="center"><strong>ENSG00000000460</strong></td>
+<td align="center">60</td>
+<td align="center">55</td>
+<td align="center">40</td>
+<td align="center">35</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>ENSG00000000938</strong></td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">2</td>
+<td align="center">0</td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col width="29%" />
+<col width="17%" />
+<col width="17%" />
+<col width="17%" />
+<col width="17%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center"> </th>
+<th align="center">SRR1039516</th>
+<th align="center">SRR1039517</th>
+<th align="center">SRR1039520</th>
+<th align="center">SRR1039521</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><strong>ENSG00000000003</strong></td>
+<td align="center">1138</td>
+<td align="center">1047</td>
+<td align="center">770</td>
+<td align="center">572</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>ENSG00000000005</strong></td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr class="odd">
+<td align="center"><strong>ENSG00000000419</strong></td>
+<td align="center">587</td>
+<td align="center">799</td>
+<td align="center">417</td>
+<td align="center">508</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>ENSG00000000457</strong></td>
+<td align="center">245</td>
+<td align="center">331</td>
+<td align="center">233</td>
+<td align="center">229</td>
+</tr>
+<tr class="odd">
+<td align="center"><strong>ENSG00000000460</strong></td>
+<td align="center">78</td>
+<td align="center">63</td>
+<td align="center">76</td>
+<td align="center">60</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>ENSG00000000938</strong></td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+</tbody>
+</table>
+<p>Two questions resulting in two different formulas can be asked with this data set, on a <em>per-gene</em> basis:</p>
+<ol style="list-style-type: decimal">
+<li>Test for the effect of dexamethasone (the last factor), controlling for the effect of different cell line (the first factor):</li>
+</ol>
+<ul>
+<li><code>~ cell + dex</code></li>
+</ul>
+<ol start="2" style="list-style-type: decimal">
+<li>Test whether a fold change due to treatment with dexamethasone is different across cell line using an <em>interaction term</em>:</li>
+</ol>
+<ul>
+<li><code>~ cell + dex + cell:dex</code></li>
+</ul>
+<p>Using a t-test we can only ask <em>either</em> the effect of dex or the cell line and not both. Note that for this experiment the <code>paired</code> argument for a t-test should be set to <code>TRUE</code> as each cell is used in both treated and untreated conditions. Using ANOVA we will now, for a single gene, show how to get the basic statistics. This can be done in two ways; either fit a model (using <code>lm</code>) and compute the <em>analysis of variance tables</em> (using <code>anova</code>) or using the wrapper function (<code>aov</code>) that models the data using <code>lm</code> from which the statistics can be gathered using the <code>summary</code> function. First we need to determine if we have a <strong>balanced</strong> or <strong>unbalanced design</strong>, i.e. do we have equal sample sizes within the levels of our independent grouping levels (independent variables are dex and cell, the count value is the dependent variable). See the code below on how to check for a balanced design. Note that all further code for this section only uses count data for <strong>one</strong> gene (the first one).</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1">## First, format the data so we can use it in a formula. We need the samples as rows, </a>
+<a class="sourceLine" id="cb25-2" data-line-number="2">## and the gene expression values in a single column</a>
+<a class="sourceLine" id="cb25-3" data-line-number="3">dex =<span class="st"> </span><span class="kw">colData</span>(airway)<span class="op">$</span>dex</a>
+<a class="sourceLine" id="cb25-4" data-line-number="4">cell =<span class="st"> </span><span class="kw">colData</span>(airway)<span class="op">$</span>cell</a>
+<a class="sourceLine" id="cb25-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb25-6" data-line-number="6">dat &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">count=</span><span class="kw">t</span>(<span class="kw">assay</span>(airway))[,<span class="dv">1</span>], <span class="co"># Count data</span></a>
+<a class="sourceLine" id="cb25-7" data-line-number="7">                  dex, cell)                  <span class="co"># Group description</span></a>
+<a class="sourceLine" id="cb25-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb25-9" data-line-number="9">## Check for design. If all values are equal, the design is balanced</a>
+<a class="sourceLine" id="cb25-10" data-line-number="10"><span class="kw">pander</span>(<span class="kw">table</span>(dat<span class="op">$</span>dex, dat<span class="op">$</span>cell))</a></code></pre></div>
+<table style="width:72%;">
+<colgroup>
+<col width="16%" />
+<col width="13%" />
+<col width="13%" />
+<col width="13%" />
+<col width="13%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center"> </th>
+<th align="center">N052611</th>
+<th align="center">N061011</th>
+<th align="center">N080611</th>
+<th align="center">N61311</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><strong>trt</strong></td>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">1</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>untrt</strong></td>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">1</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" data-line-number="1"><span class="kw">pander</span>(dat, <span class="dt">caption =</span> <span class="st">&quot;Count data for &#39;ENSG00000000003&#39;&quot;</span>)</a></code></pre></div>
+<table style="width:58%;">
+<caption>Count data for ‘ENSG00000000003’</caption>
+<colgroup>
+<col width="23%" />
+<col width="11%" />
+<col width="11%" />
+<col width="12%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center"> </th>
+<th align="center">count</th>
+<th align="center">dex</th>
+<th align="center">cell</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><strong>SRR1039508</strong></td>
+<td align="center">679</td>
+<td align="center">untrt</td>
+<td align="center">N61311</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>SRR1039509</strong></td>
+<td align="center">448</td>
+<td align="center">trt</td>
+<td align="center">N61311</td>
+</tr>
+<tr class="odd">
+<td align="center"><strong>SRR1039512</strong></td>
+<td align="center">873</td>
+<td align="center">untrt</td>
+<td align="center">N052611</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>SRR1039513</strong></td>
+<td align="center">408</td>
+<td align="center">trt</td>
+<td align="center">N052611</td>
+</tr>
+<tr class="odd">
+<td align="center"><strong>SRR1039516</strong></td>
+<td align="center">1138</td>
+<td align="center">untrt</td>
+<td align="center">N080611</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>SRR1039517</strong></td>
+<td align="center">1047</td>
+<td align="center">trt</td>
+<td align="center">N080611</td>
+</tr>
+<tr class="odd">
+<td align="center"><strong>SRR1039520</strong></td>
+<td align="center">770</td>
+<td align="center">untrt</td>
+<td align="center">N061011</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>SRR1039521</strong></td>
+<td align="center">572</td>
+<td align="center">trt</td>
+<td align="center">N061011</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" data-line-number="1">## Average per treatment group</a>
+<a class="sourceLine" id="cb27-2" data-line-number="2"><span class="kw">pander</span>(<span class="kw">tapply</span>(dat<span class="op">$</span>count, dat<span class="op">$</span>dex, mean))</a></code></pre></div>
+<table style="width:22%;">
+<colgroup>
+<col width="11%" />
+<col width="11%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">trt</th>
+<th align="center">untrt</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">618.8</td>
+<td align="center">865</td>
+</tr>
+</tbody>
+</table>
+<p>There is a noticable (~40%) difference in the average expression when looking at the treatment. Looking at the difference in average for the cells we see an even bigger difference.</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" data-line-number="1"><span class="kw">pander</span>(<span class="kw">tapply</span>(dat<span class="op">$</span>count, dat<span class="op">$</span>cell, mean))</a></code></pre></div>
+<table style="width:56%;">
+<colgroup>
+<col width="13%" />
+<col width="13%" />
+<col width="13%" />
+<col width="13%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">N052611</th>
+<th align="center">N061011</th>
+<th align="center">N080611</th>
+<th align="center">N61311</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">640.5</td>
+<td align="center">671</td>
+<td align="center">1092</td>
+<td align="center">563.5</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1">## Create a model for the first question listed above</a>
+<a class="sourceLine" id="cb29-2" data-line-number="2">## By using two independent variables, this is a TWO-way ANOVA</a>
+<a class="sourceLine" id="cb29-3" data-line-number="3">model.airway &lt;-<span class="st"> </span><span class="kw">lm</span>(count <span class="op">~</span><span class="st"> </span>cell <span class="op">+</span><span class="st"> </span>dex, <span class="dt">data=</span>dat)</a>
+<a class="sourceLine" id="cb29-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb29-5" data-line-number="5">## Alternative method, same result:</a>
+<a class="sourceLine" id="cb29-6" data-line-number="6"><span class="co"># summary( aov(count ~ cell + dex, data=dat) )</span></a>
+<a class="sourceLine" id="cb29-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb29-8" data-line-number="8">## Print the analysis of variance table</a>
+<a class="sourceLine" id="cb29-9" data-line-number="9"><span class="kw">pander</span>(<span class="kw">anova</span>(model.airway))</a></code></pre></div>
+<table style="width:83%;">
+<caption>Analysis of Variance Table
+For this gene, both the treatment <em>and</em> the cell have an <em>almost</em> significant p-value (<code>Pr(&gt;F)</code> &lt; 0.05). With the treatment having only two options we can simply state that the treatment shows <em>some</em> effect, but we have to accept the <span class="math inline">\(H_0\)</span> hypothesis (all means are equal) since <span class="math inline">\(\alpha\)</span> &gt; 0.05. Let’s assume for now that we found a gene with an <span class="math inline">\(\alpha\)</span> &lt; 0.05 where we reject <span class="math inline">\(H_0\)</span>. With there being 4 different cell sources, we can only say that <em>at least one cell-type shows an effect</em>. To find out exactly <em>which</em> of the cell sources that is requires multiple t-tests (<span class="math inline">\(R = 1/2k(k-1)=6\)</span> separate tests comparing all groups). Alternatively, the <code>pairwise.t.test</code> function can be used for this.</caption>
+<colgroup>
+<col width="22%" />
+<col width="6%" />
+<col width="12%" />
+<col width="13%" />
+<col width="13%" />
+<col width="13%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center"> </th>
+<th align="center">Df</th>
+<th align="center">Sum Sq</th>
+<th align="center">Mean Sq</th>
+<th align="center">F value</th>
+<th align="center">Pr(&gt;F)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><strong>cell</strong></td>
+<td align="center">3</td>
+<td align="center">340111</td>
+<td align="center">113370</td>
+<td align="center">9.129</td>
+<td align="center">0.05108</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>dex</strong></td>
+<td align="center">1</td>
+<td align="center">121278</td>
+<td align="center">121278</td>
+<td align="center">9.765</td>
+<td align="center">0.05227</td>
+</tr>
+<tr class="odd">
+<td align="center"><strong>Residuals</strong></td>
+<td align="center">3</td>
+<td align="center">37257</td>
+<td align="center">12419</td>
+<td align="center">NA</td>
+<td align="center">NA</td>
+</tr>
+</tbody>
+</table>
+<p>After performing ANOVA some steps should be performed to check if the results are viable, tests like the <strong>Levene’s test</strong> for checking the homogeneity of variances and checking for <strong>normality</strong> of the residuals. While technical and fully understanding falls outside of the scope of this course, a simple plot can be made (not for all genes/ tests) to see if the residuals are normally distributed. We expect the datapoints to approximately follow a straight diagonal line. Samples that differ too much are annotated in the plot and can be reason for concern.</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" data-line-number="1">## Plotting the full model (remove the 2) shows other statistics as well</a>
+<a class="sourceLine" id="cb30-2" data-line-number="2"><span class="kw">plot</span>(model.airway, <span class="dv">2</span>)</a></code></pre></div>
+<p><img src="gene_expression_files/figure-html4/anova-residuals-normality-1.png" width="672" /></p>
 <p><em>ANOVA</em> tutorials</p>
 <ul>
+<li><a href="https://bioinf.nl/~michiel/courses/R_minor/ttest.html#anova">M. A. Noback, DAVuR Course Syllabus</a></li>
 <li><a href="http://www.statmethods.net/stats/anova.html">Quick-R @ statmethods</a></li>
 <li><a href="http://www.r-bloggers.com/one-way-analysis-of-variance-anova/">R-bloggers</a></li>
+<li><a href="http://www.sthda.com/english/wiki/two-way-anova-test-in-r">Statistical tools for high-throughput data analysis</a></li>
 </ul>
 </div>
 </div>
 <div id="deg-mtc" class="section level2">
 <h2><span class="header-section-number">4.4</span> Multiple Testing Correction</h2>
-<p>Read the text about <strong>Multiple comparisons</strong> at the <a href="http://www.biostathandbook.com/multiplecomparisons.html">biostathandbook</a> and the help of the <code>p.adjust R</code> function. Your article is a possible source to see which correction method they applied and this is not mentioned there it is probably best to use the <code>fdr</code> method (also called the <code>Benjamini Hochberg</code> method).</p>
+<p>Read the text about <strong>Multiple comparisons</strong> at the <a href="http://www.biostathandbook.com/multiplecomparisons.html">biostathandbook</a> and the help of the <code>p.adjust R</code> function. Your article is a possible source to see which correction method they applied. If this is not mentioned there it is probably best to use the <code>fdr</code> (also called the <code>Benjamini Hochberg</code>) method.</p>
 <div class="rmdtip">
 <p>
-An expected side-effect of correcting for multiple-testing is the lower number of genes with a resulting p-value &lt; 0.05 (caused by hopefuly removing false-positives). In some cases though, you end up with <strong>0</strong> genes that have a low p-value and thus you have no DEGs.
+An expected side-effect of correcting for multiple-testing is the lower number of genes with a resulting p-value &lt; 0.05 (caused by hopefuly removing false-positives). For example, using a p-value of 0.05 <em>expects</em> 5% of all tests to result in false-positives. Thus when testing &gt;20.000 genes it is expected that 1000 tests are in fact a false-positive. In some cases though, you end up with <strong>0</strong> genes that have a low p-value and thus you have no DEGs. Using the <em>Bonferroni</em> correction for instance, multiplies the p-values by the number of comparisons. With 20.000 comparisons, a p-value must be &lt;= 0.0025 to ‘survive’ the correction and still be &lt; 0.05.
 </p>
+</div>
+<div id="inspecting-manual-test-results" class="section level3">
+<h3><span class="header-section-number">4.4.1</span> Inspecting Manual Test Results</h3>
+<p>After applying a form of multiple testing correction, you end up with a P-value for <em>each</em> gene in your data set. DEGs can then be filtered out using simple R commands looking for P-values &lt; 0.05 and optionally a threshold log-FC value. The resulting set of genes show a statistically significant difference between the sample groups that were used in the test(s) and these can be used to answer any relevant biological question. For now, keep the results as we will inspect them closer in <a href="chapter-6.html#chapter-6">chapter 6; Data Analysis</a>.</p>
 </div>
 </div>
 <div id="deg-bioconductor" class="section level2">
-<h2><span class="header-section-number">4.5</span> Using Bioconductor</h2>
-<p>This section demonstrates the use of two packages to perform DEG-analysis on <strong>count</strong> data and one library for processed FPKM/RPKM data. There are many packages available on Bioconductor for similar analysis, such as <code>DSS</code>, <code>EBSeq</code> and <code>BaySeq</code> but here we will focus on <code>edgeR</code> and <code>DESeq2</code> for processing count-based data and briefly take a look at <code>limma</code> for processing FPKM/RPKM data.</p>
-<p>Both <code>edgeR</code> and <code>DESeq2</code> apply their own normalization methods (described in the sections below) therefore they only work on the count data. You can choose one of these two packages to use, or use both since it could increase statistical power and they are not very hard to use once you understand how to model the data as we’ll show next.</p>
+<h2><span class="header-section-number">4.5</span> Using Bioconductor Packages</h2>
+<p>This section demonstrates the use of three packages to perform DEG-analysis on <strong>count</strong> data. There are many packages available on Bioconductor for similar analysis, such as <code>DSS</code>, <code>EBSeq</code>, <code>NOISeq</code> and <code>BaySeq</code>, but here we will focus on <code>edgeR</code>, <code>DESeq2</code> and <code>limma</code> for processing count-based data. Chances are that either of these three packages are mentioned if the article described the use of R for the statistical analysis as they are the most widely accepted methods of processing gene expression data.</p>
+<p>All of the three packages apply their own normalization methods (described in the sections below) therefore they only work on the count data. You can choose one of these three packages to use, or use them all since it could increase statistical power and they are not very hard to use once you understand how to <strong>model</strong> the data as we’ll show next.</p>
 <div id="deg-design" class="section level3">
 <h3><span class="header-section-number">4.5.1</span> The <code>Design</code> (matrix)</h3>
 <p>For all of these packages you need to properly specify <em>how</em> your samples are grouped. We have seen examples of this using an <code>R factor</code> object with the heatmap, MDS and PCA visualizations to tell which groups of samples we have and to which group each sample belongs. Reading the documentation for the below packages shows that this is an important part of performing DE-analysis. For example, the following code is shown in de <code>edgeR</code> documentation on page 8 where two sample groups are defined (numbered <code>1</code> and <code>2</code>), placed in a <code>factor</code> object and used as input in the <code>model.matrix</code> function.</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1">group &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>), <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;Control&quot;</span>, <span class="st">&quot;Case&quot;</span>))</a>
-<a class="sourceLine" id="cb21-2" data-line-number="2">(design &lt;-<span class="st"> </span><span class="kw">model.matrix</span>( <span class="op">~</span><span class="st"> </span>group))</a></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" data-line-number="1">group &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>), <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;Control&quot;</span>, <span class="st">&quot;Case&quot;</span>))</a>
+<a class="sourceLine" id="cb31-2" data-line-number="2">(design &lt;-<span class="st"> </span><span class="kw">model.matrix</span>( <span class="op">~</span><span class="st"> </span>group))</a></code></pre></div>
 <pre><code>##   (Intercept) groupCase
 ## 1           1         0
 ## 2           1         0
@@ -406,16 +1066,16 @@ An expected side-effect of correcting for multiple-testing is the lower number o
 </div>
 <div id="deg-deseq2" class="section level3">
 <h3><span class="header-section-number">4.5.2</span> <code>DESeq2</code></h3>
-<p>We have used the <code>DESeq2</code> library before and for DEG analysis we could re-use the <code>DESeqDataSet</code> object but it is adviced to create a new object with more data added, e.g. the sample annotation we retrieved from the GEO and the proper design formula instead of the <code>~ 1</code> we used before.</p>
+<p>We have used the <code>DESeq2</code> library before and for DEG analysis we could re-use the <code>DESeqDataSet</code> object but it is adviced to create a new object with the proper design formula instead of the <code>~ 1</code> we used before.</p>
 <p>There is no need to normalize the data using the previously used <code>rlog</code> function because the <code>DESeq2</code> library will normalize the count data for you as follows:</p>
 <blockquote>
 <p>“DESeq computes a scaling factor for a given sample by computing the median of the ratio, for each gene, of its read count over its geometric mean across all samples. It then uses the assumption that most genes are not DE and uses this median of ratios to obtain the scaling factor associated with this sample.”</p>
 </blockquote>
 <p>For our example data with just two groups we use the design <code>~ groups</code> where groups is a simple factor with two levels (<code>KO</code> and <code>WT</code>). One note of importance though is that the first level in the factor is taken as the reference, or for expression analysis, the <em>control</em> group. In the example factor the <code>KO</code> level is the first which is the <em>experiment</em> group. Therefore we need to <em>relevel</em> the data (check the help and documentation if this is unclear):</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1">(groups &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>), <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&#39;KO&#39;</span>, <span class="st">&#39;WT&#39;</span>)))</a></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" data-line-number="1">(groups &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>), <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&#39;KO&#39;</span>, <span class="st">&#39;WT&#39;</span>)))</a></code></pre></div>
 <pre><code>## [1] KO KO KO WT WT WT WT
 ## Levels: KO WT</code></pre>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1">(groups &lt;-<span class="st"> </span><span class="kw">relevel</span>(groups, <span class="st">&#39;WT&#39;</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" data-line-number="1">(groups &lt;-<span class="st"> </span><span class="kw">relevel</span>(groups, <span class="st">&#39;WT&#39;</span>))</a></code></pre></div>
 <pre><code>## [1] KO KO KO WT WT WT WT
 ## Levels: WT KO</code></pre>
 <p>Once you have a proper <code>DESeqDataSet</code> all you need to do is run the <code>DESeq</code> function on this object. Then, using the <code>results</code> function you can extract the DEGs as a <code>DESeqResults</code> object. Applying the <code>summary</code> function on this object shows the number of up and down regulated DEGs:</p>
@@ -483,8 +1143,8 @@ vs WT</td>
 </table>
 <p><em>How</em> you call the <code>results</code> function depends heavily on your experiment. As you can see from the output of the <code>summary</code> function, there are no details given about <em>which</em> comparison is shown (and also, a p-value of 0.1 is used instead of 0.05).</p>
 <p>Depending on the <em>design</em> used to create the <code>DESeqDataSet</code> with, one or more comparisons can be made (applying the <code>DESeq</code> function calculates all and you filter with the <code>results</code> function). Read the help for the <code>results</code> function carefully; especially regarding the <code>contrast</code> argument where you define the comparison to retrieve. The following code is used for our example experiment:</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" data-line-number="1">res &lt;-<span class="st"> </span><span class="kw">results</span>(dds, <span class="dt">contrast =</span> <span class="kw">c</span>(<span class="st">&quot;groups&quot;</span>, <span class="st">&quot;KO&quot;</span>, <span class="st">&quot;WT&quot;</span>), </a>
-<a class="sourceLine" id="cb28-2" data-line-number="2">               <span class="dt">alpha =</span> <span class="fl">0.05</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" data-line-number="1">res &lt;-<span class="st"> </span><span class="kw">results</span>(dds, <span class="dt">contrast =</span> <span class="kw">c</span>(<span class="st">&quot;groups&quot;</span>, <span class="st">&quot;KO&quot;</span>, <span class="st">&quot;WT&quot;</span>), </a>
+<a class="sourceLine" id="cb38-2" data-line-number="2">               <span class="dt">alpha =</span> <span class="fl">0.05</span>)</a></code></pre></div>
 <p><strong>Links</strong></p>
 <ul>
 <li><a href="https://www.bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html">Analyzing RNA-seq data with DESeq2</a> A <em>very</em> comprehensive guide to analyzing RNA-Seq data using DESeq2 (part of this document has been used in this material too!). It is adviced to read the first few sections of this guide and take a good look at the index of the document because there are many interesting sections that might be of help later.</li>
@@ -493,7 +1153,7 @@ vs WT</td>
 </div>
 <div id="deg-edger" class="section level3">
 <h3><span class="header-section-number">4.5.3</span> <code>edgeR</code></h3>
-<p>One of the most mature libraries for RNA-Seq data analysis is the <code>edgeR</code> library available on <a href="">Bioconductor</a>. There is a very complete (sometimes a bit complex) manual available of which you need to read <a href="https://bioconductor.org/packages/release/bioc/vignettes/edgeR/inst/doc/edgeRUsersGuide.pdf">Chapter 2</a> with a focus on 2.1 to 2.7, 2.9 and - if you have a more complex design - 2.10. Section 1.4 (Quickstart) shows a code example on the steps needed to do DEG analysis using count data using the two <code>glm</code> methods (<em>quasi-likelihood F-tests</em> and <em>likelihood ratio tests</em>). All the steps shown there are identical for the non-<code>glm</code> method up to calculating the <code>fit</code> object which can be replaced by performing the <code>exactTest</code> function as shown in sectino 2.9.2.</p>
+<p>One of the most mature libraries for RNA-Seq data analysis is the <code>edgeR</code> library available on <a href="http://bioconductor.org/packages/release/bioc/html/edgeR.html">Bioconductor</a>. There is a very complete (sometimes a bit complex) manual available of which you need to read <a href="https://bioconductor.org/packages/release/bioc/vignettes/edgeR/inst/doc/edgeRUsersGuide.pdf">Chapter 2</a> with a focus on 2.1 to 2.7, 2.9 and - if you have a more complex design - 2.10. Section 1.4 (Quickstart) shows a code example on the steps needed to do DEG analysis using count data using the two <code>glm</code> methods (<em>quasi-likelihood F-tests</em> and <em>likelihood ratio tests</em>). All the steps shown there are identical for the non-<code>glm</code> method up to calculating the <code>fit</code> object which can be replaced by performing the <code>exactTest</code> function as shown in sectino 2.9.2.</p>
 <p>The <code>edgeR</code> library will normalize the count data for you as follows:</p>
 <blockquote>
 <p>“The trimmed means of M values (TMM) from Robinson and Oshlack, which is implemented in edgeR, computes a scaling factor between two experiments by using the weighted average of the subset of genes after excluding genes that exhibit high average read counts and genes that have large differences in expression.”</p>
@@ -593,24 +1253,38 @@ vs WT</td>
 </tbody>
 </table>
 <p>The package also contains a few plotting methods that you can use at intermediate steps during the analysis. For instance, after calculating the normalization factors (<code>calcNormFactors</code>), you can perform multi-dimensional scaling with the <code>plotMDS</code> function:</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1"><span class="kw">plotMDS</span>(y)</a></code></pre></div>
-<p><img src="gene_expression_files/figure-html4/unnamed-chunk-6-1.png" width="672" /></p>
-<p>Or the <em>dispersion</em> after running the <code>estimateDisp</code> function with the <code>plotBCV</code> function:</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" data-line-number="1"><span class="kw">plotBCV</span>(y)</a></code></pre></div>
-<p><img src="gene_expression_files/figure-html4/unnamed-chunk-7-1.png" width="672" /></p>
-<p>Or the log-fold changes for all genes, once we have the output of the <code>exactTest</code> function (output <code>et</code> is an <code>DGEExact</code> object) with the <code>plotSmear</code> function. The <code>abline</code> shows a log-FC threshold:</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" data-line-number="1">deGenes &lt;-<span class="st"> </span><span class="kw">decideTestsDGE</span>(et, <span class="dt">p=</span><span class="fl">0.001</span>)</a>
-<a class="sourceLine" id="cb31-2" data-line-number="2">deGenes &lt;-<span class="st"> </span><span class="kw">rownames</span>(et)[<span class="kw">as.logical</span>(deGenes)]</a>
-<a class="sourceLine" id="cb31-3" data-line-number="3"><span class="kw">plotSmear</span>(et, <span class="dt">de.tags=</span>deGenes)</a>
-<a class="sourceLine" id="cb31-4" data-line-number="4"><span class="kw">abline</span>(<span class="dt">h=</span><span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>), <span class="dt">col=</span><span class="dv">2</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" data-line-number="1"><span class="kw">plotMDS</span>(y)</a></code></pre></div>
 <p><img src="gene_expression_files/figure-html4/unnamed-chunk-8-1.png" width="672" /></p>
+<p>Or the <em>dispersion</em> after running the <code>estimateDisp</code> function with the <code>plotBCV</code> function:</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb40-1" data-line-number="1"><span class="kw">plotBCV</span>(y)</a></code></pre></div>
+<p><img src="gene_expression_files/figure-html4/unnamed-chunk-9-1.png" width="672" /></p>
+<p>Or the log-fold changes for all genes, once we have the output of the <code>exactTest</code> function (output <code>et</code> is an <code>DGEExact</code> object) with the <code>plotSmear</code> function. The <code>abline</code> shows a log-FC threshold:</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" data-line-number="1">deGenes &lt;-<span class="st"> </span><span class="kw">decideTestsDGE</span>(et, <span class="dt">p=</span><span class="fl">0.001</span>)</a>
+<a class="sourceLine" id="cb41-2" data-line-number="2">deGenes &lt;-<span class="st"> </span><span class="kw">rownames</span>(et)[<span class="kw">as.logical</span>(deGenes)]</a>
+<a class="sourceLine" id="cb41-3" data-line-number="3"><span class="kw">plotSmear</span>(et, <span class="dt">de.tags=</span>deGenes)</a>
+<a class="sourceLine" id="cb41-4" data-line-number="4"><span class="kw">abline</span>(<span class="dt">h=</span><span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>), <span class="dt">col=</span><span class="dv">2</span>)</a></code></pre></div>
+<p><img src="gene_expression_files/figure-html4/unnamed-chunk-10-1.png" width="672" /></p>
 <p><strong>Links</strong></p>
 <ul>
 <li><a href="http://bioinformatics-core-shared-training.github.io/cruk-bioinf-sschool/Day3/rnaSeq_DE.pdf">Differential Expression Analysis using edgeR</a> tutorial</li>
 <li><a href="https://gist.github.com/jdblischak/11384914">Another tutorial</a> hosted on GitHub</li>
 </ul>
+</div>
+<div id="deg-limma" class="section level3">
+<h3><span class="header-section-number">4.5.4</span> <code>limma</code></h3>
+<p>The limma package is originally designed for processing microarray expression data but has been updated to also allow analyzing RNA-Seq data. Other than the previously discussed two packages does limma not perform its own normalization by default but includes a function that can be used to perform <em>log2-counts per million (logCPM)</em> transformation and normalization. The <code>voom</code> function is responsible for this procedure and the accompanying article shares some interesting comparisons (although a bit outdated) between different normalization techniques<span class="citation">(Charity W Law and Smyth <a href="#ref-law14">2014</a>)</span>.</p>
+<p>Further information will follow soon<span class="math inline">\(^{tm}\)</span>.</p>
 
 </div>
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-jiang14">
+<p>Himes BE, Wagner P, Jiang X. 2014. “RNA-Seq Transcriptome Profiling Identifies Crispld2 as a Glucocorticoid Responsive Gene That Modulates Cytokine Function in Airway Smooth Muscle Cells.” <em>PLoS One</em> 9 (6).</p>
+</div>
+<div id="ref-law14">
+<p>Charity W Law, Wei Shi, Yunshun Chen, and Gordon K Smyth. 2014. “Voom: Precision Weights Unlock Linear Model Analysis Tools for Rna-Seq Read Counts.” <em>Genome Biology</em> 15 (R29).</p>
 </div>
 </div>
             </section>

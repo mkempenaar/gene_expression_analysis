@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Analysis of Gene Expression</title>
+  <meta name="description" content="Course Syllabus for the Theme 7 course">
+  <meta name="generator" content="bookdown 0.5.16 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Analysis of Gene Expression" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Course Syllabus for the Theme 7 course" />
+  <meta name="github-repo" content="mkempenaar/BFVH15CAPSTONE" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Analysis of Gene Expression" />
+  
+  <meta name="twitter:description" content="Course Syllabus for the Theme 7 course" />
+  
+
+<meta name="author" content="Marcel Kempenaar">
+
+
+<meta name="date" content="2018-03-15">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="chapter-6.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; position: absolute; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; }
+pre.numberSource a.sourceLine:empty
+  { position: absolute; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Theme 07 - Analysis of Gene Expression</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
+<li class="chapter" data-level="1" data-path="chapter-1.html"><a href="chapter-1.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1.1" data-path="chapter-1.html"><a href="chapter-1.html#theme-7---analysis-of-gene-expression-project"><i class="fa fa-check"></i><b>1.1</b> Theme 7 - Analysis of Gene Expression Project</a></li>
+<li class="chapter" data-level="1.2" data-path="chapter-1.html"><a href="chapter-1.html#project-deliverables"><i class="fa fa-check"></i><b>1.2</b> Project Deliverables</a></li>
+<li class="chapter" data-level="1.3" data-path="chapter-1.html"><a href="chapter-1.html#project-schedule"><i class="fa fa-check"></i><b>1.3</b> Project Schedule</a></li>
+<li class="chapter" data-level="1.4" data-path="chapter-1.html"><a href="chapter-1.html#grading"><i class="fa fa-check"></i><b>1.4</b> Grading</a></li>
+<li class="chapter" data-level="1.5" data-path="chapter-1.html"><a href="chapter-1.html#project-proposal"><i class="fa fa-check"></i><b>1.5</b> Project Proposal</a></li>
+<li class="chapter" data-level="1.6" data-path="chapter-1.html"><a href="chapter-1.html#lab-journal"><i class="fa fa-check"></i><b>1.6</b> <em>Lab Journal</em></a></li>
+<li class="chapter" data-level="1.7" data-path="chapter-1.html"><a href="chapter-1.html#article"><i class="fa fa-check"></i><b>1.7</b> Article</a><ul>
+<li class="chapter" data-level="1.7.1" data-path="chapter-1.html"><a href="chapter-1.html#installing-the-article-template"><i class="fa fa-check"></i><b>1.7.1</b> Installing the Article Template</a></li>
+<li class="chapter" data-level="1.7.2" data-path="chapter-1.html"><a href="chapter-1.html#using-the-template"><i class="fa fa-check"></i><b>1.7.2</b> Using the Template</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="chapter-2.html"><a href="chapter-2.html"><i class="fa fa-check"></i><b>2</b> Discovering Data Sets</a><ul>
+<li class="chapter" data-level="2.1" data-path="chapter-2.html"><a href="chapter-2.html#finding-public-data"><i class="fa fa-check"></i><b>2.1</b> Finding Public Data Sets of Interest</a></li>
+<li class="chapter" data-level="2.2" data-path="chapter-2.html"><a href="chapter-2.html#ncbi-geo"><i class="fa fa-check"></i><b>2.2</b> The NCBI <em>Gene Expression Omnibus</em></a></li>
+<li class="chapter" data-level="2.3" data-path="chapter-2.html"><a href="chapter-2.html#project-proposal_ch2"><i class="fa fa-check"></i><b>2.3</b> Creating a Project Proposal</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="chapter-3.html"><a href="chapter-3.html"><i class="fa fa-check"></i><b>3</b> Exploratory Data Analysis</a><ul>
+<li class="chapter" data-level="3.1" data-path="chapter-3.html"><a href="chapter-3.html#expl-data"><i class="fa fa-check"></i><b>3.1</b> Exploring the Available Project Data</a></li>
+<li class="chapter" data-level="3.2" data-path="chapter-3.html"><a href="chapter-3.html#loading-data"><i class="fa fa-check"></i><b>3.2</b> Loading data into R</a></li>
+<li class="chapter" data-level="3.3" data-path="chapter-3.html"><a href="chapter-3.html#EDA_part1"><i class="fa fa-check"></i><b>3.3</b> Visualizing using <code>summary</code>, <code>boxplot</code>, <code>density plot</code>, <code>scatterplot</code> &amp; <code>MA-plot</code></a><ul>
+<li class="chapter" data-level="3.3.1" data-path="chapter-3.html"><a href="chapter-3.html#eda_statistics"><i class="fa fa-check"></i><b>3.3.1</b> Statistics</a></li>
+<li class="chapter" data-level="3.3.2" data-path="chapter-3.html"><a href="chapter-3.html#eda_boxplots"><i class="fa fa-check"></i><b>3.3.2</b> Boxplots</a></li>
+<li class="chapter" data-level="3.3.3" data-path="chapter-3.html"><a href="chapter-3.html#eda_density_plot"><i class="fa fa-check"></i><b>3.3.3</b> Density Plots</a></li>
+<li class="chapter" data-level="3.3.4" data-path="chapter-3.html"><a href="chapter-3.html#eda_scatter_plot"><i class="fa fa-check"></i><b>3.3.4</b> Scatterplots</a></li>
+<li class="chapter" data-level="3.3.5" data-path="chapter-3.html"><a href="chapter-3.html#MA_plot"><i class="fa fa-check"></i><b>3.3.5</b> MA-plot</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="chapter-3.html"><a href="chapter-3.html#EDA_part2"><i class="fa fa-check"></i><b>3.4</b> Visualizing using <code>heatmap</code>, <code>MDS</code> &amp; <code>PCA</code></a><ul>
+<li class="chapter" data-level="3.4.1" data-path="chapter-3.html"><a href="chapter-3.html#normalization"><i class="fa fa-check"></i><b>3.4.1</b> Normalization</a></li>
+<li class="chapter" data-level="3.4.2" data-path="chapter-3.html"><a href="chapter-3.html#eda_distance"><i class="fa fa-check"></i><b>3.4.2</b> Distance Calculation</a></li>
+<li class="chapter" data-level="3.4.3" data-path="chapter-3.html"><a href="chapter-3.html#eda_heatmap"><i class="fa fa-check"></i><b>3.4.3</b> Sample Distances using a Heatmap</a></li>
+<li class="chapter" data-level="3.4.4" data-path="chapter-3.html"><a href="chapter-3.html#eda_mds"><i class="fa fa-check"></i><b>3.4.4</b> Multi-Dimensional Scaling</a></li>
+<li class="chapter" data-level="3.4.5" data-path="chapter-3.html"><a href="chapter-3.html#eda_pca"><i class="fa fa-check"></i><b>3.4.5</b> Principal Component Analysis</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="chapter-4.html"><a href="chapter-4.html"><i class="fa fa-check"></i><b>4</b> Discovering Differentialy Expressed Genes (DEGs)</a><ul>
+<li class="chapter" data-level="4.1" data-path="chapter-4.html"><a href="chapter-4.html#deg-preprocessing"><i class="fa fa-check"></i><b>4.1</b> Pre-processing</a></li>
+<li class="chapter" data-level="4.2" data-path="chapter-4.html"><a href="chapter-4.html#deg-fc"><i class="fa fa-check"></i><b>4.2</b> The <em>Fold Change</em> Value</a></li>
+<li class="chapter" data-level="4.3" data-path="chapter-4.html"><a href="chapter-4.html#deg-manual"><i class="fa fa-check"></i><b>4.3</b> Using Manual Methods (<code>t-test</code> &amp; <code>ANOVA</code>)</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="chapter-4.html"><a href="chapter-4.html#deg-ttest"><i class="fa fa-check"></i><b>4.3.1</b> Students T-test</a></li>
+<li class="chapter" data-level="4.3.2" data-path="chapter-4.html"><a href="chapter-4.html#deg-anova"><i class="fa fa-check"></i><b>4.3.2</b> Analysis of Variance (<code>ANOVA</code>)</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="chapter-4.html"><a href="chapter-4.html#deg-mtc"><i class="fa fa-check"></i><b>4.4</b> Multiple Testing Correction</a><ul>
+<li class="chapter" data-level="4.4.1" data-path="chapter-4.html"><a href="chapter-4.html#inspecting-manual-test-results"><i class="fa fa-check"></i><b>4.4.1</b> Inspecting Manual Test Results</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="chapter-4.html"><a href="chapter-4.html#deg-bioconductor"><i class="fa fa-check"></i><b>4.5</b> Using Bioconductor Packages</a><ul>
+<li class="chapter" data-level="4.5.1" data-path="chapter-4.html"><a href="chapter-4.html#deg-design"><i class="fa fa-check"></i><b>4.5.1</b> The <code>Design</code> (matrix)</a></li>
+<li class="chapter" data-level="4.5.2" data-path="chapter-4.html"><a href="chapter-4.html#deg-deseq2"><i class="fa fa-check"></i><b>4.5.2</b> <code>DESeq2</code></a></li>
+<li class="chapter" data-level="4.5.3" data-path="chapter-4.html"><a href="chapter-4.html#deg-edger"><i class="fa fa-check"></i><b>4.5.3</b> <code>edgeR</code></a></li>
+<li class="chapter" data-level="4.5.4" data-path="chapter-4.html"><a href="chapter-4.html#deg-limma"><i class="fa fa-check"></i><b>4.5.4</b> <code>limma</code></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="chapter-5.html"><a href="chapter-5.html"><i class="fa fa-check"></i><b>5</b> Annotating an RNA-Seq Experiment</a><ul>
+<li class="chapter" data-level="5.1" data-path="chapter-5.html"><a href="chapter-5.html#download-geo"><i class="fa fa-check"></i><b>5.1</b> Downloading annotation data from GEO</a></li>
+<li class="chapter" data-level="5.2" data-path="chapter-5.html"><a href="chapter-5.html#manually-annotate"><i class="fa fa-check"></i><b>5.2</b> Manual Data Annotation</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="chapter-5.html"><a href="chapter-5.html#annotationDBI"><i class="fa fa-check"></i><b>5.2.1</b> Using <code>AnnotationDBI</code></a></li>
+<li class="chapter" data-level="5.2.2" data-path="chapter-5.html"><a href="chapter-5.html#using-biomart"><i class="fa fa-check"></i><b>5.2.2</b> Using <code>biomaRt</code></a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="chapter-5.html"><a href="chapter-5.html#functional-annotation"><i class="fa fa-check"></i><b>5.3</b> Functional Annotation</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="chapter-5.html"><a href="chapter-5.html#gene-ontology"><i class="fa fa-check"></i><b>5.3.1</b> Gene Ontology</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="chapter-6.html"><a href="chapter-6.html"><i class="fa fa-check"></i><b>6</b> Data Analysis and Visualization</a><ul>
+<li class="chapter" data-level="6.1" data-path="chapter-6.html"><a href="chapter-6.html#volcano"><i class="fa fa-check"></i><b>6.1</b> Volcano Plot</a></li>
+<li class="chapter" data-level="6.2" data-path="chapter-6.html"><a href="chapter-6.html#venn-diagram"><i class="fa fa-check"></i><b>6.2</b> Venn Diagram</a></li>
+<li class="chapter" data-level="6.3" data-path="chapter-6.html"><a href="chapter-6.html#clustering"><i class="fa fa-check"></i><b>6.3</b> Clustering</a></li>
+<li class="chapter" data-level="6.4" data-path="chapter-6.html"><a href="chapter-6.html#pathway-analysis"><i class="fa fa-check"></i><b>6.4</b> Pathway Analysis</a><ul>
+<li class="chapter" data-level="6.4.1" data-path="chapter-6.html"><a href="chapter-6.html#gene-annotation-enrichment"><i class="fa fa-check"></i><b>6.4.1</b> Gene-annotation Enrichment</a></li>
+<li class="chapter" data-level="6.4.2" data-path="chapter-6.html"><a href="chapter-6.html#spia"><i class="fa fa-check"></i><b>6.4.2</b> Signaling Pathway Impact Analysis</a></li>
+</ul></li>
+</ul></li>
+<li class="appendix"><span><b>Appendix</b></span></li>
+<li class="chapter" data-level="A" data-path="a1-batch-data-loading.html"><a href="a1-batch-data-loading.html"><i class="fa fa-check"></i><b>A</b> Appendix A: Batch Loading Expression Data in R</a><ul>
+<li class="chapter" data-level="A.1" data-path="a1-batch-data-loading.html"><a href="a1-batch-data-loading.html#decompressing"><i class="fa fa-check"></i><b>A.1</b> Decompressing</a></li>
+<li class="chapter" data-level="A.2" data-path="a1-batch-data-loading.html"><a href="a1-batch-data-loading.html#determining-data-format"><i class="fa fa-check"></i><b>A.2</b> Determining Data Format</a></li>
+<li class="chapter" data-level="A.3" data-path="a1-batch-data-loading.html"><a href="a1-batch-data-loading.html#loading-data-1"><i class="fa fa-check"></i><b>A.3</b> Loading Data</a></li>
+<li class="chapter" data-level="A.4" data-path="a1-batch-data-loading.html"><a href="a1-batch-data-loading.html#references"><i class="fa fa-check"></i><b>A.4</b> References</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Analysis of Gene Expression</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="a1-batch_data_loading" class="section level1">
+<h1><span class="header-section-number">A</span> Appendix A: Batch Loading Expression Data in R</h1>
+<p>This code example shows how to batch-load multiple files containing expression (count) data for a <em>single</em> sample. The data for this example can be found on GEO with ID <a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE109798">GSE109798</a>. Downloading the data for this experiment from GEO gives us a single <code>.tar</code> file called <code>GSE109798_RAW.tar</code>. Extracting this archive file nets us a folder with the following files:</p>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb72-1" data-line-number="1">file.names &lt;-<span class="st"> </span><span class="kw">list.files</span>(<span class="st">&#39;data/GSE109798_RAW/&#39;</span>)</a></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Files</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">GSM2970149_4T1E274.isoforms.results.txt</td>
+</tr>
+<tr class="even">
+<td align="left">GSM2970150_4T1E266.isoforms.results.txt</td>
+</tr>
+<tr class="odd">
+<td align="left">GSM2970151_4T1E247D.isoforms.results.txt</td>
+</tr>
+<tr class="even">
+<td align="left">GSM2970152_4T1P2247A.isoforms.results.txt</td>
+</tr>
+<tr class="odd">
+<td align="left">GSM2970153_4T1P2247G.isoforms.results.txt</td>
+</tr>
+<tr class="even">
+<td align="left">GSM2970154_4T1P2247F.isoforms.results.txt</td>
+</tr>
+<tr class="odd">
+<td align="left">GSM2970155_HCC1806E224B.isoforms.results.txt</td>
+</tr>
+<tr class="even">
+<td align="left">GSM2970156_HCC1806E224A.isoforms.results.txt</td>
+</tr>
+<tr class="odd">
+<td align="left">GSM2970157_HCC1806E224C.isoforms.results.txt</td>
+</tr>
+<tr class="even">
+<td align="left">GSM2970158_HCC1806P2232A.isoforms.results.txt</td>
+</tr>
+<tr class="odd">
+<td align="left">GSM2970159_HCC1806P2232B.isoforms.results.txt</td>
+</tr>
+<tr class="even">
+<td align="left">GSM2970160_HCC1806P2230.isoforms.results.txt</td>
+</tr>
+</tbody>
+</table>
+<div id="decompressing" class="section level2">
+<h2><span class="header-section-number">A.1</span> Decompressing</h2>
+<p>The file extension of all these files is <code>.txt.gz</code> which means that all files are compressed using <code>gzip</code> and need to be unpacked before they can be loaded. The easiest method is using the system <code>gunzip</code> command on all files which can be done from within R by <em>applying</em> the <code>gunzip</code> command using the <code>system</code> function on each file.</p>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb73-1" data-line-number="1">## Change directory to where the files are stored</a>
+<a class="sourceLine" id="cb73-2" data-line-number="2"><span class="kw">setwd</span>(<span class="st">&#39;data/GSE109798_RAW/&#39;</span>)</a>
+<a class="sourceLine" id="cb73-3" data-line-number="3"><span class="kw">sapply</span>(file.names, <span class="dt">FUN =</span> <span class="cf">function</span>(file.name) {</a>
+<a class="sourceLine" id="cb73-4" data-line-number="4">  <span class="kw">system</span>(<span class="kw">paste</span>(<span class="st">&quot;gunzip&quot;</span>, file.name)) </a>
+<a class="sourceLine" id="cb73-5" data-line-number="5">  })</a></code></pre></div>
+<p>Now we can update the <code>file.names</code> variable since each file name has changed.</p>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb74-1" data-line-number="1">file.names &lt;-<span class="st"> </span><span class="kw">list.files</span>(<span class="st">&#39;data/GSE109798_RAW/&#39;</span>)</a></code></pre></div>
+</div>
+<div id="determining-data-format" class="section level2">
+<h2><span class="header-section-number">A.2</span> Determining Data Format</h2>
+<p>Next, we can inspect what the contents are of these files, assuming that they all have the same layout/ column names etc. to decide what we need to use for our analysis.</p>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb75-1" data-line-number="1">## Call the system &#39;head&#39; tool to &#39;peek&#39; inside the file</a>
+<a class="sourceLine" id="cb75-2" data-line-number="2"><span class="kw">system</span>(<span class="kw">paste0</span>(<span class="st">&quot;head &quot;</span>, <span class="st">&quot;data/GSE109798_RAW/&quot;</span>, file.names[<span class="dv">1</span>]))</a></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left">transcript_id</th>
+<th align="left">gene_id</th>
+<th align="left">length</th>
+<th align="left">effective_length</th>
+<th align="left">expected_count</th>
+<th align="left">TPM</th>
+<th align="left">FPKM</th>
+<th align="left">IsoPct</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">uc007aet.1</td>
+<td align="left">1</td>
+<td align="left">3608</td>
+<td align="left">3608.00</td>
+<td align="left">1.82</td>
+<td align="left">0.44</td>
+<td align="left">0.24</td>
+<td align="left">100.00</td>
+</tr>
+<tr class="even">
+<td align="left">uc007aeu.1</td>
+<td align="left">1</td>
+<td align="left">3634</td>
+<td align="left">3634.00</td>
+<td align="left">0.00</td>
+<td align="left">0.00</td>
+<td align="left">0.00</td>
+<td align="left">0.00</td>
+</tr>
+<tr class="odd">
+<td align="left">uc011whv.1</td>
+<td align="left">10</td>
+<td align="left">26</td>
+<td align="left">26.00</td>
+<td align="left">0.00</td>
+<td align="left">0.00</td>
+<td align="left">0.00</td>
+<td align="left">0.00</td>
+</tr>
+<tr class="even">
+<td align="left">uc007amd.1</td>
+<td align="left">100</td>
+<td align="left">1823</td>
+<td align="left">1823.00</td>
+<td align="left">0.00</td>
+<td align="left">0.00</td>
+<td align="left">0.00</td>
+<td align="left">0.00</td>
+</tr>
+<tr class="odd">
+<td align="left">uc007ame.1</td>
+<td align="left">100</td>
+<td align="left">4355</td>
+<td align="left">4355.00</td>
+<td align="left">1.32</td>
+<td align="left">0.26</td>
+<td align="left">0.15</td>
+<td align="left">100.00</td>
+</tr>
+<tr class="even">
+<td align="left">uc007dac.1</td>
+<td align="left">1000</td>
+<td align="left">1403</td>
+<td align="left">1403.00</td>
+<td align="left">2.00</td>
+<td align="left">1.25</td>
+<td align="left">0.70</td>
+<td align="left">100.00</td>
+</tr>
+<tr class="odd">
+<td align="left">uc008ajp.1</td>
+<td align="left">10000</td>
+<td align="left">1078</td>
+<td align="left">1078.00</td>
+<td align="left">0.00</td>
+<td align="left">0.00</td>
+<td align="left">0.00</td>
+<td align="left">0.00</td>
+</tr>
+<tr class="even">
+<td align="left">uc012ajs.1</td>
+<td align="left">10000</td>
+<td align="left">1753</td>
+<td align="left">1753.00</td>
+<td align="left">0.00</td>
+<td align="left">0.00</td>
+<td align="left">0.00</td>
+<td align="left">0.00</td>
+</tr>
+<tr class="odd">
+<td align="left">uc008ajq.1</td>
+<td align="left">10001</td>
+<td align="left">2046</td>
+<td align="left">2046.00</td>
+<td align="left">0.00</td>
+<td align="left">0.00</td>
+<td align="left">0.00</td>
+<td align="left">0.00</td>
+</tr>
+</tbody>
+</table>
+<p>These files contain (much) more then just a count value for each gene as we can see columns such as (transcript) <em>length</em>, <em>TPM</em>, <em>FPKM</em>, etc. Also, the count-column is called <em>expected_count</em> which raises a few questions as well.</p>
+<div class="rmdtip">
+<p>
+The <em>expected count</em> value is usable as it contains more information - compared to the raw count - then we actually require. The <em>expected</em> part results from <em>multimapped reads</em> where a single read mapped to multiple positions in the genome. As each transcript originates only from one location, this multimapped read is usually discarded. With the <em>expected count</em> though, instead of discarding the read completely it is <em>estimated</em> where it originates from and this is added as a <em>fraction</em> to the count value. So the value of <code>1.32</code> that we see on line 5 in the example above means an true count of <code>1</code> (uniquely mapped read) and the <code>.32</code> (the estimated part) results from an algorithm and can mean multiple things.
+</p>
+<p>
+As mentioned before, we require integer count data for use with packages such as <code>DESeq2</code> and <code>edgeR</code> and there are two methods to convert the expected count to raw count data: + <em>round</em> the value to the nearest integer (widely accepted method and is well within the expected sampling variation), or + discard the fraction part by using for example the <code>floor()</code> function.
+</p>
+</div>
+</div>
+<div id="loading-data-1" class="section level2">
+<h2><span class="header-section-number">A.3</span> Loading Data</h2>
+<p>From all these columns we want to keep the <em>transcript_id</em> and <em>expected_count</em> columns and ignore the rest (we might be interested in this data later on though). As we need to lead each file separately we can define a function that reads in the data, keeping the columns of interest and returning a dataframe with this data. Note that the first line of each file is used as a header, but check before setting the <code>header</code> argument to <code>TRUE</code>, sometimes the expression data starts at line 1. The file name is then also used to name the column in the dataframe so that we know which column is which sample. This is done by splitting the file name (using <code>strsplit</code>) using the dot (‘<code>.</code>’) keeping the first part (i.e. ‘<code>GSM2970156_HCC1806E224A</code>’) and discarding the second part (‘<code>isoforms.results.txt</code>’). The <code>strsplit</code> function however always returns a list, in this case containing a vector with the 5 splitted elements:</p>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb76-1" data-line-number="1">## String splitting in R</a>
+<a class="sourceLine" id="cb76-2" data-line-number="2">## (the fixed = TRUE is required as the dot is a special character, see &#39;?strsplit&#39;)</a>
+<a class="sourceLine" id="cb76-3" data-line-number="3"><span class="kw">strsplit</span>(<span class="st">&#39;GSM2970155_HCC1806E224B.isoforms.results.txt.gz&#39;</span>, <span class="st">&#39;.&#39;</span>, <span class="dt">fixed =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<pre><code>## [[1]]
+## [1] &quot;GSM2970155_HCC1806E224B&quot; &quot;isoforms&quot;               
+## [3] &quot;results&quot;                 &quot;txt&quot;                    
+## [5] &quot;gz&quot;</code></pre>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb78-1" data-line-number="1">## Keeping the sample identifier</a>
+<a class="sourceLine" id="cb78-2" data-line-number="2"><span class="kw">strsplit</span>(<span class="st">&#39;GSM2970155_HCC1806E224B.isoforms.results.txt.gz&#39;</span>, <span class="st">&#39;.&#39;</span>, <span class="dt">fixed =</span> <span class="ot">TRUE</span>)[[<span class="dv">1</span>]][<span class="dv">1</span>]</a></code></pre></div>
+<pre><code>## [1] &quot;GSM2970155_HCC1806E224B&quot;</code></pre>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb80-1" data-line-number="1">## Function for reading in files</a>
+<a class="sourceLine" id="cb80-2" data-line-number="2">read_sample &lt;-<span class="st"> </span><span class="cf">function</span>(file.name) {</a>
+<a class="sourceLine" id="cb80-3" data-line-number="3">  ## Extract the sample name for naming the column</a>
+<a class="sourceLine" id="cb80-4" data-line-number="4">  sample.name &lt;-<span class="st"> </span><span class="kw">strsplit</span>(file.name, <span class="st">&quot;.&quot;</span>, <span class="dt">fixed =</span> <span class="ot">TRUE</span>)[[<span class="dv">1</span>]][<span class="dv">1</span>]</a>
+<a class="sourceLine" id="cb80-5" data-line-number="5">  ## Read the data, setting the &#39;transcript_id&#39; as row.names (column 1)</a>
+<a class="sourceLine" id="cb80-6" data-line-number="6">  sample &lt;-<span class="st"> </span><span class="kw">read.table</span>(file.name, <span class="dt">header =</span> <span class="ot">TRUE</span>, <span class="dt">sep=</span><span class="st">&quot;</span><span class="ch">\t</span><span class="st">&quot;</span>, <span class="dt">row.names =</span> <span class="ot">NULL</span>)</a>
+<a class="sourceLine" id="cb80-7" data-line-number="7">  ## Rename the count column</a>
+<a class="sourceLine" id="cb80-8" data-line-number="8">  <span class="kw">names</span>(sample)[<span class="dv">5</span>] &lt;-<span class="st"> </span>sample.name</a>
+<a class="sourceLine" id="cb80-9" data-line-number="9">  ## Return a subset containing the &#39;transcript_id&#39; and sample name columns</a>
+<a class="sourceLine" id="cb80-10" data-line-number="10">  <span class="kw">return</span>(sample[<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">5</span>)])</a>
+<a class="sourceLine" id="cb80-11" data-line-number="11">}</a></code></pre></div>
+<p>Applying the <code>read_sample</code> function to all file names gives us a set of data frames that we can merge together using the <code>merge</code> function. We merge the data based on the transcript id defined with the <code>by = 0</code> (or <code>by = 'row.names'</code>) argument. We start by reading in just one file which is the ‘base’ dataframe to which we will merge the other files.</p>
+<p>During processing it seemed that this data set is divided into two groups which is also listed on the GEO website for this project:</p>
+<ul>
+<li>GPL11154 Illumina HiSeq 2000 (Homo sapiens)</li>
+<li>GPL13112 Illumina HiSeq 2000 (Mus musculus)</li>
+</ul>
+<p>where the first 6 files are from human source and the last 6 from the mouse. Therefore, the following code only shows how to read the first 6 samples and merge these into a single dataframe. Repeating this process for the other 6 files would result into another dataframe for those samples.</p>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb81-1" data-line-number="1"><span class="kw">setwd</span>(<span class="st">&#39;data/GSE109798_RAW/&#39;</span>)</a>
+<a class="sourceLine" id="cb81-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb81-3" data-line-number="3">## Read the FIRST sample</a>
+<a class="sourceLine" id="cb81-4" data-line-number="4">dataset &lt;-<span class="st"> </span><span class="kw">read_sample</span>(file.names[<span class="dv">1</span>])</a>
+<a class="sourceLine" id="cb81-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb81-6" data-line-number="6">## Read first sample group (6)</a>
+<a class="sourceLine" id="cb81-7" data-line-number="7"><span class="cf">for</span> (file.name <span class="cf">in</span> file.names[<span class="dv">2</span><span class="op">:</span><span class="dv">6</span>]) {</a>
+<a class="sourceLine" id="cb81-8" data-line-number="8">  sample &lt;-<span class="st"> </span><span class="kw">read_sample</span>(file.name)</a>
+<a class="sourceLine" id="cb81-9" data-line-number="9">  dataset &lt;-<span class="st"> </span><span class="kw">merge</span>(dataset, sample, <span class="dt">by =</span> <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb81-10" data-line-number="10">}</a>
+<a class="sourceLine" id="cb81-11" data-line-number="11"></a>
+<a class="sourceLine" id="cb81-12" data-line-number="12"><span class="kw">pander</span>(<span class="kw">head</span>(dataset))</a></code></pre></div>
+<table style="width:100%;">
+<caption>Table continues below</caption>
+<colgroup>
+<col width="20%" />
+<col width="26%" />
+<col width="26%" />
+<col width="26%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">transcript_id</th>
+<th align="center">GSM2970149_4T1E274</th>
+<th align="center">GSM2970150_4T1E266</th>
+<th align="center">GSM2970151_4T1E247D</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">uc007aet.1</td>
+<td align="center">1.82</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr class="even">
+<td align="center">uc007aeu.1</td>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">0.24</td>
+</tr>
+<tr class="odd">
+<td align="center">uc007aev.1</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr class="even">
+<td align="center">uc007aew.1</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0.97</td>
+</tr>
+<tr class="odd">
+<td align="center">uc007aex.2</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr class="even">
+<td align="center">uc007aey.1</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+</tbody>
+</table>
+<table style="width:96%;">
+<colgroup>
+<col width="31%" />
+<col width="31%" />
+<col width="31%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">GSM2970152_4T1P2247A</th>
+<th align="center">GSM2970153_4T1P2247G</th>
+<th align="center">GSM2970154_4T1P2247F</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr class="even">
+<td align="center">0.13</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr class="odd">
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr class="even">
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">0</td>
+</tr>
+<tr class="odd">
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr class="even">
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+</tbody>
+</table>
+<p>The <code>dataset</code> variable now contains all data for the first 6 samples in this experiment. It is advisable to compare the number of rows in this data set with the number of rows in a single sample. It is not guaranteed that all samples have exactly the same number of genes/transcripts present (i.e., 0-values might have been discarded) which results in a final data set that has as many rows as the <em>smallest</em> sample. See the help of <code>merge</code> if this is the case because the <code>all</code> argument can be used to introduce extra rows for missing data.</p>
+</div>
+<div id="references" class="section level2">
+<h2><span class="header-section-number">A.4</span> References</h2>
+
+<div id="refs" class="references">
+<div>
+<p>al., Patrick Deelen et. 2015. “Calling Genotypes from Public Rna-Sequencing Data Enables Identification of Genetic Variants That Affect Gene-Expression Levels.” <em>Genome Medicine</em> 7 (30).</p>
+</div>
+<div>
+<p>Charity W Law, Wei Shi, Yunshun Chen, and Gordon K Smyth. 2014. “Voom: Precision Weights Unlock Linear Model Analysis Tools for Rna-Seq Read Counts.” <em>Genome Biology</em> 15 (R29).</p>
+</div>
+<div>
+<p>Chen, Yunshun, Aaron Lun, Davis McCarthy, Xiaobei Zhou, Mark Robinson, and Gordon Smyth. 2018. <em>EdgeR: Empirical Analysis of Digital Gene Expression Data in R</em>. <a href="http://bioinf.wehi.edu.au/edgeR" class="uri">http://bioinf.wehi.edu.au/edgeR</a>.</p>
+</div>
+<div>
+<p>Daróczi, Gergely, and Roman Tsegelskyi. 2017. <em>Pander: An R ’Pandoc’ Writer</em>. <a href="https://CRAN.R-project.org/package=pander" class="uri">https://CRAN.R-project.org/package=pander</a>.</p>
+</div>
+<div>
+<p>Himes BE, Wagner P, Jiang X. 2014. “RNA-Seq Transcriptome Profiling Identifies Crispld2 as a Glucocorticoid Responsive Gene That Modulates Cytokine Function in Airway Smooth Muscle Cells.” <em>PLoS One</em> 9 (6).</p>
+</div>
+<div>
+<p>Love, Michael, Simon Anders, and Wolfgang Huber. 2017. <em>DESeq2: Differential Gene Expression Analysis Based on the Negative Binomial Distribution</em>. <a href="https://github.com/mikelove/DESeq2" class="uri">https://github.com/mikelove/DESeq2</a>.</p>
+</div>
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="chapter-6.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
