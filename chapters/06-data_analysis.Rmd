@@ -1,6 +1,6 @@
-# Data Analysis and Visualization
+# Data Analysis and Visualization {#chapter-6}
 
-At this point we have one or more sets of DEGs from our experiment. It might be just one set or it might be a large number of comparisons made with a set of DEGs per comparison. This chapter offers some guidance to visualize and - finally - connect some biological relevance to the results.
+At this point we have one or more sets of DEGs from our experiment. It might be just one set or it might be a large number of comparisons made with a set of DEGs per comparison and/ or results from multiple approaches (manual, package). This chapter offers some guidance to visualize and - finally - connect some biological relevance to the results.
 
 ## Volcano Plot {#volcano}
 
@@ -9,6 +9,11 @@ A volcano plot is often the first visualization of the data once the DEGs are kn
 This scatterplot places the `-log10(pvalue)` values on the y-axis and the log-FC on the x-axis. Coloring is done based on the thresholds (-log10(0.05) for the pvalue and log2(1.75) (±0.8) for the log-FC). Note: the FC-value has been arbitrarily chosen to limit the number of visible DEG's.
 
 The code below shows how to get data from DeSEQ2 and format this in a usable dataframe to create the figures below. Basically it's a combination of `rlog`-normalized count data from the `rld`-object (to calculate the fold-changes manually, see the heatmap below), results from DeSEQ (to filter for significant genes) and the Entrez IDs that we will use in the [pathway analysis](#pathway-analysis) *for all genes*. The `threshold` variable is used to subset the complete dataset for DEGs  that are also filtered for their log-FC value (stored in the `deg` dataframe). 
+
+```{r load_ch6_data, echo=FALSE}
+rm(list = ls())
+load('data/chapter6.RData')
+```
 
 ```{r, deseq_data_analysis_data_prep}
 # Combine results into a single dataframe
@@ -82,7 +87,7 @@ g = ggplot(data=edgeR.results,
   geom_hline(yintercept = -log10(0.05)) +
   xlim(c(-3, 3)) + ylim(c(0, 12)) +
   xlab("log2 fold change") + ylab("-log10 p-value") +
-  ggtitle("DEGs according to EdgeR with FDR <= 0.05 and log-FC >= 1.75") +
+  ggtitle("DEGs according to edgeR with FDR <= 0.05 and log-FC >= 1.75") +
   # Add the text labels only for DEGs. Using `ggrepel` to make sure labels don't overlap
   geom_text_repel(aes(label=ifelse(FDR < 0.05 & abs(logFC) >= 1.5,
                                    row.names(edgeR.degs), '')),
@@ -110,7 +115,7 @@ g = ggplot(data=deseq.results,
   geom_hline(yintercept = -log10(0.05)) +
   xlim(c(-2.5, 2.5)) + ylim(c(0, 18)) +
   xlab("log2 fold change") + ylab("-log10 p-value") +
-  ggtitle("DEGs according to EdgeR with FDR <= 0.05 and absolute FC >= 1.75") +
+  ggtitle("DEGs according to DESeq2 with FDR <= 0.05 and absolute FC >= 1.75") +
   # Add the text labels only for DEGs. Using `ggrepel` to make sure labels don't overlap
   geom_text_repel(aes(label=ifelse(padj < 0.05 & abs(log2FoldChange) >= 0.807,
                                    row.names(deseq.degs), '')))
@@ -138,16 +143,18 @@ Creating a Venn-diagram can be a good method for selecting a (sub)set of DEGs, f
 # edgeR:
 #   Get the set of topTags from the output of the `exactTest` for *all* genes
 ttags <- as.data.frame(topTags(et, n = nrow(y)), row.names = row.names(y))
+
 # Filter on adjusted p-value and get the rownames
+# edgeR
 edgeR.degs <- row.names(ttags[ttags$FDR < 0.05,])
-# DeSEQ
-DeSEQ.degs <- row.names(counts)[which(res@listData$padj < 0.05)]
+# DESeq2
+DESeq.degs <- row.names(counts)[which(res@listData$padj < 0.05)]
 
 # Venn-diagram using the `VennDiagram` library (see below for alternative method)
 library(VennDiagram)
 # Create a list of DEGs and calculate their overlap
 overlap <- calculate.overlap(list(edgeR = edgeR.degs, 
-                                  DeSEQ = DeSEQ.degs))
+                                  DeSEQ = DESeq.degs))
 # The overlap object is a three-element list that we can use to draw a Venn-diagram with
 # Many more functions are available for triple, quad and quantuple diagrams
 venn.plot <- draw.pairwise.venn(area1 = length(overlap[[1]]), area2 = length(overlap[[2]]),
@@ -161,12 +168,12 @@ grid.draw(venn.plot)
 
 An easier alternative (especially when you have > 2 groups) is the `venn` function from the `gplots` library. This only needs a list containing either the row-numbers or the gene-names of the DEGs which is easier (but offers less adjustability to make it prettier).
 
-```{r alternative_venn}
+```{r alternative_venn, warning=FALSE, message=FALSE, error=FALSE}
 # Alternative method using the `gplots` library
 library(gplots)
 # Create a Venn-diagram given just the list of gene-names for both sets
 venn(list(edgeR = edgeR.degs,
-          DeSEQ = DeSEQ.degs))
+          DESeq = DESeq.degs))
 ```
 
 
@@ -175,7 +182,7 @@ There is a large overlap between both techniques although they both do find > 10
 ```{r, echo=FALSE}
 boxplot(ttags$logFC[ttags$FDR < 0.05], 
         res@listData$log2FoldChange[which(res@listData$padj < 0.05)],
-        names=c('edgeR', 'DeSEQ2'), main = 'log-FC values for all DEGs by package')
+        names=c('edgeR', 'DESeq2'), main = 'log-FC values for all DEGs by package')
 ```
 
 Let's quickly compare these log-FC values on a per-gene basis and see that there is something *really* strange going on! (*A follow-up will follow!*)
@@ -195,10 +202,10 @@ genes <- head(row.names(edgeR.results))
 
 pander(data.frame(Gene=head(row.names(edgeR.results)),
                   edgeR.FC=head(edgeR.results$logFC),
-                  DeSEQ.FC=head(deseq.results$log2FoldChange),
+                  DESeq.FC=head(deseq.results$log2FoldChange),
                   rlog.FC=.rld.fc[genes, "lFC"],
                   cpm.FC=.y.cpm.fc[genes, "lFC"]),
-       caption = "Comparing FC-values from edgeR, DeSEQ and manually using rlog- and cpm-normalized data")
+       caption = "Comparing FC-values from edgeR, DESeq2 and manually using rlog- and cpm-normalized data")
 
 rm(.rld.fc, .y.cpm.fc)
 ```
@@ -212,7 +219,7 @@ There are multiple methods of creating a heatmap (one of which you've already us
 
 A limitation of a heatmap will show itself when more then 100 DEGs are found; this just doesn't fit well in a single figure and causes the clustering and especially the gene names/ labels to be unreadable. It is therefore always adviced to not only filter on the adjusted P-value, but also on the log-FC value to reduce the number of genes shown.
 
-The columns in the heatmap show the four separate knockout (KO) replicates compared to the **average** of the control (WT) replicates. The `KOvsWT` column contains the contents of the `log2FoldChange` data from DeSEQ.
+The columns in the heatmap show the four separate knockout (KO) replicates compared to the **average** of the control (WT) replicates. The `KOvsWT` column contains the contents of the `log2FoldChange` data from DESeq2.
 
 ```{r, echo=FALSE, eval=TRUE}
 # Add the averages for both groups and (manually) calculate the log-FC
@@ -223,9 +230,8 @@ deseq.degs$lFC <- as.vector(deseq.degs$KOavg - deseq.degs$WTavg)
 KO.fc <- deseq.degs[,1:3] - deseq.degs$WTavg
 KO.fc$KOvsWT <- deseq.degs$log2FoldChange
 pheatmap::pheatmap(KO.fc, cluster_cols = FALSE,
-                   main="Heatmap of all DEGs for KO vs WT with an absolute-FC >= 1.75 (DeSEQ)")
+                   main="Heatmap of all DEGs for KO vs WT with an absolute-FC >= 1.75 (DESeq2)")
 ```
-
 
 
 ## Pathway Analysis {#pathway-analysis}
@@ -250,7 +256,7 @@ The following example code writes the gene *symbols* for both analysis approache
 # Write gene names to a file
 write.table(edgeR.degs, file = "../data/edger-deg-names.txt",
             row.names = FALSE, quote = FALSE, col.names = FALSE)
-write.table(DeSEQ.degs, file = "../data/deseq-deg-names.txt",
+write.table(DESeq.degs, file = "../data/deseq-deg-names.txt",
             row.names = FALSE, quote = FALSE, col.names = FALSE)
 ```
 
@@ -262,7 +268,7 @@ To also look at the *topology* of *how* genes interact with each other, we can u
 
 The code below uses data objects that were not always shown before, see the tables below for their contents.
 
-```{r spia_data_prep}
+```{r spia_data_prep, message=FALSE, warning=FALSE, error=FALSE}
 # Bioconductor package for "Signaling Pathway Impact Analysis"
 # (install with biocLite("SPIA") if it is not installed)
 library(SPIA)

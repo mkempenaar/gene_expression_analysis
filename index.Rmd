@@ -18,7 +18,6 @@ This project aims to teach the whole process of analysing a dataset containing g
 
 Instead of following the usual weekly deliverables and final assignment, this course is setup around performing your own research, based on published data and given a general guideline with a set of defined end-products. Furthermore, this whole course is done *individually*. Cooperating and discussing however with your fellow students and helping each other is desired/ expected. 
 
-
 ```{r bib_footer, include=FALSE}
 # automatically create a bib database for R packages
 knitr::write_bib(c(.packages(all.available = T, lib.loc = "packrat/lib/x86_64-apple-darwin17.3.0/3.4.3/"), 'bookdown', 'knitr', 'rmarkdown'), 'packages.bib')

@@ -1,4 +1,4 @@
-# Annotating an RNA-Seq Experiment {#annotating-experiment}
+# Annotating an RNA-Seq Experiment {#chapter-5}
 
 ```{r, echo=FALSE}
 knitr::opts_chunk$set(cache=TRUE)
@@ -285,7 +285,7 @@ results <- getBM(attributes = attrs.get,
 
 The `results` object is a `data.frame` with 5 columns that we can merge with our data set giving us the following annotation columns (combined from the `AnnotationDBI` and `biomaRt` libraries).
 
-```{r .pander_biomart_results, echo=FALSE, eval=TRUE}
+```{r .pander_biomart_results, echo=FALSE, eval=FALSE}
 gse80128.annot <- merge(x = gse80128, y = results, 
                         by.x = 'Ensembl', by.y = 'ensembl_gene_id')
 
