@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Analysis of Gene Expression</title>
   <meta name="description" content="Course Syllabus for the Theme 7 course">
-  <meta name="generator" content="bookdown 0.5.16 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
 
   <meta property="og:title" content="Analysis of Gene Expression" />
   <meta property="og:type" content="book" />
@@ -25,7 +25,7 @@
 <meta name="author" content="Marcel Kempenaar">
 
 
-<meta name="date" content="2018-03-15">
+<meta name="date" content="2018-03-29">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -190,17 +190,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.2.1" data-path="chapter-5.html"><a href="chapter-5.html#annotationDBI"><i class="fa fa-check"></i><b>5.2.1</b> Using <code>AnnotationDBI</code></a></li>
 <li class="chapter" data-level="5.2.2" data-path="chapter-5.html"><a href="chapter-5.html#using-biomart"><i class="fa fa-check"></i><b>5.2.2</b> Using <code>biomaRt</code></a></li>
 </ul></li>
-<li class="chapter" data-level="5.3" data-path="chapter-5.html"><a href="chapter-5.html#functional-annotation"><i class="fa fa-check"></i><b>5.3</b> Functional Annotation</a><ul>
-<li class="chapter" data-level="5.3.1" data-path="chapter-5.html"><a href="chapter-5.html#gene-ontology"><i class="fa fa-check"></i><b>5.3.1</b> Gene Ontology</a></li>
-</ul></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="chapter-6.html"><a href="chapter-6.html"><i class="fa fa-check"></i><b>6</b> Data Analysis and Visualization</a><ul>
 <li class="chapter" data-level="6.1" data-path="chapter-6.html"><a href="chapter-6.html#volcano"><i class="fa fa-check"></i><b>6.1</b> Volcano Plot</a></li>
 <li class="chapter" data-level="6.2" data-path="chapter-6.html"><a href="chapter-6.html#venn-diagram"><i class="fa fa-check"></i><b>6.2</b> Venn Diagram</a></li>
 <li class="chapter" data-level="6.3" data-path="chapter-6.html"><a href="chapter-6.html#clustering"><i class="fa fa-check"></i><b>6.3</b> Clustering</a></li>
 <li class="chapter" data-level="6.4" data-path="chapter-6.html"><a href="chapter-6.html#pathway-analysis"><i class="fa fa-check"></i><b>6.4</b> Pathway Analysis</a><ul>
-<li class="chapter" data-level="6.4.1" data-path="chapter-6.html"><a href="chapter-6.html#gene-annotation-enrichment"><i class="fa fa-check"></i><b>6.4.1</b> Gene-annotation Enrichment</a></li>
-<li class="chapter" data-level="6.4.2" data-path="chapter-6.html"><a href="chapter-6.html#spia"><i class="fa fa-check"></i><b>6.4.2</b> Signaling Pathway Impact Analysis</a></li>
+<li class="chapter" data-level="6.4.1" data-path="chapter-6.html"><a href="chapter-6.html#gene-functional-classification-using-david-100-degs"><i class="fa fa-check"></i><b>6.4.1</b> Gene Functional Classification using DAVID (&gt;100 DEGs)</a></li>
+<li class="chapter" data-level="6.4.2" data-path="chapter-6.html"><a href="chapter-6.html#kegg-pathway-visualization-10-degs"><i class="fa fa-check"></i><b>6.4.2</b> KEGG-pathway Visualization (&gt;10 DEGs)</a></li>
+<li class="chapter" data-level="6.4.3" data-path="chapter-6.html"><a href="chapter-6.html#spia"><i class="fa fa-check"></i><b>6.4.3</b> Signaling Pathway Impact Analysis (&gt;20 DEGs)</a></li>
 </ul></li>
 </ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
@@ -380,11 +378,11 @@ Note that it is necessary to perform a single t-test for <em>every</em> gene (ro
 <div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1">test &lt;-<span class="st"> </span><span class="kw">t.test</span>(case.exp, control.exp, <span class="dt">alternative =</span> <span class="st">&#39;two.sided&#39;</span>, <span class="dt">var.equal =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <p>The following table shows the numeric values from performing a t-test. Here we see that this gene is identified as a DEG because its <span class="math inline">\(\alpha\)</span> &lt; <code>0.05</code>. Since the t-test compares the mean of two groups, the difference between these two values (19.2 for the ‘case’ group and 32 for the ‘control’ group) are deemed significant. Do note that ‘noise’ or large variance within a group of replicates has a lot of effect on the p-value.</p>
 <table>
-<caption>Welch Two Sample t-test: <code>gse74329[5000, case]</code> and <code>gse74329[5000, control]</code></caption>
+<caption>Two Sample t-test: <code>case.exp</code> and <code>control.exp</code></caption>
 <colgroup>
 <col width="19%" />
-<col width="9%" />
-<col width="13%" />
+<col width="5%" />
+<col width="17%" />
 <col width="29%" />
 <col width="13%" />
 <col width="13%" />
@@ -401,9 +399,9 @@ Note that it is necessary to perform a single t-test for <em>every</em> gene (ro
 </thead>
 <tbody>
 <tr class="odd">
-<td align="center">-4.297</td>
-<td align="center">2.263</td>
-<td align="center">0.04007 *</td>
+<td align="center">-5.506</td>
+<td align="center">6</td>
+<td align="center">0.001506 * *</td>
 <td align="center">two.sided</td>
 <td align="center">19.2</td>
 <td align="center">32</td>
@@ -493,16 +491,19 @@ This set of hypotheses is called a <strong>Model I</strong> or <strong>fixed eff
 <a class="sourceLine" id="cb23-3" data-line-number="3"></a>
 <a class="sourceLine" id="cb23-4" data-line-number="4">## Sample description</a>
 <a class="sourceLine" id="cb23-5" data-line-number="5"><span class="kw">colData</span>(airway)</a></code></pre></div>
-<table>
-<caption>Sample metadata for the airway experiment (continued below)</caption>
+<table style="width:100%;">
+<caption>Sample metadata for the airway experiment</caption>
 <colgroup>
-<col width="20%" />
-<col width="15%" />
-<col width="12%" />
-<col width="9%" />
-<col width="9%" />
-<col width="15%" />
-<col width="15%" />
+<col width="14%" />
+<col width="10%" />
+<col width="8%" />
+<col width="6%" />
+<col width="6%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="11%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -513,6 +514,9 @@ This set of hypotheses is called a <strong>Model I</strong> or <strong>fixed eff
 <th align="center">albut</th>
 <th align="center">Run</th>
 <th align="center">avgLength</th>
+<th align="center">Experiment</th>
+<th align="center">Sample</th>
+<th align="center">BioSample</th>
 </tr>
 </thead>
 <tbody>
@@ -524,6 +528,9 @@ This set of hypotheses is called a <strong>Model I</strong> or <strong>fixed eff
 <td align="center">untrt</td>
 <td align="center">SRR1039508</td>
 <td align="center">126</td>
+<td align="center">SRX384345</td>
+<td align="center">SRS508568</td>
+<td align="center">SAMN02422669</td>
 </tr>
 <tr class="even">
 <td align="center"><strong>SRR1039509</strong></td>
@@ -533,6 +540,9 @@ This set of hypotheses is called a <strong>Model I</strong> or <strong>fixed eff
 <td align="center">untrt</td>
 <td align="center">SRR1039509</td>
 <td align="center">126</td>
+<td align="center">SRX384346</td>
+<td align="center">SRS508567</td>
+<td align="center">SAMN02422675</td>
 </tr>
 <tr class="odd">
 <td align="center"><strong>SRR1039512</strong></td>
@@ -542,6 +552,9 @@ This set of hypotheses is called a <strong>Model I</strong> or <strong>fixed eff
 <td align="center">untrt</td>
 <td align="center">SRR1039512</td>
 <td align="center">126</td>
+<td align="center">SRX384349</td>
+<td align="center">SRS508571</td>
+<td align="center">SAMN02422678</td>
 </tr>
 <tr class="even">
 <td align="center"><strong>SRR1039513</strong></td>
@@ -551,6 +564,9 @@ This set of hypotheses is called a <strong>Model I</strong> or <strong>fixed eff
 <td align="center">untrt</td>
 <td align="center">SRR1039513</td>
 <td align="center">87</td>
+<td align="center">SRX384350</td>
+<td align="center">SRS508572</td>
+<td align="center">SAMN02422670</td>
 </tr>
 <tr class="odd">
 <td align="center"><strong>SRR1039516</strong></td>
@@ -560,6 +576,9 @@ This set of hypotheses is called a <strong>Model I</strong> or <strong>fixed eff
 <td align="center">untrt</td>
 <td align="center">SRR1039516</td>
 <td align="center">120</td>
+<td align="center">SRX384353</td>
+<td align="center">SRS508575</td>
+<td align="center">SAMN02422682</td>
 </tr>
 <tr class="even">
 <td align="center"><strong>SRR1039517</strong></td>
@@ -569,6 +588,9 @@ This set of hypotheses is called a <strong>Model I</strong> or <strong>fixed eff
 <td align="center">untrt</td>
 <td align="center">SRR1039517</td>
 <td align="center">126</td>
+<td align="center">SRX384354</td>
+<td align="center">SRS508576</td>
+<td align="center">SAMN02422673</td>
 </tr>
 <tr class="odd">
 <td align="center"><strong>SRR1039520</strong></td>
@@ -578,6 +600,9 @@ This set of hypotheses is called a <strong>Model I</strong> or <strong>fixed eff
 <td align="center">untrt</td>
 <td align="center">SRR1039520</td>
 <td align="center">101</td>
+<td align="center">SRX384357</td>
+<td align="center">SRS508579</td>
+<td align="center">SAMN02422683</td>
 </tr>
 <tr class="even">
 <td align="center"><strong>SRR1039521</strong></td>
@@ -587,69 +612,6 @@ This set of hypotheses is called a <strong>Model I</strong> or <strong>fixed eff
 <td align="center">untrt</td>
 <td align="center">SRR1039521</td>
 <td align="center">98</td>
-</tr>
-</tbody>
-</table>
-<table style="width:78%;">
-<colgroup>
-<col width="23%" />
-<col width="18%" />
-<col width="16%" />
-<col width="19%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th align="center"> </th>
-<th align="center">Experiment</th>
-<th align="center">Sample</th>
-<th align="center">BioSample</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="center"><strong>SRR1039508</strong></td>
-<td align="center">SRX384345</td>
-<td align="center">SRS508568</td>
-<td align="center">SAMN02422669</td>
-</tr>
-<tr class="even">
-<td align="center"><strong>SRR1039509</strong></td>
-<td align="center">SRX384346</td>
-<td align="center">SRS508567</td>
-<td align="center">SAMN02422675</td>
-</tr>
-<tr class="odd">
-<td align="center"><strong>SRR1039512</strong></td>
-<td align="center">SRX384349</td>
-<td align="center">SRS508571</td>
-<td align="center">SAMN02422678</td>
-</tr>
-<tr class="even">
-<td align="center"><strong>SRR1039513</strong></td>
-<td align="center">SRX384350</td>
-<td align="center">SRS508572</td>
-<td align="center">SAMN02422670</td>
-</tr>
-<tr class="odd">
-<td align="center"><strong>SRR1039516</strong></td>
-<td align="center">SRX384353</td>
-<td align="center">SRS508575</td>
-<td align="center">SAMN02422682</td>
-</tr>
-<tr class="even">
-<td align="center"><strong>SRR1039517</strong></td>
-<td align="center">SRX384354</td>
-<td align="center">SRS508576</td>
-<td align="center">SAMN02422673</td>
-</tr>
-<tr class="odd">
-<td align="center"><strong>SRR1039520</strong></td>
-<td align="center">SRX384357</td>
-<td align="center">SRS508579</td>
-<td align="center">SAMN02422683</td>
-</tr>
-<tr class="even">
-<td align="center"><strong>SRR1039521</strong></td>
 <td align="center">SRX384358</td>
 <td align="center">SRS508580</td>
 <td align="center">SAMN02422677</td>
@@ -658,14 +620,18 @@ This set of hypotheses is called a <strong>Model I</strong> or <strong>fixed eff
 </table>
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" data-line-number="1">## Count data</a>
 <a class="sourceLine" id="cb24-2" data-line-number="2"><span class="kw">head</span>(<span class="kw">assay</span>(airway))</a></code></pre></div>
-<table>
-<caption>Count data for the airway experiment (continued below)</caption>
+<table style="width:100%;">
+<caption>Count data for the airway experiment</caption>
 <colgroup>
-<col width="29%" />
 <col width="17%" />
-<col width="17%" />
-<col width="17%" />
-<col width="17%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -674,64 +640,6 @@ This set of hypotheses is called a <strong>Model I</strong> or <strong>fixed eff
 <th align="center">SRR1039509</th>
 <th align="center">SRR1039512</th>
 <th align="center">SRR1039513</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="center"><strong>ENSG00000000003</strong></td>
-<td align="center">679</td>
-<td align="center">448</td>
-<td align="center">873</td>
-<td align="center">408</td>
-</tr>
-<tr class="even">
-<td align="center"><strong>ENSG00000000005</strong></td>
-<td align="center">0</td>
-<td align="center">0</td>
-<td align="center">0</td>
-<td align="center">0</td>
-</tr>
-<tr class="odd">
-<td align="center"><strong>ENSG00000000419</strong></td>
-<td align="center">467</td>
-<td align="center">515</td>
-<td align="center">621</td>
-<td align="center">365</td>
-</tr>
-<tr class="even">
-<td align="center"><strong>ENSG00000000457</strong></td>
-<td align="center">260</td>
-<td align="center">211</td>
-<td align="center">263</td>
-<td align="center">164</td>
-</tr>
-<tr class="odd">
-<td align="center"><strong>ENSG00000000460</strong></td>
-<td align="center">60</td>
-<td align="center">55</td>
-<td align="center">40</td>
-<td align="center">35</td>
-</tr>
-<tr class="even">
-<td align="center"><strong>ENSG00000000938</strong></td>
-<td align="center">0</td>
-<td align="center">0</td>
-<td align="center">2</td>
-<td align="center">0</td>
-</tr>
-</tbody>
-</table>
-<table>
-<colgroup>
-<col width="29%" />
-<col width="17%" />
-<col width="17%" />
-<col width="17%" />
-<col width="17%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th align="center"> </th>
 <th align="center">SRR1039516</th>
 <th align="center">SRR1039517</th>
 <th align="center">SRR1039520</th>
@@ -741,6 +649,10 @@ This set of hypotheses is called a <strong>Model I</strong> or <strong>fixed eff
 <tbody>
 <tr class="odd">
 <td align="center"><strong>ENSG00000000003</strong></td>
+<td align="center">679</td>
+<td align="center">448</td>
+<td align="center">873</td>
+<td align="center">408</td>
 <td align="center">1138</td>
 <td align="center">1047</td>
 <td align="center">770</td>
@@ -752,9 +664,17 @@ This set of hypotheses is called a <strong>Model I</strong> or <strong>fixed eff
 <td align="center">0</td>
 <td align="center">0</td>
 <td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
 </tr>
 <tr class="odd">
 <td align="center"><strong>ENSG00000000419</strong></td>
+<td align="center">467</td>
+<td align="center">515</td>
+<td align="center">621</td>
+<td align="center">365</td>
 <td align="center">587</td>
 <td align="center">799</td>
 <td align="center">417</td>
@@ -762,6 +682,10 @@ This set of hypotheses is called a <strong>Model I</strong> or <strong>fixed eff
 </tr>
 <tr class="even">
 <td align="center"><strong>ENSG00000000457</strong></td>
+<td align="center">260</td>
+<td align="center">211</td>
+<td align="center">263</td>
+<td align="center">164</td>
 <td align="center">245</td>
 <td align="center">331</td>
 <td align="center">233</td>
@@ -769,6 +693,10 @@ This set of hypotheses is called a <strong>Model I</strong> or <strong>fixed eff
 </tr>
 <tr class="odd">
 <td align="center"><strong>ENSG00000000460</strong></td>
+<td align="center">60</td>
+<td align="center">55</td>
+<td align="center">40</td>
+<td align="center">35</td>
 <td align="center">78</td>
 <td align="center">63</td>
 <td align="center">76</td>
@@ -776,6 +704,10 @@ This set of hypotheses is called a <strong>Model I</strong> or <strong>fixed eff
 </tr>
 <tr class="even">
 <td align="center"><strong>ENSG00000000938</strong></td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">2</td>
+<td align="center">0</td>
 <td align="center">1</td>
 <td align="center">0</td>
 <td align="center">0</td>
@@ -1015,7 +947,7 @@ For this gene, both the treatment <em>and</em> the cell have an <em>almost</em> 
 <p>After performing ANOVA some steps should be performed to check if the results are viable, tests like the <strong>Levene’s test</strong> for checking the homogeneity of variances and checking for <strong>normality</strong> of the residuals. While technical and fully understanding falls outside of the scope of this course, a simple plot can be made (not for all genes/ tests) to see if the residuals are normally distributed. We expect the datapoints to approximately follow a straight diagonal line. Samples that differ too much are annotated in the plot and can be reason for concern.</p>
 <div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" data-line-number="1">## Plotting the full model (remove the 2) shows other statistics as well</a>
 <a class="sourceLine" id="cb30-2" data-line-number="2"><span class="kw">plot</span>(model.airway, <span class="dv">2</span>)</a></code></pre></div>
-<p><img src="gene_expression_files/figure-html4/anova-residuals-normality-1.png" width="672" /></p>
+<p><img src="gene_expression_files/figure-html/anova-residuals-normality-1.png" width="672" /></p>
 <p><em>ANOVA</em> tutorials</p>
 <ul>
 <li><a href="https://bioinf.nl/~michiel/courses/R_minor/ttest.html#anova">M. A. Noback, DAVuR Course Syllabus</a></li>
@@ -1254,16 +1186,16 @@ vs WT</td>
 </table>
 <p>The package also contains a few plotting methods that you can use at intermediate steps during the analysis. For instance, after calculating the normalization factors (<code>calcNormFactors</code>), you can perform multi-dimensional scaling with the <code>plotMDS</code> function:</p>
 <div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" data-line-number="1"><span class="kw">plotMDS</span>(y)</a></code></pre></div>
-<p><img src="gene_expression_files/figure-html4/unnamed-chunk-8-1.png" width="672" /></p>
+<p><img src="gene_expression_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
 <p>Or the <em>dispersion</em> after running the <code>estimateDisp</code> function with the <code>plotBCV</code> function:</p>
 <div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb40-1" data-line-number="1"><span class="kw">plotBCV</span>(y)</a></code></pre></div>
-<p><img src="gene_expression_files/figure-html4/unnamed-chunk-9-1.png" width="672" /></p>
+<p><img src="gene_expression_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
 <p>Or the log-fold changes for all genes, once we have the output of the <code>exactTest</code> function (output <code>et</code> is an <code>DGEExact</code> object) with the <code>plotSmear</code> function. The <code>abline</code> shows a log-FC threshold:</p>
 <div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" data-line-number="1">deGenes &lt;-<span class="st"> </span><span class="kw">decideTestsDGE</span>(et, <span class="dt">p=</span><span class="fl">0.001</span>)</a>
 <a class="sourceLine" id="cb41-2" data-line-number="2">deGenes &lt;-<span class="st"> </span><span class="kw">rownames</span>(et)[<span class="kw">as.logical</span>(deGenes)]</a>
 <a class="sourceLine" id="cb41-3" data-line-number="3"><span class="kw">plotSmear</span>(et, <span class="dt">de.tags=</span>deGenes)</a>
 <a class="sourceLine" id="cb41-4" data-line-number="4"><span class="kw">abline</span>(<span class="dt">h=</span><span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>), <span class="dt">col=</span><span class="dv">2</span>)</a></code></pre></div>
-<p><img src="gene_expression_files/figure-html4/unnamed-chunk-10-1.png" width="672" /></p>
+<p><img src="gene_expression_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
 <p><strong>Links</strong></p>
 <ul>
 <li><a href="http://bioinformatics-core-shared-training.github.io/cruk-bioinf-sschool/Day3/rnaSeq_DE.pdf">Differential Expression Analysis using edgeR</a> tutorial</li>
@@ -1311,10 +1243,11 @@ gitbook.start({
 "facebook": true,
 "twitter": true,
 "google": false,
+"linkedin": false,
 "weibo": false,
 "instapper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",

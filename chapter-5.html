@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Analysis of Gene Expression</title>
   <meta name="description" content="Course Syllabus for the Theme 7 course">
-  <meta name="generator" content="bookdown 0.5.16 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
 
   <meta property="og:title" content="Analysis of Gene Expression" />
   <meta property="og:type" content="book" />
@@ -25,7 +25,7 @@
 <meta name="author" content="Marcel Kempenaar">
 
 
-<meta name="date" content="2018-03-15">
+<meta name="date" content="2018-03-29">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -190,17 +190,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.2.1" data-path="chapter-5.html"><a href="chapter-5.html#annotationDBI"><i class="fa fa-check"></i><b>5.2.1</b> Using <code>AnnotationDBI</code></a></li>
 <li class="chapter" data-level="5.2.2" data-path="chapter-5.html"><a href="chapter-5.html#using-biomart"><i class="fa fa-check"></i><b>5.2.2</b> Using <code>biomaRt</code></a></li>
 </ul></li>
-<li class="chapter" data-level="5.3" data-path="chapter-5.html"><a href="chapter-5.html#functional-annotation"><i class="fa fa-check"></i><b>5.3</b> Functional Annotation</a><ul>
-<li class="chapter" data-level="5.3.1" data-path="chapter-5.html"><a href="chapter-5.html#gene-ontology"><i class="fa fa-check"></i><b>5.3.1</b> Gene Ontology</a></li>
-</ul></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="chapter-6.html"><a href="chapter-6.html"><i class="fa fa-check"></i><b>6</b> Data Analysis and Visualization</a><ul>
 <li class="chapter" data-level="6.1" data-path="chapter-6.html"><a href="chapter-6.html#volcano"><i class="fa fa-check"></i><b>6.1</b> Volcano Plot</a></li>
 <li class="chapter" data-level="6.2" data-path="chapter-6.html"><a href="chapter-6.html#venn-diagram"><i class="fa fa-check"></i><b>6.2</b> Venn Diagram</a></li>
 <li class="chapter" data-level="6.3" data-path="chapter-6.html"><a href="chapter-6.html#clustering"><i class="fa fa-check"></i><b>6.3</b> Clustering</a></li>
 <li class="chapter" data-level="6.4" data-path="chapter-6.html"><a href="chapter-6.html#pathway-analysis"><i class="fa fa-check"></i><b>6.4</b> Pathway Analysis</a><ul>
-<li class="chapter" data-level="6.4.1" data-path="chapter-6.html"><a href="chapter-6.html#gene-annotation-enrichment"><i class="fa fa-check"></i><b>6.4.1</b> Gene-annotation Enrichment</a></li>
-<li class="chapter" data-level="6.4.2" data-path="chapter-6.html"><a href="chapter-6.html#spia"><i class="fa fa-check"></i><b>6.4.2</b> Signaling Pathway Impact Analysis</a></li>
+<li class="chapter" data-level="6.4.1" data-path="chapter-6.html"><a href="chapter-6.html#gene-functional-classification-using-david-100-degs"><i class="fa fa-check"></i><b>6.4.1</b> Gene Functional Classification using DAVID (&gt;100 DEGs)</a></li>
+<li class="chapter" data-level="6.4.2" data-path="chapter-6.html"><a href="chapter-6.html#kegg-pathway-visualization-10-degs"><i class="fa fa-check"></i><b>6.4.2</b> KEGG-pathway Visualization (&gt;10 DEGs)</a></li>
+<li class="chapter" data-level="6.4.3" data-path="chapter-6.html"><a href="chapter-6.html#spia"><i class="fa fa-check"></i><b>6.4.3</b> Signaling Pathway Impact Analysis (&gt;20 DEGs)</a></li>
 </ul></li>
 </ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
@@ -229,9 +227,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="chapter-5" class="section level1">
 <h1><span class="header-section-number"></span> Annotating an RNA-Seq Experiment</h1>
-<p>As we now have concluded our first look at the data, it is time to prepare for the next step; discovering DEGs (discussed in <a href="#discover-degs">chapter 6</a>). Before we do this we will first try to <em>annotate</em> our data, assigning names and functions to our genes and get the full experimental setup known. This step can either be very easy or a bit more challenging depending on the data source of your project. The first example is relevant if your data set originated from the NCBI <strong>GEO</strong>, which ‘should’ always be annotated by default. If you have found your data set elsewhere (and do not have a GEO idetifier for your project), skip to the <a href="chapter-5.html#manually-annotate">Manually annotate your data</a> section below.</p>
-<p>The goal of this chapter is to - at least - find a Gene Symbol or common ID (NCBI/ Ensembl) for each gene. Using this information it will be much easier to find relevant information from other online sources to say something about the functionality and impact once you’ve identified your DEGs.</p>
-<p>Even though you might be lucky and either already have your data or a simple GEO query results in everything you want/ need, you are tasked to <em>also</em> perform the manual annotation phase even of you will not use any found annotation data. Having written the code to access these sources is a good excercise in using complex Bioconductor packages. Also, you can always use this to find more information should you require this later on.</p>
+<p>This chapter describes <em>annotate</em> the data, meaning assigning names and functions to our Differentially Expressed Genes. This step can either be very easy or a bit more challenging depending on the data source of your project. The first example is relevant if your data set originated from the NCBI <strong>GEO</strong>, which ‘should’ always be annotated by default. If you have found your data set elsewhere (and do not have a GEO idetifier for your project), skip to the <a href="chapter-5.html#manually-annotate">Manually annotate your data</a> section below.</p>
+<p>The goal of this chapter is to - at least - find a Gene Symbol or common ID (NCBI/ Ensembl) for each gene. Using this information it will be much easier to find relevant information from other online sources to say something about the functionality and impact of your DEGs.</p>
+<p>Even though you might be lucky and either already have your data or a simple GEO query results in everything you want/ need, you are tasked to <em>also</em> perform the manual annotation phase even if you will not use any of the found annotation data. Having written the code to access these sources is a good excercise in using complex Bioconductor packages. Also, you can always use this to find more information should you require this later on.</p>
 <div id="download-geo" class="section level2">
 <h2><span class="header-section-number">5.1</span> Downloading annotation data from GEO</h2>
 <p>Given the <code>GSE****</code> id of your experiment you can download any available (annotation)data from GEO using the <code>GEOquery</code> library. For the example experiment used previously, the following code downloads two files; a <code>series_matrix.txt.gz</code> file and a <code>.soft</code> file. Note the <code>destdir</code> argument for storing it in a known location instead of the <code>/tmp</code> folder.</p>
@@ -288,13 +286,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" data-line-number="1"><span class="co"># Access a data frame containing phenotype information</span></a>
 <a class="sourceLine" id="cb47-2" data-line-number="2">gse<span class="op">@</span>phenoData<span class="op">@</span>data</a></code></pre></div>
 <p>Here you see that each sample is described using its sample identifier (<code>GSM****</code>), information about the the sample group (<code>title</code> column) and a number of characteristics. The actual information included depends on your dataset.</p>
-<table style="width:89%;">
-<caption>Contents of the <code>gse@phenoData@data</code> information (selection) (continued below)</caption>
+<table>
+<caption>Contents of the <code>gse@phenoData@data</code> information (selection)</caption>
 <colgroup>
-<col width="23%" />
+<col width="9%" />
+<col width="4%" />
 <col width="12%" />
-<col width="33%" />
-<col width="19%" />
+<col width="8%" />
+<col width="11%" />
+<col width="13%" />
+<col width="12%" />
+<col width="13%" />
+<col width="13%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -302,6 +305,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <th align="center">title</th>
 <th align="center">status</th>
 <th align="center">organism_ch1</th>
+<th align="center">characteristics_ch1</th>
+<th align="center">characteristics_ch1.1</th>
+<th align="center">characteristics_ch1.2</th>
+<th align="center">characteristics_ch1.3</th>
+<th align="center">characteristics_ch1.4</th>
 </tr>
 </thead>
 <tbody>
@@ -310,167 +318,65 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <td align="center">A-KO1A</td>
 <td align="center">Public on Apr 12 2016</td>
 <td align="center">Mus musculus</td>
+<td align="center">strain: C57BL/6</td>
+<td align="center">tissue: skeletal muscle</td>
+<td align="center">age: post natal day 2</td>
+<td align="center">genotype: deltaDMR1-U2</td>
+<td align="center">Sex: female</td>
 </tr>
 <tr class="even">
 <td align="center"><strong>GSM2113325</strong></td>
 <td align="center">A-KO1B</td>
 <td align="center">Public on Apr 12 2016</td>
 <td align="center">Mus musculus</td>
+<td align="center">strain: C57BL/6</td>
+<td align="center">tissue: skeletal muscle</td>
+<td align="center">age: post natal day 2</td>
+<td align="center">genotype: deltaDMR1-U2</td>
+<td align="center">Sex: female</td>
 </tr>
 <tr class="odd">
 <td align="center"><strong>GSM2113326</strong></td>
 <td align="center">A-KO2</td>
 <td align="center">Public on Apr 12 2016</td>
 <td align="center">Mus musculus</td>
+<td align="center">strain: C57BL/6</td>
+<td align="center">tissue: skeletal muscle</td>
+<td align="center">age: post natal day 2</td>
+<td align="center">genotype: deltaDMR1-U2</td>
+<td align="center">Sex: female</td>
 </tr>
 <tr class="even">
 <td align="center"><strong>GSM2113327</strong></td>
 <td align="center">A-KO3</td>
 <td align="center">Public on Apr 12 2016</td>
 <td align="center">Mus musculus</td>
+<td align="center">strain: C57BL/6</td>
+<td align="center">tissue: skeletal muscle</td>
+<td align="center">age: post natal day 2</td>
+<td align="center">genotype: deltaDMR1-U2</td>
+<td align="center">Sex: female</td>
 </tr>
 <tr class="odd">
 <td align="center"><strong>GSM2113328</strong></td>
 <td align="center">A-WT1A</td>
 <td align="center">Public on Apr 12 2016</td>
 <td align="center">Mus musculus</td>
+<td align="center">strain: C57BL/6</td>
+<td align="center">tissue: skeletal muscle</td>
+<td align="center">age: post natal day 2</td>
+<td align="center">genotype: wild-type</td>
+<td align="center">Sex: female</td>
 </tr>
 <tr class="even">
 <td align="center"><strong>GSM2113329</strong></td>
 <td align="center">A-WT1B</td>
 <td align="center">Public on Apr 12 2016</td>
 <td align="center">Mus musculus</td>
-</tr>
-</tbody>
-</table>
-<table style="width:89%;">
-<caption>Table continues below</caption>
-<colgroup>
-<col width="23%" />
-<col width="30%" />
-<col width="34%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th align="center"> </th>
-<th align="center">characteristics_ch1</th>
-<th align="center">characteristics_ch1.1</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="center"><strong>GSM2113324</strong></td>
 <td align="center">strain: C57BL/6</td>
 <td align="center">tissue: skeletal muscle</td>
-</tr>
-<tr class="even">
-<td align="center"><strong>GSM2113325</strong></td>
-<td align="center">strain: C57BL/6</td>
-<td align="center">tissue: skeletal muscle</td>
-</tr>
-<tr class="odd">
-<td align="center"><strong>GSM2113326</strong></td>
-<td align="center">strain: C57BL/6</td>
-<td align="center">tissue: skeletal muscle</td>
-</tr>
-<tr class="even">
-<td align="center"><strong>GSM2113327</strong></td>
-<td align="center">strain: C57BL/6</td>
-<td align="center">tissue: skeletal muscle</td>
-</tr>
-<tr class="odd">
-<td align="center"><strong>GSM2113328</strong></td>
-<td align="center">strain: C57BL/6</td>
-<td align="center">tissue: skeletal muscle</td>
-</tr>
-<tr class="even">
-<td align="center"><strong>GSM2113329</strong></td>
-<td align="center">strain: C57BL/6</td>
-<td align="center">tissue: skeletal muscle</td>
-</tr>
-</tbody>
-</table>
-<table style="width:90%;">
-<caption>Table continues below</caption>
-<colgroup>
-<col width="23%" />
-<col width="33%" />
-<col width="33%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th align="center"> </th>
-<th align="center">characteristics_ch1.2</th>
-<th align="center">characteristics_ch1.3</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="center"><strong>GSM2113324</strong></td>
-<td align="center">age: post natal day 2</td>
-<td align="center">genotype: deltaDMR1-U2</td>
-</tr>
-<tr class="even">
-<td align="center"><strong>GSM2113325</strong></td>
-<td align="center">age: post natal day 2</td>
-<td align="center">genotype: deltaDMR1-U2</td>
-</tr>
-<tr class="odd">
-<td align="center"><strong>GSM2113326</strong></td>
-<td align="center">age: post natal day 2</td>
-<td align="center">genotype: deltaDMR1-U2</td>
-</tr>
-<tr class="even">
-<td align="center"><strong>GSM2113327</strong></td>
-<td align="center">age: post natal day 2</td>
-<td align="center">genotype: deltaDMR1-U2</td>
-</tr>
-<tr class="odd">
-<td align="center"><strong>GSM2113328</strong></td>
 <td align="center">age: post natal day 2</td>
 <td align="center">genotype: wild-type</td>
-</tr>
-<tr class="even">
-<td align="center"><strong>GSM2113329</strong></td>
-<td align="center">age: post natal day 2</td>
-<td align="center">genotype: wild-type</td>
-</tr>
-</tbody>
-</table>
-<table style="width:56%;">
-<colgroup>
-<col width="23%" />
-<col width="31%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th align="center"> </th>
-<th align="center">characteristics_ch1.4</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="center"><strong>GSM2113324</strong></td>
-<td align="center">Sex: female</td>
-</tr>
-<tr class="even">
-<td align="center"><strong>GSM2113325</strong></td>
-<td align="center">Sex: female</td>
-</tr>
-<tr class="odd">
-<td align="center"><strong>GSM2113326</strong></td>
-<td align="center">Sex: female</td>
-</tr>
-<tr class="even">
-<td align="center"><strong>GSM2113327</strong></td>
-<td align="center">Sex: female</td>
-</tr>
-<tr class="odd">
-<td align="center"><strong>GSM2113328</strong></td>
-<td align="center">Sex: female</td>
-</tr>
-<tr class="even">
-<td align="center"><strong>GSM2113329</strong></td>
 <td align="center">Sex: female</td>
 </tr>
 </tbody>
@@ -497,11 +403,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## experimentData: use &#39;experimentData(object)&#39;
 ## Annotation: GPL570</code></pre>
 <table>
-<caption>Gene information stored in an <code>ExpressionSet</code> object for experiment GSE20489 (continued below)</caption>
+<caption>Gene information stored in an <code>ExpressionSet</code> object for experiment GSE20489</caption>
 <colgroup>
-<col width="15%" />
-<col width="35%" />
-<col width="24%" />
+<col width="11%" />
+<col width="26%" />
+<col width="17%" />
+<col width="19%" />
 <col width="25%" />
 </colgroup>
 <thead>
@@ -510,6 +417,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <th align="center">Gene Title</th>
 <th align="center">Gene Symbol</th>
 <th align="center">ENTREZ_GENE_ID</th>
+<th align="center">Gene Ontology Biological
+Process</th>
 </tr>
 </thead>
 <tbody>
@@ -519,6 +428,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 tyrosine kinase …</td>
 <td align="center">DDR1 /// MIR4640</td>
 <td align="center">780 /// 100616237</td>
+<td align="center">0001558 // regulation of
+cell growth // in…</td>
 </tr>
 <tr class="even">
 <td align="center">1053_at</td>
@@ -526,6 +437,8 @@ tyrosine kinase …</td>
 (activator 1) 2, 40kDa</td>
 <td align="center">RFC2</td>
 <td align="center">5982</td>
+<td align="center">0000278 // mitotic cell
+cycle // traceable…</td>
 </tr>
 <tr class="odd">
 <td align="center">117_at</td>
@@ -533,12 +446,17 @@ tyrosine kinase …</td>
 6 (HSP70B’)</td>
 <td align="center">HSPA6</td>
 <td align="center">3310</td>
+<td align="center">0000902 // cell
+morphogenesis // inferred
+…</td>
 </tr>
 <tr class="even">
 <td align="center">121_at</td>
 <td align="center">paired box 8</td>
 <td align="center">PAX8</td>
 <td align="center">7849</td>
+<td align="center">0001655 // urogenital
+system development /…</td>
 </tr>
 <tr class="odd">
 <td align="center">1255_g_at</td>
@@ -546,6 +464,9 @@ tyrosine kinase …</td>
 activator 1A (retina)</td>
 <td align="center">GUCA1A</td>
 <td align="center">2978</td>
+<td align="center">0007165 // signal
+transduction //
+non-trac…</td>
 </tr>
 <tr class="even">
 <td align="center">1294_at</td>
@@ -554,43 +475,6 @@ ubiquitin-like modifier
 …</td>
 <td align="center">MIR5193 /// UBA7</td>
 <td align="center">7318 /// 100847079</td>
-</tr>
-</tbody>
-</table>
-<table style="width:38%;">
-<colgroup>
-<col width="37%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th align="center">Gene Ontology Biological
-Process</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="center">0001558 // regulation of
-cell growth // in…</td>
-</tr>
-<tr class="even">
-<td align="center">0000278 // mitotic cell
-cycle // traceable…</td>
-</tr>
-<tr class="odd">
-<td align="center">0000902 // cell
-morphogenesis // inferred
-…</td>
-</tr>
-<tr class="even">
-<td align="center">0001655 // urogenital
-system development /…</td>
-</tr>
-<tr class="odd">
-<td align="center">0007165 // signal
-transduction //
-non-trac…</td>
-</tr>
-<tr class="even">
 <td align="center">0006464 // cellular
 protein modification p…</td>
 </tr>
@@ -599,7 +483,7 @@ protein modification p…</td>
 </div>
 <div id="manually-annotate" class="section level2">
 <h2><span class="header-section-number">5.2</span> Manual Data Annotation</h2>
-<p><img src="gene_expression_files/figure-html4/.img_fail-1.png" width="672" /></p>
+<p><img src="gene_expression_files/figure-html/.img_fail-1.png" width="672" /></p>
 <p>Luckely for us, R offers a number of libraries to automatically retrieve information for large sets of genes, unless you have chosen an organism for which not much data is available. This section demonstrates the use of two such libraries, starting with <code>AnnotationDbi</code> followed by <code>biomaRt</code>.</p>
 <p>The <code>AnnotationDbi</code> library downloads a local copy of an organism-specific database with gene information where <code>biomaRt</code> uses online databases to retrieve data given a <code>query</code>. <code>biomaRt</code> offers far more data (over 1000 data fields per organism) but is more complex to use.</p>
 <p>Since <code>biomaRt</code> is also relying on online databases it might be a good strategy to annotate only the genes of interest (the DEGs) instead of querying for &gt;20.000 genes while we might only retain 20 after statistical analysis. If you are planning to use <code>biomaRt</code>, skip to the <a href="#discover-degs">Discovering Differentialy Expressed Genes (DEGs)</a> chapter first and then return to the <span id="using-biomart">Using R Bioconductors <code>biomaRt</code></span> section to annotate the data.</p>
@@ -615,7 +499,7 @@ protein modification p…</td>
 <a class="sourceLine" id="cb50-7" data-line-number="7"><span class="co"># &#39;org&#39; for Organism</span></a>
 <a class="sourceLine" id="cb50-8" data-line-number="8"><span class="co"># &#39;Mm&#39; for Mus musculus</span></a>
 <a class="sourceLine" id="cb50-9" data-line-number="9"><span class="co"># &#39;eg&#39; for Entrez Gene IDs</span></a>
-<a class="sourceLine" id="cb50-10" data-line-number="10"><span class="co"># (try to load first before installing, it might already be present)</span></a>
+<a class="sourceLine" id="cb50-10" data-line-number="10"><span class="co"># (try to load (using the library function) first before installing, it might already be present)</span></a>
 <a class="sourceLine" id="cb50-11" data-line-number="11"><span class="kw">biocLite</span>(<span class="st">&#39;org.Mm.eg.db&#39;</span>)</a>
 <a class="sourceLine" id="cb50-12" data-line-number="12"><span class="kw">library</span>(org.Mm.eg.db)</a></code></pre></div>
 <p>The following information types are available in this database (use the <code>columns</code> function to inspect).</p>
@@ -1069,13 +953,6 @@ genes (spetri2)</td>
 ## description field.You may wish to set these manually.</code></pre>
 <p>The <code>results</code> object is a <code>data.frame</code> with 5 columns that we can merge with our data set giving us the following annotation columns (combined from the <code>AnnotationDBI</code> and <code>biomaRt</code> libraries).</p>
 <p>This was just an example on how to use the <code>biomaRt</code> library and it comes down to selecting the correct filter and looking for interesting attributes to retrieve.</p>
-</div>
-</div>
-<div id="functional-annotation" class="section level2">
-<h2><span class="header-section-number">5.3</span> Functional Annotation</h2>
-<div id="gene-ontology" class="section level3">
-<h3><span class="header-section-number">5.3.1</span> Gene Ontology</h3>
-<p><em>TODO</em></p>
 
 </div>
 </div>
@@ -1104,10 +981,11 @@ gitbook.start({
 "facebook": true,
 "twitter": true,
 "google": false,
+"linkedin": false,
 "weibo": false,
 "instapper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
