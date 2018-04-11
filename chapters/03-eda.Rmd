@@ -196,7 +196,7 @@ In the previous section we used the raw count data. You might have one or more s
 The following code examples shows how to use this library to normalize the count data to rlog-normalized data before we calculate a distance metric. The data used for this example is available at the GEO (Accession [GSE80128](http://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE80128), titled *Evidence for two protein coding transcripts at the Igf2as locus* consisting of 8 samples from mouse skeletal muscle tissue; 4 wild-type [WT] and 4 $\Delta$DMR1-U2  [KO] variants).
 
 ```{r load_example_data, eval=TRUE, echo=TRUE}
-gse80128 <- read.table('data/GSE80128_P035_DESeq_KO-WT_pathway.txt', 
+gse80128 <- read.table('./data/GSE80128_P035_DESeq_KO-WT_pathway.txt', 
                        sep = '\t', header = TRUE)
 
 # Only use the actual count data as this file contains a lot more descriptive columns
@@ -408,3 +408,9 @@ ggplot(data = components, aes(PC1, PC2, color = Variant, label = coldata)) +
   geom_text(size = 4) +
   ggtitle("Principal Component Analysis for RNA-Seq data")
 ```
+
+## Clean Data
+
+Conclude this chapter by *cleaning* your dataset if the visualizations show the necessity for this. Cleaning in this case means *removing* complete samples if they can be classified as an outlier *within* its group. As with most tasks during this course, there is no clear advice on when to decide to remove one or more samples. The only clear rule is that each group *must* retain at least three samples. If one of the three samples visibly deviates from the other replicates, even after normalization, it will stay in your data set and it should be mentioned in your analysis report/ final article that noise *may* be introduced by this sample. 
+
+**Note**: Once you are satisfied with the data and/ or reported on your findings, we do not return to any of these steps in the next chapters. If there are mentions of creating a heatmap for instance, this means a heatmap of *expression data* instead of the *sample distances* we've shown in this chapter.

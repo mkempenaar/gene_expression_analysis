@@ -12,33 +12,29 @@ The code below shows how to get data from DeSEQ2 and format this in a usable dat
 
 ```{r load_ch6_data, echo=FALSE}
 rm(list = ls())
-load('../data/chapter6.RData')
+load('./data/chapter6.RData')
 ```
 
 ```{r, deseq_data_analysis_data_prep}
-# Combine results into a single dataframe
-deseq.results <- cbind(rld, as.data.frame(res@listData), 
-                       EntrezID=gse80128$EntrezID,
-                       EnsemblID=gse80128$Ensembl)
+# Combine normalized counts with output of DESeq (from the 'results' function) into a single dataframe
+deseq.results <- cbind(rld, as.data.frame(res@listData))
+
 # Remove rows with NA-values in the adjusted P-value
+# DESeq filters out missing/ low-count rows thus they have no P-value
 deseq.results <- deseq.results[complete.cases(deseq.results),]
 
 pval_threshold <- 0.05
 logfc_threshold <- 1
 
-# Find DEGs (FDR < 0.05 and absolute (non-log)fold change >= 2x)
+# Find DEGs (FDR < 0.05 and absolute (non-log) fold change >= 2)
 deseq.threshold <- as.factor(abs(deseq.results$log2FoldChange) >= logfc_threshold & 
                              deseq.results$padj < pval_threshold)
 
 # Get the indices of interesting genes using the threshold
 xi <- which(deseq.threshold == TRUE)
-# Create dataframe to hold both the normalized (rlog) count data and the edgeR output
-deseq.degs <- cbind(subset(rld, select = -KO1B)[xi,],
-                    as.data.frame(res@listData)[xi,],
-                    EntrezID=deseq.results$EntrezID[xi])
 
-# Nubmer of DEGs with log-FC >= 1
-nrow(deseq.degs)
+# Number of interesting genes
+length(xi)
 ```
 
 ```{r, edger_data_analysis_data_prep, echo=FALSE, }
@@ -89,8 +85,8 @@ g = ggplot(data=edgeR.results,
   geom_vline(xintercept = -1.5) +
   geom_hline(yintercept = -log10(0.05)) +
   xlim(c(-3, 3)) + ylim(c(0, 12)) +
-  xlab("log2 fold change") + ylab("-log10 p-value") +
-  ggtitle("DEGs according to edgeR with FDR <= 0.05 and log-FC >= 1.75") +
+  xlab("log2 fold change") + ylab("-log10 FDR") +
+  ggtitle("DEGs according to edgeR with FDR <= 0.05 and log-FC >= 2") +
   # Add the text labels only for DEGs. Using `ggrepel` to make sure labels don't overlap
   geom_text_repel(aes(label=ifelse(FDR < 0.05 & abs(logFC) >= 1.5,
                                    row.names(edgeR.degs), '')),
@@ -119,7 +115,7 @@ g = ggplot(data=deseq.results,
   geom_vline(xintercept = -logfc_threshold) +
   geom_hline(yintercept = -log10(pval_threshold)) +
   xlim(c(-2.5, 2.5)) + ylim(c(0, 18)) +
-  xlab("log2 fold change") + ylab("-log10 p-value") +
+  xlab("log2 fold change") + ylab("-log10 FDR") +
   ggtitle("DEGs according to DESeq2 with FDR <= 0.05 and absolute FC >= 2") +
   # Add the text labels only for DEGs. Using `ggrepel` to make sure labels don't overlap
   geom_text_repel(aes(label=ifelse(padj < pval_threshold & abs(log2FoldChange) >= logfc_threshold,
