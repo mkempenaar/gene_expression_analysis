@@ -9,3 +9,5 @@ _bookdown_files/
 .RData
 data/
 _main*.*
+gene_expression.Rmd
+libs/
