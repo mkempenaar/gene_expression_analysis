@@ -10,6 +10,6 @@ rmd_files: ['index.Rmd',
             'chapters/02-datasets.Rmd',
             'chapters/03-eda.Rmd',
             'chapters/04-deg.Rmd',
-            'chapters/05-data_analysis.Rmd',
+            #'chapters/05-data_analysis.Rmd',
             'chapters/a1-batch_data_loading.Rmd',
             'chapters/a2-annotation.Rmd']

@@ -1,4 +1,4 @@
-# Data Analysis and Visualization {#chapter-6}
+# Data Analysis and Visualization {#chapter-5}
 
 At this point we have one or more sets of DEGs from our experiment. It might be just one set or it might be a large number of comparisons made with a set of DEGs per comparison and/ or results from multiple approaches (manual, package). This chapter offers some guidance to visualize, summarize and - finally - connect some biological relevance to the results.
 

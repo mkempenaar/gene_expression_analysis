@@ -1,40 +1,39 @@
 # Introduction {#chapter-1}
 
-## Theme 7 - Analysis of Gene Expression Project
+## Capstone Project - Analysis of Gene Expression
 
-The use of RNA-Sequencing techniques for measuring gene expression is relatively new and replaces *microarrays*, though in some cases microarrays are still used. Gene expression data gives valuable insights into the workings of cells in certain conditions. Especially when comparing for instance healthy and diseased samples it can become clear which genes are causal or under influence of a specific condition. Finding the genes of interest (genes showing differing expression accross conditions, called the Differentially Expressed Genes (DEGs)) is the goal of this project.
+The use of RNA-Sequencing techniques for measuring gene expression is relatively new and replaces *microarrays*, though in some cases microarrays are still used. Gene expression data gives valuable insights into the workings of cells in certain conditions. Especially when comparing for instance healthy and diseased samples it can become clear which genes are causal or under influence of a specific condition. Finding the genes of interest (genes showing differing expression accross conditions, called the *Differentially Expressed Genes* (DEGs)) is the goal of this project.
 
-While there is no golden standard for analyzing RNA-sequencing datasets as there are many tools (all manufacturers of sequencing equiptment also deliver software packages) we will use proven R libraries for processing, visualizing and analyzing publically available datasets. While in some cases you are allowed to use the actual *raw* data that is available, it is highly recommended to use the pre-processed data which often is a table with a *count* value for each gene. This count is the number of reads that was mapped to that gene which corresponds to the relative number of transcripts (mRNA sequences) of that gene present in the cell at the time of sampling.
+While there is no golden standard for analyzing RNA-sequencing datasets as there are many tools (all manufacturers of sequencing equiptment also deliver software packages) we will use R combined with proven libraries for processing, visualizing and analyzing publically available datasets. While in some cases you are allowed to use the actual *raw* data that is available, it is highly recommended to use the pre-processed data which often is a table with a *count* value for each gene. This count is the number of reads that was mapped to that gene which corresponds to the relative number of transcripts (mRNA sequences) of that gene present in the cell at the time of sampling.
 
 ## Project Deliverables
 
-The end products of this course consist of three deliverables; a PDF output file from an RMarkdown 'lab journal' where you have logged all steps performed to get to the end result, a final report in the form of a short article and a poster to be presented - if selected - during the Life Science and Technology Poster session at the end of this quarter.
+The end products of this course consist of two deliverables; a PDF output file from an RMarkdown 'lab journal' where you have logged all steps performed to get to the end result and a final report in the form of a short article. This chapter briefly describes the requirements and contents of these products and ends with instructions on how to use an RMarkdown `template` for writing the article.
 
 ## Project Schedule
 
-The aim is to keep to the below schedule during this course. Use the first two weeks to see if you need to focus more on one of the points below and discuss changes to the planning with your teacher.
+The aim is to keep to the below schedule during this course. Use the first two weeks to see if you need to focus more on one of the points below (depending on your dataset) and discuss changes to the planning with your teacher.
 
 * Find a public experiment of interest [week one]
-    + Using online resources
-* Data Gathering and Literature Research [week two]
+    + Using online resources (sections [2.1](#finding-public-data), [2.2](#ncbi-geo))
+* Data Gathering and Literature Research [week three]
     + Make a final project choice
     + Retrieve the accompanying publication
-    + Download and inspect the supplementary files
-    + Write and present a short project proposal
-* Data Analysis [weeks three and four]
-    + Exploratory Data Analysis
-    + Data Annotation
-    + Discovering Differentially Expressed Genes (DEGs)
-    + Multiple Testing
+    + Write and present a short project proposal (section [2.3](#project-proposal_ch2))
+    + Starting with Exploratory Data Analysis (chapter [3](#chapter-3))
+* Data Analysis [weeks four and five]
+    + Finalizing Exploratory Data Analysis
+    + Discovering Differentially Expressed Genes (chapter [4](#chapter-4))
+    + Data Annotation (optional; appendix [a2](#a2-annotation))
     + Techniques used: R with bioconductor, the EdgeR and/ or DESeq2 packages, RMarkdown
-* Result Analysis [weeks five and six]
-    + Analyzing and Visualizing your results
+* Result Analysis [week six]
+    + Analyzing and Visualizing your results (chapter [5](#chapter-5))
     + Techniques used: clustering, pathway analysis, gene-enrichment analysis
-* Finalizing analysis and start writing the final report and design a poster [weeks 7 and 8]
+* Finalizing analysis and start writing the final report (article) [weeks 7 and 8]
 
 ## Grading {#grading}
 
-The final grade consists of a weighted average of the work done for weeks 1 & 2 (resulting in the *project proposal*) (**15%**), the *lab journal* containing all performed steps, their code and outputs (**50%**), the *article* report *and* poster (**25%**) and finally your *work attitude* (**10%**). A grade higher then a **5.5** will give a total of 5 EC. The rest of this chapter explains the expected contents for the three graded products (each of these elements is explained in greater detail in other chapters).
+The final grade consists of a weighted average of the work done for weeks 1 & 2 (resulting in the *project proposal*) (**15%**), the *lab journal* containing all performed steps, their code and outputs (**50%**) and the *article* report (**25%**) and finally your *work attitude* (**10%**). A grade >= **5.5** will give a total of 8 EC. The rest of this chapter explains the expected contents for the three graded products (each of these elements is explained in greater detail in other chapters).
 
 ## Project Proposal
 
@@ -42,7 +41,7 @@ As you are free to choose from thousands of public data sets on a large variety 
 
 ## *Lab Journal*
 
-As you know from previous projects and (maybe from) working in the laboratory, it is essential to keep a proper lab journal detailing every step you have done during the experiment. The log is to be kept in an R markdown file, showing which steps have been taken in the analysis of the data set. This markdown should be *knitted* into a single PDF-file once the project is completed thus containing text detailling the steps and any decisions you've made, R-code (always visible!) and their resulting output/ images. As a general advice; do not wait with knitting this whole document until the project is done!
+As you know from previous projects and most likely from working in the laboratory, it is essential to keep a proper lab journal detailing every step you have done during the experiment. Here, the log is to be kept in an R markdown file, showing which steps have been taken in the analysis of the data set. This markdown should be *knitted* into a single PDF-file once the project is completed thus containing text detailling the steps and any decisions you've made, R-code (always visible!) and their resulting output/ images. As a general advice; do not wait with knitting this whole document until the project is done!
 
 ## Article {#article}
 
@@ -60,8 +59,8 @@ install.packages("rticles", type = "source")
 
 Now that you have the templates package (`rticles`) installed you can download and use the template project (ZIP-file) available from [the course website](https://mkempenaar.github.io/gene_expression_analysis/article/report-template.zip). Download this file to your project folder, extract its contents and open the `report-template.Rmd` file contained within the folder in RStudio. Verify that everything is setup correctly by hitting the `Knit` button at the top, this should create a PDF version of the report. Note that - somehow - the resulting PDF file is named `RJwrapper.pdf` instead of the expected `report-template.pdf`. If everything checks out ok you can rename the file to your liking and start editing.
 
-This template is based on the `R Journal Submission` template that you can also find in RStudio in the `New file -> R Markdown -> From Template` menu. Articles published in the `R-journal` are based on this template which you can browse for inspiration at the [R Journal Website](https://journal.r-project.org/archive/2015-2/). 
+This template is based on the `R Journal Submission` template that you can also find in RStudio in the `New file -> R Markdown -> From Template` menu. Articles published in the `R-journal` are based on this template which you can browse for inspiration at the [R Journal Website](https://journal.r-project.org/archive/2017-2/). 
 
 The available template shows an *example* of segments/ chapters and briefly describes what each section could or should contain. If you want to write your report in the Dutch language, you can create a new file from the template and change the segment names and content to Dutch. There will however still be some headings added by the template in English which is fine with me, but if you want to keep everything Dutch you can either edit the `RJournal.sty` file manually (*not recommended*) or start a new file by yourself and add some nice headings and page options. 
 
-The top part of the template (between the dashes `---`) contains some settings that you need to change such as `title`, `author` and `abstract`. Compare for instance a newly created article from this template with the one offered from the project-repository website.
+The top part of the template (between the dashes `---`) contains some settings that you need to change such as `title`, `authors` and `abstract`. Compare for instance a newly created article from this template with the one offered from the project-repository website.

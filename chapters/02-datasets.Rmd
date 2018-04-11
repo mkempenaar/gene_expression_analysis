@@ -8,14 +8,14 @@ There are a number of very large databases online that offer access to thousands
 
 With thousands of freely available datasets it is possible to start performing research without the need of actually performing your own lab-experiment. For all common conditions, organisms and tissues you can download samples and compare them over multiple studies to find novel relations between genes and conditions or to verify experiments performed in your laboratory. For instance, the power of public datasets was demonstrated jointly by three of our alumni in an article called *Calling genotypes from public RNA-sequencing data enables identification of genetic variants that affect gene-expression levels.*[@deelen15].
 
-It's method section begins with the sentence "*We downloaded the raw reads for all available human RNA-seq datasets ...*" of which the amount of data and work will become clear later on. If you are interested in *expression Quantitative Trait Loci* (`eQTL`) or *Allele-Specific Expression* (`ASE`) analysis, please read this very interesting paper.
+It's method section begins with the sentence "*We downloaded the raw reads for all available human RNA-seq datasets ...*" of which the amount of data and work will become clear later on. If you are interested in *expression Quantitative Trait Loci* (`eQTLs`) or *Allele-Specific Expression* (`ASE`) analysis, please read this very interesting paper.
 
 The following weeks you will be investigating one or more public RNA-sequencing datasets yourself and the rest of this document focuses on databases containing such public data sets and - especially - how to find a dataset or experiment you would like to use.
 
 But before we start diving into large and complex databases potentially containing thousands of experiments with millions of samples and terabytes of data, we need to get a rough idea on what we would like to do once we have found something of interest in order to know what we are looking for in the first place. While there is no definitive guide or protocol that can be followed for processing and analysing a gene-expression dataset, the following goals can be considered:
 
 1. Re-do (part of) the analysis described in the accompanying publication.
-    * As all datasets -  except for the ones that were added very recently - are accompanied by a publication, you can gather a lot of information regarding experimental design and results from just this paper. Most often, the researchers already performed the most interesting research on this dataset and it is therefore a good exercise to try and reproduce their results. 
+    + As all datasets -  except for the ones that were added very recently - are accompanied by a publication, you can gather a lot of information regarding experimental design and results from just this paper. Most often, the researchers already performed the most interesting research on this dataset and it is therefore a good exercise to try and reproduce their results. Challenges here are getting a proper understanding of the techniques used by the researchers (from the article) and translating these to your own analysis steps. Often though, not all details are clear from the article which requires your own interpretation of their results and performing analysis steps to arrive at the same conclusion.
 2. Alternatively you can come up with your own ideas and (biological) question(s) that you could try and answer given a dataset instead of redoing the published work.
     + This is of course more challenging and not suitable for all datasets.
     + You might notice that some publications only focus on a small set of genes instead of the whole transcriptome. For instance, when you perform an experiment on yeast where you want to measure the activity of genes involved in alcohol fermentation, researchers might only look at genes from the Glycolysis pathway. This leaves the other 6000+ yeast genes for you to explore and possibly come up with novel relations of gene expression and experimental setup.
@@ -31,7 +31,7 @@ The list above is a guideline to be kept in mind while browsing for suitable dat
 
 ## The NCBI *Gene Expression Omnibus* {#ncbi-geo}
 
-The easiest method of exploring and finding interesting datasets is by simply using your web-browser to access a data-repository. You could also download a few gigabytes of SQL database and query that if you'd like, but I would advice against that. One such repository is the [NCBI Gene Expression Omnibus](https://www.ncbi.nlm.nih.gov/geo/) (GEO). This *repository* is primarily used to store microarray datasets and describe those experiments, linking to raw data, processed data and an accompanying publication. There are however many more sources of data browsable in the GEO, and for this project we will limit our searches to "*Expression profiling by high throughput sequencing*" for which almost 17.000 experiments are listed. The [GEO Summary](https://www.ncbi.nlm.nih.gov/geo/summary) page shows all available data sources, click on the right *Expression profiling* link to get to the full table of relevant experiments.
+The easiest method of exploring and finding interesting datasets is by simply using your web-browser to access a data-repository. You could also download a few gigabytes of SQL database and query that if you'd like, but I would advice against that. One such repository is the [NCBI Gene Expression Omnibus](https://www.ncbi.nlm.nih.gov/geo/) (GEO). This *repository* was primarily used to store microarray datasets and describe those experiments, linking to raw data, processed data and an accompanying publication. There are however many more sources of data browsable in the GEO, and for this project we will limit our searches to "*Expression profiling by high throughput sequencing*" for which almost 17.000 experiments are listed. The [GEO Summary](https://www.ncbi.nlm.nih.gov/geo/summary) page shows all available data sources, click on the right *Expression profiling* link to get to the full table of relevant experiments.
 
 Besides finding an experiment that you are interested in, there are some further requirements that you need to account for when browsing:
 
@@ -44,10 +44,10 @@ Once you've found an experiment, write a mail to [m.kempenaar@pl.hanze.nl](mailt
 
 ## Creating a Project Proposal {#project-proposal_ch2}
 
-In week two you are asked to present a short project proposal where you:
+In week three you are asked to present a short project proposal where you:
 
 * Briefly explain the subject, methods, results and conclusion of the chosen project,
 * describe the experimental design of the chosen experiment; how many samples and in how many groups are they divided (i.e. how many replicates per group)?
 * Show what *your* plan is with the dataset, given the choices listed in the section about [Finding Public Data](#finding-public-data). Note that whatever choice you make, the first steps will most likely be the same leading to finding the *Differentially Expressed Genes* (DEGs). It is very difficult to plan your complete project based on what you read in the article and it is not expected to get a planning for the full remaining 6 weeks. You can however specify a bit more given what you've read in the article, such as trying to reproduce a certain figure or repeat a certain analysis step.
 
-Summarize your project proposal on max. 1 A4 and, combined with the slides, are the final deliverables for this chapter.
+Summarize your project proposal on max. 1 A4 and, combined with the slides, are the final deliverables for this chapter (submission through the accompanying BlackBoard course).

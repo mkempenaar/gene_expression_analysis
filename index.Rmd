@@ -8,15 +8,17 @@ documentclass: book
 bibliography: [book.bib, packages.bib]
 biblio-style: apalike
 link-citations: yes
-github-repo: mkempenaar/BFVH15CAPSTONE
-description: "Course Syllabus for the Theme 7 course"
+github-repo: mkempenaar/gene_expression_analysis
+description: "Course Syllabus for the CAPSTONE course"
 ---
 
 # Preface {-}
 
-This project aims to teach the whole process of analysing a dataset containing gene expression data measured with RNA-sequencing technique. The tools we will use to perform the analysis will be the statistical programming language `R` with its many libraries and the software package [RStudio](https://www.rstudio.com) to interact with R.
+## Capstone Project {-}
 
-Instead of following the usual weekly deliverables and final assignment, this course is setup around performing your own research, based on published data and given a general guideline with a set of defined end-products. Furthermore, this whole course is done *individually*. Cooperating and discussing however with your fellow students and helping each other is desired/ expected. 
+This project aims to teach the whole process of analysing a dataset containing gene expression data measured with the RNA-sequencing technique. The tools we will use to perform the analysis will be the statistical programming language `R` with its many libraries and the software package [RStudio](https://www.rstudio.com) to interact with R. Rstudio is a so called Integrated Development Environment (IDE) which makes programming in R much easier.
+
+This course is organized in a number of chapters, each with the goal of understanding and performing one of the analysis steps to gain knowledge about both the biology of gene activity and the bioinformatics approach to answering a biological question given a data set. Demonstrating the understanding of these concepts is done through completing a number of small assignments and constant reflecting on results from the various analysis steps.
 
 ```{r bib_footer, include=FALSE}
 # automatically create a bib database for R packages
