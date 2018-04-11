@@ -1,0 +1,121 @@
+# (APPENDIX) Appendix {-} 
+
+# Appendix A: Batch Loading Expression Data in R {#a1-batch_data_loading}
+
+This code example shows how to batch-load multiple files containing expression (count) data for a *single* sample. The data for this example can be found on GEO with ID [GSE109798](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE109798). Downloading the data for this experiment from GEO gives us a single `.tar` file called `GSE109798_RAW.tar`. Extracting this archive file nets us a folder with the following files:
+
+```{r list_files_example, eval=FALSE}
+file.names <- list.files('data/GSE109798_RAW/')
+```
+
+```{r list_files, echo=FALSE}
+file.names <- list.files("data/GSE109798_RAW/")
+knitr::kable(vector.to.table(file.names, nrow = length(file.names), colname = "Files"))
+```
+
+## Decompressing
+
+The file extension of all these files is `.txt.gz` which means that all files are compressed using `gzip` and need to be unpacked before they can be loaded. The easiest method is using the system `gunzip` command on all files which can be done from within R by *applying* the `gunzip` command using the `system` function on each file.
+
+```{r unpack_files, warning=FALSE, message=FALSE, error=FALSE, eval=FALSE}
+## Change directory to where the files are stored
+setwd('data/GSE109798_RAW/')
+sapply(file.names, FUN = function(file.name) {
+  system(paste("gunzip", file.name)) 
+  })
+```
+
+Now we can update the `file.names` variable since each file name has changed.
+
+```{r list_files_example_unpacked, eval=TRUE}
+file.names <- list.files('data/GSE109798_RAW/')
+```
+
+## Determining Data Format
+
+Next, we can inspect what the contents are of these files, assuming that they all have the same layout/ column names etc. to decide what we need to use for our analysis.
+
+```{r sample_head_example, eval=FALSE}
+## Call the system 'head' tool to 'peek' inside the file
+system(paste0("head ", "data/GSE109798_RAW/", file.names[1]))
+```
+
+```{r sample_head, echo=FALSE}
+dat <- system(paste0("head -n 10 ", "data/GSE109798_RAW/", file.names[1]), intern = TRUE)
+dat <- do.call(rbind, strsplit(dat, "\t"))
+header <- dat[1,]
+dat <- as.data.frame(dat[-1,])
+names(dat) <- header
+
+knitr::kable(dat)
+#  dat, longtable = TRUE, booktabs = FALSE, format = 'html', 
+#  caption = paste('First 10 lines of', file.names[1])
+#)
+```
+
+These files contain (much) more then just a count value for each gene as we can see columns such as (transcript) *length*, *TPM*, *FPKM*, etc. Also, the count-column is called *expected_count* which raises a few questions as well.
+
+```{block, type='rmdtip'}
+The *expected count* value is usable as it contains more information - compared to the raw count - then we actually require. The *expected* part results from *multimapped reads* where a single read mapped to multiple positions in the genome. As each transcript originates only from one location, this multimapped read is usually discarded. With the *expected count* though, instead of discarding the read completely it is *estimated* where it originates from and this is added as a *fraction* to the count value. So the value of `1.32` that we see on line 5 in the example above means an true count of `1` (uniquely mapped read) and the `.32` (the estimated part) results from an algorithm and can mean multiple things. 
+
+As mentioned before, we require integer count data for use with packages such as `DESeq2` and `edgeR` and there are two methods to convert the expected count to raw count data:
+  + *round* the value to the nearest integer (widely accepted method and is well within the expected sampling variation), or
+  + discard the fraction part by using for example the `floor()` function.
+```
+
+## Loading Data
+
+From all these columns we want to keep the *transcript_id* and *expected_count* columns and ignore the rest (we might be interested in this data later on though). As we need to lead each file separately we can define a function that reads in the data, keeping the columns of interest and returning a dataframe with this data. Note that the first line of each file is used as a header, but check before setting the `header` argument to `TRUE`, sometimes the expression data starts at line 1. The file name is then also used to name the column in the dataframe so that we know which column is which sample. This is done by splitting the file name (using `strsplit`) using the dot ('`.`') keeping the first part (i.e. '`GSM2970156_HCC1806E224A`') and discarding the second part ('`isoforms.results.txt`'). The `strsplit` function however always returns a list, in this case containing a vector with the 5 splitted elements:
+
+```{r strsplit}
+## String splitting in R
+## (the fixed = TRUE is required as the dot is a special character, see '?strsplit')
+strsplit('GSM2970155_HCC1806E224B.isoforms.results.txt.gz', '.', fixed = TRUE)
+```
+
+```{r strsplit_fname}
+## Keeping the sample identifier
+strsplit('GSM2970155_HCC1806E224B.isoforms.results.txt.gz', '.', fixed = TRUE)[[1]][1]
+```
+
+```{r read_data_fun}
+## Function for reading in files
+read_sample <- function(file.name) {
+  ## Extract the sample name for naming the column
+  sample.name <- strsplit(file.name, ".", fixed = TRUE)[[1]][1]
+  ## Read the data, setting the 'transcript_id' as row.names (column 1)
+  sample <- read.table(file.name, header = TRUE, sep="\t", row.names = NULL)
+  ## Rename the count column
+  names(sample)[5] <- sample.name
+  ## Return a subset containing the 'transcript_id' and sample name columns
+  return(sample[c(1, 5)])
+}
+```
+
+Applying the `read_sample` function to all file names gives us a set of data frames that we can merge together using the `merge` function. We merge the data based on the transcript id defined with the `by = 0` (or `by = 'row.names'`) argument. We start by reading in just one file which is the 'base' dataframe to which we will merge the other files.
+
+During processing it seemed that this data set is divided into two groups which is also listed on the GEO website for this project:
+
+  + GPL11154	Illumina HiSeq 2000 (Homo sapiens)
+  + GPL13112	Illumina HiSeq 2000 (Mus musculus)
+
+where the first 6 files are from human source and the last 6 from the mouse. Therefore, the following code only shows how to read the first 6 samples and merge these into a single dataframe. Repeating this process for the other 6 files would result into another dataframe for those samples.
+
+```{r read_data_apply, message=FALSE, warning=FALSE}
+setwd('data/GSE109798_RAW/')
+
+## Read the FIRST sample
+dataset <- read_sample(file.names[1])
+
+## Read first sample group (6)
+for (file.name in file.names[2:6]) {
+  sample <- read_sample(file.name)
+  dataset <- merge(dataset, sample, by = 1)
+}
+
+pander(head(dataset))
+```
+
+The `dataset` variable now contains all data for the first 6 samples in this experiment. It is advisable to compare the number of rows in this data set with the number of rows in a single sample. It is not guaranteed that all samples have exactly the same number of genes/transcripts present (i.e., 0-values might have been discarded) which results in a final data set that has as many rows as the *smallest* sample. See the help of `merge` if this is the case because the `all` argument can be used to introduce extra rows for missing data.
+
+## References

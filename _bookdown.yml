@@ -1,14 +1,15 @@
 name: Analysis of Gene Expression Analysis Project
 markdown: redcarpet
+book_filename: gene_expression
 chapter_name: !expr function(i) {return("")}  
 highlighter: pygments
 delete_merged_file: true
 
 rmd_files: ['index.Rmd',
-            'chapters/Introduction.Rmd',
-            'chapters/SRADataSets.Rmd',
-            'chapters/ExploratoryAnalysis.Rmd',
-            'chapters/AnnotatingData.Rmd',
-            'chapters/DiscoverDEGs.Rmd',
-            'chapters/DataAnalysis.Rmd',
-            'chapters/Appendix.Rmd']
+            'chapters/01-introduction.Rmd',
+            'chapters/02-datasets.Rmd',
+            'chapters/03-eda.Rmd',
+            'chapters/04-deg.Rmd',
+            'chapters/05-data_analysis.Rmd',
+            'chapters/a1-batch_data_loading.Rmd',
+            'chapters/a2-annotation.Rmd']

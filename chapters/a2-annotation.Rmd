@@ -1,16 +1,16 @@
-# Annotating an RNA-Seq Experiment {#annotating-experiment}
+# Annotating an RNA-Seq Experiment {#chapter-5}
 
 ```{r, echo=FALSE}
 knitr::opts_chunk$set(cache=TRUE)
 ```
 
-As we now have concluded our first look at the data, it is time to prepare for the next step; discovering DEGs (discussed in [chapter 6](#discover-degs)). Before we do this we will first try to *annotate* our data, assigning names and functions to our genes and get the full experimental setup known. This step can either be very easy or a bit more challenging depending on the data source of your project. The first example is relevant if your data set originated from the NCBI **GEO**, which 'should' always be annotated by default. If you have found your data set elsewhere (and do not have a GEO idetifier for your project), skip to the [Manually annotate your data](#manually-annotate) section below.
+This chapter describes *annotate* the data, meaning assigning names and functions to our Differentially Expressed Genes. This step can either be very easy or a bit more challenging depending on the data source of your project. The first example is relevant if your data set originated from the NCBI **GEO**, which 'should' always be annotated by default. If you have found your data set elsewhere (and do not have a GEO idetifier for your project), skip to the [Manually annotate your data](#manually-annotate) section below.
 
-The goal of this chapter is to - at least - find a Gene Symbol or common ID (NCBI/ Ensembl) for each gene. Using this information it will be much easier to find relevant information from other online sources to say something about the functionality and impact once you've identified your DEGs.
+The goal of this chapter is to - at least - find a Gene Symbol or common ID (NCBI/ Ensembl) for each gene. Using this information it will be much easier to find relevant information from other online sources to say something about the functionality and impact of your DEGs.
 
-Even though you might be lucky and either already have your data or a simple GEO query results in everything you want/ need, you are tasked to *also* perform the manual annotation phase even of you will not use any found annotation data. Having written the code to access these sources is a good excercise in using complex Bioconductor packages. Also, you can always use this to find more information should you require this later on.
+Even though you might be lucky and either already have your data or a simple GEO query results in everything you want/ need, you are tasked to *also* perform the manual annotation phase even if you will not use any of the found annotation data. Having written the code to access these sources is a good excercise in using complex Bioconductor packages. Also, you can always use this to find more information should you require this later on.
 
-## Downloading annotation data from GEO
+## Downloading annotation data from GEO {#download-geo}
 
 Given the `GSE****` id of your experiment you can download any available (annotation)data from GEO using the `GEOquery` library. For the example experiment used previously, the following code downloads two files; a `series_matrix.txt.gz` file and a `.soft` file. Note the `destdir` argument for storing it in a known location instead of the `/tmp` folder.
 
@@ -99,7 +99,7 @@ library(BiocInstaller)
 # 'org' for Organism
 # 'Mm' for Mus musculus
 # 'eg' for Entrez Gene IDs
-# (try to load first before installing, it might already be present)
+# (try to load (using the library function) first before installing, it might already be present)
 biocLite('org.Mm.eg.db')
 library(org.Mm.eg.db)
 ```
@@ -285,7 +285,7 @@ results <- getBM(attributes = attrs.get,
 
 The `results` object is a `data.frame` with 5 columns that we can merge with our data set giving us the following annotation columns (combined from the `AnnotationDBI` and `biomaRt` libraries).
 
-```{r .pander_biomart_results, echo=FALSE, eval=TRUE}
+```{r .pander_biomart_results, echo=FALSE, eval=FALSE}
 gse80128.annot <- merge(x = gse80128, y = results, 
                         by.x = 'Ensembl', by.y = 'ensembl_gene_id')
 
@@ -296,9 +296,3 @@ pander(gse80128.annot[, c('geneID', 'Ensembl', 'EntrezID',
 ```
 
 This was just an example on how to use the `biomaRt` library and it comes down to selecting the correct filter and looking for interesting attributes to retrieve.
-
-## Functional Annotation
-
-### Gene Ontology
-
-*TODO*

@@ -1,4 +1,4 @@
---- 
+---
 title: "Analysis of Gene Expression"
 author: "Marcel Kempenaar"
 date: "`r Sys.Date()`"
@@ -9,90 +9,16 @@ bibliography: [book.bib, packages.bib]
 biblio-style: apalike
 link-citations: yes
 github-repo: mkempenaar/BFVH15CAPSTONE
-description: "Course Syllabus for the BFVH15CAPSTONE course"
+description: "Course Syllabus for the Theme 7 course"
 ---
 
-# Capstone Project Schedule {#chapter-2}
+# Preface {-}
 
-* Find a public experiment of interest [weeks one and two]
-    + Techniques used: SQLite
-* Data Gathering and Literature Research [week three]
-    + Make a final project choice
-    + Retrieve the accompanying publication
-    + Download and inspect the supplementary files
-    + Write and present a project proposal
-* Data Analysis [weeks four through six]
-    + Exploratory Data Analysis
-    + Data Annotation
-    + Discovering Differentially Expressed Genes (DEGs)
-    + Multiple Testing
-    + Analyzing and Visualizing your results
-    + Techniques used: R with bioconductor, the EdgeR package, RMarkdown
-* Finalizing analysis and start writing a final report [weeks 7 and 8]
+This project aims to teach the whole process of analysing a dataset containing gene expression data measured with RNA-sequencing technique. The tools we will use to perform the analysis will be the statistical programming language `R` with its many libraries and the software package [RStudio](https://www.rstudio.com) to interact with R.
 
-```{r include=FALSE}
+Instead of following the usual weekly deliverables and final assignment, this course is setup around performing your own research, based on published data and given a general guideline with a set of defined end-products. Furthermore, this whole course is done *individually*. Cooperating and discussing however with your fellow students and helping each other is desired/ expected. 
+
+```{r bib_footer, include=FALSE}
 # automatically create a bib database for R packages
-knitr::write_bib(c(.packages(), 'bookdown', 'knitr', 'rmarkdown'), 'packages.bib')
-```
-
-```{r internal_functions, echo=FALSE, message=FALSE, warning=FALSE, results='hide'}
-## Prereqs
-# Enable caching
-knitr::opts_chunk$set(cache=TRUE)
-
-# libraries
-library(pander)
-library(GEOmetadb)
-library(SRAdb)
-library(png)
-library(grid)
-
-# functions
-string.trim <- function(vstring, limit=60) {
-  ## Given a vector of strings (i.e. column from a resultset), trim the string
-  ## at length 'limit' and append a '...'.
-  new.vector <- c()
-  for (f in vstring) {
-    if (!is.na(f) && nchar(f) != 0 && nchar(f) > limit)
-      new.vector <- c(new.vector, paste0(strtrim(f, limit-3), '...'))
-    else
-      new.vector <- c(new.vector, f)
-  }
-  return(new.vector)
-}
-
-vector.to.table <- function(data, nrow, colname) {
-  ## Splits a vector into columns for displaying in a Markdown file using 
-  ## the 'pander' library. The 'nrow' argument is used as split index.
-  ## The 'colname' argument is used to name the created columns
-  table <- split(data, ceiling(seq_along(data)/nrow))
-  table <- lapply(table, function(column) {
-      # Check the number of rows in the column
-      missing.elements <- nrow - length(column)
-      if (missing.elements > 0)
-        column <- c(column, rep('', missing.elements))
-      else
-        return(column)
-    })
-
-  max.rows <- max(unlist(lapply(table, FUN=length)))
-  attributes(table) = list(names = rep(colname, length(table)),
-    row.names=1:max.rows, class='data.frame')
-  
-  return(table)
-}
-
-## Week / chapter number
-chapter <- 1
-## Question number; global var updated with each question
-n.q <- 0
-
-insert.q <- function(q_string="") {
-  ## Updates the question number each time a question is added
-  n.q <<- n.q + 1
-  if (q_string != "")
-    cat(paste0("### Question ", chapter, ".", n.q, ": ", q_string))
-  else
-    cat(paste0("### Question ", chapter, ".", n.q))
-}
+knitr::write_bib(c(.packages(all.available = T, lib.loc = "packrat/lib/x86_64-apple-darwin17.3.0/3.4.3/"), 'bookdown', 'knitr', 'rmarkdown'), 'packages.bib')
 ```

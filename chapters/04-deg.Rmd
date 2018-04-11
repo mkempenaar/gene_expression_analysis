@@ -1,0 +1,406 @@
+# Discovering Differentialy Expressed Genes (DEGs) {#chapter-4}
+
+The first and most important 'real' analysis step we will do is finding genes that show a difference in expression between sample groups; the *differentially expressed genes* (DEGs). The concept might sound rather simple; calculate the ratios for all genes between samples to determine the **fold-change** (FC) denoting the factor of change in expression between groups. Then, filter out only those genes that actually show a difference. While this does give a list of genes showing different behaviour across samples, we need to focus on genes that do not only show a difference, but are also *statistically significant*!
+
+To determine whether or not a gene can be classified as a significant DEG we are going to use - at least - two techniques:
+
+* We will start with manually performing statistical test(s)
+* and compare these results from those given by using one or more Bioconductor libraries (mostly `edgeR` and `DeSEQ2`)
+
+## Pre-processing {#deg-preprocessing}
+
+Given the results of the exploratory data analysis performed in [chapter 3](#chapter-3), you might have concluded that there are one or more samples that show (very) deviating expression patterns compared to samples from the same group. *If* you have more then enough (> 3) samples in a group, you might opt to remove a sample to reduce the noise, as the statistical tests are very sensitive to this. Since we are performing all analysis steps programatically it is also very easy to test for DEGs with and without the sample(s) in question and see if the removal results in lower p-values (= higher significance). If this is the case you can continue on without those sample(s). As always, be sure to properly document this, including the reason why you chose to remove them.
+
+Another step we need to take - and this might be guided by your article - is to filter out (partially) inactive genes. Most datasets available contains a lot of 0-measurements, transcripts where no reads have mapped. In an experiment with two groups, three replicates each, if three out of those six samples have 0-reads mapped, it is often adviced to remove the gene completely. But this can be very subjective to the experiment, it might be expected (thus important) when comparing different tissues or knockout experiments. Also, genes with a (very) low read count can give a very high (artificial) FC value (see the lefthand side of an MA-plot). Comparing two samples where one has a value of 2 and the other 11, this reads as an up-regulated gene by a factor of *5.5* while it might actually just be *noise*!
+
+* **Assignment**: Search through your article for any advice on how to filter out zero values or low count genes. If there is nothing stated on this subject, think of your own tactic (or search the literature/ online!). It is perfectly fine to discuss with your peers.
+    + **describe** what you will be doing for this aspect; if you do *not* filter your data, clearly explain why not (most likely because the article stated a proper reason)
+    + Perform the filtering on your dataset. For this you will most likely need to use one of the `apply` functions, combined with maybe the `which`, `all` and `any` functions.
+    + Manually verify that the rows removed were correctly filtered.
+    + Properly document how many genes have been filtered out!
+
+## The *Fold Change* Value {#deg-fc}
+
+The FC is usually given as the calculated `log2` of the *case/control* ratio. For example, gene A has an average expression of 30 mapped reads in the control group and 88 reads in the experiment group, the ratio *case/control* is `2.93`. Values > 1 indicate increased expression in the experiment in relation to the control and values between 0 and 1 indicate lower expression. The `log2(2.93)` is `1.55`. If the counts were reversed, the ratio would have been `30/88`, which is `0.34`. The previously calculated value of `2.93` means a 3-fold up regulation while the `0.34` value means 3-fold down regulation but you can see the range of numbers is very different. Comparing log2 values this would be `1.55` and `-1.55` which compares much better. 
+
+While it is very easy to calculate the FC for all genes at once, a simple FC value doesn't mean much, yet! We still need to use the power that lie within the replicates we have for each sample group. Using these replicates, we want to determine if the observed FC is not just biological noise or a sequencing error.
+
+* **Assignment**: Create a `histogram` of your log2-FC values for *all* genes. Apply the following steps to do this:
+  + average the replicates for each group and add this as a new column to your data set,
+  + calculate the ratios; simply divide one group (averaged-column) by another, usually `experiment`/`control`,
+  + perform a log2-transformation (now you have the `log2-FC` values),
+  + plot the data using the `hist(logFC_column, breaks=60)` function (change the `breaks` argument if needed),
+  + Add two vertical lines at `-1` and `1` (using `abline(v=...)`) to indicate some significance (2-fold change).
+
+If a calculated FC shows a large change in expression between groups this means nothing if the variation *within* a group is very high. For this reason we use some form of statistical test that checks both the variation in each group *and* the difference between groups of samples. In the simplest form this usually comes down to using a [*t*-test](https://en.wikipedia.org/wiki/Student%27s_t-test):
+
+> "It can be used to determine if two sets of data are significantly different from each other"
+
+It does however depend on your experimental setup when it comes down to deciding the proper statistical test to perform and for that it is best to look at your experiment article to see what the authors used for method.
+
+The output of finding DEG's always includes - but is not limited to - a list of *p-values*, usually one p-value per gene. This value indicates whether that gene is a *statistically-significant differentially expressed gene* (SDEG) and to find these genes of interest all we need to do is get all genes with a p-value below our threshold (i.e. `0.05`). Because we will get at least two p-values per gene (one found using manually statistical testing and one through the use of a library) we can make multiple selections, i.e. compare methods, find genes that have a low p-value in both methods and visualize these results in a *venn-diagram* (see section [visualization](#deg-visualization)).
+
+## Using Manual Methods (`t-test` & `ANOVA`) {#deg-manual}
+
+Performing the statistical tests yourself consists of performing either a t-test or an ANOVA based analysis. Both of these methods have multiple forms and the one to choose fully depends on what question you'd like to ask. Again, refer to your experimental setup and any hints found in the article *or* formulate your own question and base the decision on that. 
+
+Manually performing a t-test or ANOVA on gene expression opposed to using one of the specialized libraries can have advantages since every gene is processed individually, while `edgeR` and `DESeq2` look at *all* genes and this might 'smooth' the results which is not always wanted. We will find out later if and how this affects your data set.
+
+If your data **only** consists of the read counts there is an extra normalisation step to perform (only for the manual methods explained in this section, keep the count data stored as well!). One generally accepted method of normalizing count data is to calculate the *fragments per million mapped fragments* (FPM) value and then transform this with log2. Opposed to FPKM and RPKM this does not include the gene-length in its calculation (which you most likely don't have) but as said before we apply the test per gene and do not need to compare multiple genes. If your dataset also includes FPKM or RPKM (pre-normalized), you are allowed to use this data too. Always clearly document if you did so! Once you performed a manual statistical text, be sure to read the section on [Multiple Testing Correction](#deg-mtc) further on in this chapter.
+
+```{r fpm_normalization, echo=TRUE, eval=TRUE}
+# Perform FPM normalization using DESeq2 'fpm' and perform log2 transformation
+# The 'ddsMat' object is the 'DESeqDataSet' created in chapter 4.
+# NOTE: only for count data
+counts.fpm <- log2( fpm(ddsMat, robust = TRUE) )
+```
+
+Next is selecting the test to perform, the following links show diagrams that can be used once the experimental design is known:
+
+*What test to use* links:
+
+* [Institute for Digital Research and Education](https://stats.idre.ucla.edu/other/mult-pkg/whatstat/choosestat-html/)
+* [Biochemia - image at the bottom of the article](http://www.biochemia-medica.com/content/comparing-groups-statistical-differences-how-choose-right-statistical-test)
+* [PracticallyScience](http://www.practicallyscience.com/wp-content/uploads/2015/07/significance-tests-v4-op2.jpg)
+
+### Students T-test {#deg-ttest}
+
+In order to test if one or more genes are significantly differentially expressed between two conditions one can perform a t-test. The t-test will test the *null hypothesis* that there is no difference between the mean of the two populations. Usually, if the p-value is below the significance threshold chosen (also called alpha-value, usually set at $\alpha$ `0.05`) you reject the null hypothesis and conclude that there is a significant difference between the means. 
+
+```{block, type='rmdtip'}
+Note that it is necessary to perform a single t-test for *every* gene (row) of your data set, including all replicates for the involved group. This means that you need to either use one of the `apply()` set of functions or find a different method (there is one specifically for this problem) to make sure that you test each gene separately. From the output of the t-test you only need to keep the calculated *p-value*; one value per gene (row) in your data set. In R, you can append this as a column to your dataframe/ matrix containing the normalized count values.
+```
+
+
+```{r single_ttest}
+## Loading data set with count data (71 samples, 21000+ genes)
+gse74329 <- read.table('data/gse74329.txt', sep = '\t', header = TRUE, row.names = 1)
+case <- 14:18
+control <- 1:3
+
+## Convert to simple numeric vectors, used for the variance test
+case.exp <- as.numeric(gse74329[5000, case])
+control.exp <- as.numeric(gse74329[5000, control])
+```
+
+```{r ttest-data, echo=FALSE}
+panderOptions('table.split.table', Inf)
+set.caption('Data for t-test, RU_42 (case, 5 samples) vs RU_0 (control, 3 samples)')
+pander(gse74329[5000 ,c(control, case)])
+```
+
+First, we test (F-test) if the variance (the average of the squared differences from the mean) in the two sample groups is equal as we need to supply the t-test with this information (by default, it assumes different variance). Note that before performing an F-test, it should first be validated that the data is normally distributed, i.e. using a Shapiro-Wilk test.
+
+```{r vartest}
+## Test for equal variance (H0 = 'equal variance')
+variance <- var.test(case.exp, control.exp, alternative = 'two.sided')
+```
+
+```{r vartest-data, echo=FALSE}
+pander(variance)
+```
+
+In this case, it seems that the variance does **not** differ significantly (P-value of `0.063` > `0.05`) between the two sample groups, therefore set the `var.equal` argument in the `t.test` function to `TRUE`. Most experiments are unpaired; meaning that the expression for a replicate in group A is from a different subject/ person then the expression for a replicate in group B. If however you have time-series data where the same subjects/ persons are used in multiple sample groups, you should set the `paired` option in the `t.test` function to `TRUE`. In most other situations, keep this setting to its default; `FALSE`.
+
+```{r ttest}
+test <- t.test(case.exp, control.exp, alternative = 'two.sided', var.equal = TRUE)
+```
+
+The following table shows the numeric values from performing a t-test. Here we see that this gene is identified as a DEG because its $\alpha$ < `0.05`. Since the t-test compares the mean of two groups, the difference between these two values (19.2 for the 'case' group and 32 for the 'control' group) are deemed significant. Do note that 'noise' or large variance within a group of replicates has a lot of effect on the p-value.
+
+```{r, ttest-table, echo=FALSE}
+pander(test)
+```
+
+Again, we are only interested in the p-value for each gene, store this in either the original data frame or a new one where it is coupled to the gene identifier (name, symbol, etc.).
+
+*t.test* tutorials:
+
+* [M. A. Noback, DAVuR Course Syllabus](https://bioinf.nl/~michiel/courses/R_minor/ttest.html#the-t-test)
+* [Quick-R @ statmethods](http://www.statmethods.net/stats/ttest.html)
+* [Whitehead Institute](http://jura.wi.mit.edu/bio/education/bioinfo2007/arrays/array_exercises_2R.html): based on microarray analysis, but it's still expression data and the basics are the same.
+
+### Analysis of Variance (`ANOVA`) {#deg-anova}
+
+If you have decided that you need to perform ANOVA analysis, the experimental design as well as the question to ask become much more important. Usually it is required to perform ANOVA instead of a t-test when there are multiple (> 2) conditions involved or it is a time series experiment. It is impossible to compare more than two conditions using a t-test unless using a *divide-and-conquer* approach (comparing all conditions against each other) but this is advised against since it will introduce Type I errors (false-positives). Experiments where conditions are combined (i.e. age + multiple drugs) can also be analysed using ANOVA where the question can either be the overall effect of a drug or the influence of age on the effect of a drug. The method of specifying these questions uses the same formula notation as for example the linear model (`lm`) function, i.e. `~ group + treatment + group:treatment` where group could be an *age* group and treatment a different *drug*. The most simple form of this formula is `~ condition`. Note that in this case condition is most likely an R `factor` dividing the samples in *case*/ *control* groups. 
+
+```{block2, type='rmdtip'}
+Let us first consider a theoretical example and work towards a practical example in R. Given an experiment with $k$ conditions as shown in the table below where each gene $i$ is measured $n_i$ times.
+
+|  1  |  2  | ... |  i  | ... | $k$ 
+|:---|:---|:---|:---|:---|:---
+| $X_{11}$ | $X_{21}$ | ... | $X_{i1}$ | ... | $X_{k1}$ 
+| $X_{12}$ | $X_{22}$ | ... | $X_{i2}$ | ... | $X_{k2}$
+| $\vdots$ | $\vdots$ | ... | $\vdots$ | ... | $\vdots$
+| $X_{1n_{1}}$ | $X_{2n_{2}}$ | ... | $X_{in_{i}}$ | ... | $X_{kn_{k}}$
+  
+  : $Condition$
+
+A typical question to ask is whether there are any differences between the expression level $X$ of the given gene between these conditions. However we need to carefully formulate the null and research hypotheses. The null hypothesis is pretty easy; *the different conditions are not really different and, therefore, all measurements actually come from a single distribution.* The effect is that all means would be the same, for all conditions: $H_0 : \mu_{1} = \mu_{2} = \cdots = \mu_{k}$. It is not clear however whether the alternate or research hypothesis requires all $k$ conditions or a subset of these conditions to be different from each other. This results in the following three possible hypotheses for $H_a$:
+
+1. $H_a$ : All means are different for each other.
+2. $H_a$ : Several but not all means are different from each other.
+3. $H_a$ : There is at least one pair of means that are different from each other.
+
+The first two hyptheses are not suitable for the question asked thus the following set of hypotheses remain:
+
+  $H_0$: $\mu_{1} = \mu_{2} = \cdots = \mu_{k}$
+  
+  $H_a$: There is at least one pair of means that are different from each other.
+
+This set of hypotheses is called a **Model I** or **fixed effects**, **ANOVA**. The general idea behind this form of ANOVA is very simple. The measurements of each condition vary around the condition-mean (*within-group* variance). At the same time, the means of each condition will vary around an overall mean (*inter-group* variance). The idea behind ANOVA is to study the relationship between the inter-group and the within-group variances.
+```
+
+The following practical example uses the `airway` experiment data package in R which contains RNA-Seq read count data for 8 samples. From the abstract, a brief description of the RNA-Seq experiment on airway smooth muscle (ASM) cell lines[@jiang14]:
+
+> Using RNA-Seq, a high-throughput sequencing method, we characterized transcriptomic changes in four primary human ASM cell lines that were treated with dexamethasone - a potent synthetic glucocorticoid (1 micromolar for 18 hours).
+
+The data available in the experiment package is of a certain *class* (Large `RangedSummarizedExperiment`) and contains both the count data as well as some metadata describing the experiment. Looking at the sample description table below, we can see a few columns describing variables that are used to define the experiment. In this case these are the **cell** (an identifier for a certain cell where each cell originates from the same subject) and **dex** (`trt` indicates treatment of each cell with 1 $\mu M$ *dexamethasone*, `untrt` indicates control) columns.
+
+```{r airway-ANOVA-data, echo=TRUE, eval=TRUE, results=FALSE, warning=FALSE, message=FALSE}
+library(airway)
+data(airway)
+
+## Sample description
+colData(airway)
+```
+
+```{r airway-ANOVA-colData, echo=FALSE}
+pander(as.data.frame(colData(airway)), caption = "Sample metadata for the airway experiment")
+```
+
+```{r airway-ANOVA-assay, eval=FALSE}
+## Count data
+head(assay(airway))
+```
+
+```{r airway_metadata_table, echo=FALSE}
+pander(head(as.data.frame(assay(airway))), caption = "Count data for the airway experiment")
+```
+
+Two questions resulting in two different formulas can be asked with this data set, on a *per-gene* basis:
+
+1. Test for the effect of dexamethasone (the last factor), controlling for the effect of different cell line (the first factor):
+  + `~ cell + dex`
+2. Test whether a fold change due to treatment with dexamethasone is different across cell line using an *interaction term*:
+  + `~ cell + dex + cell:dex`
+
+Using a t-test we can only ask *either* the effect of dex or the cell line and not both. Note that for this experiment the `paired` argument for a t-test should be set to `TRUE` as each cell is used in both treated and untreated conditions. Using ANOVA we will now, for a single gene, show how to get the basic statistics. This can be done in two ways; either fit a model (using `lm`) and compute the *analysis of variance tables* (using `anova`) or using the wrapper function (`aov`) that models the data using `lm` from which the statistics can be gathered using the `summary` function. First we need to determine if we have a **balanced** or **unbalanced design**, i.e. do we have equal sample sizes within the levels of our independent grouping levels (independent variables are dex and cell, the count value is the dependent variable). See the code below on how to check for a balanced design. Note that all further code for this section only uses count data for **one** gene (the first one). 
+
+```{r airway-anova-data-prep}
+## First, format the data so we can use it in a formula. We need the samples as rows, 
+## and the gene expression values in a single column
+dex = colData(airway)$dex
+cell = colData(airway)$cell
+
+dat <- data.frame(count=t(assay(airway))[,1], # Count data
+                  dex, cell)                  # Group description
+
+## Check for design. If all values are equal, the design is balanced
+pander(table(dat$dex, dat$cell))
+
+pander(dat, caption = "Count data for 'ENSG00000000003'")
+## Average per treatment group
+pander(tapply(dat$count, dat$dex, mean))
+```
+
+There is a noticable (~40%) difference in the average expression when looking at the treatment. Looking at the difference in average for the cells we see an even bigger difference.
+
+```{r airway-anova-cell-mean}
+pander(tapply(dat$count, dat$cell, mean))
+
+## Create a model for the first question listed above
+## By using two independent variables, this is a TWO-way ANOVA
+model.airway <- lm(count ~ cell + dex, data=dat)
+
+## Alternative method, same result:
+# summary( aov(count ~ cell + dex, data=dat) )
+
+## Print the analysis of variance table
+pander(anova(model.airway))
+```
+For this gene, both the treatment *and* the cell have an *almost* significant p-value (`Pr(>F)` < 0.05). With the treatment having only two options we can simply state that the treatment shows *some* effect, but we have to accept the $H_0$ hypothesis (all means are equal) since $\alpha$ > 0.05. Let's assume for now that we found a gene with an $\alpha$ < 0.05 where we reject $H_0$. With there being 4 different cell sources, we can only say that *at least one cell-type shows an effect*. To find out exactly *which* of the cell sources that is requires multiple t-tests ($R = 1/2k(k-1)=6$ separate tests comparing all groups). Alternatively, the `pairwise.t.test` function can be used for this.
+
+After performing ANOVA some steps should be performed to check if the results are viable, tests like the **Levene's test** for checking the homogeneity of variances and checking for **normality** of the residuals. While technical and fully understanding falls outside of the scope of this course, a simple plot can be made (not for all genes/ tests) to see if the residuals are normally distributed. We expect the datapoints to approximately follow a straight diagonal line. Samples that differ too much are annotated in the plot and can be reason for concern.
+
+```{r, anova-residuals-normality}
+## Plotting the full model (remove the 2) shows other statistics as well
+plot(model.airway, 2)
+```
+
+*ANOVA* tutorials
+
+* [M. A. Noback, DAVuR Course Syllabus](https://bioinf.nl/~michiel/courses/R_minor/ttest.html#anova)
+* [Quick-R @ statmethods](http://www.statmethods.net/stats/anova.html)
+* [R-bloggers](http://www.r-bloggers.com/one-way-analysis-of-variance-anova/)
+* [Statistical tools for high-throughput data analysis](http://www.sthda.com/english/wiki/two-way-anova-test-in-r)
+
+## Multiple Testing Correction {#deg-mtc}
+
+Read the text about **Multiple comparisons** at the [biostathandbook](http://www.biostathandbook.com/multiplecomparisons.html) and the help of the `p.adjust R` function. Your article is a possible source to see which correction method they applied. If this is not mentioned there it is probably best to use the `fdr` (also called the `Benjamini Hochberg`) method.
+
+```{block, type='rmdtip'}
+An expected side-effect of correcting for multiple-testing is the lower number of genes with a resulting p-value < 0.05 (caused by hopefuly removing false-positives). For example, using a p-value of 0.05 *expects* 5% of all tests to result in false-positives. Thus when testing >20.000 genes it is expected that 1000 tests are in fact a false-positive. In some cases though, you end up with **0** genes that have a low p-value and thus you have no DEGs. Using the *Bonferroni* correction for instance, multiplies the p-values by the number of comparisons. With 20.000 comparisons, a p-value must be <= 0.0025 to 'survive' the correction and still be < 0.05.
+```
+
+### Inspecting Manual Test Results
+
+After applying a form of multiple testing correction, you end up with a P-value for *each* gene in your data set. DEGs can then be filtered out using simple R commands looking for P-values < 0.05 and optionally a threshold log-FC value. The resulting set of genes show a statistically significant difference between the sample groups that were used in the test(s) and these can be used to answer any relevant biological question. For now, keep the results as we will inspect them closer in [chapter 6; Data Analysis](#chapter-6).
+
+## Using Bioconductor Packages {#deg-bioconductor}
+
+This section demonstrates the use of three packages to perform DEG-analysis on **count** data. There are many packages available on Bioconductor for similar analysis, such as `DSS`, `EBSeq`, `NOISeq` and `BaySeq`, but here we will focus on `edgeR`, `DESeq2` and `limma` for processing count-based data. Chances are that either of these three packages are mentioned if the article described the use of R for the statistical analysis as they are the most widely accepted methods of processing gene expression data.
+
+All of the three packages apply their own normalization methods (described in the sections below) therefore they only work on the count data. You can choose one of these three packages to use, or use them all since it could increase statistical power and they are not very hard to use once you understand how to **model** the data as we'll show next.
+
+### The `Design` (matrix) {#deg-design}
+
+For all of these packages you need to properly specify *how* your samples are grouped. We have seen examples of this using an `R factor` object with the heatmap, MDS and PCA visualizations to tell which groups of samples we have and to which group each sample belongs. Reading the documentation for the below packages shows that this is an important part of performing DE-analysis. For example, the following code is shown in de `edgeR` documentation on page 8 where two sample groups are defined (numbered `1` and `2`), placed in a `factor` object and used as input in the `model.matrix` function. 
+
+```{r design_matrix, echo=TRUE, eval=TRUE}
+group <- factor(c(1,1,2,2), labels = c("Control", "Case"))
+(design <- model.matrix( ~ group))
+```
+
+As mentioned before we **need** to think about the *question* we want to aks; which difference do we want to know? With two sample groups as used here the question is rather easy; 'which genes show an effect between case/ control samples?'. With more then two sample groups however the question becomes more difficult. If we have an experiment comparing influence of three kinds of drugs (thus three groups) *combined* with effect over time, do we then want to focus on the influence of the *drugs* or the *time*? Both are valid questions but they define the way of how to create the `design matrix`.
+
+Documentation on this subject is plenty, however it often contains overwhelming information. [This page](http://genomicsclass.github.io/book/pages/expressing_design_formula.html) contains some valuable details (you can safely start reading at **Choice of design**), including the following text which is based on the same example used in the `edgeR` documentation:
+
+> "For the examples we cover here, we use linear models to make comparisons between different groups. Hence, the design matrices that we ultimately work with will have at least two columns: an intercept column, which consists of a column of 1’s, and a second column, which specifies which samples are in a second group. In this case, two coefficients are fit in the linear model: the intercept, which represents the population average of the first group, and a second coefficient, which represents the difference between the population averages of the second group and the first group. The latter is typically the coefficient we are interested in when we are performing statistical tests: we want to know if their is a difference between the two groups."
+
+If you have more then two sample groups and you want to change the *question* (i.e. test the influence of a different group), read the section about **Releveling** the `factor`.
+
+### `DESeq2` {#deg-deseq2}
+
+We have used the `DESeq2` library before and for DEG analysis we could re-use the `DESeqDataSet` object but it is adviced to create a new object with the proper design formula instead of the `~ 1` we used before.
+
+There is no need to normalize the data using the previously used `rlog` function because the `DESeq2` library will normalize the count data for you as follows:
+
+> "DESeq computes a scaling factor for a given sample by computing the median of the ratio, for each gene, of its read count over its geometric mean across all samples. It then uses the assumption that most genes are not DE and uses this median of ratios to obtain the scaling factor associated with this sample."
+
+For our example data with just two groups we use the design `~ groups` where groups is a simple factor with two levels (`KO` and `WT`). One note of importance though is that the first level in the factor is taken as the reference, or for expression analysis, the *control* group. In the example factor the `KO` level is the first which is the *experiment* group. Therefore we need to *relevel* the data (check the help and documentation if this is unclear): 
+
+```{r relevel, echo=TRUE, eval=TRUE}
+(groups <- factor(c(1, 1, 1, 2, 2, 2, 2), labels = c('KO', 'WT')))
+(groups <- relevel(groups, 'WT'))
+```
+
+```{r .deseq2-TEST, eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE}
+# Put the sample names in a separate vector
+coldata <- colnames(counts)
+counts[is.na(counts)] <- 0
+
+dds <- DESeqDataSetFromMatrix(countData = subset(counts, select = -KO1B),
+                              colData = data.frame(groups),
+                              design = ~ groups)
+
+dds <- DESeq(dds)
+res <- results(dds, contrast = c("groups", "KO", "WT"), 
+               alpha = 0.05)
+```
+
+Once you have a proper `DESeqDataSet` all you need to do is run the `DESeq` function on this object. Then, using the `results` function you can extract the DEGs as a `DESeqResults` object. Applying the `summary` function on this object shows the number of up and down regulated DEGs:
+
+```{r show_dge_summary_deseq, echo=FALSE, eval=TRUE}
+summary(res)
+```
+
+The output of the `results` function contains the following columns for each gene:
+
+```{r .pander_deseq2_results, echo=FALSE, eval=TRUE}
+dtable <- mcols(res, use.names = TRUE)
+dframe <- cbind(dtable@rownames, as.data.frame(dtable@listData))
+colnames(dframe) <- c("Column", "Type", "Description")
+pander(dframe)
+
+dge.data.frame <- as.data.frame(res@listData)
+spval <- sum(dge.data.frame$padj < 0.05, na.rm = TRUE)
+```
+
+*How* you call the `results` function depends heavily on your experiment. As you can see from the output of the `summary` function, there are no details given about *which* comparison is shown (and also, a p-value of 0.1 is used instead of 0.05).
+
+Depending on the *design* used to create the `DESeqDataSet` with, one or more comparisons can be made (applying the `DESeq` function calculates all and you filter with the `results` function). Read the help for the `results` function carefully; especially regarding the `contrast` argument where you define the comparison to retrieve. The following code is used for our example experiment:
+
+```{r deseq_results, eval=FALSE}
+res <- results(dds, contrast = c("groups", "KO", "WT"), 
+               alpha = 0.05)
+```
+
+**Links**
+
+* [Analyzing RNA-seq data with DESeq2](https://www.bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html) A *very* comprehensive guide to analyzing RNA-Seq data using DESeq2 (part of this document has been used in this material too!). It is adviced to read the first few sections of this guide and take a good look at the index of the document because there are many interesting sections that might be of help later.
+* [Publication](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-014-0550-8), an accompanying article showing differences in performance compared to other methods and packages.
+
+### `edgeR` {#deg-edger}
+
+One of the most mature libraries for RNA-Seq data analysis is the `edgeR` library available on [Bioconductor](http://bioconductor.org/packages/release/bioc/html/edgeR.html). There is a very complete (sometimes a bit complex) manual available of which you need to read [Chapter 2](https://bioconductor.org/packages/release/bioc/vignettes/edgeR/inst/doc/edgeRUsersGuide.pdf) with a focus on 2.1 to 2.7, 2.9 and - if you have a more complex design - 2.10. Section 1.4 (Quickstart) shows a code example on the steps needed to do DEG analysis using count data using the two `glm` methods (*quasi-likelihood F-tests* and *likelihood ratio tests*). All the steps shown there are identical for the non-`glm` method up to calculating the `fit` object which can be replaced by performing the `exactTest` function as shown in sectino 2.9.2.
+
+The `edgeR` library will normalize the count data for you as follows:
+
+> "The trimmed means of M values (TMM) from Robinson and Oshlack, which is implemented in edgeR, computes a scaling factor between two experiments by using the weighted average of the subset of genes after excluding genes that exhibit high average read counts and genes that have large differences in expression."
+
+Running edgeR requires the raw count data together with the grouping-factor packaged in a `DGEList` object (with the `DGEList()` function). Furthermore, a proper `model.matrix` object (see the section on [design](#deg-design)) is needed as input for the `estimateDisp` function. The exact steps to take (there are more variations then with DeSEQ) must be searched in the documentation linked above.
+
+Gene annotation has been added to the `DGEList` object that is used to run edgeR with the `genes` parameter. This data has been taken from the `AnnotationDbi` package as [shown in chapter 5](#annotationDBI).
+
+Once the analysis is done you can retrieve the actual results with the `topTags` function:
+
+```{r .edger-TEST, echo=FALSE, eval=TRUE, warning=FALSE, message=FALSE, error=FALSE}
+library(edgeR)
+# Replace NA-values with zeros
+counts[is.na(counts)] <- 0
+y <- DGEList(counts=subset(counts, select = -KO1B), group=groups,
+             genes=cbind(EntrezID=gse80128$EntrezID,
+                         EnsemblID=gse80128$Ensembl))
+
+## Filter for low-counts
+y.cpm <- cpm(y)
+keep <- which(rowSums(y.cpm) >= 2)
+rm(y.cpm)
+
+y <- y[keep,]
+
+## Normalize
+y <- calcNormFactors(y, method="TMM")
+
+# Relevel groups, putting WT (control) as first level
+groups <- relevel(groups, 'WT')
+design <- model.matrix(~groups)
+y <- estimateDisp(y,design)
+# Find DEGs
+et <- exactTest(y)
+
+pander(as.data.frame(topTags(et)), caption = 'Most significant genes given by edgeR')
+```
+
+The package also contains a few plotting methods that you can use at intermediate steps during the analysis. For instance, after calculating the normalization factors (`calcNormFactors`), you can perform multi-dimensional scaling with the `plotMDS` function:
+
+```{r}
+plotMDS(y)
+```
+
+Or the *dispersion* after running the `estimateDisp` function with the `plotBCV` function:
+
+```{r}
+plotBCV(y)
+```
+
+Or the log-fold changes for all genes, once we have the output of the `exactTest` function (output `et` is an `DGEExact` object) with the `plotSmear` function. The `abline` shows a log-FC threshold:
+
+```{r}
+deGenes <- decideTestsDGE(et, p=0.001)
+deGenes <- rownames(et)[as.logical(deGenes)]
+plotSmear(et, de.tags=deGenes)
+abline(h=c(-1, 1), col=2)
+```
+
+**Links**
+
+* [Differential Expression Analysis using edgeR](http://bioinformatics-core-shared-training.github.io/cruk-bioinf-sschool/Day3/rnaSeq_DE.pdf) tutorial
+* [Another tutorial](https://gist.github.com/jdblischak/11384914) hosted on GitHub
+
+### `limma` {#deg-limma}
+
+The limma package is originally designed for processing microarray expression data but has been updated to also allow analyzing RNA-Seq data. Other than the previously discussed two packages does limma not perform its own normalization by default but includes a function that can be used to perform *log2-counts per million (logCPM)* transformation and normalization. The `voom` function is responsible for this procedure and the accompanying article shares some interesting comparisons (although a bit outdated) between different normalization techniques[@law14].
+
+Further information will follow soon$^{tm}$.

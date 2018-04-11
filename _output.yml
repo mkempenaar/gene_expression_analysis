@@ -3,7 +3,7 @@ bookdown::gitbook:
   config:
     toc:
       before: |
-        <li><a href="./">Minor for the Life Sciences; Capstone Project</a></li>
+        <li><a href="./">Theme 07 - Analysis of Gene Expression</a></li>
 
 bookdown::pdf_book:
   includes:
@@ -11,3 +11,4 @@ bookdown::pdf_book:
   latex_engine: xelatex
   citation_package: natbib
 bookdown::epub_book: default
+bookdown::html_book: default
