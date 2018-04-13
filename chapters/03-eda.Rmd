@@ -5,6 +5,8 @@ knitr::opts_chunk$set(cache=TRUE)
 
 # libraries
 library(pander)
+panderOptions("table.caption.prefix", "")
+
 library(png)
 library(grid)
 
@@ -112,6 +114,43 @@ img <- readPNG("ImageToInclude.png")
 grid.raster(img)
 ```
 
+## Example Data
+
+This section lists all (publically available) datasets used in this chapter. Each chapter contains this section *if* new datasets are used there. Note that for *all* examples, your data **will be different** from the examples and one of the challenges during this course will be translating the examples to your own data. Keep in mind that simple copy-pasting of most code will fail for that reason. Most examples therefore will *print* the input data for comparison to your own data.
+
+From the section [Normalization](#normalization) onwards, the experiment with identifier [GSE101942](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE101942) is used for visualizing the normalized raw count values (the earlier sections explore the unnormalized data). This experiment is titled *"Transcriptome analysis of genetically matched human induced pluripotent stem cells disomic or trisomic for chromosome 21"* and the experimental setup is described as follows:
+
+> "12 total polyA selected samples. 6 IPSC samples with 3 biological repeats for trisomic samples and 3 biological repeats for disomic samples. 6 IPSC derived neuronal samples with 3 biological repeats for trisomic samples and 3 biological repeats for disomic samples."
+
+The following code shows how to load the two available files containing the raw-count data (one file per 6 samples), stored locally in the `data/gse101942/` folder. Some simple 'cleanup' steps are performed which aren't required by helpful for demonstration purposes (i.e., renaming samples to identify groups).
+
+* **`GSE101942_IPSC_rawCounts.txt`**: raw count data for the induced pluripotent stem cells (iPSCs), both *trisomic* and *disomic*
+* **`GSE101942_Neuron_rawCounts.txt`**: raw count data for the IPSC-derived Neurons, both *trisomic* and *disomic*. These cells were treated to remove chromosome 21 from the iPSCs, as described by the treatment protocol as: "Targeted removal of CHR 21 in IPSC using TKNEO transgene".
+
+
+
+```{r example_data_gse101-42}
+# Load the two sets of 6 samples
+ipsc <- read.table('./data/gse101942/GSE101942_IPSC_rawCounts.txt', header = TRUE)
+neuron <- read.table('./data/gse101942/GSE101942_Neuron_rawCounts.txt', header=TRUE)
+# Merge by rowname
+counts <- merge(ipsc, neuron, by = 0, all.x = TRUE, all.y = TRUE, sort = FALSE)
+# Change all NA's introduced by the merge to zeros
+counts[is.na(counts)] <- 0
+print(names(counts))
+# Set the row names to the gene IDs stored in the 'Row.names' column
+row.names(counts) <- counts$Row.names
+# Remove the gene ID column
+counts <- counts[-1]
+# Rename samples to include their group name
+names(counts) <- c(paste0('di_IPSC_r', 1:3),  # Disomic IPSC, replicates 1-3
+                   paste0('tri_IPSC_r', 1:3), # Trisomic IPSC, replicates 1-3
+                   paste0('di_NEUR_r', 1:3),  # Disomic Neuron, replicates 1-3
+                   paste0('tri_NEUR_r', 1:3)) # Trisomic Neuron, replicates 1-3
+print(names(counts))
+```
+See *Table 1* in the [Normalization](#normalization) section for the resulting contents in the `counts` dataframe.
+
 ## Visualizing using `summary`, `boxplot`, `density plot`, `scatterplot` & `MA-plot` {#EDA_part1}
 
 This segment describes some of the basic steps and visualizations that can be performed during Exploratory Data Analysis. In this part we will work with the unnormalized count data. In part this data is normalized before analysing it further. As mentioned above, the focus of EDA is to get an overview/ perform a bit of Quality Control of the data set and while this often requires visualizing the data, these figures do not need to be very pretty. Simple figures are perfectly fine in this stage. Try to create these figures for your own data (and keep them in your log) **and** add a small description for each figure pointing out anything that is different from what you expect. 
@@ -193,63 +232,55 @@ This section adds a few Exploratory Data Analysis techniques where we will measu
 
 In the previous section we used the raw count data. You might have one or more samples that have different values (i.e. shifted) compared to other samples. While we need the raw count data to use R packages such as `edgeR` [@R-edgeR] and `DeSEQ2` [@R-DESeq2], calculating sample distances (used in the visualizations in this section) should be done on some form of normalized data. This data can either be RPKM/FPKM/TPM/CPM or rlog-transformed (raw-)read counts. A proper method of transforming raw read count data is using the `rlog` method from the `DESeq2` R Bioconductor library which is shown below. 
 
-The following code examples shows how to use this library to normalize the count data to rlog-normalized data before we calculate a distance metric. The data used for this example is available at the GEO (Accession [GSE80128](http://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE80128), titled *Evidence for two protein coding transcripts at the Igf2as locus* consisting of 8 samples from mouse skeletal muscle tissue; 4 wild-type [WT] and 4 $\Delta$DMR1-U2  [KO] variants).
+The following code examples shows how to use this library to normalize the count data from the **GSE101942** experiment to rlog-normalized data before we calculate a distance metric.
 
-```{r load_example_data, eval=TRUE, echo=TRUE}
-gse80128 <- read.table('./data/GSE80128_P035_DESeq_KO-WT_pathway.txt', 
-                       sep = '\t', header = TRUE)
-
-# Only use the actual count data as this file contains a lot more descriptive columns
-counts <- as.matrix(gse80128[, 2:9])
-rownames(counts) <- gse80128$geneID
-```
-
-```{r .pre-processing_example_data, echo=FALSE, message=FALSE, warning=FALSE}
+```{r .pre-processing_example_data, echo=FALSE, eval=FALSE, message=FALSE, warning=FALSE}
 library(DESeq2)
-
-# Preparing sample labels
-.sample.labels <- strsplit(colnames(counts), '.', fixed = TRUE)
-.sample.labels <- matrix(unlist(.sample.labels), ncol=2, byrow=TRUE)[,2]
-colnames(counts) <- .sample.labels
 pander(head(counts), caption = 'Table 1; Raw count data for `GSE80128`')
 ```
 
-If you look at `Table 1` you immediately see a huge difference between the two groups for each of the genes. The first gene (`Igf2as`) shows > 10 more expression in the wild-type group compared to the KO group, but it is unknown if this is only caused by the experiment itself by just looking at these numbers. One very simple and quick inspection is looking at the total number of mapped reads per sample as the *sequencing-depth* might vary across samples.
+If you look at `Table 1` you immediately see a huge difference between the groups for each of the genes. The gene (`A1BG`) shows **>100** more expression in the `tri_NEUR` group compared to the `di_IPSC` group, but within most groups there is a very high variation too indicating that it might not be the actual expression that is different. One very simple and quick method of inspection is looking at the total number of mapped reads per sample (the sum of each sample/ column), as the *sequencing-depth* might vary across samples.
 
 ```{r .mapped_read_millions, echo=FALSE}
 # Show the number of mapped reads per sample in millions
-read_depth <- colSums(counts) / 1e6
-panderOptions('table.split.table', Inf)
+read_depth <- round(colSums(counts) / 1e6, 0)
+#panderOptions('table.split.table', Inf)
 set.caption('Table 2; Mapped reads per sample (millions)')
 pander(read_depth)
+exp <- factor(rep(1:4, each=3), labels = c("di_IPSC", "tri_IPSC", "di_NEUR", "tri_NEUR"))
+library(ggplot2)
+ggplot(data=data.frame(read_depth, A1BG=as.numeric(counts[3,])), aes(x=names(counts),y=read_depth, fill=exp)) + 
+  geom_bar(stat = "identity") +
+  coord_cartesian(ylim=c(0, 150)) +
+  ggtitle("Read counts for GSE74329") +
+  labs(x = "Sample", y = "Sequencing depth (millions of reads)") +
+  theme_bw() +
+  theme(axis.text.x=element_text(angle = 90, hjust = 0)) +
+  geom_hline(yintercept=max(read_depth), color='steelblue', linetype = "dashed") +
+  geom_hline(yintercept = min(read_depth), color='steelblue', linetype = "dashed") +
+  geom_text(aes(x=names(counts), y=150, label=A1BG), size=3, color = "grey40")
+
+grid.text("A1BG Expression", gp=gpar(fontsize=9, col = "grey40"),
+          x = unit(0.91, "npc"), y = unit(0.9, "npc"))
 ```
 
-The numbers shown in `Table 2` immediately clearify that it is not just the experimental condition that might have caused this large difference between sample counts but the sequencing depth shows a substantial difference too. One more reason that we will normalize the data with `DESeq2`'s `rlog` method. Check the `Packages` tab in Rstudio to see if you have the `DESeq2` package installed and load it with the `library` command. If you are missing this package, install and load the library using the code below:
+The numbers shown in `Table 2` and the barplot above immediately clearify that it is not just the experimental condition that might have caused this large difference between sample counts but the sequencing depth shows a substantial difference too. Both the minimum and maximum sequencing depth are within the trisomic neuron group (purple in the barplot). The average expression of the `A1BG` gene within this group is 820, but with a minimum of 461 and a maximum of 1010 there is a lot of variation. This is one more reason tellins us that we will have to **normalize** the data. The following code chunks show how to do this with `DESeq2`'s `rlog` method. Check the `Packages` tab in Rstudio to see if you have the `DESeq2` package installed and load it with the `library` command.
 
-```{r biocLite_DESeq2, eval=FALSE, echo=TRUE}
-# Install -only if- the library is not available
-source('http://bioconductor.org/biocLite.R')
-biocLite('DESeq2')
-
-# Load the library
-library('DESeq2')
-```
-
-To use the `rlog` function from the `DESeq2` library we must contruct a `DESeqDataSet` object consisting of the count data combined with sample annotation. Since we only want to use it (for now) for performing a log-transformation we use the most basic form with the sample names as annotation (the `colData` argument):
+To use the `rlog` function from the `DESeq2` library we must contruct a `DESeqDataSet`-object consisting of the count data combined with sample annotation. Since we only want to use it (for now) for performing an rlog-transformation we use the most basic form with a very simple `design` and the sample names as annotation (the `colData` argument):
 
 ```{r create_deseqdataset_from_matrix, eval=TRUE, echo=TRUE}
-# Put the sample names in a separate vector
-coldata <- colnames(counts)
+# Load the library
+library('DESeq2')
 
-# DESeq2 will now construct a SummarizedExperiment object and combine this 
+# DESeq2 will construct a SummarizedExperiment object and combine this 
 # into a 'DESeqDataSet' object. The 'design' argument usually indicates the 
-# experimental design using the sample names as a 'factor', for now we use just '~ 1'
+# experimental design using the condition(s) names as a 'factor', for now we use just '~ 1'
 (ddsMat <- DESeqDataSetFromMatrix(countData = counts,
-                                  colData = data.frame(samples=coldata),
+                                  colData = data.frame(samples = names(counts)),
                                   design = ~ 1))
 ```
 
-We now have a proper `DESeqDataSet` object as you can see above, containing 23336 rows and 8 columns (genes and samples) with the gene symbols as rownames. Usually this object would hold more data, but as this is only a requirement to perform the `rlog` transformation it is good enough for now. Next step is performing this transformation (results in a `Large DESeqTransform` object) and retrieving the actual data from this with the `assay` function as this object too contains a lot of meta-data. The table below shows the updated values which are now comparable across genes whereas the raw count data was harder to compare.
+We now have a proper `DESeqDataSet` object as you can see above, containing 56640 rows and 12 columns (genes and samples) with the gene symbols as rownames. Usually this object would hold more data, but as this is only a requirement to perform the `rlog` transformation it is good enough for now. Next step is performing this transformation (this can take a while depending on the size of the experiment and results in a `Large DESeqTransform` object) and retrieving the actual data from this with the `assay` function as this object too contains a lot of meta-data. The table below shows the updated values which are now comparable across genes whereas the raw count data was harder to compare.
 
 ```{r rlog_transformation, eval=TRUE, echo=TRUE}
 # Perform normalization
@@ -259,15 +290,14 @@ rld <- assay(rld.dds)
 ```
 
 ```{r .pander_rlog_data, eval=TRUE, echo=FALSE}
-.rld.table <- rld
-colnames(.rld.table) <- .sample.labels
-pander(head(.rld.table), caption = 'Table 3; RLog transformed count data')
-rm(.rld.table)
+pander(head(rld), caption = 'Table 2; RLog transformed count data')
 ```
+
+Note that when again looking at the `A1BG` gene, the normalized expression values show much less variation accross the samples and within each sample group. Therefore, we assume that the large difference in expression we observed earlier might be non-existent (there might still be a significant difference though!).
 
 ### Distance Calculation {#eda_distance}
 
-We now have normalized data that we can use for distance calculation. We need to transpose the matrix or data frame of values using `t()`, because the `dist` function expects the different samples as rows and the genes as columns. Note that the output matrix is symmetric.
+We now have normalized data that we can use for distance calculation. This is a standard procedure for many data analysis tasks as it calculates a distance metric for each combination of samples that we will use to check for variation *within* the sample groups. We first need to [*transpose*](https://en.wikipedia.org/wiki/Transpose) the matrix (`rld`) of normalized values using the `t`-function, because the `dist` function expects the different samples as rows and the genes as columns. Note that the output matrix is symmetric. Table 3 below shows the calculated distances within the disomic IPSC group where the distance between samples varies from 100 to 140. The maximum distance between any samples is 380 as will be demonstrated with the visualisations in the next sections. 
 
 ```{r calculate_distance, echo=TRUE, eval=TRUE}
 # Calculate basic distance metric (using euclidean distance, see '?dist')
@@ -275,38 +305,45 @@ sampledists <- dist( t( rld ))
 ```
 
 ```{r .pander_distances, echo=FALSE, eval=TRUE}
-.dist.mat <- as.matrix(sampledists)
-colnames(.dist.mat) <- .sample.labels
-pander(.dist.mat, 'Table 4; Sample distances (Euclidean method)')
+.dist.mat <- as.matrix(round(sampledists, 1))
+pander(.dist.mat[1:3, 1:3], caption = 'Table 3; Sample distances for the trisomic IPSCs (Euclidean method)')
 ```
 
 ### Sample Distances using a Heatmap {#eda_heatmap}
 
-If you have both (raw-)count data *and* an other normalized format (TPM, RPKM, etc.), follow the above procedure for your count data and create a heatmap for **both** formats to see if this makes any difference. The reason for this is that while the RNA-Seq method exists for over 10 years, there are still ongoing discussions on the subject of data processing, especially regarding subjects like which data format to use for which data analysis. 
+If you have both (raw-)count data *and* an other normalized format (TPM, RPKM, etc.), you can *optionally* follow the above procedure for your count data and create a heatmap for **both** formats to see if this makes any difference. The reason for this is that while the RNA-Seq method exists for over 10 years, there are still ongoing discussions on the subject of data processing, especially regarding subjects like which data format to use for which data analysis. 
 
-The following code block creates a heatmap using the `pheatmap` library which offers on of the many available heatmap functions. The resulting heatmap shows an interesting comparison across all samples. Where all of the wild-type samples cluster nicely together, one of the knockout samples deviates from all other samples and might be classified as an outlier in this case. Since we have 4 samples per category, we retain statistical power if we eventually were to remove this sample (always check the article to see if they did the same thing).
+The following code block creates a heatmap using the `pheatmap` library which offers on of the many available heatmap functions. The resulting heatmap shows an interesting comparison across all samples where the order of samples is purely determined using the distance and is often different from the order in the dataset. Ideally, we want the sample groups to be clustered together as we see with this data.
+
+Using the `annotation` dataframe (you can inspect the contents of it yourself) we identify the samples based on both the cell type and the ploidy. The clustering shown in the heatmap clearly separates the data based on the cell type and the differences between the ploidy seems to be minimal. Looking further still, the differences *within* a single group are minimal too meaning that we are not - yet - inclined to remove any outlier-samples. Since we have only have 3 samples per category, we would also lose statistical power if we eventually were to remove one or more samples (also, always check the article to see if they did remove any samples prior to the data analysis).
 
 ```{r pheatmap, echo=TRUE, eval=TRUE}
 # We use the 'pheatmap' library (install with install.packages('pheatmap'))
 library(pheatmap)
 
+coldata <- names(counts)
+
 # Convert the 'dist' object into a matrix for creating a heatmap
 sampleDistMatrix <- as.matrix(sampledists)
 # Give the matrix row and column names
-rownames(sampleDistMatrix) <- coldata
-colnames(sampleDistMatrix) <- coldata
+#rownames(sampleDistMatrix) <- coldata
+#colnames(sampleDistMatrix) <- coldata
 
 # The annotation is an extra layer that will be plotted above the heatmap columns
-# indicating the cell type 
-annotation <- data.frame(Variant = factor(c(1, 1, 1, 1, 2, 2, 2, 2), 
-                                          labels = c('KO', 'WT')))
+# indicating the cell type
+annotation <- data.frame(Cell = factor(rep(1:2, each = 6), 
+                                          labels = c("IPSC", "Neuron")),
+                         Ploidy = factor(rep(rep(1:2, each = 3), 2),
+                                         labels = c("disomic", "trisomic")))
+                         
 # Set the rownames of the annotation dataframe to the sample names (required)
 rownames(annotation) <- coldata
 
 pheatmap(sampleDistMatrix, show_colnames = FALSE,
          annotation_col = annotation,
          clustering_distance_rows = sampledists,
-         clustering_distance_cols = sampledists)
+         clustering_distance_cols = sampledists,
+         main = "Euclidean Sample Distances")
 ```
 
 ### Multi-Dimensional Scaling {#eda_mds}
@@ -320,59 +357,68 @@ All figures below are plotted using `ggplot2`, a more advanced method of plottin
 ```{r mds, echo=TRUE, eval=TRUE}
 # Perform MDS using the 'cmdscale' function. The resulting data can simply be
 # plotted using basic R plotting, here we will use 'ggplot2'
+sampleDistMatrix <- as.matrix(sampledists)
+coldata <- names(counts)
 mdsData <- data.frame(cmdscale(sampleDistMatrix))
+names(mdsData) <- c('x_coord', 'y_coord')
 ```
 
 ```{r mds_table, echo=FALSE}
-names(mdsData) <- c('x', 'y')
-pander(mdsData, caption = 'MDS coordinates used for plotting the distances')
-```
-
-```{r mds_factor}
-# Separate the annotation factor (as the variable name is used as label)
-(Variant <- annotation$Variant)
+pander(mdsData, caption = 'Table 4: MDS coordinates used for plotting the distances')
 ```
 
 ```{r mds_plot}
+# Separate the annotation factor (as the variable name is used as label)
+groups <- factor(rep(1:4, each=3), 
+                 labels = c("di_IPSC", "tri_IPSC", "di_NEUR", "tri_NEUR"))
+
+# Load the ggplot2 library
 library(ggplot2)
-ggplot(mdsData, aes(x, y, color = Variant, label = coldata)) + 
-  geom_text(size = 4) + ggtitle('Multi Dimensional Scaling - Euclidean Distance')
+ggplot(mdsData, aes(x_coord, y_coord, color = groups, label = coldata)) + 
+  geom_text(size = 4) +
+  ggtitle('Multi Dimensional Scaling - Euclidean Distance') +
+  labs(x = "Euclidean distance", y = "Euclidean distance") +
+  theme_bw()
 ```
 
 As a demonstration of a different distance metric (instead of the default `euclidean` used in the `dist` function) the following code shows how to calculate a maybe more fitting distance called the *Poisson Distance*. This library was specifically designed to handle read count data. Note that again, the code below is only usable for **count** data as this function requires: 
-> A n-by-p data matrix with observations on the rows, and p features on the columns. The (i,j) element of x is the **number of reads** in observation i that mapped to feature (e.g. gene or exon) j`.
+> An n-by-p data matrix with observations on the rows, and p features on the columns. The (i,j) element of x is the **number of reads** in observation i that mapped to feature (e.g. gene or exon) j`.
 
 ```{r mds_poisson, echo=TRUE, eval=TRUE}
 library('PoiClaClu')
-# Use the raw (not r-log transformed) counts
+# Use the raw (not r-log transformed!) counts
 dds <- assay(ddsMat)
 poisd <- PoissonDistance( t(dds) )
 # Extract the matrix with distances
 samplePoisDistMatrix <- as.matrix(poisd$dd)
 # Calculate the MDS and get the X- and Y-coordinates
 mdsPoisData <- data.frame(cmdscale(samplePoisDistMatrix))
+
+# And set some better readable names for columns and rows
+names(mdsPoisData) <- c('x_coord', 'y_coord')
+row.names(mdsPoisData) <- row.names(mdsData)
 ```
 
 ```{r mds_names, echo=FALSE}
-names(mdsPoisData) <- c('x', 'y')
-row.names(mdsPoisData) <- row.names(mdsData)
-pander(mdsPoisData, caption = 'MDS coordinates used for plotting the distances using Poisson Distance')
+pander(mdsPoisData, caption = 'Table 5: MDS coordinates used for plotting the distances using Poisson Distance')
 ```
 
 ```{r mds_poisson_plot, echo=TRUE, eval=TRUE}
 # Create the plot using ggplot
-ggplot(mdsPoisData, aes(x, y, color = Variant, label = coldata)) + 
-  geom_text(size = 4) + 
-  ggtitle('Multi Dimensional Scaling - Poisson Distance')
+ggplot(mdsPoisData, aes(x_coord, y_coord, color = groups, label = coldata)) + 
+  geom_text(size = 4) +
+  ggtitle('Multi Dimensional Scaling - Poisson Distance') +
+  labs(x = "Euclidean distance", y = "Euclidean distance") +
+  theme_bw()
 ```
 
-Comparing both figures show similar results, we clearly see a separation of both sample sets, however within the knockout (KO) group there is a large spread and if we were to apply a proper clustering technique, we would see clusters forming containing mixed samples. Once we have a set of genes identified as being differentially expressed we can repeat this step with the expectation of a more clear clustering.
+Comparing both figures show similar results, we clearly see a separation on cell type and a less clear separation on ploidy. The sample `di_NEUR_r3` shows a large difference in the non-normalized MDS plot, though in the normalized plot it is close to the other replicates. Once we have a set of genes identified as being differentially expressed we can repeat this step with the expectation of a more clear clustering.
 
 ### Principal Component Analysis {#eda_pca}
 
 An alternative method of showing sample relations which is often preferred over MDS (but a bit harder to perform with pre-normalized data formats) is *Principal Component Analysis* (PCA). The code below shows PCA on our `DESeqTransform` object `rld.dds`. 
 
-```{r pca, echo=TRUE, eval=TRUE}
+```{r pca-plot, echo=TRUE, eval=TRUE}
 library(BiocGenerics)
 
 # Calculate PCA data
@@ -382,15 +428,13 @@ data <- plotPCA(rld.dds, intgroup = c('samples'), returnData = TRUE)
 # Only used in the axis-labels
 percentVar <- round(100 * attr(data, 'percentVar'))
 
-# Separate the annotation factor (as the variable name is used as label)
-variant <- annotation$Variant
-
 # Create the plot using ggplot
-ggplot(data, aes(PC1, PC2, color = variant, label = coldata)) + 
+ggplot(data, aes(PC1, PC2, color = groups, label = coldata)) + 
   geom_text(size = 4) +
   ggtitle("Principal Component Analysis for RNA-Seq data") + 
   xlab(paste0("PC1: ", percentVar[1], "% variance")) + 
-  ylab(paste0("PC2: ", percentVar[2], "% variance"))
+  ylab(paste0("PC2: ", percentVar[2], "% variance")) +
+  theme_bw()
 ```
 
 Or on FPKM/RPKM data (only perform if you want to compare normalization techniques and have FPKM data. Output is not shown):
@@ -400,11 +444,10 @@ Or on FPKM/RPKM data (only perform if you want to compare normalization techniqu
 pca.data <- prcomp( t(rld) )
 
 # Extract coordinates for PC1 and PC2
-components <- data.frame(mds.labels, pca.data$x[, 1:2])
-pander(components)
+components <- data.frame(pca.data$x[, 1:2])
 
 # Plot using ggplot2
-ggplot(data = components, aes(PC1, PC2, color = Variant, label = coldata)) + 
+ggplot(data = components, aes(PC1, PC2, color = groups, label = coldata)) + 
   geom_text(size = 4) +
   ggtitle("Principal Component Analysis for RNA-Seq data")
 ```

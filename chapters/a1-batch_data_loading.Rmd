@@ -110,7 +110,7 @@ dataset <- read_sample(file.names[1])
 ## Read first sample group (6)
 for (file.name in file.names[2:6]) {
   sample <- read_sample(file.name)
-  dataset <- merge(dataset, sample, by = 1)
+  dataset <- merge(dataset, sample, by = 0)
 }
 
 pander(head(dataset))
