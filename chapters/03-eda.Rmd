@@ -6,7 +6,6 @@ knitr::opts_chunk$set(cache=TRUE)
 # libraries
 library(pander)
 panderOptions("table.caption.prefix", "")
-
 library(png)
 library(grid)
 
@@ -114,7 +113,7 @@ img <- readPNG("ImageToInclude.png")
 grid.raster(img)
 ```
 
-## Example Data
+## Example Data {#ch3_example_data}
 
 This section lists all (publically available) datasets used in this chapter. Each chapter contains this section *if* new datasets are used there. Note that for *all* examples, your data **will be different** from the examples and one of the challenges during this course will be translating the examples to your own data. Keep in mind that simple copy-pasting of most code will fail for that reason. Most examples therefore will *print* the input data for comparison to your own data.
 
@@ -155,10 +154,10 @@ See *Table 1* in the [Normalization](#normalization) section for the resulting c
 
 This segment describes some of the basic steps and visualizations that can be performed during Exploratory Data Analysis. In this part we will work with the unnormalized count data. In part this data is normalized before analysing it further. As mentioned above, the focus of EDA is to get an overview/ perform a bit of Quality Control of the data set and while this often requires visualizing the data, these figures do not need to be very pretty. Simple figures are perfectly fine in this stage. Try to create these figures for your own data (and keep them in your log) **and** add a small description for each figure pointing out anything that is different from what you expect. 
 
-Also note that these steps are just a selection. Furthermore, make sure that for every visualization you make, add proper axis-labels containing the measurement units (important!). The following three plots are based on [GSE74329](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE74329) titled *Transcriptome analysis of gastrointestinal tract of pre-weaned calves*. As you might be able to see, all values are *log-transformed* using the `log2` because very often the numerical values have a very high range which will 'hide' the details on the plots. See the section about the [Fold Change value](#deg-fc) in chapter 4 for further details. It is fine to use non-log-transformed (simply the raw-)data, otherwise use for instance `boxplot(log2(dataset))` for plotting.
+Also note that these steps are just a selection. Furthermore, make sure that for every visualization you make, add proper axis-labels containing the measurement units (important!). As you might be able to see, all values are *log-transformed* using the `log2` function because very often the numerical values have a very high range which will 'hide' the details on the plots. See the section about the [Fold Change value](#deg-fc) in chapter 4 for further details. It is fine to use non-log-transformed (simply the raw-)data, otherwise use for instance `boxplot(log2(dataset))` for plotting.
 
 ```{block, type='rmdtip'}
-Instead of using the basic R-plotting library (i.e. `plot`, `boxplot`, `hist`, etc.) you can also opt for using the (challenging) [`ggplot2`](http://ggplot2.tidyverse.org/index.html) library that is also used for the following three figures. While constructing a `ggplot2` plot feels like learning yet another language, there are many resources available online that you can follow.
+Instead of using the basic R-plotting library (i.e. `plot`, `boxplot`, `hist`, etc.) you can also opt for using the (challenging) [`ggplot2`](http://ggplot2.tidyverse.org/index.html) library that is also used for the boxplot, scatterplot and MA-plot figures in the following sections. While constructing a `ggplot2` plot feels like learning yet another language, there are many resources available online that you can follow.
 ```
 
 ### Statistics {#eda_statistics}
@@ -175,23 +174,23 @@ A visual representation of these values can be shown in a boxplot. Boxplots are 
 
 ### Density Plots {#eda_density_plot}
 
-Another form of visualizing the same data is using a density plot. This method shows a distribution of the (log2-transformed) count data for all samples and allows for easy spotting of problems. While this plot is more commonly used in analysing microarrays, it is still useful for comparing the complete dataset. The code and figure below show an example distribution for 12 samples. A few things to note about this figure is that there is a huge peak at exactly `-3.321928` which can be ignored because this is value is calculated from `log2(0.1)`. This value is very prevalent in the dataset and consists of all 0-values (inactive genes) that had `0.1` added as a so called *pseudo count*, see the box in the [scatterplot](#eda_scatter_plot) section. Therefore, we added a vertical line to indicate the left-part is of little interest. It can be seen though that the sample `rumen_D0_r2` has a far higher 0-count compared to all other samples and as such a lower line at higher count values. Comparing these results to the boxplot confirms that this sample has lower overall count values. Note: a lot of the code below is extra, for a simple inspection using *only* the line `plotDensity(log2(data + 0.1))` is enough, the rest is extra example code.
+Another form of visualizing the same data is using a density plot. This method shows a distribution of the (log2-transformed) count data for all samples and allows for easy spotting of problems. While this plot is more commonly used in analysing microarrays, it is still useful for comparing the complete dataset. The code and figure below show an example distribution for 12 samples. A few things to note about this figure is that there is a huge peak at exactly `-3.321928` which can be ignored because this is value is calculated from `log2(0.1)`. This value is very prevalent in the dataset and consists of all 0-values (inactive genes) that had `0.1` added as a so called *pseudo count*, see the box in the [scatterplot](#eda_scatter_plot) section. Therefore, we added a vertical line to indicate the left-part is of little interest. Note: a lot of the code below is extra, for a simple inspection using *only* the line `plotDensity(log2(data + 0.1))` is enough, the rest is extra example code.
 
 ```{r, density_plot, eval=FALSE}
 ## The affy library has a density plotting function
 library(affy)
 
-## Create a list of colors to use (each sample-group the same color)
-library(RColorBrewer)
-myColors <- brewer.pal(4,"Set1")
+## Create a list of 4 colors to use which are the same used throughout this chapter 
+library(scales)
+myColors <- hue_pal()(4)
 
 ## Plot the log2-transformed data with a 0.1 pseudocount
-plotDensity(log2(dataset + 0.1), col=rep(myColors, each=3),
-            xlab='Log2(count)',
+plotDensity(log2(counts + 0.1), col=rep(myColors, each=3),
+            lty=c(1:ncol(counts)), xlab='Log2(count)',
             main='Expression Distribution')
 
 ## Add a legend and vertical line
-legend('topright', names(dataset), lty=c(1:ncol(dataset)),
+legend('topright', names(counts), lty=c(1:ncol(counts)),
        col=rep(myColors, each=3))
 abline(v=-1.5, lwd=1, col='red', lty=2)
 ```
@@ -236,7 +235,7 @@ The following code examples shows how to use this library to normalize the count
 
 ```{r .pre-processing_example_data, echo=FALSE, eval=FALSE, message=FALSE, warning=FALSE}
 library(DESeq2)
-pander(head(counts), caption = 'Table 1; Raw count data for `GSE80128`')
+pander(head(counts), caption = 'Table 1; Raw count data for `GSE101942`')
 ```
 
 If you look at `Table 1` you immediately see a huge difference between the groups for each of the genes. The gene (`A1BG`) shows **>100** more expression in the `tri_NEUR` group compared to the `di_IPSC` group, but within most groups there is a very high variation too indicating that it might not be the actual expression that is different. One very simple and quick method of inspection is looking at the total number of mapped reads per sample (the sum of each sample/ column), as the *sequencing-depth* might vary across samples.
@@ -252,7 +251,7 @@ library(ggplot2)
 ggplot(data=data.frame(read_depth, A1BG=as.numeric(counts[3,])), aes(x=names(counts),y=read_depth, fill=exp)) + 
   geom_bar(stat = "identity") +
   coord_cartesian(ylim=c(0, 150)) +
-  ggtitle("Read counts for GSE74329") +
+  ggtitle("Read counts for GSE101942") +
   labs(x = "Sample", y = "Sequencing depth (millions of reads)") +
   theme_bw() +
   theme(axis.text.x=element_text(angle = 90, hjust = 0)) +
