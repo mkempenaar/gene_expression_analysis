@@ -159,6 +159,13 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="4.5.3" data-path="chapter-4.html"><a href="chapter-4.html#deg-edger"><i class="fa fa-check"></i><b>4.5.3</b> <code>edgeR</code></a></li>
 </ul></li>
 </ul></li>
+<li class="appendix"><span><b>Appendix</b></span></li>
+<li class="chapter" data-level="A" data-path="a1-batch-data-loading.html"><a href="a1-batch-data-loading.html"><i class="fa fa-check"></i><b>A</b> Appendix A: Batch Loading Expression Data in R</a><ul>
+<li class="chapter" data-level="A.1" data-path="a1-batch-data-loading.html"><a href="a1-batch-data-loading.html#decompressing"><i class="fa fa-check"></i><b>A.1</b> Decompressing</a></li>
+<li class="chapter" data-level="A.2" data-path="a1-batch-data-loading.html"><a href="a1-batch-data-loading.html#determining-data-format"><i class="fa fa-check"></i><b>A.2</b> Determining Data Format</a></li>
+<li class="chapter" data-level="A.3" data-path="chapter-3.html"><a href="chapter-3.html#loading-data"><i class="fa fa-check"></i><b>A.3</b> Loading Data</a></li>
+<li class="chapter" data-level="A.4" data-path="a1-batch-data-loading.html"><a href="a1-batch-data-loading.html#references"><i class="fa fa-check"></i><b>A.4</b> References</a></li>
+</ul></li>
 </ul>
 
       </nav>
@@ -298,7 +305,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li>Read in the data file(s)
 <ul>
 <li>Use the <code>read.table</code> function and carefully set its arguments. Open the file in a text editor first to check its contents; does it have a header? can we set the <code>row.names</code>? Are all columns needed? etc.</li>
-<li><strong>Note</strong>: if the data set consists of separate files (i.e. one per sample) or for general tips on reading in data, see the <a href="#a1-batch_data_loading">Appendix A: <em>Batch Loading Expression Data</em></a> chapter.</li>
+<li><strong>Note</strong>: if the data set consists of separate files (i.e. one per sample) or for general tips on reading in data, see the <a href="a1-batch-data-loading.html#a1-batch_data_loading">Appendix A: <em>Batch Loading Expression Data</em></a> chapter.</li>
 <li>For the remainder of the document, try to show either the contents, structure or - in this case - dimensions of relevant R objects
 <ul>
 <li>Show the first five lines of the loaded data set. Including tables in a markdown document can be done using the <code>pander</code> function from the <code>pander</code><span class="citation">(Daróczi and Tsegelskyi <a href="#ref-R-pander">2017</a>)</span> R-library.</li>
