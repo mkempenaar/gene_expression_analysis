@@ -96,7 +96,9 @@ Follow the following steps to read in the data and start the exploratory data an
         * Give the dimensions (with `dim()` and the structure (with `str()`) of the loaded data set.
         * Check the output of the `str` function to see if all columns are of the expected R data type (e.g. `values`, `factors`, `character`, etc.)
 * Examine the samples included in the experiment and create as many R character objects as needed to store the classification.
-    + For instance, if you have eight samples divided into case/ control columns you create an object called `case` in which you store the column **indices** of the respective columns in the data set and an object called `control` with the remaining four data column **indices**. These are for later use.
+    + **Note**: this is an important item and is often overlooked. See the *last 4 lines* in the code chunk in the section [Example Data](#ch3_example_data) below.
+    + For instance, if you have eight samples divided into case/ control columns you create an object called `case` in which you store the column **indices** (**only** numbers!) of the respective columns in the data set and an object called `control` with the remaining four data column **indices**. These are for later use.
+    + These variables allows us to repeatedly access the same data during the rest of this course, i.e. the code `boxplot(counts[case])` immediately shows that we are plotting the `case` samples from the `counts` data which is more clear than reading `boxplot()
     
 ```{block, type='rmdtip'}
 For some datasets the order in which the samples are listed in your loaded dataset is different from the order that is shown on the GEO website. Most often, the names are different too or they are lacking any description and all you have are the `GSM` IDs. When creating these variables such as `control` that need to point to all control samples, you need to make sure that you have the right columns from your dataframe. Go to Appendix [A2; annotation](#download-geo) if the order is unclear or you just have a large number of samples as there might be supporting data available that can help make sense of your sample layout.
@@ -105,7 +107,7 @@ For some datasets the order in which the samples are listed in your loaded datas
 If you want to include including external images to your log and to better control properties such as *height* and *width* for individual images you can use the following code (requires the import of the `png` and `grid` libraries). Note: the code below is an *example* and you need to replace the `ImageToInclude.png` file reference to an actual image.):
 
 ```{r image_demo, eval=FALSE, echo=TRUE}
-# Use the following to the code chunk header to control figure height and width:
+# Add the following to the code chunk header to control figure height and width:
 #    {r, fig.height=5, fig.width=4, echo=FALSE}
 library(png)
 library(grid)
@@ -115,27 +117,29 @@ grid.raster(img)
 
 ## Example Data {#ch3_example_data}
 
-This section lists all (publically available) datasets used in this chapter. Each chapter contains this section *if* new datasets are used there. Note that for *all* examples, your data **will be different** from the examples and one of the challenges during this course will be translating the examples to your own data. Keep in mind that simple copy-pasting of most code will fail for that reason. Most examples therefore will *print* the input data for comparison to your own data.
+This section lists all (publically available) dataset(s) used in this chapter. Each chapter contains this section *if* new datasets are used there. Note that for *all* examples, your data **will be different** from the examples and one of the challenges during this course will be translating the examples to your own data. Keep in mind that simple copy-pasting of most code will fail for that reason. Most examples therefore will *print* the input data for comparison to your own data.
 
 From the section [Normalization](#normalization) onwards, the experiment with identifier [GSE101942](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE101942) is used for visualizing the normalized raw count values (the earlier sections explore the unnormalized data). This experiment is titled *"Transcriptome analysis of genetically matched human induced pluripotent stem cells disomic or trisomic for chromosome 21"* and the experimental setup is described as follows:
 
 > "12 total polyA selected samples. 6 IPSC samples with 3 biological repeats for trisomic samples and 3 biological repeats for disomic samples. 6 IPSC derived neuronal samples with 3 biological repeats for trisomic samples and 3 biological repeats for disomic samples."
 
-The following code shows how to load the two available files containing the raw-count data (one file per 6 samples), stored locally in the `data/gse101942/` folder. Some simple 'cleanup' steps are performed which aren't required by helpful for demonstration purposes (i.e., renaming samples to identify groups).
+The following code shows how to load the two available files containing the raw-count data (one file per 6 samples), stored locally in the `data/gse101942/` folder. Some simple 'cleanup' steps are performed which aren't required but helpful for demonstration purposes (i.e., renaming samples to identify groups).
 
 * **`GSE101942_IPSC_rawCounts.txt`**: raw count data for the induced pluripotent stem cells (iPSCs), both *trisomic* and *disomic*
 * **`GSE101942_Neuron_rawCounts.txt`**: raw count data for the IPSC-derived Neurons, both *trisomic* and *disomic*. These cells were treated to remove chromosome 21 from the iPSCs, as described by the treatment protocol as: "Targeted removal of CHR 21 in IPSC using TKNEO transgene".
 
-
-
 ```{r example_data_gse101-42}
 # Load the two sets of 6 samples
-ipsc <- read.table('./data/gse101942/GSE101942_IPSC_rawCounts.txt', header = TRUE)
-neuron <- read.table('./data/gse101942/GSE101942_Neuron_rawCounts.txt', header=TRUE)
-# Merge by rowname
-counts <- merge(ipsc, neuron, by = 0, all.x = TRUE, all.y = TRUE, sort = FALSE)
+ipsc.data <- read.table('./data/gse101942/GSE101942_IPSC_rawCounts.txt',
+                        header = TRUE)
+neuron.data <- read.table('./data/gse101942/GSE101942_Neuron_rawCounts.txt',
+                          header=TRUE)
+# Merge by rowname (by = 0, see the help of 'merge')
+counts <- merge(ipsc.data, neuron.data, by = 0, all.x = TRUE, all.y = TRUE,
+                sort = FALSE)
 # Change all NA's introduced by the merge to zeros
 counts[is.na(counts)] <- 0
+# Show column names coming from the input files
 print(names(counts))
 # Set the row names to the gene IDs stored in the 'Row.names' column
 row.names(counts) <- counts$Row.names
@@ -146,7 +150,14 @@ names(counts) <- c(paste0('di_IPSC_r', 1:3),  # Disomic IPSC, replicates 1-3
                    paste0('tri_IPSC_r', 1:3), # Trisomic IPSC, replicates 1-3
                    paste0('di_NEUR_r', 1:3),  # Disomic Neuron, replicates 1-3
                    paste0('tri_NEUR_r', 1:3)) # Trisomic Neuron, replicates 1-3
+# Show results of renaming the samples
 print(names(counts))
+
+# Assign column -indices- to variables for later use (chapter 4)
+di_IPSC <- 1:3
+tri_IPSC <- 4:6
+di_NEUR <- 7:9
+tri_NEUR <- 10:12
 ```
 See *Table 1* in the [Normalization](#normalization) section for the resulting contents in the `counts` dataframe.
 
@@ -229,7 +240,7 @@ This section adds a few Exploratory Data Analysis techniques where we will measu
 
 ### Normalization {#normalization}
 
-In the previous section we used the raw count data. You might have one or more samples that have different values (i.e. shifted) compared to other samples. While we need the raw count data to use R packages such as `edgeR` [@R-edgeR] and `DeSEQ2` [@R-DESeq2], calculating sample distances (used in the visualizations in this section) should be done on some form of normalized data. This data can either be RPKM/FPKM/TPM/CPM or rlog-transformed (raw-)read counts. A proper method of transforming raw read count data is using the `rlog` method from the `DESeq2` R Bioconductor library which is shown below. 
+In the previous section we used the raw count data. You might have one or more samples that have different values (i.e. shifted) compared to other samples. While we need the raw count data to use R packages such as `edgeR` [@R-edgeR] and `DESeq2` [@R-DESeq2], calculating sample distances (used in the visualizations in this section) should be done on some form of normalized data. This data can either be RPKM/FPKM/TPM/CPM or rlog-transformed (raw-)read counts. A proper method of transforming raw read count data is using the `rlog` method from the `DESeq2` R Bioconductor library which is shown below. 
 
 The following code examples shows how to use this library to normalize the count data from the **GSE101942** experiment to rlog-normalized data before we calculate a distance metric.
 
@@ -240,12 +251,13 @@ pander(head(counts), caption = 'Table 1; Raw count data for `GSE101942`')
 
 If you look at `Table 1` you immediately see a huge difference between the groups for each of the genes. The gene (`A1BG`) shows **>100** more expression in the `tri_NEUR` group compared to the `di_IPSC` group, but within most groups there is a very high variation too indicating that it might not be the actual expression that is different. One very simple and quick method of inspection is looking at the total number of mapped reads per sample (the sum of each sample/ column), as the *sequencing-depth* might vary across samples.
 
-```{r .mapped_read_millions, echo=FALSE}
+```{r mapped_read_millions, echo=FALSE}
 # Show the number of mapped reads per sample in millions
 read_depth <- round(colSums(counts) / 1e6, 0)
 #panderOptions('table.split.table', Inf)
-set.caption('Table 2; Mapped reads per sample (millions)')
+set.caption('Table 1; Mapped reads per sample (millions)')
 pander(read_depth)
+
 exp <- factor(rep(1:4, each=3), labels = c("di_IPSC", "tri_IPSC", "di_NEUR", "tri_NEUR"))
 library(ggplot2)
 ggplot(data=data.frame(read_depth, A1BG=as.numeric(counts[3,])), aes(x=names(counts),y=read_depth, fill=exp)) + 
@@ -267,7 +279,7 @@ The numbers shown in `Table 2` and the barplot above immediately clearify that i
 
 To use the `rlog` function from the `DESeq2` library we must contruct a `DESeqDataSet`-object consisting of the count data combined with sample annotation. Since we only want to use it (for now) for performing an rlog-transformation we use the most basic form with a very simple `design` and the sample names as annotation (the `colData` argument):
 
-```{r create_deseqdataset_from_matrix, eval=TRUE, echo=TRUE}
+```{r create_deseqdataset_from_matrix, eval=TRUE, echo=TRUE, warning=FALSE, message=FALSE}
 # Load the library
 library('DESeq2')
 
@@ -289,10 +301,10 @@ rld <- assay(rld.dds)
 ```
 
 ```{r .pander_rlog_data, eval=TRUE, echo=FALSE}
-pander(head(rld), caption = 'Table 2; RLog transformed count data')
+pander(head(rld[ipsc.di]), caption = 'Table 2; RLog transformed disomic IPSC count data')
 ```
 
-Note that when again looking at the `A1BG` gene, the normalized expression values show much less variation accross the samples and within each sample group. Therefore, we assume that the large difference in expression we observed earlier might be non-existent (there might still be a significant difference though!).
+Note that when again looking at the `A1BG` gene, the normalized expression values show much less variation accross the samples (not shown, but also within each sample group). Therefore, we assume that the large difference in expression we observed earlier might be non-existent (there might still be a significant difference though!).
 
 ### Distance Calculation {#eda_distance}
 
@@ -305,28 +317,21 @@ sampledists <- dist( t( rld ))
 
 ```{r .pander_distances, echo=FALSE, eval=TRUE}
 .dist.mat <- as.matrix(round(sampledists, 1))
-pander(.dist.mat[1:3, 1:3], caption = 'Table 3; Sample distances for the trisomic IPSCs (Euclidean method)')
+pander(.dist.mat[ipsc.di, 1:3], caption = 'Table 3; Sample distances for the disomic IPSCs (Euclidean method)')
 ```
 
 ### Sample Distances using a Heatmap {#eda_heatmap}
 
 If you have both (raw-)count data *and* an other normalized format (TPM, RPKM, etc.), you can *optionally* follow the above procedure for your count data and create a heatmap for **both** formats to see if this makes any difference. The reason for this is that while the RNA-Seq method exists for over 10 years, there are still ongoing discussions on the subject of data processing, especially regarding subjects like which data format to use for which data analysis. 
 
-The following code block creates a heatmap using the `pheatmap` library which offers on of the many available heatmap functions. The resulting heatmap shows an interesting comparison across all samples where the order of samples is purely determined using the distance and is often different from the order in the dataset. Ideally, we want the sample groups to be clustered together as we see with this data.
-
-Using the `annotation` dataframe (you can inspect the contents of it yourself) we identify the samples based on both the cell type and the ploidy. The clustering shown in the heatmap clearly separates the data based on the cell type and the differences between the ploidy seems to be minimal. Looking further still, the differences *within* a single group are minimal too meaning that we are not - yet - inclined to remove any outlier-samples. Since we have only have 3 samples per category, we would also lose statistical power if we eventually were to remove one or more samples (also, always check the article to see if they did remove any samples prior to the data analysis).
+The following code block creates a heatmap using the `pheatmap` library which offers on of the many available heatmap functions. Using the `annotation` dataframe (you can inspect the contents of it yourself) we identify the samples based on both the cell type and the ploidy. The clustering shown in the heatmap clearly separates the data based on the cell type and the differences between the ploidy seems to be minimal. Looking further still, the differences *within* a single group are minimal too meaning that we are not - yet - inclined to remove any outlier-samples. Since we have only have 3 samples per category, we would also lose statistical power if we eventually were to remove one or more samples (also, always check the article to see if they did remove any samples prior to the data analysis).
 
 ```{r pheatmap, echo=TRUE, eval=TRUE}
 # We use the 'pheatmap' library (install with install.packages('pheatmap'))
 library(pheatmap)
 
-coldata <- names(counts)
-
 # Convert the 'dist' object into a matrix for creating a heatmap
 sampleDistMatrix <- as.matrix(sampledists)
-# Give the matrix row and column names
-#rownames(sampleDistMatrix) <- coldata
-#colnames(sampleDistMatrix) <- coldata
 
 # The annotation is an extra layer that will be plotted above the heatmap columns
 # indicating the cell type
@@ -336,7 +341,7 @@ annotation <- data.frame(Cell = factor(rep(1:2, each = 6),
                                          labels = c("disomic", "trisomic")))
                          
 # Set the rownames of the annotation dataframe to the sample names (required)
-rownames(annotation) <- coldata
+rownames(annotation) <- names(counts)
 
 pheatmap(sampleDistMatrix, show_colnames = FALSE,
          annotation_col = annotation,
@@ -344,6 +349,8 @@ pheatmap(sampleDistMatrix, show_colnames = FALSE,
          clustering_distance_cols = sampledists,
          main = "Euclidean Sample Distances")
 ```
+
+The resulting heatmap shows an interesting comparison across all samples where the order of samples is purely determined using the distance and is often different from the order in the dataset. Ideally, we want the sample groups to be clustered together as we see with this data. This particular heatmap clearly shows a large difference in overal expression between the induced pluripotent stem cells (iPSCs) and their differentiated cortical neurons while the difference - within cell type - between disomic and trisomic is much lower.
 
 ### Multi-Dimensional Scaling {#eda_mds}
 
@@ -415,7 +422,7 @@ Comparing both figures show similar results, we clearly see a separation on cell
 
 ### Principal Component Analysis {#eda_pca}
 
-An alternative method of showing sample relations which is often preferred over MDS (but a bit harder to perform with pre-normalized data formats) is *Principal Component Analysis* (PCA). The code below shows PCA on our `DESeqTransform` object `rld.dds`. 
+An alternative method of showing sample relations which is often preferred over MDS (but a bit harder to perform with pre-normalized data formats) is *Principal Component Analysis* (PCA). The code below shows PCA on our `DESeqTransform` object `rld.dds`. The resulting plot shows a very clear separation between cell types and within the cell types a separation between disomic and trisomic.
 
 ```{r pca-plot, echo=TRUE, eval=TRUE}
 library(BiocGenerics)
@@ -451,8 +458,7 @@ ggplot(data = components, aes(PC1, PC2, color = groups, label = coldata)) +
   ggtitle("Principal Component Analysis for RNA-Seq data")
 ```
 
-## Clean Data
+## Cleaning Data
 
 Conclude this chapter by *cleaning* your dataset if the visualizations show the necessity for this. Cleaning in this case means *removing* complete samples if they can be classified as an outlier *within* its group. As with most tasks during this course, there is no clear advice on when to decide to remove one or more samples. The only clear rule is that each group *must* retain at least three samples. If one of the three samples visibly deviates from the other replicates, even after normalization, it will stay in your data set and it should be mentioned in your analysis report/ final article that noise *may* be introduced by this sample. 
-
-**Note**: Once you are satisfied with the data and/ or reported on your findings, we do not return to any of these steps in the next chapters. If there are mentions of creating a heatmap for instance, this means a heatmap of *expression data* instead of the *sample distances* we've shown in this chapter.
+**Note**: Once you are satisfied with the data and reported on your findings, we do not return to any of these steps in the next chapters. If there are mentions of creating a heatmap for instance, this means a heatmap of *expression data* instead of the *sample distances* we've shown in this chapter.

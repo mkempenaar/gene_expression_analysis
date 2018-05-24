@@ -2,6 +2,7 @@
 
 ```{r, echo=FALSE}
 knitr::opts_chunk$set(cache=TRUE)
+load('./data/chapter5.RData')
 ```
 
 This chapter describes *annotate* the data, meaning assigning names and functions to our Differentially Expressed Genes. This step can either be very easy or a bit more challenging depending on the data source of your project. The first example is relevant if your data set originated from the NCBI **GEO**, which 'should' always be annotated by default. If you have found your data set elsewhere (and do not have a GEO idetifier for your project), skip to the [Manually annotate your data](#manually-annotate) section below.
@@ -130,6 +131,7 @@ colnames(.Mm.data.table) <- c('Data Type', 'Example Value',
                               'Data Type', 'Example Value')
 pander(.Mm.data.table, caption="Example values for each field in 'org.Mm.eg.db'")
 ```
+
 ```{r .pander_annoDB_example_data}
 load("./data/annotationDbi.RData")
 pander(.Mm.data.table, caption="Example values for each field in 'org.Mm.eg.db'")
@@ -271,7 +273,7 @@ We now have all three needed elements (species, filter and attributes) so we are
 
 The example below retrieves data using a set of five Ensembl gene IDs since not all genes have an Ensembl ID as we've seen above, so we filter those out first and use this as the `values` parameter below.
 
-```{r retrieve_biomart_results, echo=TRUE, eval=TRUE}
+```{r retrieve_biomart_results, echo=TRUE, eval=FALSE}
 # Set the 'attributes' values
 attrs.get <- c("ensembl_gene_id", "chromosome_name", 
                "start_position","end_position", "description")

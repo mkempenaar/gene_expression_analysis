@@ -2,6 +2,8 @@
 
 At this point we have one or more sets of DEGs from our experiment. It might be just one set or it might be a large number of comparisons made with a set of DEGs per comparison and/ or results from multiple approaches (manual, package). This chapter offers some guidance to visualize, summarize and - finally - connect some biological relevance to the results.
 
+**TODO: plotSmear**
+
 ## Volcano Plot {#volcano}
 
 A volcano plot is often the first visualization of the data once the statistical tests are completed. This plot shows data for *all* genes and we highlight those genes that are considered DEG by using thresholds for both the (adjusted) p-value and a fold-change. Many articles describe values used for these thresholds in their methods section, otherwise a good default is 0.05 for the adjusted p-value and around 1.0 for the log-FC. 
