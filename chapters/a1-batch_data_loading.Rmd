@@ -5,11 +5,11 @@
 This code example shows how to batch-load multiple files containing expression (count) data for a *single* sample. The data for this example can be found on GEO with ID [GSE109798](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE109798). Downloading the data for this experiment from GEO gives us a single `.tar` file called `GSE109798_RAW.tar`. Extracting this archive file nets us a folder with the following files:
 
 ```{r list_files_example, eval=FALSE}
-file.names <- list.files('data/GSE109798_RAW/')
+file.names <- list.files('./data/GSE109798_RAW/')
 ```
 
 ```{r list_files, echo=FALSE}
-file.names <- list.files("data/GSE109798_RAW/")
+file.names <- list.files("./data/GSE109798_RAW/")
 knitr::kable(vector.to.table(file.names, nrow = length(file.names), colname = "Files"))
 ```
 
@@ -19,7 +19,7 @@ The file extension of all these files is `.txt.gz` which means that all files ar
 
 ```{r unpack_files, warning=FALSE, message=FALSE, error=FALSE, eval=FALSE}
 ## Change directory to where the files are stored
-setwd('data/GSE109798_RAW/')
+setwd('./data/GSE109798_RAW/')
 sapply(file.names, FUN = function(file.name) {
   system(paste("gunzip", file.name)) 
   })
@@ -28,7 +28,7 @@ sapply(file.names, FUN = function(file.name) {
 Now we can update the `file.names` variable since each file name has changed.
 
 ```{r list_files_example_unpacked, eval=TRUE}
-file.names <- list.files('data/GSE109798_RAW/')
+file.names <- list.files('./data/GSE109798_RAW/')
 ```
 
 ## Determining Data Format
@@ -37,11 +37,11 @@ Next, we can inspect what the contents are of these files, assuming that they al
 
 ```{r sample_head_example, eval=FALSE}
 ## Call the system 'head' tool to 'peek' inside the file
-system(paste0("head ", "data/GSE109798_RAW/", file.names[1]))
+system(paste0("head ", "./data/GSE109798_RAW/", file.names[1]))
 ```
 
 ```{r sample_head, echo=FALSE}
-dat <- system(paste0("head -n 10 ", "data/GSE109798_RAW/", file.names[1]), intern = TRUE)
+dat <- system(paste0("head -n 10 ", "./data/GSE109798_RAW/", file.names[1]), intern = TRUE)
 dat <- do.call(rbind, strsplit(dat, "\t"))
 header <- dat[1,]
 dat <- as.data.frame(dat[-1,])
@@ -92,7 +92,7 @@ read_sample <- function(file.name) {
 }
 ```
 
-Applying the `read_sample` function to all file names gives us a set of data frames that we can merge together using the `merge` function. We merge the data based on the transcript id defined with the `by = 0` (or `by = 'row.names'`) argument. We start by reading in just one file which is the 'base' dataframe to which we will merge the other files.
+Applying the `read_sample` function to all file names gives us a set of data frames that we can merge together using the `merge` function. We merge the data based on the transcript id defined with the `by = 1` argument pointing to the first column. We start by reading in just one file which is the 'base' dataframe to which we will merge the other files.
 
 During processing it seemed that this data set is divided into two groups which is also listed on the GEO website for this project:
 
@@ -102,7 +102,7 @@ During processing it seemed that this data set is divided into two groups which 
 where the first 6 files are from human source and the last 6 from the mouse. Therefore, the following code only shows how to read the first 6 samples and merge these into a single dataframe. Repeating this process for the other 6 files would result into another dataframe for those samples.
 
 ```{r read_data_apply, message=FALSE, warning=FALSE}
-setwd('data/GSE109798_RAW/')
+setwd('./data/GSE109798_RAW/')
 
 ## Read the FIRST sample
 dataset <- read_sample(file.names[1])
@@ -110,7 +110,7 @@ dataset <- read_sample(file.names[1])
 ## Read first sample group (6)
 for (file.name in file.names[2:6]) {
   sample <- read_sample(file.name)
-  dataset <- merge(dataset, sample, by = 0)
+  dataset <- merge(dataset, sample, by = 1)
 }
 
 pander(head(dataset))
