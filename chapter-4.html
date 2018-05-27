@@ -206,7 +206,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><strong>Assignment</strong>: Search through your article for any advice on how to filter out zero values or low count genes. If there is nothing stated on this subject, think of your own tactic (or search the literature/ online!). It is perfectly fine to discuss with your peers.
 <ul>
 <li><strong>describe</strong> what you will be doing for this aspect; if you do <em>not</em> filter your data, clearly explain why not (most likely because the article stated a proper reason)</li>
-<li>Perform the filtering on your dataset. For this you will most likely need to use one of the <code>apply</code> functions, combined with maybe the <code>which</code>, <code>all</code> and <code>any</code> functions. Data transformations/ normalizations are often available from functions too, such as the <code>cpm</code> function from the edgeR library.</li>
+<li>Perform the filtering on your dataset. For this you will most likely need to use one of the <code>apply</code>, <code>rowSums</code>, <code>rowMeans</code> functions, combined with maybe the <code>which</code>, <code>all</code> and <code>any</code> functions. Data transformations/ normalizations are often available from functions too, such as the <code>cpm</code> function from the <code>edgeR</code> library.</li>
 <li>Manually verify that the rows removed were correctly filtered.</li>
 <li>Properly document how many genes have been filtered out!</li>
 </ul></li>
@@ -249,12 +249,14 @@ counts.fpm &lt;-<span class="st"> </span><span class="kw">log2</span>( <span cla
 </ul>
 <p>These examples may include terms that are unclear. If so, please ask or perform a standard internet search as these terms are explained in multiple tutorials about performing these widely used statistical tests.</p>
 <ul>
-<li><strong>Assignment</strong>: Think of a question (i.e. a comparison between two or more sample groups) to ask the data and perform a statistical test to find the relevant genes for this question. Briefly explain this comparison (maybe it was the one resulting in the most interesting results listed in the article) and introduce the test that you are going to perform.</li>
+<li><strong>Assignment</strong>: Think of a question (i.e. a comparison between two or more sample groups) to ask the data and perform a statistical test to find the relevant genes for this question. Briefly explain this comparison (maybe it was the one resulting in the most interesting results listed in the article) and introduce the test that you are going to perform.
+<ul>
 <li>Report on the number of significant genes before <em>and</em> after <a href="chapter-4.html#deg-mtc">Multiple Testing Correction</a> for each comparison that has been done.</li>
+</ul></li>
 </ul>
 <div id="deg-ttest" class="section level3">
 <h3><span class="header-section-number">4.3.1</span> Students T-test</h3>
-<p>In order to test if one or more genes are significantly differentially expressed between two conditions one can perform a t-test. The t-test will test the <em>null hypothesis</em> that there is no difference between the mean of the two populations. Usually, if the p-value is below the significance threshold chosen (also called alpha-value, usually set at <span class="math inline">\(\alpha\)</span> <code>0.05</code>) you reject the null hypothesis and conclude that there is a significant difference between the means.</p>
+<p>In order to test if one or more genes are significantly differentially expressed between a maximum of two conditions one can perform a t-test. The t-test will test the <em>null hypothesis</em> that there is no difference between the mean of the two populations. Usually, if the p-value is below the significance threshold chosen (also called alpha-value, usually set at <span class="math inline">\(\alpha\)</span> <code>0.05</code>) you reject the null hypothesis and conclude that there is a significant difference between the means.</p>
 <div class="rmdtip">
 <p>
 Note that it is necessary to perform a single t-test for <em>every</em> gene (row) of your data set, including all replicates for the involved group. This means that you need to either use one of the <code>apply()</code> set of functions or find a different method (there is one specifically for this problem) to make sure that you test each gene separately. From the output of the t-test you only need to keep the calculated <em>p-value</em>; one value per gene (row) in your data set. In R, you can append this as a column to your dataframe/ matrix containing the normalized count values.
@@ -926,8 +928,8 @@ An expected side-effect of correcting for multiple-testing is the lower number o
 </div>
 <div id="deg-bioconductor" class="section level2">
 <h2><span class="header-section-number">4.5</span> Using Bioconductor Packages</h2>
-<p>This section demonstrates the use of three packages to perform DEG-analysis on <strong>count</strong> data. There are many packages available on Bioconductor for similar analysis, such as <code>DSS</code>, <code>EBSeq</code>, <code>NOISeq</code> and <code>BaySeq</code>, but here we will focus on <code>edgeR</code>, <code>DESeq2</code> and <code>limma</code> for processing count-based data. Chances are that either of these three packages are mentioned if the article described the use of R for the statistical analysis as they are the most widely accepted methods of processing gene expression data.</p>
-<p>All of the three packages apply their own normalization methods (described in the sections below) therefore they only work on the count data. You can choose one of these three packages to use, or use them all since it could increase statistical power and they are not very hard to use once you understand how to <strong>model</strong> the data as we’ll show next.</p>
+<p>This section demonstrates the use of two packages to perform DEG-analysis on <strong>count</strong> data. There are many packages available on Bioconductor for similar analysis, such as <code>DSS</code>, <code>EBSeq</code>, <code>NOISeq</code> and <code>BaySeq</code>, but here we will focus on <code>edgeR</code> and <code>DESeq2</code> for processing count-based data. Chances are that either of these two packages are mentioned if the article described the use of R for the statistical analysis as they are the most widely accepted methods of processing gene expression data.</p>
+<p>Both packages apply their own normalization methods (described in the sections below) therefore they only work on the <strong>raw</strong> count data. If your data consists of <strong>expected</strong> count data, you need to round these values down (using the <code>floor</code> function). You can choose one of these two packages to use, or use them both since it could increase statistical power and they are not very hard to use once you understand how to <strong>model</strong> the data as we’ll show next.</p>
 <ul>
 <li><strong>Assignment</strong>: Perform data-analysis using at least one of the two packages. If possible, use both of them so we can compare the results between the manual-testing results and both packages.</li>
 <li>Start by documenting the relevant information from the article, also if they used other software for this analysis.</li>
