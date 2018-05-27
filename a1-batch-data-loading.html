@@ -25,7 +25,7 @@
 <meta name="author" content="Marcel Kempenaar">
 
 
-<meta name="date" content="2018-05-24">
+<meta name="date" content="2018-05-27">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -33,7 +33,7 @@
   
   
 <link rel="prev" href="chapter-4.html">
-
+<link rel="next" href="a2-annotation.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -164,7 +164,14 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="A.1" data-path="a1-batch-data-loading.html"><a href="a1-batch-data-loading.html#decompressing"><i class="fa fa-check"></i><b>A.1</b> Decompressing</a></li>
 <li class="chapter" data-level="A.2" data-path="a1-batch-data-loading.html"><a href="a1-batch-data-loading.html#determining-data-format"><i class="fa fa-check"></i><b>A.2</b> Determining Data Format</a></li>
 <li class="chapter" data-level="A.3" data-path="chapter-3.html"><a href="chapter-3.html#loading-data"><i class="fa fa-check"></i><b>A.3</b> Loading Data</a></li>
-<li class="chapter" data-level="A.4" data-path="a1-batch-data-loading.html"><a href="a1-batch-data-loading.html#references"><i class="fa fa-check"></i><b>A.4</b> References</a></li>
+</ul></li>
+<li class="chapter" data-level="B" data-path="a2-annotation.html"><a href="a2-annotation.html"><i class="fa fa-check"></i><b>B</b> Annotating an RNA-Seq Experiment</a><ul>
+<li class="chapter" data-level="B.1" data-path="a2-annotation.html"><a href="a2-annotation.html#download-geo"><i class="fa fa-check"></i><b>B.1</b> Downloading annotation data from GEO</a></li>
+<li class="chapter" data-level="B.2" data-path="a2-annotation.html"><a href="a2-annotation.html#manually-annotate"><i class="fa fa-check"></i><b>B.2</b> Manual Data Annotation</a><ul>
+<li class="chapter" data-level="B.2.1" data-path="a2-annotation.html"><a href="a2-annotation.html#annotationDBI"><i class="fa fa-check"></i><b>B.2.1</b> Using <code>AnnotationDBI</code></a></li>
+<li class="chapter" data-level="B.2.2" data-path="a2-annotation.html"><a href="a2-annotation.html#using-biomart"><i class="fa fa-check"></i><b>B.2.2</b> Using <code>biomaRt</code></a></li>
+</ul></li>
+<li class="chapter" data-level="B.3" data-path="a2-annotation.html"><a href="a2-annotation.html#references"><i class="fa fa-check"></i><b>B.3</b> References</a></li>
 </ul></li>
 </ul>
 
@@ -509,27 +516,7 @@ dataset &lt;-<span class="st"> </span><span class="kw">read_sample</span>(file.n
 </tbody>
 </table>
 <p>The <code>dataset</code> variable now contains all data for the first 6 samples in this experiment. It is advisable to compare the number of rows in this data set with the number of rows in a single sample. It is not guaranteed that all samples have exactly the same number of genes/transcripts present (i.e., 0-values might have been discarded) which results in a final data set that has as many rows as the <em>smallest</em> sample. See the help of <code>merge</code> if this is the case because the <code>all</code> argument can be used to introduce extra rows for missing data.</p>
-</div>
-<div id="references" class="section level2">
-<h2><span class="header-section-number">A.4</span> References</h2>
 
-<div id="refs" class="references">
-<div>
-<p>al., Patrick Deelen et. 2015. “Calling Genotypes from Public Rna-Sequencing Data Enables Identification of Genetic Variants That Affect Gene-Expression Levels.” <em>Genome Medicine</em> 7 (30).</p>
-</div>
-<div>
-<p>Chen, Yunshun, Aaron Lun, Davis McCarthy, Xiaobei Zhou, Mark Robinson, and Gordon Smyth. 2018. <em>EdgeR: Empirical Analysis of Digital Gene Expression Data in R</em>. <a href="http://bioinf.wehi.edu.au/edgeR" class="uri">http://bioinf.wehi.edu.au/edgeR</a>.</p>
-</div>
-<div>
-<p>Daróczi, Gergely, and Roman Tsegelskyi. 2017. <em>Pander: An R ’Pandoc’ Writer</em>. <a href="https://CRAN.R-project.org/package=pander" class="uri">https://CRAN.R-project.org/package=pander</a>.</p>
-</div>
-<div>
-<p>Himes BE, Wagner P, Jiang X. 2014. “RNA-Seq Transcriptome Profiling Identifies Crispld2 as a Glucocorticoid Responsive Gene That Modulates Cytokine Function in Airway Smooth Muscle Cells.” <em>PLoS One</em> 9 (6).</p>
-</div>
-<div>
-<p>Love, Michael, Simon Anders, and Wolfgang Huber. 2017. <em>DESeq2: Differential Gene Expression Analysis Based on the Negative Binomial Distribution</em>. <a href="https://github.com/mikelove/DESeq2" class="uri">https://github.com/mikelove/DESeq2</a>.</p>
-</div>
-</div>
 </div>
 </div>
             </section>
@@ -537,8 +524,8 @@ dataset &lt;-<span class="st"> </span><span class="kw">read_sample</span>(file.n
           </div>
         </div>
       </div>
-<a href="chapter-4.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="chapter-4.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="a2-annotation.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

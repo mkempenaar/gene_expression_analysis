@@ -25,7 +25,7 @@
 <meta name="author" content="Marcel Kempenaar">
 
 
-<meta name="date" content="2018-05-24">
+<meta name="date" content="2018-05-27">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -164,7 +164,14 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="A.1" data-path="a1-batch-data-loading.html"><a href="a1-batch-data-loading.html#decompressing"><i class="fa fa-check"></i><b>A.1</b> Decompressing</a></li>
 <li class="chapter" data-level="A.2" data-path="a1-batch-data-loading.html"><a href="a1-batch-data-loading.html#determining-data-format"><i class="fa fa-check"></i><b>A.2</b> Determining Data Format</a></li>
 <li class="chapter" data-level="A.3" data-path="chapter-3.html"><a href="chapter-3.html#loading-data"><i class="fa fa-check"></i><b>A.3</b> Loading Data</a></li>
-<li class="chapter" data-level="A.4" data-path="a1-batch-data-loading.html"><a href="a1-batch-data-loading.html#references"><i class="fa fa-check"></i><b>A.4</b> References</a></li>
+</ul></li>
+<li class="chapter" data-level="B" data-path="a2-annotation.html"><a href="a2-annotation.html"><i class="fa fa-check"></i><b>B</b> Annotating an RNA-Seq Experiment</a><ul>
+<li class="chapter" data-level="B.1" data-path="a2-annotation.html"><a href="a2-annotation.html#download-geo"><i class="fa fa-check"></i><b>B.1</b> Downloading annotation data from GEO</a></li>
+<li class="chapter" data-level="B.2" data-path="a2-annotation.html"><a href="a2-annotation.html#manually-annotate"><i class="fa fa-check"></i><b>B.2</b> Manual Data Annotation</a><ul>
+<li class="chapter" data-level="B.2.1" data-path="a2-annotation.html"><a href="a2-annotation.html#annotationDBI"><i class="fa fa-check"></i><b>B.2.1</b> Using <code>AnnotationDBI</code></a></li>
+<li class="chapter" data-level="B.2.2" data-path="a2-annotation.html"><a href="a2-annotation.html#using-biomart"><i class="fa fa-check"></i><b>B.2.2</b> Using <code>biomaRt</code></a></li>
+</ul></li>
+<li class="chapter" data-level="B.3" data-path="a2-annotation.html"><a href="a2-annotation.html#references"><i class="fa fa-check"></i><b>B.3</b> References</a></li>
 </ul></li>
 </ul>
 
@@ -228,7 +235,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h2><span class="header-section-number">4.3</span> Using Manual Methods (<code>t-test</code> &amp; <code>ANOVA</code>)</h2>
 <p>Performing the statistical tests yourself consists of performing either a t-test or an ANOVA based analysis. Both of these methods have multiple forms and the one to choose fully depends on what question you’d like to ask. Again, refer to your experimental setup and any hints found in the article <em>or</em> formulate your own question and base the decision on that.</p>
 <p>Manually performing a t-test or ANOVA on gene expression opposed to using one of the specialized libraries can have advantages since every gene is processed individually, while <code>edgeR</code> and <code>DESeq2</code> look at <em>all</em> genes and this might ‘smooth’ the results which is not always wanted. We will find out later if and how this affects your data set.</p>
-<p>If your data <strong>only</strong> consists of the read counts there is an extra normalisation step to perform (only for the manual methods explained in this section, keep the count data stored as well!). One generally accepted method of normalizing count data is to calculate the <em>fragments per million mapped fragments</em> (FPM) value and then transform this with log2. Opposed to FPKM and RPKM this does not include the gene-length in its calculation (which you most likely don’t have) but as said before we apply the test per gene and do not need to compare multiple genes. If your dataset also includes FPKM or RPKM (pre-normalized), you are allowed to use this data too. Always clearly document if you did so! Once you performed a manual statistical text, be sure to read the section on <a href="chapter-4.html#deg-mtc">Multiple Testing Correction</a> further on in this chapter.</p>
+<p>If your data <strong>only</strong> consists of the read counts there is an extra normalisation step to perform (only for the manual methods explained in this section, keep the count data stored as well!). One generally accepted method of normalizing count data is to calculate the <em>fragments per million mapped fragments</em> (FPM) value and then transform this with log2. Opposed to FPKM and RPKM this does not include the gene-length in its calculation (which you most likely don’t have) but as said before we apply the test per gene and do not need to compare multiple genes. If your dataset also includes FPKM or RPKM (pre-normalized), you are allowed to use this data too. Always clearly document if you did so! Once you performed a manual statistical test, be sure to read the section on <a href="chapter-4.html#deg-mtc">Multiple Testing Correction</a> further on in this chapter.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Perform FPM normalization using DESeq2 &#39;fpm&#39; and perform log2 transformation</span>
 <span class="co"># The &#39;ddsMat&#39; object is the &#39;DESeqDataSet&#39; created in chapter 3; EDA.</span>
 <span class="co"># </span><span class="al">NOTE</span><span class="co">: only for count data and observe the pseudocount of 1 (remove if data does not contain 0-values)</span>
@@ -238,9 +245,12 @@ counts.fpm &lt;-<span class="st"> </span><span class="kw">log2</span>( <span cla
 <ul>
 <li><a href="https://stats.idre.ucla.edu/other/mult-pkg/whatstat/choosestat-html/">Institute for Digital Research and Education</a></li>
 <li><a href="http://www.biochemia-medica.com/content/comparing-groups-statistical-differences-how-choose-right-statistical-test">Biochemia - image at the bottom of the article</a></li>
-<li><p><a href="http://www.practicallyscience.com/wp-content/uploads/2015/07/significance-tests-v4-op2.jpg">PracticallyScience</a></p></li>
+<li><a href="http://www.practicallyscience.com/wp-content/uploads/2015/07/significance-tests-v4-op2.jpg">PracticallyScience</a></li>
+</ul>
+<p>These examples may include terms that are unclear. If so, please ask or perform a standard internet search as these terms are explained in multiple tutorials about performing these widely used statistical tests.</p>
+<ul>
 <li><strong>Assignment</strong>: Think of a question (i.e. a comparison between two or more sample groups) to ask the data and perform a statistical test to find the relevant genes for this question. Briefly explain this comparison (maybe it was the one resulting in the most interesting results listed in the article) and introduce the test that you are going to perform.</li>
-<li><p>Report on the number of significant genes before <em>and</em> after <a href="chapter-4.html#deg-mtc">Multiple Testing Correction</a> for each comparison that has been done.</p></li>
+<li>Report on the number of significant genes before <em>and</em> after <a href="chapter-4.html#deg-mtc">Multiple Testing Correction</a> for each comparison that has been done.</li>
 </ul>
 <div id="deg-ttest" class="section level3">
 <h3><span class="header-section-number">4.3.1</span> Students T-test</h3>
@@ -1145,7 +1155,7 @@ low counts [2]     : 11906, 27%
 <p>Running edgeR requires the raw count data together with the grouping-factor packaged in a <code>DGEList</code> object (with the <code>DGEList()</code> function). Furthermore, a proper <code>model.matrix</code> object (see the section on <a href="chapter-4.html#deg-design">design</a>) is needed as input for the <code>estimateDisp</code> function. The exact steps to take (there are more variations than with DESeq2) must be searched in the documentation linked above.</p>
 <p><strong>TODO</strong>:</p>
 <ul>
-<li>Gene annotation has been added to the <code>DGEList</code> object that is used to run edgeR with the <code>genes</code> parameter. This data has been taken from the <code>AnnotationDbi</code> package as <a href="#annotationDBI">shown in chapter 5</a>.</li>
+<li>Gene annotation has been added to the <code>DGEList</code> object that is used to run edgeR with the <code>genes</code> parameter. This data has been taken from the <code>AnnotationDbi</code> package as <a href="a2-annotation.html#annotationDBI">shown in Appendix B</a>.</li>
 <li>explain BCV-plot</li>
 </ul>
 <p>Once the analysis is done you can retrieve the actual results with the <code>topTags</code> function:</p>
