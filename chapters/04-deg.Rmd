@@ -15,7 +15,7 @@ Another step we need to take - and this might be guided by your article - is to 
 
 * **Assignment**: Search through your article for any advice on how to filter out zero values or low count genes. If there is nothing stated on this subject, think of your own tactic (or search the literature/ online!). It is perfectly fine to discuss with your peers.
     + **describe** what you will be doing for this aspect; if you do *not* filter your data, clearly explain why not (most likely because the article stated a proper reason)
-    + Perform the filtering on your dataset. For this you will most likely need to use one of the `apply` functions, combined with maybe the `which`, `all` and `any` functions. Data transformations/ normalizations are often available from functions too, such as the `cpm` function from the edgeR library.
+    + Perform the filtering on your dataset. For this you will most likely need to use one of the `apply`, `rowSums`, `rowMeans` functions, combined with maybe the `which`, `all` and `any` functions. Data transformations/ normalizations are often available from functions too, such as the `cpm` function from the `edgeR` library.
     + Manually verify that the rows removed were correctly filtered.
     + Properly document how many genes have been filtered out!
 
@@ -46,7 +46,7 @@ Performing the statistical tests yourself consists of performing either a t-test
 
 Manually performing a t-test or ANOVA on gene expression opposed to using one of the specialized libraries can have advantages since every gene is processed individually, while `edgeR` and `DESeq2` look at *all* genes and this might 'smooth' the results which is not always wanted. We will find out later if and how this affects your data set.
 
-If your data **only** consists of the read counts there is an extra normalisation step to perform (only for the manual methods explained in this section, keep the count data stored as well!). One generally accepted method of normalizing count data is to calculate the *fragments per million mapped fragments* (FPM) value and then transform this with log2. Opposed to FPKM and RPKM this does not include the gene-length in its calculation (which you most likely don't have) but as said before we apply the test per gene and do not need to compare multiple genes. If your dataset also includes FPKM or RPKM (pre-normalized), you are allowed to use this data too. Always clearly document if you did so! Once you performed a manual statistical text, be sure to read the section on [Multiple Testing Correction](#deg-mtc) further on in this chapter.
+If your data **only** consists of the read counts there is an extra normalisation step to perform (only for the manual methods explained in this section, keep the count data stored as well!). One generally accepted method of normalizing count data is to calculate the *fragments per million mapped fragments* (FPM) value and then transform this with log2. Opposed to FPKM and RPKM this does not include the gene-length in its calculation (which you most likely don't have) but as said before we apply the test per gene and do not need to compare multiple genes. If your dataset also includes FPKM or RPKM (pre-normalized), you are allowed to use this data too. Always clearly document if you did so! Once you performed a manual statistical test, be sure to read the section on [Multiple Testing Correction](#deg-mtc) further on in this chapter.
 
 ```{r fpm_normalization, echo=TRUE, eval=TRUE}
 # Perform FPM normalization using DESeq2 'fpm' and perform log2 transformation
@@ -63,9 +63,10 @@ Next is selecting the test to perform, the following links show diagrams that ca
 * [Biochemia - image at the bottom of the article](http://www.biochemia-medica.com/content/comparing-groups-statistical-differences-how-choose-right-statistical-test)
 * [PracticallyScience](http://www.practicallyscience.com/wp-content/uploads/2015/07/significance-tests-v4-op2.jpg)
 
+These examples may include terms that are unclear. If so, please ask or perform a standard internet search as these terms are explained in multiple tutorials about performing these widely used statistical tests.
 
 * **Assignment**: Think of a question (i.e. a comparison between two or more sample groups) to ask the data and perform a statistical test to find the relevant genes for this question. Briefly explain this comparison (maybe it was the one resulting in the most interesting results listed in the article) and introduce the test that you are going to perform.
-  + Report on the number of significant genes before *and* after [Multiple Testing Correction](#deg-mtc) for each comparison that has been done.
+    + Report on the number of significant genes before *and* after [Multiple Testing Correction](#deg-mtc) for each comparison that has been done.
 
 ### Students T-test {#deg-ttest}
 
@@ -90,7 +91,7 @@ counts.fpm.dat$logFC <- log2(rowMeans(counts.fpm.dat[,ipsc.tri]) / rowMeans(coun
 degs <- with(counts.fpm.dat, counts.fpm.dat[pval < 0.05,])
 ```
 
-In order to test if one or more genes are significantly differentially expressed between two conditions one can perform a t-test. The t-test will test the *null hypothesis* that there is no difference between the mean of the two populations. Usually, if the p-value is below the significance threshold chosen (also called alpha-value, usually set at $\alpha$ `0.05`) you reject the null hypothesis and conclude that there is a significant difference between the means. 
+In order to test if one or more genes are significantly differentially expressed between a maximum of two conditions one can perform a t-test. The t-test will test the *null hypothesis* that there is no difference between the mean of the two populations. Usually, if the p-value is below the significance threshold chosen (also called alpha-value, usually set at $\alpha$ `0.05`) you reject the null hypothesis and conclude that there is a significant difference between the means. 
 
 ```{block, type='rmdtip'}
 Note that it is necessary to perform a single t-test for *every* gene (row) of your data set, including all replicates for the involved group. This means that you need to either use one of the `apply()` set of functions or find a different method (there is one specifically for this problem) to make sure that you test each gene separately. From the output of the t-test you only need to keep the calculated *p-value*; one value per gene (row) in your data set. In R, you can append this as a column to your dataframe/ matrix containing the normalized count values.
@@ -269,9 +270,9 @@ After applying a form of multiple testing correction, you end up with two p-valu
 
 ## Using Bioconductor Packages {#deg-bioconductor}
 
-This section demonstrates the use of three packages to perform DEG-analysis on **count** data. There are many packages available on Bioconductor for similar analysis, such as `DSS`, `EBSeq`, `NOISeq` and `BaySeq`, but here we will focus on `edgeR`, `DESeq2` and `limma` for processing count-based data. Chances are that either of these three packages are mentioned if the article described the use of R for the statistical analysis as they are the most widely accepted methods of processing gene expression data.
+This section demonstrates the use of two packages to perform DEG-analysis on **count** data. There are many packages available on Bioconductor for similar analysis, such as `DSS`, `EBSeq`, `NOISeq` and `BaySeq`, but here we will focus on `edgeR` and `DESeq2` for processing count-based data. Chances are that either of these two packages are mentioned if the article described the use of R for the statistical analysis as they are the most widely accepted methods of processing gene expression data.
 
-All of the three packages apply their own normalization methods (described in the sections below) therefore they only work on the count data. You can choose one of these three packages to use, or use them all since it could increase statistical power and they are not very hard to use once you understand how to **model** the data as we'll show next.
+Both packages apply their own normalization methods (described in the sections below) therefore they only work on the **raw** count data. If your data consists of **expected** count data, you need to round these values down (using the `floor` function). You can choose one of these two packages to use, or use them both since it could increase statistical power and they are not very hard to use once you understand how to **model** the data as we'll show next.
 
 * **Assignment**: Perform data-analysis using at least one of the two packages. If possible, use both of them so we can compare the results between the manual-testing results and both packages. 
   + Start by documenting the relevant information from the article, also if they used other software for this analysis.
@@ -335,6 +336,12 @@ res.ipsc.lfc <- lfcShrink(dds, coef = "group_IPSC.trisomic_vs_IPSC.disomic",
                           type = "apeglm")
 res.neuron <- results(dds, name = "group_Neuron.disomic_vs_IPSC.disomic",
                alpha = 0.05)
+
+# Set padjusted NA's to 1
+res.ipsc.lfc$padj[is.na(res.ipsc.lfc$padj)] <- 1
+
+
+ipsc.tri.vs.di <- as.data.frame(res.ipsc.lfc)[res.ipsc.lfc$padj < 0.05,]
 ```
 
 Once you have a proper `DESeqDataSet` all you need to do is run the `DESeq` function on this object. Then, using the `results` function you can extract the DEGs as a `DESeqResults` object. Applying the `summary` function on these object(s) shows the number of up and down regulated DEGs as can be seen below that lists the impact of trisomy for the IPSC cell type (~800 DEGs) and comparing both the IPSC and Neuron disomic (control) cell types (as can be seen, a *huge* amount of genes are affected by differentiation from stem cell into cortical neurons):
@@ -400,7 +407,7 @@ Running edgeR requires the raw count data together with the grouping-factor pack
 
 **TODO**:
 
-* Gene annotation has been added to the `DGEList` object that is used to run edgeR with the `genes` parameter. This data has been taken from the `AnnotationDbi` package as [shown in chapter 5](#annotationDBI).
+* Gene annotation has been added to the `DGEList` object that is used to run edgeR with the `genes` parameter. This data has been taken from the `AnnotationDbi` package as [shown in Appendix B](#annotationDBI).
 * explain BCV-plot
 
 Once the analysis is done you can retrieve the actual results with the `topTags` function:

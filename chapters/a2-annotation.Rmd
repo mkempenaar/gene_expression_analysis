@@ -2,7 +2,7 @@
 
 ```{r, echo=FALSE}
 knitr::opts_chunk$set(cache=TRUE)
-load('./data/chapter5.RData')
+#load('./data/chapter5.RData')
 ```
 
 This chapter describes *annotate* the data, meaning assigning names and functions to our Differentially Expressed Genes. This step can either be very easy or a bit more challenging depending on the data source of your project. The first example is relevant if your data set originated from the NCBI **GEO**, which 'should' always be annotated by default. If you have found your data set elsewhere (and do not have a GEO idetifier for your project), skip to the [Manually annotate your data](#manually-annotate) section below.
@@ -13,19 +13,19 @@ Even though you might be lucky and either already have your data or a simple GEO
 
 ## Downloading annotation data from GEO {#download-geo}
 
-Given the `GSE****` id of your experiment you can download any available (annotation)data from GEO using the `GEOquery` library. For the example experiment used previously, the following code downloads two files; a `series_matrix.txt.gz` file and a `.soft` file. Note the `destdir` argument for storing it in a known location instead of the `/tmp` folder.
+Given the `GSE****` id of your experiment you can download any available (annotation)data from GEO using the `GEOquery` library. For the example experiment used previously, the following code downloads two files; a `series_matrix.txt.gz` file and a `.soft` file that are both also available for download from the NCBI GEO website. Note the `destdir` argument for storing it in a known location instead of the `/tmp` folder for later use.
 
 ```{r geoquery, echo=TRUE, eval=FALSE}
 library(GEOquery)
-gse.id <- 'GSE80128'
-gse <- getGEO(gse.id, destdir = "../data/", getGPL = TRUE)
+gse.id <- 'GSE101942'
+gse <- getGEO(gse.id, destdir = "./data/", getGPL = TRUE)
 ```
 
 Once downloaded, you can load the data later using:
 ```{r geoquery_gse80128, echo=TRUE, eval=TRUE, message=FALSE, warning=FALSE}
 library(GEOquery)
-gse <- getGEO(filename = './data/GSE80128_series_matrix.txt.gz') # Sample details
-gpl <- getGEO(filename = './data/GPL13112.soft') # Platform details
+gse <- getGEO(filename = './data/GSE101942_series_matrix.txt.gz') # Sample details
+gpl <- getGEO(filename = './data/GPL11154.soft') # Platform details
 # Print some metadata of the gse object
 gse
 # And the structure of the gpl object
@@ -35,7 +35,7 @@ str(gpl)
 The `gse` object *may* contain useful information about both samples and genes. Unfortunately for this example dataset there is only information available regarding the samples which we can access in the `phenoData` **slot**. Slots in R objects are a method of storing multiple data objects into a single R object, in this case this object is called an `ExpressionSet` (see `?ExpressionSet` for a description of its contents and structure). For storing information about an experiment this is very handy; you can store a dataframe with the actual expression data, a list containing laboratory information, a chunk of text with an abstract, etc. all in a single object.  
 
 The most common datasets found in an `ExpressionSet` object:
-* `@assayData`: the actual expression data. Most common for microarray experiments and rare for RNA-seq experiments
+* `@assayData`: the actual expression data. Most common for microarray experiments and (very) rare for RNA-seq experiments
 * `@phenoData`: sample information, should be present for each GEO dataset
 * `@featureData`: a dataframe holding feature (=gene) information, slightly rare for RNA-seq datasets
 * `@experimentData`: information about the lab which performed the experiment
@@ -49,7 +49,7 @@ gse@phenoData@data
 
 Here you see that each sample is described using its sample identifier (`GSM****`), information about the the sample group (`title` column) and a number of characteristics. The actual information included depends on your dataset. 
 ```{r phenodata_contents, echo=FALSE}
-pander(head(gse@phenoData@data[,c(1, 3, 9:14)]), caption = 'Contents of the `gse@phenoData@data` information (selection)')
+pander(head(gse@phenoData@data[,c(1, 8, 10, 11)]), caption = 'Contents of the `gse@phenoData@data` information (selection)')
 ```
 
 If your dataset has properly annotated gene information, this should be accessible in the `@featureData` slot. For instance, the dataset [`GSE20489` ](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE20489) does have this annotation available. Once loaded, we see that the following annotation columns are present for *each gene* in the `featureData` slot (following is a small subset, in total there can be well over 20 columns of information per gene). Also, the *metadata* listing shows for how many features (=genes, 54675) and samples (54) the expression data is present (in the `@assayData` slot):
@@ -70,11 +70,6 @@ pander(gse.trimmed, split.cells = 25, caption = 'Gene information stored in an `
 
 ## Manual Data Annotation {#manually-annotate}
 
-```{r .img_fail, echo=FALSE}
-img <- readPNG("chapters/images/fail.png")
-grid.raster(img)
-```
-
 Luckely for us, R offers a number of libraries to automatically retrieve information for large sets of genes, unless you have chosen an organism for which not much data is available. This section demonstrates the use of two such libraries, starting with `AnnotationDbi` followed by `biomaRt`.
 
 The `AnnotationDbi` library downloads a local copy of an organism-specific database with gene information where `biomaRt` uses online databases to retrieve data given a `query`. `biomaRt` offers far more data (over 1000 data fields per organism) but is more complex to use. 
@@ -85,7 +80,7 @@ Since `biomaRt` is also relying on online databases it might be a good strategy 
 
 ```{r .load_annoDbi, echo=FALSE, eval=TRUE, message=FALSE, warning=FALSE}
 library(AnnotationDbi)
-library(org.Mm.eg.db)
+library(org.Hs.eg.db)
 ```
 
 The `AnnotationDbi` offers data sets for many organisms in the form of installable libraries and depending on your experiment you need to find the proper library. The example experiment contains samples of the house mouse (Mus musculus) and therefore we select its data set.
@@ -98,43 +93,38 @@ library(BiocInstaller)
 
 # Install and load the organism specific gene database
 # 'org' for Organism
-# 'Mm' for Mus musculus
+# 'Hs' for Homo sapiens
 # 'eg' for Entrez Gene IDs
 # (try to load (using the library function) first before installing, it might already be present)
-biocLite('org.Mm.eg.db')
-library(org.Mm.eg.db)
+biocLite('org.Hs.eg.db')
+library(org.Hs.eg.db)
 ```
 
 The following information types are available in this database (use the `columns` function to inspect).
 
 ```{r .pander_annoDB_cols, echo=FALSE, eval=TRUE}
-pander(vector.to.table(columns(org.Mm.eg.db), nrow = 6, colname = 'Columns'), caption = 'Available fields in the database')
+pander(vector.to.table(columns(org.Hs.eg.db), nrow = 6, colname = 'Columns'), caption = 'Available fields in the database')
 ```
 
-The table below shows the data available for all information types given a randomly chosen [*EntrezID* of '58176'](http://www.ncbi.nlm.nih.gov/gene/58176). Note that the table has been split to show the 24 data types with their values.
+The table below shows the data available for all information types given a randomly chosen [*EntrezID* of '1080'](http://www.ncbi.nlm.nih.gov/gene/1080). Note that the table has been split to show the 24 data types with their values.
 
-```{r .pander_annoDB_example_data_DEFECT, echo=FALSE, eval=FALSE, message=FALSE, warning=FALSE, error=FALSE}
+```{r .pander_annoDB_example_data_DEFECT, echo=FALSE, eval=TRUE, message=FALSE, warning=FALSE, error=FALSE}
 ## Show one element for all types of available data
-Mm.cols <- columns(org.Mm.eg.db)
-.Mm.data <- NULL
-key = c("58176")
-for (type in Mm.cols) {
-  .Mm.data <- rbind(.Mm.data, c(type, 
-                                as.character(select(org.Mm.eg.db,
+Hs.cols <- columns(org.Hs.eg.db)
+.Hs.data <- NULL
+key = c("1080")
+for (type in Hs.cols) {
+  .Hs.data <- rbind(.Hs.data, c(type, 
+                                as.character(select(org.Hs.eg.db,
                                                     key, 
                                                     type, 
                                                     "ENTREZID")[1,])[2]))
 }
 
-.Mm.data.table <- cbind(.Mm.data[1:12,], .Mm.data[13:24,])
-colnames(.Mm.data.table) <- c('Data Type', 'Example Value',
+.Hs.data.table <- cbind(.Hs.data[1:12,], .Hs.data[13:24,])
+colnames(.Hs.data.table) <- c('Data Type', 'Example Value',
                               'Data Type', 'Example Value')
-pander(.Mm.data.table, caption="Example values for each field in 'org.Mm.eg.db'")
-```
-
-```{r .pander_annoDB_example_data}
-load("./data/annotationDbi.RData")
-pander(.Mm.data.table, caption="Example values for each field in 'org.Mm.eg.db'")
+pander(.Hs.data.table, caption="Example values for each field in 'org.Hs.eg.db'")
 ```
 
 
@@ -146,26 +136,26 @@ Retrieving data from the locally stored annotation database can be done using th
 * **`keytype`**: the type of data that you *provide*. In the example data this is a gene `SYMBOL`
 * **`multiVals`**: a number of columns contain more then one entry for a single gene, in that case we only want to store the first one.
 
-The output of the `mapIds` function is a single character vector that we can add to our initial data set (the `gse80128` object for our example data).
+The output of the `mapIds` function is a single character vector that we can add to our data frame containing the DEGs (in this case the DEGs for the IPSC trisomic vs disomic comparison containing 828 genes stored in the `ipsc.tri.vs.di` data frame).
 
 ```{r retrieve_annoDB_records, echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE}
-# Retrieve the ENSEMBL gene ID, e.g. 'ENSMUSG00000057897'
-gse80128$Ensembl <- mapIds(x = org.Mm.eg.db,
-                           keys=row.names(rld),
+# Retrieve the ENSEMBL gene ID, e.g. 'ENSG00000001626'
+ipsc.tri.vs.di$Ensembl <- mapIds(x = org.Hs.eg.db,
+                           keys=row.names(ipsc.tri.vs.di),
                            column="ENSEMBL",
                            keytype="SYMBOL",
                            multiVals="first")
 
 # Retrieve the ENTREZ gene ID, e.g. '12323'
-gse80128$EntrezID <- mapIds(x = org.Mm.eg.db,
-                            keys=row.names(rld),
+ipsc.tri.vs.di$EntrezID <- mapIds(x = org.Hs.eg.db,
+                            keys=row.names(ipsc.tri.vs.di),
                             column="ENTREZID",
                             keytype="SYMBOL",
                             multiVals="first")
 
 # Retrieve the KEGG enzyme code, e.g. 2.7.11.17
-gse80128$Enzyme <- mapIds(x = org.Mm.eg.db,
-                           keys=row.names(rld),
+ipsc.tri.vs.di$Enzyme <- mapIds(x = org.Hs.eg.db,
+                           keys=row.names(ipsc.tri.vs.di),
                            column="ENZYME",
                            keytype="SYMBOL",
                            multiVals="first")
@@ -174,9 +164,9 @@ gse80128$Enzyme <- mapIds(x = org.Mm.eg.db,
 Unfortunately, not all organisms offer access to such information nor is the information always complete. For instance, the following table shows the number of available records for the Ensembl, Entrez en KEGG IDs downloaded:
 
 ```{r .pander_annoDB_statistics, echo=FALSE, eval=TRUE}
-anno.df <- data.frame(ENSEMBL=c(sum(!is.na(gse80128$Ensembl)), sum(is.na(gse80128$Ensembl))),
-                      ENTREZ=c(sum(!is.na(gse80128$EntrezID)), sum(is.na(gse80128$EntrezID))),
-                      ENZYME=c(sum(!is.na(gse80128$Enzyme)), sum(is.na(gse80128$Enzyme))))
+anno.df <- data.frame(ENSEMBL=c(sum(!is.na(ipsc.tri.vs.di$Ensembl)), sum(is.na(ipsc.tri.vs.di$Ensembl))),
+                      ENTREZ=c(sum(!is.na(ipsc.tri.vs.di$EntrezID)), sum(is.na(ipsc.tri.vs.di$EntrezID))),
+                      ENZYME=c(sum(!is.na(ipsc.tri.vs.di$Enzyme)), sum(is.na(ipsc.tri.vs.di$Enzyme))))
 rownames(anno.df) <- c('Available', 'Missing')
 pander(anno.df, caption = 'Statistics for annotation columns using AnnotationDbi')
 ```
@@ -185,9 +175,9 @@ For other data sets you might have more luck, otherwise continue with the `bioma
 
 ### Using `biomaRt` {#using-biomart}
 
-```{r .load_biomart_local_data, echo=FALSE, eval=TRUE}
+```{r .load_biomart_local_data, echo=FALSE, eval=FALSE}
 library(biomaRt)
-load('./data/biomart.RData')
+load('../data/biomart.RData')
 ```
 
 A short explanation about biomart (source: [Wikipedia](https://en.wikipedia.org/wiki/Ensembl_Genomes#BioMart)):
@@ -210,22 +200,21 @@ ensembl=useMart("ENSEMBL_MART_ENSEMBL", host="www.ensembl.org")
 
 ```{r .pander_marts, echo=FALSE, eval=TRUE}
 ## << LOADED FROM SESSION FILE >>
-pander(marts, caption = 'Available databases in the Ensembl biomaRt')
+pander(listMarts(), caption = 'Available databases in the Ensembl biomaRt')
 ```
 
-```{r select_mart, echo=TRUE, eval=FALSE}
+```{r select_mart, echo=TRUE, eval=TRUE}
 # Select the 'ensembl' database
 ensembl <- useMart("ensembl")
 ```
 
 Using the `listDatasets` function you can get a full list of available datasets. Store this list in an R object and 'browse' this object in RStudio to see if your organism is included. Copy the name of the dataset, this is the *species* element we will use.
 
-```{r select_mart_organism, echo=TRUE, eval=FALSE}
+```{r select_mart_organism, echo=TRUE, eval=TRUE}
 mart.datasets <- listDatasets(ensembl)
-View(mart.datasets)
 
-# Select the correct dataset, for the example data we select the 'mmusculus_gene_ensembl' 
-ensembl <- useDataset('mmusculus_gene_ensembl', mart = ensembl)
+# Select the correct dataset, for the example data we select the 'hsapiens_gene_ensembl' 
+ensembl <- useDataset('hsapiens_gene_ensembl', mart = ensembl)
 ```
 
 ```{r .pander_mart_datasets, echo=FALSE, eval=TRUE}
@@ -237,43 +226,39 @@ pander(head(mart.datasets),
 
 Next is deciding on a filter. For this we can use the `listFilters` function on the `ensembl` object, storing the full list of filters. Here too it is wise to view this in RStudio to find the filter to use. 
 
-The filter specifies *what* you will use to search on. For instance, the `AnnotationDbi` queries above gave us `Ensembl` gene ID's and we could use those with the `ensembl_gene_id` filter. When viewing the list of filters in RStudio you can use the search text-box in the top-right of the view, for example with `ensemble` to look for filters to use with this type of identifier.
+The filter specifies *what* you will use to search on. For instance, the `AnnotationDbi` queries above gave us `Ensembl` gene ID's and we could use those with the `ensembl_gene_id` filter. When viewing the list of filters in RStudio you can use the search text-box in the top-right of the view, for example with `ensembl` to look for filters to use with this type of identifier.
 
-```{r select_mart_filter, echo=TRUE, eval=FALSE}
+```{r select_mart_filter, echo=TRUE, eval=TRUE}
 filters <- listFilters(ensembl)
-# View in RStudio and search for a filter to apply
-View(filters)
 ```
 
 ```{r .pander_filters, echo=FALSE, eval=TRUE}
 ## << LOADED FROM SESSION FILE >>
-pander(head(filters, n = 8), caption = paste0('Subset of the ', nrow(filters), ' available filters'))
+pander(head(filters, n = 15), caption = paste0('Subset of the ', nrow(filters), ' available filters'))
 ```
 
 Finally we get to the point to determine what data we would like to get from the database. These are the `attributes` which we can get with the `listAttributes` function on the `ensembl` object. Again - and especially with the attributes since there are often >1000 of selectable options - we store the attributes and view them in RStudio to look for data that we want.
 
-```{r select_mart_attributes, echo=TRUE, eval=FALSE}
+```{r select_mart_attributes, echo=TRUE, eval=TRUE}
 attributes <- listAttributes(ensembl)
-# View in RStudio and search for a filter to apply
-View(attributes)
 ```
 
 ```{r .pander_attributes, echo=FALSE, eval=TRUE}
 ## << LOADED FROM SESSION FILE >>
-pander(head(attributes, n = 8), caption = paste0('Subset of the ', nrow(attributes), ' available attributes'))
+pander(head(attributes, n = 16), caption = paste0('Subset of the ', nrow(attributes), ' available attributes'))
 ```
 
-If we want to have the gene chromosome, start- and end-position as well as its description we combine this in a character vector (`attrs.get`, see below). There is one *caveat* though, the *order* in which you get back the results are **not** the same as the input order! This means that we cannot simple combine the data with our original data set but we need to **merge** it together. However, to be able to merge the data we need to know which record belongs to which gene and therefore we add our selected `filter` (in our case the `ensembl_gene_id`) to the list of attributes to get. Then, when we get the `results dataframe` we can use the `merge` function in R to combine the gene information with the actual data:
+If we want to have the gene chromosome, start- and end-position as well as its description (note, just as an example, there is other, more interesting information available too!) we combine this in a character vector (`attrs.get`, see below). There is one *caveat* though, the *order* in which you get back the results are **not** the same as the input order! This means that we cannot simple combine the data with our original data set but we need to **merge** it together. However, to be able to merge the data we need to know which record belongs to which gene and therefore we add our selected `filter` (in our case the `ensembl_gene_id`) to the list of attributes to get. Then, when we get the `results dataframe` we can use the `merge` function in R to combine the gene information with the actual data:
 
 ```{r merge_biomart, echo=TRUE, eval=FALSE}
-merge(x = gse80128, y = results, by.x = 'Ensembl', by.y = 'ensembl_gene_id')
+merge(x = ipsc.tri.vs.di, y = results, by.x = 'Ensembl', by.y = 'ensembl_gene_id')
 ```
 
 We now have all three needed elements (species, filter and attributes) so we are ready to query the database with the `getBM` function (read the help using `?getBM`).
 
 The example below retrieves data using a set of five Ensembl gene IDs since not all genes have an Ensembl ID as we've seen above, so we filter those out first and use this as the `values` parameter below.
 
-```{r retrieve_biomart_results, echo=TRUE, eval=FALSE}
+```{r retrieve_biomart_results, echo=TRUE, eval=TRUE}
 # Set the 'attributes' values
 attrs.get <- c("ensembl_gene_id", "chromosome_name", 
                "start_position","end_position", "description")
@@ -281,20 +266,23 @@ attrs.get <- c("ensembl_gene_id", "chromosome_name",
 # Perform a biomaRt query using 'getBM'
 results <- getBM(attributes = attrs.get,
                  filters = "ensembl_gene_id",
-                 values = gse80128$Ensembl[1:5], 
+                 values = ipsc.tri.vs.di$Ensembl[1:5], 
                  mart = ensembl)
+
+results$gene_length <- abs(results$end_position - results$start_position)
 ```
 
 The `results` object is a `data.frame` with 5 columns that we can merge with our data set giving us the following annotation columns (combined from the `AnnotationDBI` and `biomaRt` libraries).
 
-```{r .pander_biomart_results, echo=FALSE, eval=FALSE}
-gse80128.annot <- merge(x = gse80128, y = results, 
+```{r .pander_biomart_results, echo=FALSE, eval=TRUE}
+ipsc.tri.vs.di.annot <- merge(x = ipsc.tri.vs.di, y = results, 
                         by.x = 'Ensembl', by.y = 'ensembl_gene_id')
 
-rownames(gse80128.annot) <- NULL
-pander(gse80128.annot[, c('geneID', 'Ensembl', 'EntrezID', 
+pander(ipsc.tri.vs.di.annot[, c('Ensembl', 'EntrezID', 
                                         'Enzyme', 'chromosome_name', 'start_position', 
-                                        'end_position', 'description')])
+                                        'end_position', 'gene_length', 'description')])
 ```
 
-This was just an example on how to use the `biomaRt` library and it comes down to selecting the correct filter and looking for interesting attributes to retrieve.
+This was just an example on how to use the `biomaRt` library and it comes down to selecting the correct filter and looking for interesting attributes to retrieve. Further information can be found in the documentation avaialble with `vignette('biomaRt')
+
+## References

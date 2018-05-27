@@ -117,5 +117,3 @@ pander(head(dataset))
 ```
 
 The `dataset` variable now contains all data for the first 6 samples in this experiment. It is advisable to compare the number of rows in this data set with the number of rows in a single sample. It is not guaranteed that all samples have exactly the same number of genes/transcripts present (i.e., 0-values might have been discarded) which results in a final data set that has as many rows as the *smallest* sample. See the help of `merge` if this is the case because the `all` argument can be used to introduce extra rows for missing data.
-
-## References
