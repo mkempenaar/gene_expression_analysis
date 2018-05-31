@@ -110,7 +110,7 @@ set.caption('Data for t-test, di_IPSC (case, 3 samples) vs di_NEUR (control, 3 s
 pander(counts.fpm["KCTD14" ,c(di_IPSC, di_NEUR)])
 ```
 
-First, we test (F-test) if the variance (the average of the squared differences from the mean) in the two sample groups is equal as we need to supply the t-test with this information (by default, it assumes different variance). Note that before performing an F-test, it should first be validated that the data is normally distributed, i.e. using a Shapiro-Wilk test.
+First, we test (F-test) if the variance (the average of the squared differences from the mean) in the two sample groups is equal as we need to supply the t-test with this information (by default, it assumes different variance). Note that before performing an F-test, it should first be validated that the data is normally distributed, i.e. using a Shapiro-Wilk test (you are **not** expected to do this test too, as a dataset with a three-replicate setup does not provide enough information for this test).
 
 ```{r vartest}
 ## Test for equal variance (H0 = 'equal variance')
@@ -340,8 +340,7 @@ res.neuron <- results(dds, name = "group_Neuron.disomic_vs_IPSC.disomic",
 # Set padjusted NA's to 1
 res.ipsc.lfc$padj[is.na(res.ipsc.lfc$padj)] <- 1
 
-
-ipsc.tri.vs.di <- as.data.frame(res.ipsc.lfc)[res.ipsc.lfc$padj < 0.05,]
+ipsc.tri.vs.di <- as.data.frame(res.ipsc.lfc)[res.ipsc.lfc@listData$padj < 0.05,]
 ```
 
 Once you have a proper `DESeqDataSet` all you need to do is run the `DESeq` function on this object. Then, using the `results` function you can extract the DEGs as a `DESeqResults` object. Applying the `summary` function on these object(s) shows the number of up and down regulated DEGs as can be seen below that lists the impact of trisomy for the IPSC cell type (~800 DEGs) and comparing both the IPSC and Neuron disomic (control) cell types (as can be seen, a *huge* amount of genes are affected by differentiation from stem cell into cortical neurons):
@@ -404,11 +403,6 @@ The `edgeR` library will normalize the count data for you as follows:
 > "The trimmed means of M values (TMM) from Robinson and Oshlack, which is implemented in edgeR, computes a scaling factor between two experiments by using the weighted average of the subset of genes after excluding genes that exhibit high average read counts and genes that have large differences in expression."
 
 Running edgeR requires the raw count data together with the grouping-factor packaged in a `DGEList` object (with the `DGEList()` function). Furthermore, a proper `model.matrix` object (see the section on [design](#deg-design)) is needed as input for the `estimateDisp` function. The exact steps to take (there are more variations than with DESeq2) must be searched in the documentation linked above.
-
-**TODO**:
-
-* Gene annotation has been added to the `DGEList` object that is used to run edgeR with the `genes` parameter. This data has been taken from the `AnnotationDbi` package as [shown in Appendix B](#annotationDBI).
-* explain BCV-plot
 
 Once the analysis is done you can retrieve the actual results with the `topTags` function:
 
@@ -480,7 +474,7 @@ qlf <- glmQLFTest(fit, contrast = my.contrats[, "tri_IPSC.vs.di_IPSC"])
 pander(as.data.frame(topTags(qlf)), caption = 'Most significant genes given by edgeR')
 ```
 
-The package also contains a few plotting methods that you can use at intermediate steps during the analysis. For instance, after calculating the normalization factors (`calcNormFactors`), you can perform multi-dimensional scaling with the `plotMDS` function:
+The package also contains a few plotting methods that you can use at intermediate steps during the analysis. For instance, after calculating the normalization factors (`calcNormFactors`), you can perform multi-dimensional scaling with the `plotMDS` function which is similar to what we've done manually in chapter three:
 
 ```{r edgeR_plotMDS, eval=TRUE}
 plotMDS(y)
@@ -494,7 +488,7 @@ plotBCV(y)
 
 Or the log-fold changes for all genes, once we have the output of the `exactTest` function (output `et` is an `DGEExact` object) with the `plotSmear` function. The `abline` shows a log-FC threshold:
 
-```{r .edger_results, eval=FALSE}
+```{r .edger_results, eval=TRUE}
 deGenes <- decideTestsDGE(qlf, p=0.05)
 deGenes <- rownames(qlf)[as.logical(deGenes)]
 plotSmear(qlf, de.tags=deGenes)
