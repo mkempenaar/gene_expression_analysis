@@ -25,7 +25,7 @@
 <meta name="author" content="Marcel Kempenaar">
 
 
-<meta name="date" content="2018-05-27">
+<meta name="date" content="2018-05-31">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -33,7 +33,7 @@
   
   
 <link rel="prev" href="chapter-3.html">
-<link rel="next" href="a1-batch-data-loading.html">
+<link rel="next" href="chapter-5.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -157,6 +157,16 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="4.5.1" data-path="chapter-4.html"><a href="chapter-4.html#deg-design"><i class="fa fa-check"></i><b>4.5.1</b> The <code>Design</code> (matrix)</a></li>
 <li class="chapter" data-level="4.5.2" data-path="chapter-4.html"><a href="chapter-4.html#deg-deseq2"><i class="fa fa-check"></i><b>4.5.2</b> <code>DESeq2</code></a></li>
 <li class="chapter" data-level="4.5.3" data-path="chapter-4.html"><a href="chapter-4.html#deg-edger"><i class="fa fa-check"></i><b>4.5.3</b> <code>edgeR</code></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="chapter-5.html"><a href="chapter-5.html"><i class="fa fa-check"></i><b>5</b> Data Analysis and Visualization</a><ul>
+<li class="chapter" data-level="5.1" data-path="chapter-5.html"><a href="chapter-5.html#volcano"><i class="fa fa-check"></i><b>5.1</b> Volcano Plot</a></li>
+<li class="chapter" data-level="5.2" data-path="chapter-5.html"><a href="chapter-5.html#venn-diagram"><i class="fa fa-check"></i><b>5.2</b> Venn Diagram</a></li>
+<li class="chapter" data-level="5.3" data-path="chapter-5.html"><a href="chapter-5.html#clustering"><i class="fa fa-check"></i><b>5.3</b> Clustering</a></li>
+<li class="chapter" data-level="5.4" data-path="chapter-5.html"><a href="chapter-5.html#pathway-analysis"><i class="fa fa-check"></i><b>5.4</b> Pathway Analysis</a><ul>
+<li class="chapter" data-level="5.4.1" data-path="chapter-5.html"><a href="chapter-5.html#gene-functional-classification-using-david-100-degs"><i class="fa fa-check"></i><b>5.4.1</b> Gene Functional Classification using DAVID (&gt;100 DEGs)</a></li>
+<li class="chapter" data-level="5.4.2" data-path="chapter-5.html"><a href="chapter-5.html#kegg-pathway-visualization-10-degs"><i class="fa fa-check"></i><b>5.4.2</b> KEGG-pathway Visualization (&gt;10 DEGs)</a></li>
+<li class="chapter" data-level="5.4.3" data-path="chapter-5.html"><a href="chapter-5.html#spia"><i class="fa fa-check"></i><b>5.4.3</b> Signaling Pathway Impact Analysis (&gt;20 DEGs)</a></li>
 </ul></li>
 </ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
@@ -297,7 +307,7 @@ neur.exp &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(counts
 </tbody>
 </table>
 <p>Data for t-test, di_IPSC (case, 3 samples) vs di_NEUR (control, 3 samples), “KCTD14” gene</p>
-<p>First, we test (F-test) if the variance (the average of the squared differences from the mean) in the two sample groups is equal as we need to supply the t-test with this information (by default, it assumes different variance). Note that before performing an F-test, it should first be validated that the data is normally distributed, i.e. using a Shapiro-Wilk test.</p>
+<p>First, we test (F-test) if the variance (the average of the squared differences from the mean) in the two sample groups is equal as we need to supply the t-test with this information (by default, it assumes different variance). Note that before performing an F-test, it should first be validated that the data is normally distributed, i.e. using a Shapiro-Wilk test (you are <strong>not</strong> expected to do this test too, as a dataset with a three-replicate setup does not provide enough information for this test).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Test for equal variance (H0 = &#39;equal variance&#39;)
 variance &lt;-<span class="st"> </span><span class="kw">var.test</span>(ipsc.exp, neur.exp, <span class="dt">alternative =</span> <span class="st">&#39;two.sided&#39;</span>)</code></pre></div>
 <table>
@@ -923,7 +933,7 @@ An expected side-effect of correcting for multiple-testing is the lower number o
 </div>
 <div id="inspecting-manual-test-results" class="section level3">
 <h3><span class="header-section-number">4.4.1</span> Inspecting Manual Test Results</h3>
-<p>After applying a form of multiple testing correction, you end up with two p-values for <em>each</em> gene in your data set. DEGs can then be filtered out using simple R commands looking for adjusted p-values &lt; 0.05 and optionally a threshold log-FC value. The resulting set of genes show a statistically significant difference between the sample groups that were used in the test(s) and these can be used to answer any relevant biological question. For now, keep the results as we will inspect them closer in <a href="#chapter-5">chapter 5; Data Analysis</a>.</p>
+<p>After applying a form of multiple testing correction, you end up with two p-values for <em>each</em> gene in your data set. DEGs can then be filtered out using simple R commands looking for adjusted p-values &lt; 0.05 and optionally a threshold log-FC value. The resulting set of genes show a statistically significant difference between the sample groups that were used in the test(s) and these can be used to answer any relevant biological question. For now, keep the results as we will inspect them closer in <a href="chapter-5.html#chapter-5">chapter 5; Data Analysis</a>.</p>
 </div>
 </div>
 <div id="deg-bioconductor" class="section level2">
@@ -1155,11 +1165,6 @@ low counts [2]     : 11906, 27%
 <p>“The trimmed means of M values (TMM) from Robinson and Oshlack, which is implemented in edgeR, computes a scaling factor between two experiments by using the weighted average of the subset of genes after excluding genes that exhibit high average read counts and genes that have large differences in expression.”</p>
 </blockquote>
 <p>Running edgeR requires the raw count data together with the grouping-factor packaged in a <code>DGEList</code> object (with the <code>DGEList()</code> function). Furthermore, a proper <code>model.matrix</code> object (see the section on <a href="chapter-4.html#deg-design">design</a>) is needed as input for the <code>estimateDisp</code> function. The exact steps to take (there are more variations than with DESeq2) must be searched in the documentation linked above.</p>
-<p><strong>TODO</strong>:</p>
-<ul>
-<li>Gene annotation has been added to the <code>DGEList</code> object that is used to run edgeR with the <code>genes</code> parameter. This data has been taken from the <code>AnnotationDbi</code> package as <a href="a2-annotation.html#annotationDBI">shown in Appendix B</a>.</li>
-<li>explain BCV-plot</li>
-</ul>
 <p>Once the analysis is done you can retrieve the actual results with the <code>topTags</code> function:</p>
 <table>
 <colgroup>
@@ -1276,7 +1281,7 @@ low counts [2]     : 11906, 27%
 </tbody>
 </table>
 <p>Most significant genes given by edgeR</p>
-<p>The package also contains a few plotting methods that you can use at intermediate steps during the analysis. For instance, after calculating the normalization factors (<code>calcNormFactors</code>), you can perform multi-dimensional scaling with the <code>plotMDS</code> function:</p>
+<p>The package also contains a few plotting methods that you can use at intermediate steps during the analysis. For instance, after calculating the normalization factors (<code>calcNormFactors</code>), you can perform multi-dimensional scaling with the <code>plotMDS</code> function which is similar to what we’ve done manually in chapter three:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plotMDS</span>(y)</code></pre></div>
 <p><img src="gene_expression_files/figure-html/edgeR_plotMDS-1.png" width="672" /></p>
 <p>Or the <em>dispersion</em> after running the <code>estimateDisp</code> function with the <code>plotBCV</code> function:</p>
@@ -1287,6 +1292,7 @@ low counts [2]     : 11906, 27%
 deGenes &lt;-<span class="st"> </span><span class="kw">rownames</span>(qlf)[<span class="kw">as.logical</span>(deGenes)]
 <span class="kw">plotSmear</span>(qlf, <span class="dt">de.tags=</span>deGenes)
 <span class="kw">abline</span>(<span class="dt">h=</span><span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>), <span class="dt">col=</span><span class="dv">2</span>)</code></pre></div>
+<p><img src="gene_expression_files/figure-html/.edger_results-1.png" width="672" /></p>
 <p><strong>Links</strong></p>
 <ul>
 <li><a href="http://bioinformatics-core-shared-training.github.io/cruk-bioinf-sschool/Day3/rnaSeq_DE.pdf">Differential Expression Analysis using edgeR</a> tutorial</li>
@@ -1296,9 +1302,6 @@ deGenes &lt;-<span class="st"> </span><span class="kw">rownames</span>(qlf)[<spa
 </div>
 </div>
 </div>
-
-
-
 <h3>References</h3>
 <div id="refs" class="references">
 <div id="ref-jiang14">
@@ -1311,7 +1314,7 @@ deGenes &lt;-<span class="st"> </span><span class="kw">rownames</span>(qlf)[<spa
         </div>
       </div>
 <a href="chapter-3.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="a1-batch-data-loading.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="chapter-5.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
