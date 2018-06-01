@@ -244,7 +244,7 @@ For this gene, both the treatment *and* the cell have an *almost* significant p-
 
 After performing ANOVA some steps should be performed to check if the results are viable, tests like the **Levene's test** for checking the homogeneity of variances and checking for **normality** of the residuals. While this is a technical solution and fully understanding falls outside of the scope of this course, a simple plot can be made (not for all genes/ tests) to see if the residuals are normally distributed. We expect the datapoints to approximately follow a straight diagonal line. Samples that differ too much are annotated in the plot and can be reason for concern.
 
-```{r, anova-residuals-normality}
+```{r anovePlot, anova-residuals-normality, fig.cap="ANOVA model plot"}
 ## Plotting the full model (remove the 2) shows other statistics as well
 plot(model.airway, 2)
 ```
@@ -332,6 +332,7 @@ rn <- resultsNames(dds)
 
 res.ipsc <- results(dds, name = "group_IPSC.trisomic_vs_IPSC.disomic", 
                alpha = 0.05)
+# Used throughout chapters 3 and 4
 res.ipsc.lfc <- lfcShrink(dds, coef = "group_IPSC.trisomic_vs_IPSC.disomic",
                           type = "apeglm")
 res.neuron <- results(dds, name = "group_Neuron.disomic_vs_IPSC.disomic",
@@ -384,11 +385,17 @@ The `DESeq2` library contains a number of plotting functions that can be applied
 
 > "It is more useful visualize the MA-plot for the shrunken log2 fold changes, which remove the noise associated with log2 fold changes from low count genes without requiring arbitrary filtering thresholds."
 
-```{r deseq_results_plotMA, fig.width=10, echo=FALSE}
+```{r deseqResultsPlotMA, fig.width=10, echo=FALSE, eval=FALSE}
+# Disabled; shows different results after rendering
 par(mfrow=c(1,2))
-plotMA(res.ipsc, ylim=c(-12,12), main = "IPSC trisomic vs disomic")
-plotMA(res.ipsc.lfc, ylim=c(-12,12), main = "IPSC trisomic vs disomic - corrected")
+plotMA(res.ipsc, ylim=c(-10,10), main = "IPSC trisomic vs disomic")
+plotMA(res.ipsc.lfc, ylim=c(-10,10), main = "IPSC trisomic vs disomic - corrected")
 ```
+
+```{r DESeq2MAPlot, fig.width=8, eval=TRUE, echo=FALSE, fig.cap="MA-plots with the standard DESeq2 output (left) and after shrinking with 'lfcShrink' (right)"}
+knitr::include_graphics("chapters/images/DESeq2MAplot.png", dpi = NA)
+```
+
 **Links**
 
 * [Analyzing RNA-seq data with DESeq2](https://www.bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html) A *very* comprehensive guide to analyzing RNA-Seq data using DESeq2 (part of this document has been used in this material too!). It is adviced to read the first few sections of this guide and take a good look at the index of the document because there are many interesting sections that might be of help later.
@@ -476,19 +483,19 @@ pander(as.data.frame(topTags(qlf)), caption = 'Most significant genes given by e
 
 The package also contains a few plotting methods that you can use at intermediate steps during the analysis. For instance, after calculating the normalization factors (`calcNormFactors`), you can perform multi-dimensional scaling with the `plotMDS` function which is similar to what we've done manually in chapter three:
 
-```{r edgeR_plotMDS, eval=TRUE}
+```{r edgeRPlotMDS, eval=TRUE, fig.cap="edgeR MDS plot based on the calculated log2 fold changes"}
 plotMDS(y)
 ```
 
 Or the *dispersion* after running the `estimateDisp` function with the `plotBCV` function:
 
-```{r edgeR_plotBCV, eval=TRUE}
+```{r edgeRPlotBCV, eval=TRUE, fig.cap="edgeR plot of several dispersion methods"}
 plotBCV(y)
 ```
 
 Or the log-fold changes for all genes, once we have the output of the `exactTest` function (output `et` is an `DGEExact` object) with the `plotSmear` function. The `abline` shows a log-FC threshold:
 
-```{r .edger_results, eval=TRUE}
+```{r edgerResults, eval=TRUE, fig.cap="edgeR results; genes marked in red are DEGs"}
 deGenes <- decideTestsDGE(qlf, p=0.05)
 deGenes <- rownames(qlf)[as.logical(deGenes)]
 plotSmear(qlf, de.tags=deGenes)

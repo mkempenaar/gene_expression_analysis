@@ -1,5 +1,6 @@
 bookdown::gitbook:
   css: style.css
+  fig_caption: yes
   config:
     toc:
       before: |

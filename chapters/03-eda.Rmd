@@ -44,7 +44,9 @@ Whether you've found a dataset through the SRA or GEO, we want to get the data i
 
 On GEO you can see what data *might* be availalbe in the `Supplementary` column, as shown below: 
 
-![*Finding an experiment on GEO with a TXT file as supplementary data*](chapters/images/geo_data-overview.png)
+```{r GEODataOverview, eval=TRUE, echo=FALSE, fig.cap="Finding an experiment on GEO with a TXT file as supplementary data"}
+knitr::include_graphics("chapters/images/geo_data-overview.png")
+```
 
 This overview on GEO contains many links which are *not* direct links to the items for that dataset, but can be used as *filter* for browsing the results. If you want to actually download the data, click on the **GSE** identifier (first column) which brings you to an overview for this experiment containing a lot of information about the experiment (subject, research institute, publication, design, etc.) and links to each individual sample (**GSM** identifier). Following the link to a sample shows information on how this sample was retrieved with often many (lab) protocols used. Sometimes there is a segment regarding "*Data Processing*" that refers to techniques and software used for the full analysis and might contain something like:
 
@@ -52,7 +54,9 @@ This overview on GEO contains many links which are *not* direct links to the ite
 
 Back on the experiment overview page you'll see a (variable) number of links to data files belonging to this experiment, see \ref{fig:GEO_Data-download}. For now we are only interested in the count-data which is stored in the `TXT`-file (see the column `File type/resource`) called `GSE97406_RAW.tar`. This file contains *all* the data that we need, even though it is only **220Kb** in size where the experiment started with about **5Gb** of read-data for a small bacteria:
 
-![*Finding the supplementary data in a GEO record*](chapters/images/geo_data-download.png)
+```{r GEODataDownload, eval=TRUE, echo=FALSE, fig.cap="Finding the supplementary data in a GEO record"}
+knitr::include_graphics("chapters/images/geo_data-download.png")
+```
 
 As a bioinformatician we love to compress all the files so for this particular example, we download the `tar`-archive file, extract it to find a folder with another archive file for each sample. After extracting these files we end up with 12 `TXT`-files with just two columns; a *gene* identifier and a semi-raw *count* value (~4500 rows of data per sample):
 
@@ -104,15 +108,13 @@ Follow the following steps to read in the data and start the exploratory data an
 For some datasets the order in which the samples are listed in your loaded dataset is different from the order that is shown on the GEO website. Most often, the names are different too or they are lacking any description and all you have are the `GSM` IDs. When creating these variables such as `control` that need to point to all control samples, you need to make sure that you have the right columns from your dataframe. Go to Appendix [A2; annotation](#download-geo) if the order is unclear or you just have a large number of samples as there might be supporting data available that can help make sense of your sample layout.
 ```
 
-If you want to include including external images to your log and to better control properties such as *height* and *width* for individual images you can use the following code (requires the import of the `png` and `grid` libraries). Note: the code below is an *example* and you need to replace the `ImageToInclude.png` file reference to an actual image.):
+If you want to include external images to your log and to better control properties such as *height* and *width* for individual images you can use the following code. Note: the code below is an *example* and you need to replace the `img_to_include.png` file path to an actual image.):
 
-```{r image_demo, eval=FALSE, echo=TRUE}
-# Add the following to the code chunk header to control figure height and width:
-#    {r, fig.height=5, fig.width=4, echo=FALSE}
-library(png)
-library(grid)
-img <- readPNG("ImageToInclude.png")
-grid.raster(img)
+```{r imageDemo, eval=FALSE, echo=TRUE}
+# Add the following to the code chunk header to control figure height, width and add a caption:
+#    {r, fig.height=5, fig.width=8, echo=FALSE, fig.cap="Image description"}
+# The `dpi` argument is to remove any scaling
+knitr::include_graphics("figures/img_to_include.png", dpi = NA)
 ```
 
 ## Example Data {#ch3_example_data}
@@ -181,7 +183,9 @@ A visual representation of these values can be shown in a boxplot. Boxplots are 
 * hide them completely using the `outliers = FALSE` argument to `boxplot()` (do say so in the figure description!), or
 * perform a `log2()` transformation as you can see below.
 
-![*Boxplot comparing basic statistics for all genes across multiple samples*](chapters/images/RNAboxplot_ggplot2.png)
+```{r, edaBoxplot, echo=FALSE, fig.width=8, fig.cap="Boxplot comparing basic statistics for all genes across multiple samples"}
+knitr::include_graphics("chapters/images/RNAboxplot_ggplot2.png", dpi = NA)
+```
 
 ### Density Plots {#eda_density_plot}
 
@@ -206,7 +210,9 @@ legend('topright', names(counts), lty=c(1:ncol(counts)),
 abline(v=-1.5, lwd=1, col='red', lty=2)
 ```
 
-![*Density plot comparing count distribution for 12 samples*](chapters/images/RNAdensityplot.png)
+```{r densityPlot, eval=TRUE, echo=FALSE, fig.width=8, fig.cap="Density plot comparing count distribution for 12 samples"}
+knitr::include_graphics("chapters/images/RNAdensityplot.png", dpi = NA)
+```
 
 ### Scatterplots {#eda_scatter_plot}
 
@@ -222,17 +228,23 @@ This introduces another problem once the linear regression line is added since t
 There are more situations other than the `lm()` function where adding a pseudo count value to the complete dataset can be useful. Always add a pseudocount *in-place*, meaning within the plotting code instead of overwriting your original dataset with a pseudo count added as not all steps require this. In some cases (see the [density plot](#eda_density_plot) section) it can be useful to clearly separate the 0-values from the rest in which case a `0 < pseudo count < 1` value, such as `0.1` can be used as this generates a negative value (`-3.3`) that is far away from the rest of the data.
 ```
 
-![*A simple scatterplot showing the correlation between two samples or experiments (see the text above). This image shows the values log2 transformed which in most cases gives a clearer picture.*](chapters/images/RNAscatterplot_ggplot2.png)
+```{r RNAScatterplot, fig.width=8, eval=TRUE, echo=FALSE, fig.cap="A simple scatterplot showing the correlation between two samples or experiments (see the text above). This image shows the values log2 transformed which in most cases gives a clearer picture."}
+knitr::include_graphics("chapters/images/RNAscatterplot_ggplot2.png", dpi = NA)
+```
 
 ### MA-plot {#MA_plot}
 
 An **MA-plot** is a scatterplot comparing the average expression value per gene (**A**) against the log-fold-change (**M**; a log2 value indicating expression change across samples which is taken as the `log2(sample1 / sample2))`). The points in this plot *should* be centered around the horizontal 0-value with an even spread both above and below the line. If there are (far) more points above or below the 0 on the y-axis, there is a *bias* in the data as can be shown below.
 
-![*An MA-plot showing the average count values (**A**, x-axis) vs. the log2 fold-change (**M**, y-axis) with a very clear bias (data not centered around y=0 line).*](chapters/images/RNAmaplot_bias.jpg)
+```{r MAPlotBias, fig.width=8, eval=TRUE, echo=FALSE, fig.cap="An MA-plot showing the average count values (**A**, x-axis) vs. the log2 fold-change (**M**, y-axis) with a very clear bias (data not centered around y=0 line)."}
+knitr::include_graphics("chapters/images/RNAmaplot_bias.jpg", dpi = NA)
+```
 
 An MA-plot can be very helpful (though it has the same constraints mentioned with the scatterplot) to see if we need to perform data normalization. There are various online resources [such as Wikipedia](https://en.wikipedia.org/wiki/MA_plot) available on how to create this plot. Carefully remember how you should work with logarithms as these rules might be (are) confusing.
 
-![*An MA-plot showing the average count values (**A**, x-axis) vs. the log2 fold-change (**M**, y-axis).*](chapters/images/RNAmaplot_ggplot2.png)
+```{r MAPlot, fig.width=8, eval=TRUE, echo=FALSE, fig.cap="An MA-plot showing the average count values (**A**, x-axis) vs. the log2 fold-change (**M**, y-axis)."}
+knitr::include_graphics("chapters/images/RNAmaplot_ggplot2.png", dpi = NA)
+```
 
 ## Visualizing using `heatmap`, `MDS` & `PCA` {#EDA_part2}
 
@@ -251,7 +263,7 @@ pander(head(counts), caption = 'Table 1; Raw count data for `GSE101942`')
 
 If you look at `Table 1` you immediately see a huge difference between the groups for each of the genes. The gene (`A1BG`) shows **>100** more expression in the `tri_NEUR` group compared to the `di_IPSC` group, but within most groups there is a very high variation too indicating that it might not be the actual expression that is different. One very simple and quick method of inspection is looking at the total number of mapped reads per sample (the sum of each sample/ column), as the *sequencing-depth* might vary across samples.
 
-```{r mapped_read_millions, echo=FALSE}
+```{r librarySizes, echo=FALSE, fig.cap="Library sizes for all samples from GSE101942"}
 # Show the number of mapped reads per sample in millions
 read_depth <- round(colSums(counts) / 1e6, 0)
 #panderOptions('table.split.table', Inf)
@@ -326,7 +338,7 @@ If you have both (raw-)count data *and* an other normalized format (TPM, RPKM, e
 
 The following code block creates a heatmap using the `pheatmap` library which offers on of the many available heatmap functions. Using the `annotation` dataframe (you can inspect the contents of it yourself) we identify the samples based on both the cell type and the ploidy. The clustering shown in the heatmap clearly separates the data based on the cell type and the differences between the ploidy seems to be minimal. Looking further still, the differences *within* a single group are minimal too meaning that we are not - yet - inclined to remove any outlier-samples. Since we have only have 3 samples per category, we would also lose statistical power if we eventually were to remove one or more samples (also, always check the article to see if they did remove any samples prior to the data analysis).
 
-```{r pheatmap, echo=TRUE, eval=TRUE}
+```{r pheatmapDistances, echo=TRUE, eval=TRUE, fig.cap="Heatmap showing the Euclidean distances between all samples"}
 # We use the 'pheatmap' library (install with install.packages('pheatmap'))
 library(pheatmap)
 
@@ -373,7 +385,7 @@ names(mdsData) <- c('x_coord', 'y_coord')
 pander(mdsData, caption = 'Table 4: MDS coordinates used for plotting the distances')
 ```
 
-```{r mds_plot}
+```{r mdsPlot, fig.cap="Multi Dimensional Scaling - Euclidean Distance for all samples"}
 # Separate the annotation factor (as the variable name is used as label)
 groups <- factor(rep(1:4, each=3), 
                  labels = c("di_IPSC", "tri_IPSC", "di_NEUR", "tri_NEUR"))
@@ -390,7 +402,7 @@ ggplot(mdsData, aes(x_coord, y_coord, color = groups, label = coldata)) +
 As a demonstration of a different distance metric (instead of the default `euclidean` used in the `dist` function) the following code shows how to calculate a maybe more fitting distance called the *Poisson Distance*. This library was specifically designed to handle read count data. Note that again, the code below is only usable for **count** data as this function requires: 
 > An n-by-p data matrix with observations on the rows, and p features on the columns. The (i,j) element of x is the **number of reads** in observation i that mapped to feature (e.g. gene or exon) j`.
 
-```{r mds_poisson, echo=TRUE, eval=TRUE}
+```{r mdsPoissonData, echo=TRUE, eval=TRUE}
 library('PoiClaClu')
 # Use the raw (not r-log transformed!) counts
 dds <- assay(ddsMat)
@@ -409,7 +421,7 @@ row.names(mdsPoisData) <- row.names(mdsData)
 pander(mdsPoisData, caption = 'Table 5: MDS coordinates used for plotting the distances using Poisson Distance')
 ```
 
-```{r mds_poisson_plot, echo=TRUE, eval=TRUE}
+```{r mdsPoissonPlot, echo=TRUE, eval=TRUE, fig.cap="Multi Dimensional Scaling - Poisson Distance for all samples"}
 # Create the plot using ggplot
 ggplot(mdsPoisData, aes(x_coord, y_coord, color = groups, label = coldata)) + 
   geom_text(size = 4) +
@@ -424,7 +436,7 @@ Comparing both figures show similar results, we clearly see a separation on cell
 
 An alternative method of showing sample relations which is often preferred over MDS (but a bit harder to perform with pre-normalized data formats) is *Principal Component Analysis* (PCA). The code below shows PCA on our `DESeqTransform` object `rld.dds`. The resulting plot shows a very clear separation between cell types and within the cell types a separation between disomic and trisomic.
 
-```{r pca-plot, echo=TRUE, eval=TRUE}
+```{r pcaPlot, echo=TRUE, eval=TRUE, fig.cap="Principal Component Analysis for all samples"}
 library(BiocGenerics)
 
 # Calculate PCA data
