@@ -25,7 +25,7 @@
 <meta name="author" content="Marcel Kempenaar">
 
 
-<meta name="date" content="2018-05-31">
+<meta name="date" content="2018-06-01">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -913,7 +913,12 @@ model.airway &lt;-<span class="st"> </span><span class="kw">lm</span>(count <spa
 <p>After performing ANOVA some steps should be performed to check if the results are viable, tests like the <strong>Levene’s test</strong> for checking the homogeneity of variances and checking for <strong>normality</strong> of the residuals. While this is a technical solution and fully understanding falls outside of the scope of this course, a simple plot can be made (not for all genes/ tests) to see if the residuals are normally distributed. We expect the datapoints to approximately follow a straight diagonal line. Samples that differ too much are annotated in the plot and can be reason for concern.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Plotting the full model (remove the 2) shows other statistics as well
 <span class="kw">plot</span>(model.airway, <span class="dv">2</span>)</code></pre></div>
-<p><img src="gene_expression_files/figure-html/anova-residuals-normality-1.png" width="672" /></p>
+<div class="figure">
+<img src="gene_expression_files/figure-html/anovePlot,%20anova-residuals-normality-1.png" alt="ANOVA model plot" width="672" />
+<p class="caption">
+(#fig:anovePlot, anova-residuals-normality)ANOVA model plot
+</p>
+</div>
 <p><em>ANOVA</em> tutorials</p>
 <ul>
 <li><a href="https://bioinf.nl/~michiel/courses/R_minor/ttest.html#anova">M. A. Noback, DAVuR Course Syllabus</a></li>
@@ -1151,7 +1156,13 @@ low counts [2]     : 11906, 27%
 <blockquote>
 <p>“It is more useful visualize the MA-plot for the shrunken log2 fold changes, which remove the noise associated with log2 fold changes from low count genes without requiring arbitrary filtering thresholds.”</p>
 </blockquote>
-<p><img src="gene_expression_files/figure-html/deseq_results_plotMA-1.png" width="960" /> <strong>Links</strong></p>
+<div class="figure"><span id="fig:DESeq2MAPlot"></span>
+<img src="chapters/images/DESeq2MAplot.png" alt="MA-plots with the standard DESeq2 output (left) and after shrinking with 'lfcShrink' (right)"  />
+<p class="caption">
+Figure 4.1: MA-plots with the standard DESeq2 output (left) and after shrinking with ‘lfcShrink’ (right)
+</p>
+</div>
+<p><strong>Links</strong></p>
 <ul>
 <li><a href="https://www.bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html">Analyzing RNA-seq data with DESeq2</a> A <em>very</em> comprehensive guide to analyzing RNA-Seq data using DESeq2 (part of this document has been used in this material too!). It is adviced to read the first few sections of this guide and take a good look at the index of the document because there are many interesting sections that might be of help later.</li>
 <li><a href="https://genomebiology.biomedcentral.com/articles/10.1186/s13059-014-0550-8">Publication</a>, an accompanying article showing differences in performance compared to other methods and packages.</li>
@@ -1283,16 +1294,31 @@ low counts [2]     : 11906, 27%
 <p>Most significant genes given by edgeR</p>
 <p>The package also contains a few plotting methods that you can use at intermediate steps during the analysis. For instance, after calculating the normalization factors (<code>calcNormFactors</code>), you can perform multi-dimensional scaling with the <code>plotMDS</code> function which is similar to what we’ve done manually in chapter three:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plotMDS</span>(y)</code></pre></div>
-<p><img src="gene_expression_files/figure-html/edgeR_plotMDS-1.png" width="672" /></p>
+<div class="figure"><span id="fig:edgeRPlotMDS"></span>
+<img src="gene_expression_files/figure-html/edgeRPlotMDS-1.png" alt="edgeR MDS plot based on the calculated log2 fold changes" width="672" />
+<p class="caption">
+Figure 4.2: edgeR MDS plot based on the calculated log2 fold changes
+</p>
+</div>
 <p>Or the <em>dispersion</em> after running the <code>estimateDisp</code> function with the <code>plotBCV</code> function:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plotBCV</span>(y)</code></pre></div>
-<p><img src="gene_expression_files/figure-html/edgeR_plotBCV-1.png" width="672" /></p>
+<div class="figure"><span id="fig:edgeRPlotBCV"></span>
+<img src="gene_expression_files/figure-html/edgeRPlotBCV-1.png" alt="edgeR plot of several dispersion methods" width="672" />
+<p class="caption">
+Figure 4.3: edgeR plot of several dispersion methods
+</p>
+</div>
 <p>Or the log-fold changes for all genes, once we have the output of the <code>exactTest</code> function (output <code>et</code> is an <code>DGEExact</code> object) with the <code>plotSmear</code> function. The <code>abline</code> shows a log-FC threshold:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">deGenes &lt;-<span class="st"> </span><span class="kw">decideTestsDGE</span>(qlf, <span class="dt">p=</span><span class="fl">0.05</span>)
 deGenes &lt;-<span class="st"> </span><span class="kw">rownames</span>(qlf)[<span class="kw">as.logical</span>(deGenes)]
 <span class="kw">plotSmear</span>(qlf, <span class="dt">de.tags=</span>deGenes)
 <span class="kw">abline</span>(<span class="dt">h=</span><span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>), <span class="dt">col=</span><span class="dv">2</span>)</code></pre></div>
-<p><img src="gene_expression_files/figure-html/.edger_results-1.png" width="672" /></p>
+<div class="figure"><span id="fig:edgerResults"></span>
+<img src="gene_expression_files/figure-html/edgerResults-1.png" alt="edgeR results; genes marked in red are DEGs" width="672" />
+<p class="caption">
+Figure 4.4: edgeR results; genes marked in red are DEGs
+</p>
+</div>
 <p><strong>Links</strong></p>
 <ul>
 <li><a href="http://bioinformatics-core-shared-training.github.io/cruk-bioinf-sschool/Day3/rnaSeq_DE.pdf">Differential Expression Analysis using edgeR</a> tutorial</li>
