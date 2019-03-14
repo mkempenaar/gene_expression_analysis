@@ -25,7 +25,7 @@
 <meta name="author" content="Marcel Kempenaar">
 
 
-<meta name="date" content="2019-01-24">
+<meta name="date" content="2019-03-14">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -224,12 +224,17 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>The FC is usually given as the calculated <code>log2</code> of the <em>case/control</em> ratio. For example, gene A has an average expression of 30 mapped reads in the control group and 88 reads in the experiment group, the <strong>ratio</strong> <em>case/control</em> is <code>2.93</code>. Ratio values &gt; 1 indicate increased expression in the experiment in relation to the control and values between 0 and 1 indicate lower expression. The log2 transformed value of the ratio is calculated with <code>log2(2.93)</code> and results in <code>1.55</code>. If the counts were reversed, the ratio would have been <code>30/88</code>, which is <code>0.34</code>. The previously calculated value of <code>2.93</code> means a 3-fold up regulation while the <code>0.34</code> value means 3-fold down regulation but you can see the range of numbers is very different. Comparing log2 values this would be <code>1.55</code> and <code>-1.55</code> which compares much better.</p>
 <p>While it is very easy to calculate the FC for all genes at once, a simple FC value doesn’t mean much, yet! We still need to use the power that lie within the replicates we have for each sample group. Using these replicates, we want to determine if the observed FC is not just biological noise or a sequencing error.</p>
 <ul>
-<li><strong>Assignment</strong>: Create a <code>histogram</code> of your log2-FC values for <em>all</em> genes. Apply the following steps on your <em>normalized data</em> to do this for at least one comparison (no need to do it for all possible combinations):</li>
+<li><strong>Assignment</strong>: Create a <code>histogram</code> of your log2-FC values for <em>all</em> genes. Apply the following steps on your <em>rlog normalized data</em> from chapter 3 for at least one comparison (no need to do it for all possible combinations):</li>
 <li>average the replicates for each group and add this as a new column to your data set,</li>
-<li>calculate the ratios; simply divide one group (averaged-column) by another, usually <code>experiment</code>/<code>control</code>,</li>
-<li>perform a log2-transformation (now you have the <code>log2-FC</code> values),</li>
+<li>calculate the log Fold Change (lFC); simply <em>subtract</em> one group (averaged-column) by another, usually <code>experiment</code>-<code>control</code>
+<ul>
+<li>Note that since we already have log-transformed data, we do not calculate the ratio (<code>experiment</code>/<code>control</code>). Also, because of the Logarithm <em>quotient rule</em>, we do not divide both average colums as with the ratio calculation, but we subtract: <span class="math inline">\(log_b{(x/y)} = log_b{(x)} - log_b{(y)}\)</span></li>
+</ul></li>
 <li>plot the data using the <code>hist(logFC_column, breaks=60)</code> function (change the <code>breaks</code> argument if needed),</li>
-<li>Add two vertical lines at <code>-1</code> and <code>1</code> (using <code>abline(v=...)</code>) to indicate some significance (2-fold change).</li>
+<li>Add two vertical lines at <code>-1</code> and <code>1</code> (using <code>abline(v=...)</code>) to indicate some significance (2-fold change).
+<ul>
+<li>If your data shows very low fold-change values you might see no genes outside of this boundary. This does not mean that we will not find any significantly changed genes (DEGs).</li>
+</ul></li>
 </ul>
 <p>If a calculated FC shows a large change in expression between groups this means nothing if the variation <em>within</em> a group is very high. For this reason we use some form of statistical test that checks both the variation in each group <em>and</em> the difference between groups of samples. In the simplest form this usually comes down to using a <a href="https://en.wikipedia.org/wiki/Student%27s_t-test"><em>t</em>-test</a>:</p>
 <blockquote>
