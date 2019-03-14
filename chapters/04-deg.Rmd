@@ -25,12 +25,13 @@ The FC is usually given as the calculated `log2` of the *case/control* ratio. Fo
 
 While it is very easy to calculate the FC for all genes at once, a simple FC value doesn't mean much, yet! We still need to use the power that lie within the replicates we have for each sample group. Using these replicates, we want to determine if the observed FC is not just biological noise or a sequencing error.
 
-* **Assignment**: Create a `histogram` of your log2-FC values for *all* genes. Apply the following steps on your *normalized data* to do this for at least one comparison (no need to do it for all possible combinations):
+* **Assignment**: Create a `histogram` of your log2-FC values for *all* genes. Apply the following steps on your *rlog normalized data* from chapter 3 for at least one comparison (no need to do it for all possible combinations):
   + average the replicates for each group and add this as a new column to your data set,
-  + calculate the ratios; simply divide one group (averaged-column) by another, usually `experiment`/`control`,
-  + perform a log2-transformation (now you have the `log2-FC` values),
+  + calculate the log Fold Change (lFC); simply *subtract* one group (averaged-column) by another, usually `experiment`-`control`
+    - Note that since we already have log-transformed data, we do not calculate the ratio (`experiment`/`control`). Also, because of the Logarithm *quotient rule*, we do not divide both average colums as with the ratio calculation, but we subtract: $log_b{(x/y)} = log_b{(x)} - log_b{(y)}$
   + plot the data using the `hist(logFC_column, breaks=60)` function (change the `breaks` argument if needed),
   + Add two vertical lines at `-1` and `1` (using `abline(v=...)`) to indicate some significance (2-fold change).
+    - If your data shows very low fold-change values you might see no genes outside of this boundary. This does not mean that we will not find any significantly changed genes (DEGs).
 
 If a calculated FC shows a large change in expression between groups this means nothing if the variation *within* a group is very high. For this reason we use some form of statistical test that checks both the variation in each group *and* the difference between groups of samples. In the simplest form this usually comes down to using a [*t*-test](https://en.wikipedia.org/wiki/Student%27s_t-test):
 

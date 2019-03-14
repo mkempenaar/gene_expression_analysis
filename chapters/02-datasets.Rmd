@@ -50,4 +50,8 @@ In week three you are asked to present a short project proposal where you:
 * describe the experimental design of the chosen experiment; how many samples and in how many groups are they divided (i.e. how many replicates per group)?
 * Show what *your* plan is with the dataset, given the choices listed in the section about [Finding Public Data](#finding-public-data). Note that whatever choice you make, the first steps will most likely be the same leading to finding the *Differentially Expressed Genes* (DEGs). It is very difficult to plan your complete project based on what you read in the article and it is not expected to get a planning for the full remaining 6 weeks. You can however specify a bit more given what you've read in the article, such as trying to reproduce a certain figure or repeat a certain analysis step.
 
-Summarize your project proposal on max. 1 A4 and, combined with the slides, are the final deliverables for this chapter (submission through the accompanying BlackBoard course).
+Summarize your project proposal on max. 1 A4 and, combined with the slides, are the final deliverables for this chapter (submission through the accompanying BlackBoard course). The difference between the presentation and the written proposal is that the written proposal should contain more technical information that can partially be found in the article:
+
+* List the software and any libraries used for performing the statistical analysis on the count data (i.e. R with bioconductor package(s) DESeq or edgeR).
+* Other software or methods described for downstream analysis of the DEGs found (i.e. 'Gene Ontology enrichment analysis using DAVID')
+* An example (first 5 rows) and very brief description of the available data. Sometimes experiments include much more then just a single count-column but also annotation data might be present.
