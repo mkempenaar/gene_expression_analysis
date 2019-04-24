@@ -4,7 +4,7 @@
 
 The use of RNA-Sequencing techniques for measuring gene expression is relatively new and replaces *microarrays*, though in some cases microarrays are still used. Gene expression data gives valuable insights into the workings of cells in certain conditions. Especially when comparing for instance healthy and diseased samples it can become clear which genes are causal or under influence of a specific condition. Finding the genes of interest (genes showing differing expression accross conditions, called the *Differentially Expressed Genes* (DEGs)) is the goal of this project.
 
-While there is no golden standard for analyzing RNA-sequencing datasets as there are many tools (all manufacturers of sequencing equiptment also deliver software packages) we will use R combined with proven libraries for processing, visualizing and analyzing publically available datasets. While in some cases you are allowed to use the actual *raw* data that is available, it is highly recommended to use the pre-processed data which often is a table with a *count* value for each gene. This count is the number of reads that was mapped to that gene which corresponds to the relative number of transcripts (mRNA sequences) of that gene present in the cell at the time of sampling.
+While there is no golden standard for analyzing RNA-sequencing datasets as there are many tools (all manufacturers of sequencing equiptment also deliver software packages) we will use R combined with proven libraries for processing, visualizing and analyzing publically available datasets. While in some cases you are allowed to use the actual *raw* (read) data that is available, it is highly recommended to use the pre-processed data which often is a table with a *count* value for each gene. This count is the number of reads that was mapped to that gene which corresponds to the relative number of transcripts (mRNA sequences) of that gene present in the cell at the time of sampling.
 
 ## Project Deliverables
 
@@ -41,7 +41,12 @@ As you are free to choose from thousands of public data sets on a large variety 
 
 ## *Lab Journal*
 
-As you know from previous projects and most likely from working in the laboratory, it is essential to keep a proper lab journal detailing every step you have done during the experiment. Here, the log is to be kept in an R markdown file, showing which steps have been taken in the analysis of the data set. This markdown should be *knitted* into a single PDF-file once the project is completed thus containing text detailling the steps and any decisions you've made, R-code (always visible!) and their resulting output/ images. As a general advice; do not wait with knitting this whole document until the project is done!
+As you know from previous projects and most likely from working in the laboratory, it is essential to keep a proper lab journal detailing every step you have done during the experiment. Here, the log is to be kept in an R markdown file, showing which steps have been taken in the analysis of the data set. This markdown should be *knitted* into a single PDF-file once the project is completed thus containing text detailling the steps and any decisions you've made, R-code (always visible!) and their resulting output/ images. 
+
+```{block, type='rmdtip'}
+**Notes**:
+As a general advice; do not wait with knitting this whole document until the project is done as knitting is very prone to errors and trying to fix these in a large document is not easy. Give each code chunk the proper attributes, including a name at the minimum. This helps spot errors during knitting as that process mentiones which chunk has been processed. Note that chunk-names *must* be unique. And try to make proper use of chapters and sections and include an (optional) table of contents.
+```
 
 ## Article {#article}
 
@@ -59,7 +64,7 @@ install.packages("rticles", type = "source")
 
 Now that you have the templates package (`rticles`) installed you can download and use the template project (ZIP-file) available from [the course website](https://mkempenaar.github.io/gene_expression_analysis/article/report-template.zip). Download this file to your project folder, extract its contents and open the `report-template.Rmd` file contained within the folder in RStudio. Verify that everything is setup correctly by hitting the `Knit` button at the top, this should create a PDF version of the report. Note that - somehow - the resulting PDF file is named `RJwrapper.pdf` instead of the expected `report-template.pdf`. If everything checks out ok you can rename the file to your liking and start editing.
 
-This template is based on the `R Journal Submission` template that you can also find in RStudio in the `New file -> R Markdown -> From Template` menu. Articles published in the `R-journal` are based on this template which you can browse for inspiration at the [R Journal Website](https://journal.r-project.org/archive/2017-2/). 
+This template is based on the `R Journal Submission` template that you can also find in RStudio in the `New file -> R Markdown -> From Template` menu. Articles published in the `R-journal` are based on this template which you can browse for inspiration at the [R Journal Website](https://journal.r-project.org/archive/2018-2/). 
 
 The available template shows an *example* of segments/ chapters and briefly describes what each section could or should contain. If you want to write your report in the Dutch language, you can create a new file from the template and change the segment names and content to Dutch. There will however still be some headings added by the template in English which is fine with me, but if you want to keep everything Dutch you can either edit the `RJournal.sty` file manually (*not recommended*) or start a new file by yourself and add some nice headings and page options. 
 
