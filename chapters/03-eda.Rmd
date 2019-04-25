@@ -221,6 +221,10 @@ Scatterplots are good for spotting correlations between two sets of numerical da
 A scatterplot can be made simply using the `plot()` functions with the `type` argument set to `p` (points). To show the correlation more clearly you can add a *linear regression* line using `abline(lm(y ~ x, col='red', lwd=2)`. If the regression line points more downwards from the diagonal, the values in sample `x` are higher and vice versa.
 
 ```{block, type='rmdtip'}
+Note the order of axis in the `lm` function. The arguments are in a `formula` denoted `y` *over* `x`. Make sure the order is correct as the `plot` function takes the order of `plot(x, y)`.
+```
+
+```{block, type='rmdtip'}
 Try to create the plot on non-log2 transformed data first and you'll see that due to the range of the values most data is in a single black blob at the lower left corner (most of the probably 20.000+ data points) with just a few in the right side of the plot. This is not very informative, so place a simple `log2()` function call around the two samples and plot again.
 
 This introduces another problem once the linear regression line is added since the `lm()` function will complain when trying to calculate its coefficients etc. on data that contains *negative infinity* (`-Inf`) 'numbers'. These are caused by all the 0-values in the data since `log2(0) == -Inf`. To circumvent this issue, we can add a *pseudo count* to the data by simply adding the value `1` to all count values since the `log2(1) == 0` and `lm` won't complain anymore; `lm(log2(data[sample1] + 1) ~ log2(data[sample2] + 1))`.
@@ -246,13 +250,17 @@ An MA-plot can be very helpful (though it has the same constraints mentioned wit
 knitr::include_graphics("chapters/images/RNAmaplot_ggplot2.png", dpi = NA)
 ```
 
+```{block, type='rmdtip'}
+As for the scatterplot, select one or two sets of two samples to create MA-plots for. Base this selection on what you see in for instance the boxplot or density plot and show one set of similar samples and one set of deviating samples.
+```
+
 ## Visualizing using `heatmap`, `MDS` & `PCA` {#EDA_part2}
 
 This section adds a few Exploratory Data Analysis techniques where we will measure and look at *distances* between samples. Measuring distances between two data objects (samples in our case) is a common task in cluster analysis to compare similarity (low distance indicates similar data). In this case we will calculate the distances between our samples and visualize them in a `heatmap` and using `multidimensional scaling` (MDS) techniques. 
 
 ### Normalization {#normalization}
 
-In the previous section we used the raw count data. You might have one or more samples that have different values (i.e. shifted) compared to other samples. While we need the raw count data to use R packages such as `edgeR` [@R-edgeR] and `DESeq2` [@R-DESeq2], calculating sample distances (used in the visualizations in this section) should be done on some form of normalized data. This data can either be RPKM/FPKM/TPM/CPM or rlog-transformed (raw-)read counts. A proper method of transforming raw read count data is using the `rlog` method from the `DESeq2` R Bioconductor library which is shown below. 
+In the previous section we used the raw count data. You might have one or more samples that have different values (i.e. shifted) compared to other samples. While we need the raw count data to use R packages such as `edgeR` [@R-edgeR] and `DESeq2` [@R-DESeq2], calculating sample distances (used in the visualizations in this section) should be done on some form of normalized data. This data can either be RPKM/FPKM/TPM/CPM or rlog-transformed (raw-)read counts. A proper method of transforming raw read count data is using the `rlog` method from the `DESeq2` R Bioconductor library which is shown below. This normalized data will only be used in this chapter, in chapter 4 we will again normalize using a different technique.
 
 The following code examples shows how to use this library to normalize the count data from the **GSE101942** experiment to rlog-normalized data before we calculate a distance metric.
 
@@ -366,40 +374,13 @@ The resulting heatmap shows an interesting comparison across all samples where t
 
 ### Multi-Dimensional Scaling {#eda_mds}
 
-The following code example shows how to perform Multi-Dimensional Scaling (MDS) that displays the previously calculated distances in a 2D-plot. With an experiment like this with two groups of samples, we hope to see two clearly separated clusters formed, however as we've seen in the heatmap, sample `KO1B` showed a large deviation which we will also see (confirm) this using MDS.
+The following code example shows how to perform Multi-Dimensional Scaling (MDS) that displays similarly calculated distances in a 2D-plot. With an experiment like this with two groups of samples, we hope to see two clearly separated clusters formed, however as we've seen in the heatmap, sample `KO1B` showed a large deviation which we will also see (confirm) using MDS.
 
 ```{block, type='rmdtip'}
-All figures below are plotted using `ggplot2`, a more advanced method of plotting in R. While these plots are preferred over base-R plotting, it is always sufficient to use just that as it can be very challenging to alter the example code shown in this section. The data objects plotted are always shown and they usually contain simple X- and Y-coordinates.
+The figure below is plotted using `ggplot2`, a more advanced method of plotting in R. While these plots are preferred over base-R plotting, it is always sufficient to use just that as it can be very challenging to alter the example code shown in this section. The data object plotted is shown and in this case contains simple X- and Y-coordinates.
 ```
 
-```{r mds, echo=TRUE, eval=TRUE}
-# Perform MDS using the 'cmdscale' function. The resulting data can simply be
-# plotted using basic R plotting, here we will use 'ggplot2'
-sampleDistMatrix <- as.matrix(sampledists)
-coldata <- names(counts)
-mdsData <- data.frame(cmdscale(sampleDistMatrix))
-names(mdsData) <- c('x_coord', 'y_coord')
-```
-
-```{r mds_table, echo=FALSE}
-pander(mdsData, caption = 'Table 4: MDS coordinates used for plotting the distances')
-```
-
-```{r mdsPlot, fig.cap="Multi Dimensional Scaling - Euclidean Distance for all samples"}
-# Separate the annotation factor (as the variable name is used as label)
-groups <- factor(rep(1:4, each=3), 
-                 labels = c("di_IPSC", "tri_IPSC", "di_NEUR", "tri_NEUR"))
-
-# Load the ggplot2 library
-library(ggplot2)
-ggplot(mdsData, aes(x_coord, y_coord, color = groups, label = coldata)) + 
-  geom_text(size = 4) +
-  ggtitle('Multi Dimensional Scaling - Euclidean Distance') +
-  labs(x = "Euclidean distance", y = "Euclidean distance") +
-  theme_bw()
-```
-
-As a demonstration of a different distance metric (instead of the default `euclidean` used in the `dist` function) the following code shows how to calculate a maybe more fitting distance called the *Poisson Distance*. This library was specifically designed to handle read count data. Note that again, the code below is only usable for **count** data as this function requires: 
+For MDS we use a slightly different distance metric (Poisson instead of the default `euclidean` used in the `dist` function). The following code shows how to calculate a more fitting distance for sequencing data called the *Poisson Distance* with a number of optimizations available in the `PoiClaClu` library. This library was specifically designed to handle read count data and is less influenced by read-count differences across samples. Note that again, the code below is only usable for **count** data as this function requires: 
 > An n-by-p data matrix with observations on the rows, and p features on the columns. The (i,j) element of x is the **number of reads** in observation i that mapped to feature (e.g. gene or exon) j`.
 
 ```{r mdsPoissonData, echo=TRUE, eval=TRUE}
@@ -410,11 +391,10 @@ poisd <- PoissonDistance( t(dds) )
 # Extract the matrix with distances
 samplePoisDistMatrix <- as.matrix(poisd$dd)
 # Calculate the MDS and get the X- and Y-coordinates
-mdsPoisData <- data.frame(cmdscale(samplePoisDistMatrix))
+mdsPoisData <- data.frame( cmdscale(samplePoisDistMatrix) )
 
-# And set some better readable names for columns and rows
+# And set some better readable names for the columns
 names(mdsPoisData) <- c('x_coord', 'y_coord')
-row.names(mdsPoisData) <- row.names(mdsData)
 ```
 
 ```{r mds_names, echo=FALSE}
@@ -422,15 +402,20 @@ pander(mdsPoisData, caption = 'Table 5: MDS coordinates used for plotting the di
 ```
 
 ```{r mdsPoissonPlot, echo=TRUE, eval=TRUE, fig.cap="Multi Dimensional Scaling - Poisson Distance for all samples"}
+# Separate the annotation factor (as the variable name is used as label)
+groups <- factor(rep(1:4, each=3), 
+                 labels = c("di_IPSC", "tri_IPSC", "di_NEUR", "tri_NEUR"))
+coldata <- names(counts)
+
 # Create the plot using ggplot
 ggplot(mdsPoisData, aes(x_coord, y_coord, color = groups, label = coldata)) + 
   geom_text(size = 4) +
-  ggtitle('Multi Dimensional Scaling - Poisson Distance') +
-  labs(x = "Euclidean distance", y = "Euclidean distance") +
+  ggtitle('Multi Dimensional Scaling') +
+  labs(x = "Poisson Distance", y = "Poisson Distance") +
   theme_bw()
 ```
 
-Comparing both figures show similar results, we clearly see a separation on cell type and a less clear separation on ploidy. The sample `di_NEUR_r3` shows a large difference in the non-normalized MDS plot, though in the normalized plot it is close to the other replicates. Once we have a set of genes identified as being differentially expressed we can repeat this step with the expectation of a more clear clustering.
+We clearly see a separation on cell type and a less clear separation on ploidy. The sample `di_NEUR_r3` shows a large difference in the MDS plot. Once we have a set of genes identified as being differentially expressed we could repeat this step with the expectation of a more clear clustering.
 
 ### Principal Component Analysis {#eda_pca}
 
@@ -455,20 +440,7 @@ ggplot(data, aes(PC1, PC2, color = groups, label = coldata)) +
   theme_bw()
 ```
 
-Or on FPKM/RPKM data (only perform if you want to compare normalization techniques and have FPKM data. Output is not shown):
-```{r pca_fpkm, echo=TRUE, eval=FALSE}
-# PCA done with the 'prcomp' function in base-R. Replace 'rld' with a matrix
-# containing the normalized data (genes as rows, samples as columns)
-pca.data <- prcomp( t(rld) )
-
-# Extract coordinates for PC1 and PC2
-components <- data.frame(pca.data$x[, 1:2])
-
-# Plot using ggplot2
-ggplot(data = components, aes(PC1, PC2, color = groups, label = coldata)) + 
-  geom_text(size = 4) +
-  ggtitle("Principal Component Analysis for RNA-Seq data")
-```
+The resulting figure is a near optimal situation, where each sample is clustered with its replicates. It often happens that samples are all mixed which can be fine too (we're looking at comparisons of 20.000+ genes reduced to a single number), but keep an eye on any outliers.
 
 ## Cleaning Data
 

@@ -1,4 +1,4 @@
-name: Analysis of Gene Expression Analysis Project
+name: Analysis of Gene Expression Project
 markdown: redcarpet
 book_filename: gene_expression
 chapter_name: !expr function(i) {return("")}  
@@ -6,7 +6,10 @@ highlighter: pygments
 delete_merged_file: true
 
 rmd_files: ['index.Rmd',
-            'chapters/01-introduction.Rmd',
+            ## UNCOMMENT FOR BFVH3TH7 BOOK ##
+            #'chapters/01-introduction.Rmd',
+            ## UNCOMMENT FOR BFVH15CAPSTONE BOOK ##
+            'chapters/01-introduction_BFVH15CAPSTONE.Rmd',
             'chapters/02-datasets.Rmd',
             'chapters/03-eda.Rmd',
             'chapters/04-deg.Rmd',
