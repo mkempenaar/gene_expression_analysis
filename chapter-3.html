@@ -25,7 +25,7 @@
 <meta name="author" content="Marcel Kempenaar">
 
 
-<meta name="date" content="2019-03-14">
+<meta name="date" content="2019-04-24">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -108,12 +108,16 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#analysis-of-gene-expression-project"><i class="fa fa-check"></i>Analysis of Gene Expression Project</a></li>
 </ul></li>
 <li class="chapter" data-level="1" data-path="chapter-1.html"><a href="chapter-1.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
-<li class="chapter" data-level="1.1" data-path="chapter-1.html"><a href="chapter-1.html#theme-7---analysis-of-gene-expression-project"><i class="fa fa-check"></i><b>1.1</b> Theme 7 - Analysis of Gene Expression Project</a></li>
+<li class="chapter" data-level="1.1" data-path="chapter-1.html"><a href="chapter-1.html#capstone-project---analysis-of-gene-expression"><i class="fa fa-check"></i><b>1.1</b> Capstone Project - Analysis of Gene Expression</a></li>
 <li class="chapter" data-level="1.2" data-path="chapter-1.html"><a href="chapter-1.html#project-deliverables"><i class="fa fa-check"></i><b>1.2</b> Project Deliverables</a></li>
 <li class="chapter" data-level="1.3" data-path="chapter-1.html"><a href="chapter-1.html#project-schedule"><i class="fa fa-check"></i><b>1.3</b> Project Schedule</a></li>
 <li class="chapter" data-level="1.4" data-path="chapter-1.html"><a href="chapter-1.html#grading"><i class="fa fa-check"></i><b>1.4</b> Grading</a></li>
 <li class="chapter" data-level="1.5" data-path="chapter-1.html"><a href="chapter-1.html#project-proposal"><i class="fa fa-check"></i><b>1.5</b> Project Proposal</a></li>
 <li class="chapter" data-level="1.6" data-path="chapter-1.html"><a href="chapter-1.html#lab-journal"><i class="fa fa-check"></i><b>1.6</b> <em>Lab Journal</em></a></li>
+<li class="chapter" data-level="1.7" data-path="chapter-1.html"><a href="chapter-1.html#article"><i class="fa fa-check"></i><b>1.7</b> Article</a><ul>
+<li class="chapter" data-level="1.7.1" data-path="chapter-1.html"><a href="chapter-1.html#installing-the-article-template"><i class="fa fa-check"></i><b>1.7.1</b> Installing the Article Template</a></li>
+<li class="chapter" data-level="1.7.2" data-path="chapter-1.html"><a href="chapter-1.html#using-the-template"><i class="fa fa-check"></i><b>1.7.2</b> Using the Template</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="chapter-2.html"><a href="chapter-2.html"><i class="fa fa-check"></i><b>2</b> Discovering Data Sets</a><ul>
 <li class="chapter" data-level="2.1" data-path="chapter-2.html"><a href="chapter-2.html#finding-public-data"><i class="fa fa-check"></i><b>2.1</b> Finding Public Data Sets of Interest</a></li>
@@ -452,6 +456,11 @@ Figure 3.4: Density plot comparing count distribution for 12 samples
 <p>A scatterplot can be made simply using the <code>plot()</code> functions with the <code>type</code> argument set to <code>p</code> (points). To show the correlation more clearly you can add a <em>linear regression</em> line using <code>abline(lm(y ~ x, col='red', lwd=2)</code>. If the regression line points more downwards from the diagonal, the values in sample <code>x</code> are higher and vice versa.</p>
 <div class="rmdtip">
 <p>
+Note the order of axis in the <code>lm</code> function. The arguments are in a <code>formula</code> denoted <code>y</code> <em>over</em> <code>x</code>. Make sure the order is correct as the <code>plot</code> function takes the order of <code>plot(x, y)</code>.
+</p>
+</div>
+<div class="rmdtip">
+<p>
 Try to create the plot on non-log2 transformed data first and you’ll see that due to the range of the values most data is in a single black blob at the lower left corner (most of the probably 20.000+ data points) with just a few in the right side of the plot. This is not very informative, so place a simple <code>log2()</code> function call around the two samples and plot again.
 </p>
 <p>
@@ -484,6 +493,11 @@ Figure 3.6: An MA-plot showing the average count values (<strong>A</strong>, x-a
 Figure 3.7: An MA-plot showing the average count values (<strong>A</strong>, x-axis) vs. the log2 fold-change (<strong>M</strong>, y-axis).
 </p>
 </div>
+<div class="rmdtip">
+<p>
+As for the scatterplot, select one or two sets of two samples to create MA-plots for. Base this selection on what you see in for instance the boxplot or density plot and show one set of similar samples and one set of deviating samples.
+</p>
+</div>
 </div>
 </div>
 <div id="EDA_part2" class="section level2">
@@ -491,7 +505,7 @@ Figure 3.7: An MA-plot showing the average count values (<strong>A</strong>, x-a
 <p>This section adds a few Exploratory Data Analysis techniques where we will measure and look at <em>distances</em> between samples. Measuring distances between two data objects (samples in our case) is a common task in cluster analysis to compare similarity (low distance indicates similar data). In this case we will calculate the distances between our samples and visualize them in a <code>heatmap</code> and using <code>multidimensional scaling</code> (MDS) techniques.</p>
 <div id="normalization" class="section level3">
 <h3><span class="header-section-number">3.5.1</span> Normalization</h3>
-<p>In the previous section we used the raw count data. You might have one or more samples that have different values (i.e. shifted) compared to other samples. While we need the raw count data to use R packages such as <code>edgeR</code> <span class="citation">(Chen et al. <a href="#ref-R-edgeR">2018</a>)</span> and <code>DESeq2</code> <span class="citation">(Love, Anders, and Huber <a href="#ref-R-DESeq2">2017</a>)</span>, calculating sample distances (used in the visualizations in this section) should be done on some form of normalized data. This data can either be RPKM/FPKM/TPM/CPM or rlog-transformed (raw-)read counts. A proper method of transforming raw read count data is using the <code>rlog</code> method from the <code>DESeq2</code> R Bioconductor library which is shown below.</p>
+<p>In the previous section we used the raw count data. You might have one or more samples that have different values (i.e. shifted) compared to other samples. While we need the raw count data to use R packages such as <code>edgeR</code> <span class="citation">(Chen et al. <a href="#ref-R-edgeR">2018</a>)</span> and <code>DESeq2</code> <span class="citation">(Love, Anders, and Huber <a href="#ref-R-DESeq2">2017</a>)</span>, calculating sample distances (used in the visualizations in this section) should be done on some form of normalized data. This data can either be RPKM/FPKM/TPM/CPM or rlog-transformed (raw-)read counts. A proper method of transforming raw read count data is using the <code>rlog</code> method from the <code>DESeq2</code> R Bioconductor library which is shown below. This normalized data will only be used in this chapter, in chapter 4 we will again normalize using a different technique.</p>
 <p>The following code examples shows how to use this library to normalize the count data from the <strong>GSE101942</strong> experiment to rlog-normalized data before we calculate a distance metric.</p>
 <p>If you look at <code>Table 1</code> you immediately see a huge difference between the groups for each of the genes. The gene (<code>A1BG</code>) shows <strong>&gt;100</strong> more expression in the <code>tri_NEUR</code> group compared to the <code>di_IPSC</code> group, but within most groups there is a very high variation too indicating that it might not be the actual expression that is different. One very simple and quick method of inspection is looking at the total number of mapped reads per sample (the sum of each sample/ column), as the <em>sequencing-depth</em> might vary across samples.</p>
 <table>
@@ -630,113 +644,13 @@ Figure 3.9: Heatmap showing the Euclidean distances between all samples
 </div>
 <div id="eda_mds" class="section level3">
 <h3><span class="header-section-number">3.5.4</span> Multi-Dimensional Scaling</h3>
-<p>The following code example shows how to perform Multi-Dimensional Scaling (MDS) that displays the previously calculated distances in a 2D-plot. With an experiment like this with two groups of samples, we hope to see two clearly separated clusters formed, however as we’ve seen in the heatmap, sample <code>KO1B</code> showed a large deviation which we will also see (confirm) this using MDS.</p>
+<p>The following code example shows how to perform Multi-Dimensional Scaling (MDS) that displays similarly calculated distances in a 2D-plot. With an experiment like this with two groups of samples, we hope to see two clearly separated clusters formed, however as we’ve seen in the heatmap, sample <code>KO1B</code> showed a large deviation which we will also see (confirm) using MDS.</p>
 <div class="rmdtip">
 <p>
-All figures below are plotted using <code>ggplot2</code>, a more advanced method of plotting in R. While these plots are preferred over base-R plotting, it is always sufficient to use just that as it can be very challenging to alter the example code shown in this section. The data objects plotted are always shown and they usually contain simple X- and Y-coordinates.
+The figure below is plotted using <code>ggplot2</code>, a more advanced method of plotting in R. While these plots are preferred over base-R plotting, it is always sufficient to use just that as it can be very challenging to alter the example code shown in this section. The data object plotted is shown and in this case contains simple X- and Y-coordinates.
 </p>
 </div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Perform MDS using the &#39;cmdscale&#39; function. The resulting data can simply be</span>
-<span class="co"># plotted using basic R plotting, here we will use &#39;ggplot2&#39;</span>
-sampleDistMatrix &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(sampledists)
-coldata &lt;-<span class="st"> </span><span class="kw">names</span>(counts)
-mdsData &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="kw">cmdscale</span>(sampleDistMatrix))
-<span class="kw">names</span>(mdsData) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;x_coord&#39;</span>, <span class="st">&#39;y_coord&#39;</span>)</code></pre></div>
-<table style="width:53%;">
-<colgroup>
-<col width="25%" />
-<col width="13%" />
-<col width="13%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th align="center"> </th>
-<th align="center">x_coord</th>
-<th align="center">y_coord</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="center"><strong>di_IPSC_r1</strong></td>
-<td align="center">-170</td>
-<td align="center">-17.73</td>
-</tr>
-<tr class="even">
-<td align="center"><strong>di_IPSC_r2</strong></td>
-<td align="center">-165.4</td>
-<td align="center">-8.864</td>
-</tr>
-<tr class="odd">
-<td align="center"><strong>di_IPSC_r3</strong></td>
-<td align="center">-159.2</td>
-<td align="center">3.549</td>
-</tr>
-<tr class="even">
-<td align="center"><strong>tri_IPSC_r1</strong></td>
-<td align="center">-154.4</td>
-<td align="center">3.331</td>
-</tr>
-<tr class="odd">
-<td align="center"><strong>tri_IPSC_r2</strong></td>
-<td align="center">-158.3</td>
-<td align="center">7.435</td>
-</tr>
-<tr class="even">
-<td align="center"><strong>tri_IPSC_r3</strong></td>
-<td align="center">-153.9</td>
-<td align="center">17.22</td>
-</tr>
-<tr class="odd">
-<td align="center"><strong>di_NEUR_r1</strong></td>
-<td align="center">157.1</td>
-<td align="center">-40.19</td>
-</tr>
-<tr class="even">
-<td align="center"><strong>di_NEUR_r2</strong></td>
-<td align="center">154.1</td>
-<td align="center">-11.08</td>
-</tr>
-<tr class="odd">
-<td align="center"><strong>di_NEUR_r3</strong></td>
-<td align="center">162.8</td>
-<td align="center">-78.36</td>
-</tr>
-<tr class="even">
-<td align="center"><strong>tri_NEUR_r1</strong></td>
-<td align="center">152</td>
-<td align="center">67</td>
-</tr>
-<tr class="odd">
-<td align="center"><strong>tri_NEUR_r2</strong></td>
-<td align="center">159.8</td>
-<td align="center">-57.87</td>
-</tr>
-<tr class="even">
-<td align="center"><strong>tri_NEUR_r3</strong></td>
-<td align="center">175.4</td>
-<td align="center">115.5</td>
-</tr>
-</tbody>
-</table>
-<p>Table 4: MDS coordinates used for plotting the distances</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Separate the annotation factor (as the variable name is used as label)</span>
-groups &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, <span class="dt">each=</span><span class="dv">3</span>), 
-                 <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;di_IPSC&quot;</span>, <span class="st">&quot;tri_IPSC&quot;</span>, <span class="st">&quot;di_NEUR&quot;</span>, <span class="st">&quot;tri_NEUR&quot;</span>))
-
-<span class="co"># Load the ggplot2 library</span>
-<span class="kw">library</span>(ggplot2)
-<span class="kw">ggplot</span>(mdsData, <span class="kw">aes</span>(x_coord, y_coord, <span class="dt">color =</span> groups, <span class="dt">label =</span> coldata)) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_text</span>(<span class="dt">size =</span> <span class="dv">4</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&#39;Multi Dimensional Scaling - Euclidean Distance&#39;</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Euclidean distance&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Euclidean distance&quot;</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">theme_bw</span>()</code></pre></div>
-<div class="figure"><span id="fig:mdsPlot"></span>
-<img src="gene_expression_files/figure-html/mdsPlot-1.png" alt="Multi Dimensional Scaling - Euclidean Distance for all samples" width="672" />
-<p class="caption">
-Figure 3.10: Multi Dimensional Scaling - Euclidean Distance for all samples
-</p>
-</div>
-<p>As a demonstration of a different distance metric (instead of the default <code>euclidean</code> used in the <code>dist</code> function) the following code shows how to calculate a maybe more fitting distance called the <em>Poisson Distance</em>. This library was specifically designed to handle read count data. Note that again, the code below is only usable for <strong>count</strong> data as this function requires: &gt; An n-by-p data matrix with observations on the rows, and p features on the columns. The (i,j) element of x is the <strong>number of reads</strong> in observation i that mapped to feature (e.g. gene or exon) j`.</p>
+<p>For MDS we use a slightly different distance metric (Poisson instead of the default <code>euclidean</code> used in the <code>dist</code> function). The following code shows how to calculate a more fitting distance for sequencing data called the <em>Poisson Distance</em> with a number of optimizations available in the <code>PoiClaClu</code> library. This library was specifically designed to handle read count data and is less influenced by read-count differences across samples. Note that again, the code below is only usable for <strong>count</strong> data as this function requires: &gt; An n-by-p data matrix with observations on the rows, and p features on the columns. The (i,j) element of x is the <strong>number of reads</strong> in observation i that mapped to feature (e.g. gene or exon) j`.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&#39;PoiClaClu&#39;</span>)
 <span class="co"># Use the raw (not r-log transformed!) counts</span>
 dds &lt;-<span class="st"> </span><span class="kw">assay</span>(ddsMat)
@@ -744,11 +658,10 @@ poisd &lt;-<span class="st"> </span><span class="kw">PoissonDistance</span>( <sp
 <span class="co"># Extract the matrix with distances</span>
 samplePoisDistMatrix &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(poisd<span class="op">$</span>dd)
 <span class="co"># Calculate the MDS and get the X- and Y-coordinates</span>
-mdsPoisData &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="kw">cmdscale</span>(samplePoisDistMatrix))
+mdsPoisData &lt;-<span class="st"> </span><span class="kw">data.frame</span>( <span class="kw">cmdscale</span>(samplePoisDistMatrix) )
 
-<span class="co"># And set some better readable names for columns and rows</span>
-<span class="kw">names</span>(mdsPoisData) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;x_coord&#39;</span>, <span class="st">&#39;y_coord&#39;</span>)
-<span class="kw">row.names</span>(mdsPoisData) &lt;-<span class="st"> </span><span class="kw">row.names</span>(mdsData)</code></pre></div>
+<span class="co"># And set some better readable names for the columns</span>
+<span class="kw">names</span>(mdsPoisData) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;x_coord&#39;</span>, <span class="st">&#39;y_coord&#39;</span>)</code></pre></div>
 <table style="width:53%;">
 <colgroup>
 <col width="25%" />
@@ -826,19 +739,24 @@ mdsPoisData &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<sp
 </tbody>
 </table>
 <p>Table 5: MDS coordinates used for plotting the distances using Poisson Distance</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Create the plot using ggplot</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Separate the annotation factor (as the variable name is used as label)</span>
+groups &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, <span class="dt">each=</span><span class="dv">3</span>), 
+                 <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;di_IPSC&quot;</span>, <span class="st">&quot;tri_IPSC&quot;</span>, <span class="st">&quot;di_NEUR&quot;</span>, <span class="st">&quot;tri_NEUR&quot;</span>))
+coldata &lt;-<span class="st"> </span><span class="kw">names</span>(counts)
+
+<span class="co"># Create the plot using ggplot</span>
 <span class="kw">ggplot</span>(mdsPoisData, <span class="kw">aes</span>(x_coord, y_coord, <span class="dt">color =</span> groups, <span class="dt">label =</span> coldata)) <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_text</span>(<span class="dt">size =</span> <span class="dv">4</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&#39;Multi Dimensional Scaling - Poisson Distance&#39;</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Euclidean distance&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Euclidean distance&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&#39;Multi Dimensional Scaling&#39;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Poisson Distance&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Poisson Distance&quot;</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">theme_bw</span>()</code></pre></div>
 <div class="figure"><span id="fig:mdsPoissonPlot"></span>
 <img src="gene_expression_files/figure-html/mdsPoissonPlot-1.png" alt="Multi Dimensional Scaling - Poisson Distance for all samples" width="672" />
 <p class="caption">
-Figure 3.11: Multi Dimensional Scaling - Poisson Distance for all samples
+Figure 3.10: Multi Dimensional Scaling - Poisson Distance for all samples
 </p>
 </div>
-<p>Comparing both figures show similar results, we clearly see a separation on cell type and a less clear separation on ploidy. The sample <code>di_NEUR_r3</code> shows a large difference in the non-normalized MDS plot, though in the normalized plot it is close to the other replicates. Once we have a set of genes identified as being differentially expressed we can repeat this step with the expectation of a more clear clustering.</p>
+<p>We clearly see a separation on cell type and a less clear separation on ploidy. The sample <code>di_NEUR_r3</code> shows a large difference in the MDS plot. Once we have a set of genes identified as being differentially expressed we could repeat this step with the expectation of a more clear clustering.</p>
 </div>
 <div id="eda_pca" class="section level3">
 <h3><span class="header-section-number">3.5.5</span> Principal Component Analysis</h3>
@@ -862,21 +780,10 @@ percentVar &lt;-<span class="st"> </span><span class="kw">round</span>(<span cla
 <div class="figure"><span id="fig:pcaPlot"></span>
 <img src="gene_expression_files/figure-html/pcaPlot-1.png" alt="Principal Component Analysis for all samples" width="672" />
 <p class="caption">
-Figure 3.12: Principal Component Analysis for all samples
+Figure 3.11: Principal Component Analysis for all samples
 </p>
 </div>
-<p>Or on FPKM/RPKM data (only perform if you want to compare normalization techniques and have FPKM data. Output is not shown):</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># PCA done with the &#39;prcomp&#39; function in base-R. Replace &#39;rld&#39; with a matrix</span>
-<span class="co"># containing the normalized data (genes as rows, samples as columns)</span>
-pca.data &lt;-<span class="st"> </span><span class="kw">prcomp</span>( <span class="kw">t</span>(rld) )
-
-<span class="co"># Extract coordinates for PC1 and PC2</span>
-components &lt;-<span class="st"> </span><span class="kw">data.frame</span>(pca.data<span class="op">$</span>x[, <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>])
-
-<span class="co"># Plot using ggplot2</span>
-<span class="kw">ggplot</span>(<span class="dt">data =</span> components, <span class="kw">aes</span>(PC1, PC2, <span class="dt">color =</span> groups, <span class="dt">label =</span> coldata)) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_text</span>(<span class="dt">size =</span> <span class="dv">4</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Principal Component Analysis for RNA-Seq data&quot;</span>)</code></pre></div>
+<p>The resulting figure is a near optimal situation, where each sample is clustered with its replicates. It often happens that samples are all mixed which can be fine too (we’re looking at comparisons of 20.000+ genes reduced to a single number), but keep an eye on any outliers.</p>
 </div>
 </div>
 <div id="cleaning-data" class="section level2">
