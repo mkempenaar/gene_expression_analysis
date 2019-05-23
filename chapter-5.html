@@ -25,7 +25,7 @@
 <meta name="author" content="Marcel Kempenaar">
 
 
-<meta name="date" content="2019-04-24">
+<meta name="date" content="2019-05-23">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -51,41 +51,67 @@
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -174,7 +200,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="A" data-path="a1-batch-data-loading.html"><a href="a1-batch-data-loading.html"><i class="fa fa-check"></i><b>A</b> Appendix A: Batch Loading Expression Data in R</a><ul>
 <li class="chapter" data-level="A.1" data-path="a1-batch-data-loading.html"><a href="a1-batch-data-loading.html#decompressing"><i class="fa fa-check"></i><b>A.1</b> Decompressing</a></li>
 <li class="chapter" data-level="A.2" data-path="a1-batch-data-loading.html"><a href="a1-batch-data-loading.html#determining-data-format"><i class="fa fa-check"></i><b>A.2</b> Determining Data Format</a></li>
-<li class="chapter" data-level="A.3" data-path="chapter-3.html"><a href="chapter-3.html#loading-data"><i class="fa fa-check"></i><b>A.3</b> Loading Data</a></li>
+<li class="chapter" data-level="A.3" data-path="a1-batch-data-loading.html"><a href="a1-batch-data-loading.html#loading-data-1"><i class="fa fa-check"></i><b>A.3</b> Loading Data</a></li>
 </ul></li>
 <li class="chapter" data-level="B" data-path="a2-annotation.html"><a href="a2-annotation.html"><i class="fa fa-check"></i><b>B</b> Annotating an RNA-Seq Experiment</a><ul>
 <li class="chapter" data-level="B.1" data-path="a2-annotation.html"><a href="a2-annotation.html#download-geo"><i class="fa fa-check"></i><b>B.1</b> Downloading annotation data from GEO</a></li>
@@ -209,7 +235,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>A volcano plot is often the first visualization of the data once the statistical tests are completed. This plot shows data for <em>all</em> genes and we highlight those genes that are considered DEG by using thresholds for both the (adjusted) p-value and a fold-change. Many articles describe values used for these thresholds in their methods section, otherwise a good default is 0.05 for the adjusted p-value and around 1.0 for the log-FC.</p>
 <p>This scatterplot places the <code>-log10(pvalue)</code> values on the y-axis and the log-FC on the x-axis. Coloring is done based on the thresholds (-log10(0.05) for the pvalue and log2(2) for the log-FC).</p>
 <p>The code below shows how to get data from DESeq2 and format this in a usable dataframe to create the figures below. Basically it’s a combination of <code>rlog</code>-normalized count data from the <code>rld</code>-object (to calculate the fold-changes manually, see the heatmap below), results from DESeq2 (to filter for significant genes) and the Entrez IDs that we will use in the <a href="chapter-5.html#pathway-analysis">pathway analysis</a> <em>for all genes</em>. The <code>threshold</code> variable is used to subset the complete dataset for DEGs that are also filtered for their log-FC value (stored in the <code>deg</code> dataframe).</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Combining normalized counts with output of DESeq (from the &#39;results&#39; function) into a single dataframe</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Combining normalized counts with output of DESeq (from the &#39;results&#39; function) into a single dataframe</span>
 <span class="co"># &#39;rld&#39;-object: rlog-normalized data from chapter 3.5.1</span>
 <span class="co"># &#39;res&#39;-object: the output of the DESeq2 &#39;results&#39; function (DESeqResults object) containing</span>
 <span class="co">#               calculated (adjusted)p-values, fold changes etc.</span>
@@ -228,12 +254,23 @@ deseq.threshold &lt;-<span class="st"> </span><span class="kw">as.factor</span>(
 xi &lt;-<span class="st"> </span><span class="kw">which</span>(deseq.threshold <span class="op">==</span><span class="st"> </span><span class="ot">TRUE</span>)
 
 <span class="co"># Number of interesting genes</span>
-<span class="kw">length</span>(xi)</code></pre></div>
+<span class="kw">length</span>(xi)</code></pre>
 <pre><code>## [1] 612</code></pre>
-<p>Quitting from lines 1169-1171 (gene_expression.Rmd) Error in split(data, ceiling(seq_along(data)/nrow)) : object ‘deseq.degs’ not found Calls: <Anonymous> … withVisible -&gt; eval -&gt; eval -&gt; pander -&gt; vector.to.table -&gt; split In addition: Warning messages: 1: In yaml.load(readLines(con), error.label = error.label, …) : R expressions in yaml.load will not be auto-evaluated by default in the near future 2: In yaml.load(readLines(con), error.label = error.label, …) : R expressions in yaml.load will not be auto-evaluated by default in the near future</p>
+<p>Quitting from lines 1169-1171 (gene_expression.Rmd)
+Error in split(data, ceiling(seq_along(data)/nrow)) :
+object ‘deseq.degs’ not found
+Calls: <Anonymous> … withVisible -&gt; eval -&gt; eval -&gt; pander -&gt; vector.to.table -&gt; split
+In addition: Warning messages:
+1: In yaml.load(readLines(con), error.label = error.label, …) :
+R expressions in yaml.load will not be auto-evaluated by default in the near future
+2: In yaml.load(readLines(con), error.label = error.label, …) :
+R expressions in yaml.load will not be auto-evaluated by default in the near future</p>
 <p>The volcano plot below is created on the <em>complete</em> dataset (all genes from the <code>deseq.results</code> dataframe from the chunk above) where the coloring is done based on the <code>threshold</code> variable. Genes with an adjusted p-value of 1 (shown as <code>log10(1)</code>) are included (shown at <code>y=0</code>). It is perfectly fine to use the standard R plot method combined with the <code>abline</code> function to separate the DEGs from the other genes. If you already have experience with <code>ggplot2</code>, you can use the code below to reproduce this image, otherwise, there is a vanilla R solution further below.</p>
-<p><strong>Notes</strong>: * When you have used edgeR instead you need to change the names of the columns (i.e. <code>log2FoldChange</code> == <code>logFC</code> and <code>padj</code> == <code>FDR</code>) used in this example. * In this example there are too many DEGs to annotate with their name in the plot. Therefore the last line (call to the <code>geom_text_repel</code> function) uses a more strict selection to limit the number of labels, <em>just for demonstration purposes</em>. Disable labels completely if you have &gt; 50 DEGs determined by both the log fold change and adjusted p-value or only label those genes showing the biggest/ most significant effect * Also, this example <em>limits</em> the ranges on both the x- and y-axis (<code>xlim</code> and <code>ylim</code> functions) which might hide data, do not use this setting in your final report.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)
+<p><strong>Notes</strong>:
+* When you have used edgeR instead you need to change the names of the columns (i.e. <code>log2FoldChange</code> == <code>logFC</code> and <code>padj</code> == <code>FDR</code>) used in this example.
+* In this example there are too many DEGs to annotate with their name in the plot. Therefore the last line (call to the <code>geom_text_repel</code> function) uses a more strict selection to limit the number of labels, <em>just for demonstration purposes</em>. Disable labels completely if you have &gt; 50 DEGs determined by both the log fold change and adjusted p-value or only label those genes showing the biggest/ most significant effect
+* Also, this example <em>limits</em> the ranges on both the x- and y-axis (<code>xlim</code> and <code>ylim</code> functions) which might hide data, do not use this setting in your final report.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)
 <span class="kw">library</span>(ggrepel)
 
 g =<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data=</span>deseq.results, 
@@ -258,7 +295,7 @@ g =<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data
                                    <span class="kw">row.names</span>(deseq.results), <span class="st">&#39;&#39;</span>)))
 
 <span class="co"># Show the plot</span>
-g</code></pre></div>
+g</code></pre>
 <div class="figure"><span id="fig:deseqVolcano"></span>
 <img src="gene_expression_files/figure-html/deseqVolcano-1.png" alt="ggplot2 Volcano plot for DESeq2 output" width="672" />
 <p class="caption">
@@ -266,7 +303,7 @@ Figure 5.1: ggplot2 Volcano plot for DESeq2 output
 </p>
 </div>
 <p>As an alternative method that uses standard R plotting with color-coding the DEGs can be done by adding points for each group separately and giving them a certain color. By using the <code>with</code> function we don’t have to type <code>deseq.results$padj</code> but can suffice with typing <code>padj</code> to access this column. The first plot command plots all the points in black and we <em>overwrite</em> points in different colors with the <code>points</code> function later on.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Base plot</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Base plot</span>
 <span class="kw">with</span>(deseq.results, <span class="kw">plot</span>(log2FoldChange, <span class="op">-</span><span class="kw">log10</span>(padj), <span class="dt">pch=</span><span class="dv">20</span>,
                          <span class="dt">main=</span><span class="kw">paste</span>(<span class="st">&quot;IPSC trisomic vs disomic DEGs according to DESeq2&quot;</span>,
                                <span class="st">&quot;with FDR &lt;= 0.05 and absolute FC &gt;= 2&quot;</span>, <span class="dt">sep=</span><span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>),
@@ -289,7 +326,7 @@ Figure 5.1: ggplot2 Volcano plot for DESeq2 output
 
 <span class="co"># Add threshold lines</span>
 <span class="kw">abline</span>(<span class="dt">h=</span><span class="op">-</span><span class="kw">log10</span>(pval_threshold), <span class="dt">lwd=</span><span class="fl">1.5</span>, <span class="dt">lty=</span><span class="dv">2</span>, <span class="dt">col=</span><span class="st">&#39;gray&#39;</span>)
-<span class="kw">abline</span>(<span class="dt">v=</span><span class="kw">c</span>(<span class="op">-</span>logfc_threshold, logfc_threshold), <span class="dt">lwd=</span><span class="fl">1.5</span>, <span class="dt">lty=</span><span class="dv">2</span>, <span class="dt">col=</span><span class="st">&#39;gray&#39;</span>)</code></pre></div>
+<span class="kw">abline</span>(<span class="dt">v=</span><span class="kw">c</span>(<span class="op">-</span>logfc_threshold, logfc_threshold), <span class="dt">lwd=</span><span class="fl">1.5</span>, <span class="dt">lty=</span><span class="dv">2</span>, <span class="dt">col=</span><span class="st">&#39;gray&#39;</span>)</code></pre>
 <div class="figure"><span id="fig:volcanoRplot"></span>
 <img src="gene_expression_files/figure-html/volcanoRplot-1.png" alt="Vanilla R Volcano plot for DESeq2 output" width="672" />
 <p class="caption">
@@ -301,8 +338,11 @@ Figure 5.2: Vanilla R Volcano plot for DESeq2 output
 <h2><span class="header-section-number">5.2</span> Venn Diagram</h2>
 <p>Another common visualization is a Venn-diagram. In this document for instance, both DESeq2 and edgeR have been used to find DEGs. To quickly compare the results from these packages we can create a single diagram showing how many DEGs are found by both packages and - also interesting - the number of genes (<em>amount</em>, not <em>which</em>) that are uniquely found by both approaches. Most likely you will be comparing DEGs between <em>groups</em> instead of methods. For our example dataset, this could have been comparing DEGs comparing <em>IPSC trisomic vs IPSC disomic</em> DEGs with <em>NEUR trisomic vs NEUR disomic</em> DEGs.</p>
 <p>Creating a Venn-diagram can be a good method for selecting a (sub)set of DEGs, for instance by selecting the set of DEGs that are shared between groups (the <em>Intersection</em>, see the <a href="https://en.wikipedia.org/wiki/Set_theory">Wikipedia page on Set Theory</a> or the other way around, only the DEGs that are unique for a group (the <em>Difference</em>). Keep this in mind when continuing on to the <a href="chapter-5.html#clustering">clustering</a> section below where it is most likely not useful to cluster all combinations you might have.</p>
-<p>Code examples: * Data preparation (first code-chunk): creating vectors of DEGs for both packages. These DEGs are the gene names (taken from the rownames of the edgeR and DESeq2 outputs) * Using the <code>VennDiagram</code> library (second code-chunk): good for complex/ large number of comparison, highly configurable but more difficult to use. To see some examples, run the following function in the Console: <code>example('draw.quad.venn')</code> * Using the <code>gplots</code> library (third code-chunk): Easier to use and support for more complex Venn diagrams, but not good for adjusting appearance.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># edgeR data:</span>
+<p>Code examples:
+* Data preparation (first code-chunk): creating vectors of DEGs for both packages. These DEGs are the gene names (taken from the rownames of the edgeR and DESeq2 outputs)
+* Using the <code>VennDiagram</code> library (second code-chunk): good for complex/ large number of comparison, highly configurable but more difficult to use. To see some examples, run the following function in the Console: <code>example('draw.quad.venn')</code>
+* Using the <code>gplots</code> library (third code-chunk): Easier to use and support for more complex Venn diagrams, but not good for adjusting appearance.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># edgeR data:</span>
 <span class="co">#   Get the set using topTags from the output of the</span>
 <span class="co">#   &quot;Genewise Negative Binomial Generalized Linear Models with Quasi-likelihood Tests&quot;</span>
 <span class="co">#   otherwise known as the &#39;glmQLFit&#39; function from edgeR</span>
@@ -312,9 +352,9 @@ ttags &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span 
 <span class="co"># edgeR</span>
 edgeR.degs &lt;-<span class="st"> </span><span class="kw">row.names</span>(ttags[ttags<span class="op">$</span>FDR <span class="op">&lt;=</span><span class="st"> </span>pval_threshold,])
 <span class="co"># DESeq2</span>
-DESeq.degs &lt;-<span class="st"> </span><span class="kw">row.names</span>(deseq.results[deseq.results<span class="op">$</span>padj <span class="op">&lt;=</span><span class="st"> </span>pval_threshold,])</code></pre></div>
+DESeq.degs &lt;-<span class="st"> </span><span class="kw">row.names</span>(deseq.results[deseq.results<span class="op">$</span>padj <span class="op">&lt;=</span><span class="st"> </span>pval_threshold,])</code></pre>
 <p>The two created vectors of rownames can be used by either taking their lengths (for the <code>VennDiagram</code> library) or just their names (for the <code>gplots</code> library).</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Venn-diagram using the `VennDiagram` library (see below for alternative method)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Venn-diagram using the `VennDiagram` library (see below for alternative method)</span>
 <span class="kw">library</span>(VennDiagram)
 <span class="co"># Calculate the intersection of the two sets</span>
 deg.intersect =<span class="st"> </span><span class="kw">length</span>(<span class="kw">intersect</span>(edgeR.degs, DESeq.degs))
@@ -330,7 +370,7 @@ venn.plot &lt;-<span class="st"> </span><span class="kw">draw.pairwise.venn</spa
                                 <span class="dt">cat.pos =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>))
 
 <span class="co"># Actually plot the plot</span>
-<span class="kw">grid.draw</span>(venn.plot)</code></pre></div>
+<span class="kw">grid.draw</span>(venn.plot)</code></pre>
 <div class="figure"><span id="fig:vennDiagram"></span>
 <img src="gene_expression_files/figure-html/vennDiagram-1.png" alt="Venn diagram comparing edgeR and DESeq2 DEGs using 'VennDiagram'" width="672" />
 <p class="caption">
@@ -338,11 +378,11 @@ Figure 5.3: Venn diagram comparing edgeR and DESeq2 DEGs using ‘VennDiagram’
 </p>
 </div>
 <p>As mentioned, following is an easier alternative (especially when you have &gt; 2 groups) with the <code>venn</code> function from the <code>gplots</code> library. This only needs a list containing either the row-numbers or the gene-names of the DEGs which is easier (but offers less adjustability to make it prettier).</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Alternative method using the `gplots` library</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Alternative method using the `gplots` library</span>
 <span class="kw">library</span>(gplots)
 <span class="co"># Create a Venn-diagram given just the list of gene-names for both sets</span>
 <span class="kw">venn</span>(<span class="kw">list</span>(<span class="dt">edgeR =</span> edgeR.degs,
-          <span class="dt">DESeq =</span> DESeq.degs))</code></pre></div>
+          <span class="dt">DESeq =</span> DESeq.degs))</code></pre>
 <div class="figure"><span id="fig:alternativeVenn"></span>
 <img src="gene_expression_files/figure-html/alternativeVenn-1.png" alt="Venn diagram comparing edgeR and DESeq2 DEGs using 'gplots'" width="672" />
 <p class="caption">
@@ -453,12 +493,12 @@ Figure 5.5: Boxplot comparing spread of log fold change values
 <h2><span class="header-section-number">5.3</span> Clustering</h2>
 <p>One of the basic visualization steps to show expression data and patterns accross samples. Here, we can create a heatmap of the found DEGs for all samples where the colors show the fold-change value. Usually this heatmap is shown with a two color gradient; from red (downregulated) to green (upregulated). This is however optional and using the default colors from <code>pheatmap</code> for example is perfectly fine as long as a proper legend is present.</p>
 <p>There are multiple methods of creating a heatmap (one of which you’ve already used) and most of these directly apply clustering in the visualization. This clustering can be applied to the expression pattern of a gene (row-clustering), the expression pattern of a sample (column-clustering) or both (default for <code>pheatmap</code>). The first example shown here uses column-based clustering as it shows the replicates for multiple groups (IPSC disomic and trisomic) with their rlog-transformed expression values for the top 30 genes as found by DESeq2. This first example allows an overview of the expression patterns for the DEGs and to see the differences in expression between replicates. It is expected that the replicates for each group cluster together as shown in this example. Genes (rows) are clustered based on their expression values.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">genes &lt;-<span class="st"> </span><span class="kw">rownames</span>(ttags[<span class="kw">abs</span>(ttags<span class="op">$</span>logFC) <span class="op">&gt;=</span><span class="st"> </span><span class="dv">1</span>,])[<span class="dv">1</span><span class="op">:</span><span class="dv">30</span>]
+<pre class="sourceCode r"><code class="sourceCode r">genes &lt;-<span class="st"> </span><span class="kw">rownames</span>(ttags[<span class="kw">abs</span>(ttags<span class="op">$</span>logFC) <span class="op">&gt;=</span><span class="st"> </span><span class="dv">1</span>,])[<span class="dv">1</span><span class="op">:</span><span class="dv">30</span>]
 <span class="co"># Add the averages for both groups and (manually) calculate the log-FC</span>
 deseq.results<span class="op">$</span>di &lt;-<span class="st"> </span><span class="kw">rowMeans</span>(deseq.results[,ipsc.di])
 deseq.results<span class="op">$</span>tri &lt;-<span class="st"> </span><span class="kw">rowMeans</span>(deseq.results[,ipsc.tri])
 deseq.results<span class="op">$</span>rloglFC &lt;-<span class="st"> </span>deseq.results<span class="op">$</span>tri <span class="op">-</span><span class="st"> </span>deseq.results<span class="op">$</span>di
-replicate.lFC &lt;-<span class="st"> </span>deseq.results[genes, ipsc.tri] <span class="op">-</span><span class="st"> </span>deseq.results[genes, <span class="st">&#39;di&#39;</span>]</code></pre></div>
+replicate.lFC &lt;-<span class="st"> </span>deseq.results[genes, ipsc.tri] <span class="op">-</span><span class="st"> </span>deseq.results[genes, <span class="st">&#39;di&#39;</span>]</code></pre>
 <div class="figure"><span id="fig:expressionHeatmap"></span>
 <img src="gene_expression_files/figure-html/expressionHeatmap-1.png" alt="Heatmap showing the expression values of all disomic and trisomic IPSC samples" width="672" />
 <p class="caption">
@@ -490,11 +530,11 @@ Figure 5.7: Heatmap showing the Log Fold Changes of all trisomic vs averaged dis
 <p class="caption"><em>DAVID functional annotation methods</em></p>
 </div>
 <p>The following example code writes the gene <em>symbols</em> for both analysis approaches to a file for upload on DAVID.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Write gene names to a file</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Write gene names to a file</span>
 <span class="kw">write.table</span>(edgeR.degs, <span class="dt">file =</span> <span class="st">&quot;../data/edger-deg-names.txt&quot;</span>,
             <span class="dt">row.names =</span> <span class="ot">FALSE</span>, <span class="dt">quote =</span> <span class="ot">FALSE</span>, <span class="dt">col.names =</span> <span class="ot">FALSE</span>)
 <span class="kw">write.table</span>(DESeq.degs, <span class="dt">file =</span> <span class="st">&quot;../data/deseq-deg-names.txt&quot;</span>,
-            <span class="dt">row.names =</span> <span class="ot">FALSE</span>, <span class="dt">quote =</span> <span class="ot">FALSE</span>, <span class="dt">col.names =</span> <span class="ot">FALSE</span>)</code></pre></div>
+            <span class="dt">row.names =</span> <span class="ot">FALSE</span>, <span class="dt">quote =</span> <span class="ot">FALSE</span>, <span class="dt">col.names =</span> <span class="ot">FALSE</span>)</code></pre>
 <p><strong>Upload data</strong></p>
 <p>Click on the <em>Start Analysis</em> button at the top of the DAVID website. Then, copy the genes (<strong>A</strong>) or upload the file (<strong>B</strong>) and select the proper identifier type (<em>OFFICIAL_GENE_SYMBOL</em> in this example). Select the <em>Gene List</em> option in <em>Step 3</em> and click on the <em>Submit List</em> button in <em>Step 4</em>.</p>
 <div class="figure">
@@ -539,16 +579,16 @@ Figure 5.7: Heatmap showing the Log Fold Changes of all trisomic vs averaged dis
 <p>“… It maps and renders a wide variety of biological data on relevant pathway graphs. All users need is to supply their data and specify the target pathway. Pathview automatically downloads the pathway graph data, parses the data file, maps user data to the pathway, and render pathway graph with the mapped data.”</p>
 </blockquote>
 <p>This section demonstrates only the use of the bioconductor package for visualizing not only the DEGs onto pathways, but also the change in expression for each gene.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Bioconductor library (install with bioclite() if missing)
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co">## Bioconductor library (install with bioclite() if missing)</span>
 <span class="kw">library</span>(pathview)
 
-## Example pathway IDs (for human, change organism key for other organisms)
+<span class="co">## Example pathway IDs (for human, change organism key for other organisms)</span>
 <span class="kw">data</span>(<span class="st">&quot;paths.hsa&quot;</span>)
-<span class="kw">pander</span>(<span class="kw">head</span>(paths.hsa, <span class="dt">n=</span><span class="dv">5</span>))</code></pre></div>
-<table style="width:81%;">
+<span class="kw">pander</span>(<span class="kw">head</span>(paths.hsa, <span class="dt">n=</span><span class="dv">5</span>))</code></pre>
+<table style="width:82%;">
 <colgroup>
 <col width="43%" />
-<col width="37%" />
+<col width="38%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -567,8 +607,8 @@ Figure 5.7: Heatmap showing the Log Fold Changes of all trisomic vs averaged dis
 <table>
 <colgroup>
 <col width="36%" />
-<col width="34%" />
-<col width="28%" />
+<col width="33%" />
+<col width="29%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -580,19 +620,21 @@ Figure 5.7: Heatmap showing the Log Fold Changes of all trisomic vs averaged dis
 <tbody>
 <tr class="odd">
 <td align="center">Pentose phosphate pathway</td>
-<td align="center">Pentose and glucuronate interconversions</td>
-<td align="center">Fructose and mannose metabolism</td>
+<td align="center">Pentose and glucuronate
+interconversions</td>
+<td align="center">Fructose and mannose
+metabolism</td>
 </tr>
 </tbody>
 </table>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Check &#39;gene.idtype&#39; argument possibilities
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co">## Check &#39;gene.idtype&#39; argument possibilities</span>
 <span class="kw">data</span>(gene.idtype.list); 
-<span class="kw">pander</span>(gene.idtype.list)</code></pre></div>
+<span class="kw">pander</span>(gene.idtype.list)</code></pre>
 <p><em>SYMBOL</em>, <em>GENENAME</em>, <em>ENSEMBL</em>, <em>ENSEMBLPROT</em>, <em>UNIGENE</em>, <em>UNIPROT</em>, <em>ACCNUM</em>, <em>ENSEMBLTRANS</em>, <em>REFSEQ</em>, <em>ENZYME</em>, <em>TAIR</em>, <em>PROSITE</em> and <em>ORF</em></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Prepare data for visualization
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co">## Prepare data for visualization</span>
 deseq.degs.logfc &lt;-<span class="st"> </span><span class="kw">subset</span>(deseq.results, padj <span class="op">&lt;</span><span class="st"> </span>pval_threshold, <span class="dt">select =</span> log2FoldChange)
 
-<span class="kw">pander</span>(<span class="kw">head</span>(deseq.degs.logfc))</code></pre></div>
+<span class="kw">pander</span>(<span class="kw">head</span>(deseq.degs.logfc))</code></pre>
 <table style="width:47%;">
 <colgroup>
 <col width="23%" />
@@ -631,17 +673,17 @@ deseq.degs.logfc &lt;-<span class="st"> </span><span class="kw">subset</span>(de
 </tr>
 </tbody>
 </table>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">pathview</span>(<span class="dt">gene.data=</span>deseq.degs.logfc,
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">pathview</span>(<span class="dt">gene.data=</span>deseq.degs.logfc,
          <span class="dt">pathway.id=</span><span class="st">&quot;00020&quot;</span>, <span class="co"># TCA-cycle</span>
          <span class="dt">species=</span><span class="st">&quot;hsa&quot;</span>     <span class="co"># Organism key</span>
-)</code></pre></div>
+)</code></pre>
 <p>It is fine to use the webtool too for this purpose however it is not notacibly easier to use than the R package.</p>
 </div>
 <div id="spia" class="section level3">
 <h3><span class="header-section-number">5.4.3</span> Signaling Pathway Impact Analysis (&gt;20 DEGs)</h3>
 <p>To also look at the <em>topology</em> of <em>how</em> genes interact with each other, we can use the <a href="http://bioconductor.org/packages/release/bioc/html/SPIA.html">SPIA</a> Bioconductor package. This package takes a list of Entrez gene IDs for all DEGs and the complete list of Entrez IDs for all present genes and evaluates - per pathway - if genes are involved and if the pathway is either inhibited or activated.</p>
 <p>The code below uses data objects that were not always shown before, see the tables below for their contents.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Bioconductor package for &quot;Signaling Pathway Impact Analysis&quot;</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Bioconductor package for &quot;Signaling Pathway Impact Analysis&quot;</span>
 <span class="co"># (install with biocLite(&quot;SPIA&quot;) if it is not installed)</span>
 <span class="kw">library</span>(SPIA)
 <span class="co"># Only used for the `subset` function</span>
@@ -652,12 +694,12 @@ sig_genes &lt;-<span class="st"> </span><span class="kw">subset</span>(deseq.res
 <span class="co"># Make it a named vector by assigning the Entrez ID&#39;s to each log(FC) value</span>
 <span class="kw">names</span>(sig_genes) &lt;-<span class="st"> </span><span class="kw">subset</span>(deseq.results, padj <span class="op">&lt;</span><span class="st"> </span>pval_threshold, <span class="dt">select =</span> EntrezID)[[<span class="dv">1</span>]]
 <span class="co"># A complete list of Entrez IDs for all genes in this experiment</span>
-all_genes &lt;-<span class="st"> </span>deseq.results<span class="op">$</span>EntrezID</code></pre></div>
+all_genes &lt;-<span class="st"> </span>deseq.results<span class="op">$</span>EntrezID</code></pre>
 <p>The input <code>sig_genes</code> named vector contents:</p>
-<table style="width:26%;">
+<table style="width:31%;">
 <colgroup>
 <col width="15%" />
-<col width="11%" />
+<col width="15%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -710,11 +752,11 @@ all_genes &lt;-<span class="st"> </span>deseq.results<span class="op">$</span>En
 </table>
 <p>(subset) of DESeq2 DEGs with their Entrez ID and log2(FC) value</p>
 <p>And the <code>all_genes</code> vector or Entrez IDs input (note that this does not contain any expression information, just IDs):</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">pander</span>(all_genes[<span class="kw">which</span>(idx)[<span class="dv">100</span><span class="op">:</span><span class="dv">110</span>]])</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">pander</span>(all_genes[<span class="kw">which</span>(idx)[<span class="dv">100</span><span class="op">:</span><span class="dv">110</span>]])</code></pre>
 <p><em>55584</em>, <em>5010</em>, <em>6320</em>, <em>387836</em>, <em>154790</em>, <em>7461</em>, <em>79935</em>, <em>26047</em>, <em>85445</em>, <em>78989</em> and <em>57699</em></p>
 <p>To start processing all pathways looking for influenced signal pathway, execute the <code>spia</code> function for the proper organism (Mus Musculus, or <code>mmu</code> in this case):</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Process all signaling pathways to see if they are inhibited or activated</span>
-spia_result &lt;-<span class="st"> </span><span class="kw">spia</span>(<span class="dt">de=</span>sig_genes, <span class="dt">all=</span>all_genes, <span class="dt">organism=</span><span class="st">&quot;hsa&quot;</span>, <span class="dt">plots=</span><span class="ot">TRUE</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Process all signaling pathways to see if they are inhibited or activated</span>
+spia_result &lt;-<span class="st"> </span><span class="kw">spia</span>(<span class="dt">de=</span>sig_genes, <span class="dt">all=</span>all_genes, <span class="dt">organism=</span><span class="st">&quot;hsa&quot;</span>, <span class="dt">plots=</span><span class="ot">TRUE</span>)</code></pre>
 <p>Running this function will print a list of (&gt; 100) pathways it will analyze, so this will take a while:</p>
 <pre><code>Done pathway 1 : RNA transport..
 Done pathway 2 : RNA degradation..
@@ -737,12 +779,12 @@ Done pathway 135 : Viral myocarditis..</code></pre>
 <p>The resulting data frame is ordered by a p-value and contains the following information:</p>
 <table>
 <colgroup>
-<col width="43%" />
+<col width="41%" />
 <col width="10%" />
 <col width="10%" />
 <col width="7%" />
 <col width="15%" />
-<col width="11%" />
+<col width="15%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -798,13 +840,13 @@ Done pathway 135 : Viral myocarditis..</code></pre>
 </tbody>
 </table>
 <p>Top signaling pathways (continued below)</p>
-<table style="width:74%;">
+<table style="width:75%;">
 <colgroup>
 <col width="11%" />
 <col width="16%" />
 <col width="15%" />
 <col width="15%" />
-<col width="15%" />
+<col width="16%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -854,7 +896,7 @@ Done pathway 135 : Viral myocarditis..</code></pre>
 </tbody>
 </table>
 <p>To get an overal picture we can create a plot where each pathway is a point which is placed according to the <code>spia</code> calculated over-representation p-value and pNDE (which is the probability to observe at least nDE genes on the pathway). In this case it is obvious that Alzheimer’s and Parkinson’s pathways with ID’s 05010 and 05012 respectively are the most influenced by this experiment, according to this method.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plotP</span>(spia_result)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plotP</span>(spia_result)</code></pre>
 <div class="figure"><span id="fig:spiaResultPlotP"></span>
 <img src="gene_expression_files/figure-html/spiaResultPlotP-1.png" alt="SPIA two-way evidence plot showing the most influenced pathways" width="672" />
 <p class="caption">
@@ -924,7 +966,7 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    var src = "";
+    var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(src))
       src = src.replace(/^https?:/, '');

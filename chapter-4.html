@@ -25,7 +25,7 @@
 <meta name="author" content="Marcel Kempenaar">
 
 
-<meta name="date" content="2019-04-24">
+<meta name="date" content="2019-05-23">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -51,41 +51,67 @@
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -174,7 +200,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="A" data-path="a1-batch-data-loading.html"><a href="a1-batch-data-loading.html"><i class="fa fa-check"></i><b>A</b> Appendix A: Batch Loading Expression Data in R</a><ul>
 <li class="chapter" data-level="A.1" data-path="a1-batch-data-loading.html"><a href="a1-batch-data-loading.html#decompressing"><i class="fa fa-check"></i><b>A.1</b> Decompressing</a></li>
 <li class="chapter" data-level="A.2" data-path="a1-batch-data-loading.html"><a href="a1-batch-data-loading.html#determining-data-format"><i class="fa fa-check"></i><b>A.2</b> Determining Data Format</a></li>
-<li class="chapter" data-level="A.3" data-path="chapter-3.html"><a href="chapter-3.html#loading-data"><i class="fa fa-check"></i><b>A.3</b> Loading Data</a></li>
+<li class="chapter" data-level="A.3" data-path="a1-batch-data-loading.html"><a href="a1-batch-data-loading.html#loading-data-1"><i class="fa fa-check"></i><b>A.3</b> Loading Data</a></li>
 </ul></li>
 <li class="chapter" data-level="B" data-path="a2-annotation.html"><a href="a2-annotation.html"><i class="fa fa-check"></i><b>B</b> Annotating an RNA-Seq Experiment</a><ul>
 <li class="chapter" data-level="B.1" data-path="a2-annotation.html"><a href="a2-annotation.html#download-geo"><i class="fa fa-check"></i><b>B.1</b> Downloading annotation data from GEO</a></li>
@@ -212,6 +238,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="deg-preprocessing" class="section level2">
 <h2><span class="header-section-number">4.1</span> Pre-processing</h2>
 <p>Given the results of the exploratory data analysis performed in <a href="chapter-3.html#chapter-3">chapter 3</a>, you might have concluded that there are one or more samples that show (very) deviating expression patterns compared to samples from the same group. As mentioned before, <em>if</em> you have more then enough (&gt; 3) samples in a group, you might opt to remove a sample to reduce the noise as the statistical tests are very sensitive to this. Since we are performing all analysis steps programatically it is also very easy to test for DEGs with and without the sample(s) in question and see if the removal results in lower p-values (= higher significance). If this is the case you can continue on without those sample(s). As always, be sure to properly document this, including the reason why you chose to remove them.</p>
+<p>If your data <strong>only</strong> consists of the read counts we are going to apply another normalization technique. The previously used <code>rlog</code> normalization is the advised method for the visualizations we performed, but for finding DEGs there are better methods. One of these generally accepted method of normalizing count data is to calculate the <em>fragments per million mapped fragments</em> (FPM) value and then transform this with log2. Opposed to FPKM and RPKM this does not include the gene-length in its calculation (which you most likely don’t have). If your dataset also includes FPKM or RPKM (pre-normalized), you are allowed to use this data too. Always clearly document if you did so!</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Perform FPM normalization using DESeq2 &#39;fpm&#39; and perform log2 transformation</span>
+<span class="co"># The &#39;ddsMat&#39; object is the &#39;DESeqDataSet&#39; created in chapter 3; EDA.</span>
+<span class="co"># </span><span class="al">NOTE</span><span class="co">: only for count data and observe the pseudocount of 1 (remove if data does not contain 0-values)</span>
+counts.fpm &lt;-<span class="st"> </span><span class="kw">log2</span>( <span class="kw">fpm</span>(ddsMat, <span class="dt">robust =</span> <span class="ot">TRUE</span>) <span class="op">+</span><span class="st"> </span><span class="dv">1</span> )</code></pre>
 <p>Another step we need to take - and this might be guided by your article - is to filter out (partially) inactive genes. Most datasets available contains a lot of 0-measurements, transcripts where no reads have mapped. In the R-studio <em>Environment</em> tab, click on your dataset (or perform the <code>View(data)</code> command and click on one of the sample columns to order the data ascending. You will now most likely (unless you have bacterial data for instance) see a lot of zero values in all columns. In an experiment with two groups, three replicates each, if three out of those six samples have 0-reads mapped, it is often adviced to remove the gene completely. But this can be very subjective to the experiment, it might be expected (thus important) when comparing different tissues or knockout experiments. Also, genes with a (very) low read count (&lt; 5) can give a very high (artificial) FC value (see the lefthand side of an MA-plot). Comparing two samples where one has a value of 2 and the other 11, this reads as an up-regulated gene by a factor of <em>5.5</em> while it might actually just be <em>noise</em>!</p>
 <ul>
 <li><strong>Assignment</strong>: Search through your article for any advice on how to filter out zero values or low count genes. If there is nothing stated on this subject, think of your own tactic (or search the literature/ online!). It is perfectly fine to discuss with your peers.
@@ -228,7 +259,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>The FC is usually given as the calculated <code>log2</code> of the <em>case/control</em> ratio. For example, gene A has an average expression of 30 mapped reads in the control group and 88 reads in the experiment group, the <strong>ratio</strong> <em>case/control</em> is <code>2.93</code>. Ratio values &gt; 1 indicate increased expression in the experiment in relation to the control and values between 0 and 1 indicate lower expression. The log2 transformed value of the ratio is calculated with <code>log2(2.93)</code> and results in <code>1.55</code>. If the counts were reversed, the ratio would have been <code>30/88</code>, which is <code>0.34</code>. The previously calculated value of <code>2.93</code> means a 3-fold up regulation while the <code>0.34</code> value means 3-fold down regulation but you can see the range of numbers is very different. Comparing log2 values this would be <code>1.55</code> and <code>-1.55</code> which compares much better.</p>
 <p>While it is very easy to calculate the FC for all genes at once, a simple FC value doesn’t mean much, yet! We still need to use the power that lie within the replicates we have for each sample group. Using these replicates, we want to determine if the observed FC is not just biological noise or a sequencing error.</p>
 <ul>
-<li><strong>Assignment</strong>: Create a <code>histogram</code> of your log2-FC values for <em>all</em> genes. Apply the following steps on your <em>rlog normalized data</em> from chapter 3 for at least one comparison (no need to do it for all possible combinations):</li>
+<li><strong>Assignment</strong>: Create a <code>histogram</code> of your log2-FC values for <em>all</em> genes. Apply the following steps on your <em>FPM-normalized data</em> from chapter 3 for at least one comparison (no need to do it for all possible combinations):
+<ul>
 <li>average the replicates for each group and add this as a new column to your data set,</li>
 <li>calculate the log Fold Change (lFC); simply <em>subtract</em> one group (averaged-column) by another, usually <code>experiment</code>-<code>control</code>
 <ul>
@@ -239,23 +271,19 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <ul>
 <li>If your data shows very low fold-change values you might see no genes outside of this boundary. This does not mean that we will not find any significantly changed genes (DEGs).</li>
 </ul></li>
+</ul></li>
 </ul>
 <p>If a calculated FC shows a large change in expression between groups this means nothing if the variation <em>within</em> a group is very high. For this reason we use some form of statistical test that checks both the variation in each group <em>and</em> the difference between groups of samples. In the simplest form this usually comes down to using a <a href="https://en.wikipedia.org/wiki/Student%27s_t-test"><em>t</em>-test</a>:</p>
 <blockquote>
 <p>“It can be used to determine if two sets of data are significantly different from each other”</p>
 </blockquote>
 <p>It does however depend on your experimental setup when it comes down to deciding the proper statistical test to perform and for that it is best to look at your experiment article to see what the authors used for method. Most often though, the article only mentions the use of one or more R libraries of other software packages for finding DEGs. In this case you can find the appropriate method by determining the possible combinations to test.</p>
-<p>The output of finding DEG’s always includes - but is not limited to - a list of <em>p-values</em>; usually one p-value per gene. This value indicates whether that gene is a <em>statistically-significant differentially expressed gene</em> (SDEG) and to find these genes of interest all we need to do is get all genes with a p-value below our threshold (i.e. <code>0.05</code>). Because we will get at least two p-values per gene (one found using manually statistical testing and one through the use of a library) we can make multiple selections, i.e. compare methods, find genes that have a low p-value in both methods and visualize these results in a <em>venn-diagram</em> (see section <a href="#deg-visualization">visualization</a>).</p>
+<p>The output of finding DEG’s always includes - but is not limited to - a list of <em>p-values</em>; usually one p-value per gene. This value indicates whether that gene is a <em>statistically-significant differentially expressed gene</em> (SDEG) and to find these genes of interest all we need to do is get all genes with a p-value below our threshold (i.e. <code>0.05</code>). Because we will get at least two p-values per gene (one found using manually statistical testing and one through the use of a library) we can make multiple selections, i.e. compare methods, find genes that have a low p-value in both methods and visualize these results in a <em>venn-diagram</em> (see section <a href="#deg-visualization">visualization</a>).</p>
 </div>
 <div id="deg-manual" class="section level2">
 <h2><span class="header-section-number">4.3</span> Using Manual Methods (<code>t-test</code> &amp; <code>ANOVA</code>)</h2>
 <p>Performing the statistical tests yourself consists of performing either a t-test or an ANOVA based analysis. Both of these methods have multiple forms and the one to choose fully depends on what question you’d like to ask. Again, refer to your experimental setup and any hints found in the article <em>or</em> formulate your own question and base the decision on that.</p>
 <p>Manually performing a t-test or ANOVA on gene expression opposed to using one of the specialized libraries can have advantages since every gene is processed individually, while <code>edgeR</code> and <code>DESeq2</code> look at <em>all</em> genes and this might ‘smooth’ the results which is not always wanted. We will find out later if and how this affects your data set.</p>
-<p>If your data <strong>only</strong> consists of the read counts there is an extra normalisation step to perform (only for the manual methods explained in this section, keep the count data stored as well!). One generally accepted method of normalizing count data is to calculate the <em>fragments per million mapped fragments</em> (FPM) value and then transform this with log2. Opposed to FPKM and RPKM this does not include the gene-length in its calculation (which you most likely don’t have) but as said before we apply the test per gene and do not need to compare multiple genes. If your dataset also includes FPKM or RPKM (pre-normalized), you are allowed to use this data too. Always clearly document if you did so! Once you performed a manual statistical test, be sure to read the section on <a href="chapter-4.html#deg-mtc">Multiple Testing Correction</a> further on in this chapter.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Perform FPM normalization using DESeq2 &#39;fpm&#39; and perform log2 transformation</span>
-<span class="co"># The &#39;ddsMat&#39; object is the &#39;DESeqDataSet&#39; created in chapter 3; EDA.</span>
-<span class="co"># </span><span class="al">NOTE</span><span class="co">: only for count data and observe the pseudocount of 1 (remove if data does not contain 0-values)</span>
-counts.fpm &lt;-<span class="st"> </span><span class="kw">log2</span>( <span class="kw">fpm</span>(ddsMat, <span class="dt">robust =</span> <span class="ot">TRUE</span>) <span class="op">+</span><span class="st"> </span><span class="dv">1</span> )</code></pre></div>
 <p>Next is selecting the test to perform, the following links show diagrams that can be used once the experimental design is known:</p>
 <p><em>What test to use</em> links:</p>
 <ul>
@@ -263,7 +291,7 @@ counts.fpm &lt;-<span class="st"> </span><span class="kw">log2</span>( <span cla
 <li><a href="http://www.biochemia-medica.com/content/comparing-groups-statistical-differences-how-choose-right-statistical-test">Biochemia - image at the bottom of the article</a></li>
 <li><a href="http://www.practicallyscience.com/wp-content/uploads/2015/07/significance-tests-v4-op2.jpg">PracticallyScience</a></li>
 </ul>
-<p>These examples may include terms that are unclear. If so, please ask or perform a standard internet search as these terms are explained in multiple tutorials about performing these widely used statistical tests.</p>
+<p>These examples may include terms that are unclear. If so, please ask or perform a standard internet search as these terms are explained in multiple tutorials about performing these widely used statistical tests. Once you performed a manual statistical test, be sure to read the section on <a href="chapter-4.html#deg-mtc">Multiple Testing Correction</a> further on in this chapter.</p>
 <ul>
 <li><strong>Assignment</strong>: Think of a question (i.e. a comparison between two or more sample groups) to ask the data and perform a statistical test to find the relevant genes for this question. Briefly explain this comparison (maybe it was the one resulting in the most interesting results listed in the article) and introduce the test that you are going to perform.
 <ul>
@@ -278,10 +306,10 @@ counts.fpm &lt;-<span class="st"> </span><span class="kw">log2</span>( <span cla
 Note that it is necessary to perform a single t-test for <em>every</em> gene (row) of your data set, including all replicates for the involved group. This means that you need to either use one of the <code>apply()</code> set of functions or find a different method (there is one specifically for this problem) to make sure that you test each gene separately. From the output of the t-test you only need to keep the calculated <em>p-value</em>; one value per gene (row) in your data set. In R, you can append this as a column to your dataframe/ matrix containing the normalized count values.
 </p>
 </div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Note: Single-gene only example
-## Convert to simple numeric vectors, used for the variance test
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co">## Note: Single-gene only example</span>
+<span class="co">## Convert to simple numeric vectors, used for the variance test</span>
 ipsc.exp &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(counts.fpm[<span class="st">&quot;KCTD14&quot;</span>, di_IPSC])
-neur.exp &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(counts.fpm[<span class="st">&quot;KCTD14&quot;</span>, di_NEUR])</code></pre></div>
+neur.exp &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(counts.fpm[<span class="st">&quot;KCTD14&quot;</span>, di_NEUR])</code></pre>
 <table style="width:100%;">
 <colgroup>
 <col width="16%" />
@@ -314,16 +342,16 @@ neur.exp &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(counts
 </table>
 <p>Data for t-test, di_IPSC (case, 3 samples) vs di_NEUR (control, 3 samples), “KCTD14” gene</p>
 <p>First, we test (F-test) if the variance (the average of the squared differences from the mean) in the two sample groups is equal as we need to supply the t-test with this information (by default, it assumes different variance). Note that before performing an F-test, it should first be validated that the data is normally distributed, i.e. using a Shapiro-Wilk test (you are <strong>not</strong> expected to do this test too, as a dataset with a three-replicate setup does not provide enough information for this test).</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Test for equal variance (H0 = &#39;equal variance&#39;)
-variance &lt;-<span class="st"> </span><span class="kw">var.test</span>(ipsc.exp, neur.exp, <span class="dt">alternative =</span> <span class="st">&#39;two.sided&#39;</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co">## Test for equal variance (H0 = &#39;equal variance&#39;)</span>
+variance &lt;-<span class="st"> </span><span class="kw">var.test</span>(ipsc.exp, neur.exp, <span class="dt">alternative =</span> <span class="st">&#39;two.sided&#39;</span>)</code></pre>
 <table>
 <colgroup>
 <col width="18%" />
 <col width="9%" />
 <col width="11%" />
 <col width="10%" />
-<col width="27%" />
-<col width="21%" />
+<col width="26%" />
+<col width="22%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -348,7 +376,7 @@ variance &lt;-<span class="st"> </span><span class="kw">var.test</span>(ipsc.exp
 </table>
 <p>F test to compare two variances: <code>ipsc.exp</code> and <code>neur.exp</code></p>
 <p>In this case, it seems that the variance does <strong>not</strong> differ significantly (P-value of <code>0.3317</code> &gt; <code>0.05</code>) between the two sample groups, therefore set the <code>var.equal</code> argument in the <code>t.test</code> function to <code>TRUE</code>. Most experiments are unpaired; meaning that the expression for a replicate in group A is from a different subject/ person then the expression for a replicate in group B. If however you have time-series data where the same subjects/ persons are used in multiple sample groups, you should set the <code>paired</code> option in the <code>t.test</code> function to <code>TRUE</code>. In most other situations, keep this setting to its default; <code>FALSE</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">test &lt;-<span class="st"> </span><span class="kw">t.test</span>(ipsc.exp, neur.exp, <span class="dt">alternative =</span> <span class="st">&#39;two.sided&#39;</span>, <span class="dt">var.equal =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">test &lt;-<span class="st"> </span><span class="kw">t.test</span>(ipsc.exp, neur.exp, <span class="dt">alternative =</span> <span class="st">&#39;two.sided&#39;</span>, <span class="dt">var.equal =</span> <span class="ot">TRUE</span>)</code></pre>
 <p>The following table shows the numeric values from performing a t-test. Here we see that this gene is identified as a DEG because its <span class="math inline">\(\alpha\)</span> &lt; <code>0.05</code>. Since the t-test compares the mean of two groups, the difference between these two values (4.4 for the ‘IPSC’ group and 1.08 for the ‘NEURON’ group) are deemed significant. Do note that ‘noise’ (often a large variance within a group of replicates) has a lot of effect on the p-value.</p>
 <table>
 <colgroup>
@@ -391,7 +419,7 @@ variance &lt;-<span class="st"> </span><span class="kw">var.test</span>(ipsc.exp
 </div>
 <div id="deg-anova" class="section level3">
 <h3><span class="header-section-number">4.3.2</span> Analysis of Variance (<code>ANOVA</code>)</h3>
-<p>If you have decided that you need to perform ANOVA analysis, the experimental design as well as the question to ask become much more important. Usually it is required to perform ANOVA instead of a t-test when there are multiple (&gt; 2) conditions involved or it is a time series experiment. It is impossible to compare more than two conditions using a t-test unless using a <em>divide-and-conquer</em> approach (comparing all conditions against each other) but this is advised against since it will introduce Type I errors (false-positives). Experiments where conditions are combined (i.e. age + multiple drugs) can also be analysed using ANOVA where the question can either be the overall effect of a drug or the influence of age on the effect of a drug. The method of specifying these questions uses the same formula notation as for example the linear model (<code>lm</code>) function, i.e. <code>~ group + treatment + group:treatment</code> where group could be an <em>age</em> group and treatment a different <em>drug</em>. The most simple form of this formula is <code>~ condition</code>. Note that in this case condition is most likely an R <code>factor</code> dividing the samples in <em>case</em>/ <em>control</em> groups.</p>
+<p>If you have decided that you need to perform ANOVA analysis, the experimental design as well as the question to ask become much more important. Usually it is required to perform ANOVA instead of a t-test when there are multiple (&gt; 2) conditions involved or it is a time series experiment. It is impossible to compare more than two conditions using a t-test unless using a <em>divide-and-conquer</em> approach (comparing all conditions against each other) but this is advised against since it will introduce Type I errors (false-positives). Experiments where conditions are combined (i.e. age + multiple drugs) can also be analysed using ANOVA where the question can either be the overall effect of a drug or the influence of age on the effect of a drug. The method of specifying these questions uses the same formula notation as for example the linear model (<code>lm</code>) function, i.e. <code>~ group + treatment + group:treatment</code> where group could be an <em>age</em> group and treatment a different <em>drug</em>. The most simple form of this formula is <code>~ condition</code>. Note that in this case condition is most likely an R <code>factor</code> dividing the samples in <em>case</em>/ <em>control</em> groups.</p>
 
 <div class="rmdtip">
 <p>Let us first consider a theoretical example and work towards a practical example in R. Given an experiment with <span class="math inline">\(k\)</span> conditions as shown in the table below where each gene <span class="math inline">\(i\)</span> is measured <span class="math inline">\(n_i\)</span> times.</p>
@@ -454,17 +482,17 @@ variance &lt;-<span class="st"> </span><span class="kw">var.test</span>(ipsc.exp
 This set of hypotheses is called a <strong>Model I</strong> or <strong>fixed effects</strong>, <strong>ANOVA</strong>. The general idea behind this form of ANOVA is very simple. The measurements of each condition vary around the condition-mean (<em>within-group</em> variance). At the same time, the means of each condition will vary around an overall mean (<em>inter-group</em> variance). The idea behind ANOVA is to study the relationship between the inter-group and the within-group variances.
 </div>
 
-<p>The following practical example uses the <code>airway</code> experiment data package in R which contains RNA-Seq read count data for 8 samples. From the abstract, a brief description of the RNA-Seq experiment on airway smooth muscle (ASM) cell lines<span class="citation">(Himes BE <a href="#ref-jiang14">2014</a>)</span>:</p>
+<p>The following practical example uses the <code>airway</code> experiment data package in R which contains RNA-Seq read count data for 8 samples. From the abstract, a brief description of the RNA-Seq experiment on airway smooth muscle (ASM) cell lines<span class="citation">(Himes BE <a href="#ref-jiang14" role="doc-biblioref">2014</a>)</span>:</p>
 <blockquote>
 <p>Using RNA-Seq, a high-throughput sequencing method, we characterized transcriptomic changes in four primary human ASM cell lines that were treated with dexamethasone - a potent synthetic glucocorticoid (1 micromolar for 18 hours).</p>
 </blockquote>
 <p>The data available in the experiment package is of a certain <em>class</em> (Large <code>RangedSummarizedExperiment</code>) and contains both the count data as well as some metadata describing the experiment. Looking at the sample description table below, we can see a few columns describing variables that are used to define the experiment. In this case these are the <strong>cell</strong> (an identifier for a certain cell where each cell originates from the same subject) and <strong>dex</strong> (<code>trt</code> indicates treatment of each cell with 1 <span class="math inline">\(\mu M\)</span> <em>dexamethasone</em>, <code>untrt</code> indicates control) columns.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(airway)
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(airway)
 <span class="kw">data</span>(airway)
 
-## Sample description
-<span class="kw">colData</span>(airway)</code></pre></div>
-<table style="width:100%;">
+<span class="co">## Sample description</span>
+<span class="kw">colData</span>(airway)</code></pre>
+<table>
 <colgroup>
 <col width="14%" />
 <col width="10%" />
@@ -472,10 +500,10 @@ This set of hypotheses is called a <strong>Model I</strong> or <strong>fixed eff
 <col width="6%" />
 <col width="6%" />
 <col width="10%" />
+<col width="9%" />
 <col width="10%" />
-<col width="10%" />
-<col width="10%" />
-<col width="11%" />
+<col width="9%" />
+<col width="12%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -591,8 +619,8 @@ This set of hypotheses is called a <strong>Model I</strong> or <strong>fixed eff
 </tbody>
 </table>
 <p>Sample metadata for the airway experiment</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Count data
-<span class="kw">head</span>(<span class="kw">assay</span>(airway))</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co">## Count data</span>
+<span class="kw">head</span>(<span class="kw">assay</span>(airway))</code></pre>
 <table style="width:100%;">
 <colgroup>
 <col width="17%" />
@@ -702,16 +730,16 @@ This set of hypotheses is called a <strong>Model I</strong> or <strong>fixed eff
 <li><code>~ cell + dex + cell:dex</code></li>
 </ul>
 <p>Using a t-test we can only ask <em>either</em> the effect of dex or the cell line and not both. Note that for this experiment the <code>paired</code> argument for a t-test should be set to <code>TRUE</code> as each cell is used in both treated and untreated conditions. Using ANOVA we will now, for a single gene, show how to get the basic statistics. This can be done in two ways; either fit a model (using <code>lm</code>) and compute the <em>analysis of variance tables</em> (using <code>anova</code>) or using the wrapper function (<code>aov</code>) that models the data using <code>lm</code> from which the statistics can be gathered using the <code>summary</code> function. First we need to determine if we have a <strong>balanced</strong> or <strong>unbalanced design</strong>, i.e. do we have equal sample sizes within the levels of our independent grouping levels (independent variables are dex and cell, the count value is the dependent variable). See the code below on how to check for a balanced design. Note that all further code for this section only uses count data for <strong>one</strong> gene (the first one).</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## First, format the data so we can use it in a formula. We need the samples as rows, 
-## and the gene expression values in a single column
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co">## First, format the data so we can use it in a formula. We need the samples as rows, </span>
+<span class="co">## and the gene expression values in a single column</span>
 dex =<span class="st"> </span><span class="kw">colData</span>(airway)<span class="op">$</span>dex
 cell =<span class="st"> </span><span class="kw">colData</span>(airway)<span class="op">$</span>cell
 
 dat &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">count=</span><span class="kw">t</span>(<span class="kw">assay</span>(airway))[,<span class="dv">1</span>], <span class="co"># Count data</span>
                   dex, cell)                  <span class="co"># Group description</span>
 
-## Check for design. If all values are equal, the design is balanced
-<span class="kw">pander</span>(<span class="kw">table</span>(dat<span class="op">$</span>dex, dat<span class="op">$</span>cell))</code></pre></div>
+<span class="co">## Check for design. If all values are equal, the design is balanced</span>
+<span class="kw">pander</span>(<span class="kw">table</span>(dat<span class="op">$</span>dex, dat<span class="op">$</span>cell))</code></pre>
 <table style="width:72%;">
 <colgroup>
 <col width="16%" />
@@ -746,13 +774,13 @@ dat &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class
 </tr>
 </tbody>
 </table>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">pander</span>(dat, <span class="dt">caption =</span> <span class="st">&quot;Count data for &#39;ENSG00000000003&#39;&quot;</span>)</code></pre></div>
-<table style="width:58%;">
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">pander</span>(dat, <span class="dt">caption =</span> <span class="st">&quot;Count data for &#39;ENSG00000000003&#39;&quot;</span>)</code></pre>
+<table style="width:60%;">
 <colgroup>
 <col width="23%" />
 <col width="11%" />
 <col width="11%" />
-<col width="12%" />
+<col width="13%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -814,8 +842,8 @@ dat &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class
 </tbody>
 </table>
 <p>Count data for ‘ENSG00000000003’</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Average per treatment group
-<span class="kw">pander</span>(<span class="kw">tapply</span>(dat<span class="op">$</span>count, dat<span class="op">$</span>dex, mean))</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co">## Average per treatment group</span>
+<span class="kw">pander</span>(<span class="kw">tapply</span>(dat<span class="op">$</span>count, dat<span class="op">$</span>dex, mean))</code></pre>
 <table style="width:22%;">
 <colgroup>
 <col width="11%" />
@@ -835,7 +863,7 @@ dat &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class
 </tbody>
 </table>
 <p>There is a noticable (~40%) difference in the average expression when looking at the treatment. Looking at the difference in average for the cells we see an even bigger difference.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">pander</span>(<span class="kw">tapply</span>(dat<span class="op">$</span>count, dat<span class="op">$</span>cell, mean))</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">pander</span>(<span class="kw">tapply</span>(dat<span class="op">$</span>count, dat<span class="op">$</span>cell, mean))</code></pre>
 <table style="width:56%;">
 <colgroup>
 <col width="13%" />
@@ -860,15 +888,15 @@ dat &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class
 </tr>
 </tbody>
 </table>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Create a model for the first question listed above
-## By using two independent variables, this is a TWO-way ANOVA
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co">## Create a model for the first question listed above</span>
+<span class="co">## By using two independent variables, this is a TWO-way ANOVA</span>
 model.airway &lt;-<span class="st"> </span><span class="kw">lm</span>(count <span class="op">~</span><span class="st"> </span>cell <span class="op">+</span><span class="st"> </span>dex, <span class="dt">data=</span>dat)
 
-## Alternative method, same result:
+<span class="co">## Alternative method, same result:</span>
 <span class="co"># summary( aov(count ~ cell + dex, data=dat) )</span>
 
-## Print the analysis of variance table
-<span class="kw">pander</span>(<span class="kw">anova</span>(model.airway))</code></pre></div>
+<span class="co">## Print the analysis of variance table</span>
+<span class="kw">pander</span>(<span class="kw">anova</span>(model.airway))</code></pre>
 <table style="width:83%;">
 <colgroup>
 <col width="22%" />
@@ -915,10 +943,11 @@ model.airway &lt;-<span class="st"> </span><span class="kw">lm</span>(count <spa
 </tr>
 </tbody>
 </table>
-<p>Analysis of Variance Table For this gene, both the treatment <em>and</em> the cell have an <em>almost</em> significant p-value (<code>Pr(&gt;F)</code> &lt; 0.05). With the treatment having only two options we can simply state that the treatment shows <em>some</em> effect, but we have to accept the <span class="math inline">\(H_0\)</span> hypothesis (all means are equal) since <span class="math inline">\(\alpha\)</span> &gt; 0.05. Let’s assume for now that we found a gene with an <span class="math inline">\(\alpha\)</span> &lt; 0.05 where we reject <span class="math inline">\(H_0\)</span>. With there being 4 different cell sources, we can only say that <em>at least one cell-type shows an effect</em>. To find out exactly <em>which</em> of the cell sources that is requires multiple t-tests (<span class="math inline">\(R = 1/2k(k-1)=6\)</span> separate tests comparing all groups). Alternatively, the <code>pairwise.t.test</code> function can be used for this.</p>
+<p>Analysis of Variance Table
+For this gene, both the treatment <em>and</em> the cell have an <em>almost</em> significant p-value (<code>Pr(&gt;F)</code> &lt; 0.05). With the treatment having only two options we can simply state that the treatment shows <em>some</em> effect, but we have to accept the <span class="math inline">\(H_0\)</span> hypothesis (all means are equal) since <span class="math inline">\(\alpha\)</span> &gt; 0.05. Let’s assume for now that we found a gene with an <span class="math inline">\(\alpha\)</span> &lt; 0.05 where we reject <span class="math inline">\(H_0\)</span>. With there being 4 different cell sources, we can only say that <em>at least one cell-type shows an effect</em>. To find out exactly <em>which</em> of the cell sources that is requires multiple t-tests (<span class="math inline">\(R = 1/2k(k-1)=6\)</span> separate tests comparing all groups). Alternatively, the <code>pairwise.t.test</code> function can be used for this.</p>
 <p>After performing ANOVA some steps should be performed to check if the results are viable, tests like the <strong>Levene’s test</strong> for checking the homogeneity of variances and checking for <strong>normality</strong> of the residuals. While this is a technical solution and fully understanding falls outside of the scope of this course, a simple plot can be made (not for all genes/ tests) to see if the residuals are normally distributed. We expect the datapoints to approximately follow a straight diagonal line. Samples that differ too much are annotated in the plot and can be reason for concern.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Plotting the full model (remove the 2) shows other statistics as well
-<span class="kw">plot</span>(model.airway, <span class="dv">2</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co">## Plotting the full model (remove the 2) shows other statistics as well</span>
+<span class="kw">plot</span>(model.airway, <span class="dv">2</span>)</code></pre>
 <div class="figure">
 <img src="gene_expression_files/figure-html/anovePlot,%20anova-residuals-normality-1.png" alt="ANOVA model plot" width="672" />
 <p class="caption">
@@ -952,19 +981,23 @@ An expected side-effect of correcting for multiple-testing is the lower number o
 <p>This section demonstrates the use of two packages to perform DEG-analysis on <strong>count</strong> data. There are many packages available on Bioconductor for similar analysis, such as <code>DSS</code>, <code>EBSeq</code>, <code>NOISeq</code> and <code>BaySeq</code>, but here we will focus on <code>edgeR</code> and <code>DESeq2</code> for processing count-based data. Chances are that either of these two packages are mentioned if the article described the use of R for the statistical analysis as they are the most widely accepted methods of processing gene expression data.</p>
 <p>Both packages apply their own normalization methods (described in the sections below) therefore they only work on the <strong>raw</strong> count data. If your data consists of <strong>expected</strong> count data, you need to round these values down (using the <code>floor</code> function). You can choose one of these two packages to use, or use them both since it could increase statistical power and they are not very hard to use once you understand how to <strong>model</strong> the data as we’ll show next.</p>
 <ul>
-<li><strong>Assignment</strong>: Perform data-analysis using at least one of the two packages. If possible, use both of them so we can compare the results between the manual-testing results and both packages.</li>
+<li><strong>Assignment</strong>: Perform data-analysis using at least one of the two packages. If possible, use both of them so we can compare the results between the manual-testing results and both packages.
+<ul>
 <li>Start by documenting the relevant information from the article, also if they used other software for this analysis.</li>
+</ul></li>
 </ul>
 
 <div class="rmdtip">
-The two listed packages come with a very complete and extensive manual. These manuals can be found as PDF on the BioConductor website, or opened from within R using the <code>vignette</code> function. To see all available manuals (note; these are very different from the function-help documentation) execute the function without arguments: <code>vignette()</code>. This lists the vignettes for edgeR and DESeq2 as: * <code>vignette(&quot;DESeq2&quot;)</code> (this whole course is partly designed on this document!) * <code>vignette(&quot;edgeR&quot;)</code>
+The two listed packages come with a very complete and extensive manual. These manuals can be found as PDF on the BioConductor website, or opened from within R using the <code>vignette</code> function. To see all available manuals (note; these are very different from the function-help documentation) execute the function without arguments: <code>vignette()</code>. This lists the vignettes for edgeR and DESeq2 as:
+* <code>vignette("DESeq2")</code> (this whole course is partly designed on this document!)
+* <code>vignette("edgeR")</code>
 </div>
 
 <div id="deg-design" class="section level3">
 <h3><span class="header-section-number">4.5.1</span> The <code>Design</code> (matrix)</h3>
 <p>For all of these packages you need to properly specify <em>how</em> your samples are grouped. We have seen examples of this using an <code>R factor</code> object with the heatmap, MDS and PCA visualizations to tell which groups of samples we have and to which group each sample belongs. Reading the documentation for the below packages shows that this is an important part of performing DE-analysis. For example, the following code is shown in de <code>edgeR</code> documentation on page 8 where two sample groups are defined (numbered <code>1</code> and <code>2</code>), placed in a <code>factor</code> object and used as input in the <code>model.matrix</code> function.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">group &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>), <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;Control&quot;</span>, <span class="st">&quot;Case&quot;</span>))
-(design &lt;-<span class="st"> </span><span class="kw">model.matrix</span>( <span class="op">~</span><span class="st"> </span>group))</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">group &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>), <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;Control&quot;</span>, <span class="st">&quot;Case&quot;</span>))
+(design &lt;-<span class="st"> </span><span class="kw">model.matrix</span>( <span class="op">~</span><span class="st"> </span>group))</code></pre>
 <pre><code>##   (Intercept) groupCase
 ## 1           1         0
 ## 2           1         0
@@ -985,16 +1018,16 @@ The two listed packages come with a very complete and extensive manual. These ma
 <div id="deg-deseq2" class="section level3">
 <h3><span class="header-section-number">4.5.2</span> <code>DESeq2</code></h3>
 <p>We have used the <code>DESeq2</code> library before and for DEG analysis we could re-use the <code>DESeqDataSet</code> object but it is adviced to create a new object with the proper design formula instead of the <code>~ 1</code> we used before.</p>
-<p>There is no need to normalize the data using the previously used <code>rlog</code> function because the <code>DESeq2</code> library will normalize the count data for you as follows:</p>
+<p>There is no need to normalize the data using the previously used <code>rlog</code> or <code>fpm</code> functions because the <code>DESeq2</code> library will normalize the count data for you as follows:</p>
 <blockquote>
 <p>“DESeq computes a scaling factor for a given sample by computing the median of the ratio, for each gene, of its read count over its geometric mean across all samples. It then uses the assumption that most genes are not DE and uses this median of ratios to obtain the scaling factor associated with this sample.”</p>
 </blockquote>
 <p>For our example data with four sample groups we re-use the annotation dataframe as created in the <a href="chapter-3.html#eda_heatmap">EDA: Heatmap</a> section (printed below). This allows us to do comparisons based on the celltype and ploidy of the samples. One minor note of importance is that the first level in each factor is taken as the <em>reference</em>, or for expression analysis, the <em>control</em> group. In our example (see the table below) the IPSC is the control-celltype and disomic the control-ploidy. In a simple case/ control study, the first level (check with the <code>levels()</code> function) should be the control group. Use the <code>relevel()</code> function if the levels need to be switched.</p>
-<table style="width:51%;">
+<table style="width:53%;">
 <colgroup>
 <col width="25%" />
 <col width="12%" />
-<col width="13%" />
+<col width="15%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -1108,11 +1141,11 @@ low counts [2]     : 11906, 27%
 </tr>
 </table>
 <p>The output of the <code>results</code> function contains the following columns for each gene:</p>
-<table style="width:88%;">
+<table style="width:89%;">
 <colgroup>
 <col width="23%" />
 <col width="20%" />
-<col width="43%" />
+<col width="44%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -1125,27 +1158,32 @@ low counts [2]     : 11906, 27%
 <tr class="odd">
 <td align="center">baseMean</td>
 <td align="center">intermediate</td>
-<td align="center">mean of normalized counts for all samples</td>
+<td align="center">mean of normalized counts for
+all samples</td>
 </tr>
 <tr class="even">
 <td align="center">log2FoldChange</td>
 <td align="center">results</td>
-<td align="center">log2 fold change (MLE): group IPSC.trisomic vs IPSC.disomic</td>
+<td align="center">log2 fold change (MLE): group
+IPSC.trisomic vs IPSC.disomic</td>
 </tr>
 <tr class="odd">
 <td align="center">lfcSE</td>
 <td align="center">results</td>
-<td align="center">standard error: group IPSC.trisomic vs IPSC.disomic</td>
+<td align="center">standard error: group
+IPSC.trisomic vs IPSC.disomic</td>
 </tr>
 <tr class="even">
 <td align="center">stat</td>
 <td align="center">results</td>
-<td align="center">Wald statistic: group IPSC.trisomic vs IPSC.disomic</td>
+<td align="center">Wald statistic: group
+IPSC.trisomic vs IPSC.disomic</td>
 </tr>
 <tr class="odd">
 <td align="center">pvalue</td>
 <td align="center">results</td>
-<td align="center">Wald test p-value: group IPSC.trisomic vs IPSC.disomic</td>
+<td align="center">Wald test p-value: group
+IPSC.trisomic vs IPSC.disomic</td>
 </tr>
 <tr class="even">
 <td align="center">padj</td>
@@ -1156,8 +1194,8 @@ low counts [2]     : 11906, 27%
 </table>
 <p><em>How</em> you call the <code>results</code> function depends heavily on your experiment. As you can see from the output of the <code>summary</code> function, there are no details given about <em>which</em> comparison is shown (and also, by default a p-value of 0.1 is used instead of 0.05).</p>
 <p>Depending on the <em>design</em> used to create the <code>DESeqDataSet</code> with, one or more comparisons can be made (applying the <code>DESeq</code> function calculates all and you filter with the <code>results</code> function). Read the help for the <code>results</code> function carefully; especially regarding the <code>contrast</code> argument where you define the comparison to retrieve. The following code can be used for our example experiment to get the DEGs comparing the celltypes using an adjusted p-value of 0.05:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">res &lt;-<span class="st"> </span><span class="kw">results</span>(dds, <span class="dt">contrast =</span> <span class="kw">c</span>(<span class="st">&quot;Cell&quot;</span>, <span class="st">&quot;IPSC&quot;</span>, <span class="st">&quot;Neuron&quot;</span>),
-               <span class="dt">alpha =</span> <span class="fl">0.05</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">res &lt;-<span class="st"> </span><span class="kw">results</span>(dds, <span class="dt">contrast =</span> <span class="kw">c</span>(<span class="st">&quot;Cell&quot;</span>, <span class="st">&quot;IPSC&quot;</span>, <span class="st">&quot;Neuron&quot;</span>),
+               <span class="dt">alpha =</span> <span class="fl">0.05</span>)</code></pre>
 <p>The <code>DESeq2</code> library contains a number of plotting functions that can be applied to a <code>DESeqResults</code> object (output of the <code>results</code> function), the most notable is the <code>plotMA</code> function. Note that the first MA-plot shown below has a very high range for the log fold changes (-10, 10) where the maximum value is 22.4 (shown as a triangle stating it is outside of the plotting range). A <strong>log</strong> fold change of 22 means &gt;5 <em>million</em> increased expression which seems artificially high. DESeq2 includes a function to perform downstream processing of the estimated log fold change values called <code>lfcShrink</code> which is adviced to always run afterwards. The reason for executing this function is described in the vignette with:</p>
 <blockquote>
 <p>“It is more useful visualize the MA-plot for the shrunken log2 fold changes, which remove the noise associated with log2 fold changes from low count genes without requiring arbitrary filtering thresholds.”</p>
@@ -1299,7 +1337,7 @@ Figure 4.1: MA-plots with the standard DESeq2 output (left) and after shrinking 
 </table>
 <p>Most significant genes given by edgeR</p>
 <p>The package also contains a few plotting methods that you can use at intermediate steps during the analysis. For instance, after calculating the normalization factors (<code>calcNormFactors</code>), you can perform multi-dimensional scaling with the <code>plotMDS</code> function which is similar to what we’ve done manually in chapter three:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plotMDS</span>(y)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plotMDS</span>(y)</code></pre>
 <div class="figure"><span id="fig:edgeRPlotMDS"></span>
 <img src="gene_expression_files/figure-html/edgeRPlotMDS-1.png" alt="edgeR MDS plot based on the calculated log2 fold changes" width="672" />
 <p class="caption">
@@ -1307,7 +1345,7 @@ Figure 4.2: edgeR MDS plot based on the calculated log2 fold changes
 </p>
 </div>
 <p>Or the <em>dispersion</em> after running the <code>estimateDisp</code> function with the <code>plotBCV</code> function:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plotBCV</span>(y)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plotBCV</span>(y)</code></pre>
 <div class="figure"><span id="fig:edgeRPlotBCV"></span>
 <img src="gene_expression_files/figure-html/edgeRPlotBCV-1.png" alt="edgeR plot of several dispersion methods" width="672" />
 <p class="caption">
@@ -1315,10 +1353,10 @@ Figure 4.3: edgeR plot of several dispersion methods
 </p>
 </div>
 <p>Or the log-fold changes for all genes, once we have the output of the <code>exactTest</code> function (output <code>et</code> is an <code>DGEExact</code> object) with the <code>plotSmear</code> function. The <code>abline</code> shows a log-FC threshold:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">deGenes &lt;-<span class="st"> </span><span class="kw">decideTestsDGE</span>(qlf, <span class="dt">p=</span><span class="fl">0.05</span>)
+<pre class="sourceCode r"><code class="sourceCode r">deGenes &lt;-<span class="st"> </span><span class="kw">decideTestsDGE</span>(qlf, <span class="dt">p=</span><span class="fl">0.05</span>)
 deGenes &lt;-<span class="st"> </span><span class="kw">rownames</span>(qlf)[<span class="kw">as.logical</span>(deGenes)]
 <span class="kw">plotSmear</span>(qlf, <span class="dt">de.tags=</span>deGenes)
-<span class="kw">abline</span>(<span class="dt">h=</span><span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>), <span class="dt">col=</span><span class="dv">2</span>)</code></pre></div>
+<span class="kw">abline</span>(<span class="dt">h=</span><span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>), <span class="dt">col=</span><span class="dv">2</span>)</code></pre>
 <div class="figure"><span id="fig:edgerResults"></span>
 <img src="gene_expression_files/figure-html/edgerResults-1.png" alt="edgeR results; genes marked in red are DEGs" width="672" />
 <p class="caption">
@@ -1396,7 +1434,7 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    var src = "";
+    var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(src))
       src = src.replace(/^https?:/, '');

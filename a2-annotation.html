@@ -25,7 +25,7 @@
 <meta name="author" content="Marcel Kempenaar">
 
 
-<meta name="date" content="2019-04-24">
+<meta name="date" content="2019-05-23">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -51,41 +51,67 @@
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -174,7 +200,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="A" data-path="a1-batch-data-loading.html"><a href="a1-batch-data-loading.html"><i class="fa fa-check"></i><b>A</b> Appendix A: Batch Loading Expression Data in R</a><ul>
 <li class="chapter" data-level="A.1" data-path="a1-batch-data-loading.html"><a href="a1-batch-data-loading.html#decompressing"><i class="fa fa-check"></i><b>A.1</b> Decompressing</a></li>
 <li class="chapter" data-level="A.2" data-path="a1-batch-data-loading.html"><a href="a1-batch-data-loading.html#determining-data-format"><i class="fa fa-check"></i><b>A.2</b> Determining Data Format</a></li>
-<li class="chapter" data-level="A.3" data-path="chapter-3.html"><a href="chapter-3.html#loading-data"><i class="fa fa-check"></i><b>A.3</b> Loading Data</a></li>
+<li class="chapter" data-level="A.3" data-path="a1-batch-data-loading.html"><a href="a1-batch-data-loading.html#loading-data-1"><i class="fa fa-check"></i><b>A.3</b> Loading Data</a></li>
 </ul></li>
 <li class="chapter" data-level="B" data-path="a2-annotation.html"><a href="a2-annotation.html"><i class="fa fa-check"></i><b>B</b> Annotating an RNA-Seq Experiment</a><ul>
 <li class="chapter" data-level="B.1" data-path="a2-annotation.html"><a href="a2-annotation.html#download-geo"><i class="fa fa-check"></i><b>B.1</b> Downloading annotation data from GEO</a></li>
@@ -209,15 +235,15 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="download-geo" class="section level2">
 <h2><span class="header-section-number">B.1</span> Downloading annotation data from GEO</h2>
 <p>Given the <code>GSE****</code> id of your experiment you can download any available (annotation)data from GEO using the <code>GEOquery</code> library. For the example experiment used previously, the following code downloads two files; a <code>series_matrix.txt.gz</code> file and a <code>.soft</code> file that are both also available for download from the NCBI GEO website. Note the <code>destdir</code> argument for storing it in a known location instead of the <code>/tmp</code> folder for later use.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(GEOquery)
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(GEOquery)
 gse.id &lt;-<span class="st"> &#39;GSE101942&#39;</span>
-gse &lt;-<span class="st"> </span><span class="kw">getGEO</span>(gse.id, <span class="dt">destdir =</span> <span class="st">&quot;./data/&quot;</span>, <span class="dt">getGPL =</span> <span class="ot">TRUE</span>)</code></pre></div>
+gse &lt;-<span class="st"> </span><span class="kw">getGEO</span>(gse.id, <span class="dt">destdir =</span> <span class="st">&quot;./data/&quot;</span>, <span class="dt">getGPL =</span> <span class="ot">TRUE</span>)</code></pre>
 <p>Once downloaded, you can load the data later using:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(GEOquery)
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(GEOquery)
 gse &lt;-<span class="st"> </span><span class="kw">getGEO</span>(<span class="dt">filename =</span> <span class="st">&#39;./data/GSE101942_series_matrix.txt.gz&#39;</span>) <span class="co"># Sample details</span>
 gpl &lt;-<span class="st"> </span><span class="kw">getGEO</span>(<span class="dt">filename =</span> <span class="st">&#39;./data/GPL11154.soft&#39;</span>) <span class="co"># Platform details</span>
 <span class="co"># Print some metadata of the gse object</span>
-gse</code></pre></div>
+gse</code></pre>
 <pre><code>## ExpressionSet (storageMode: lockedEnvironment)
 ## assayData: 0 features, 12 samples 
 ##   element names: exprs 
@@ -229,8 +255,8 @@ gse</code></pre></div>
 ## featureData: none
 ## experimentData: use &#39;experimentData(object)&#39;
 ## Annotation: GPL11154</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># And the structure of the gpl object</span>
-<span class="kw">str</span>(gpl)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># And the structure of the gpl object</span>
+<span class="kw">str</span>(gpl)</code></pre>
 <pre><code>## Formal class &#39;GPL&#39; [package &quot;GEOquery&quot;] with 2 slots
 ##   ..@ dataTable:Formal class &#39;GEODataTable&#39; [package &quot;GEOquery&quot;] with 2 slots
 ##   .. .. ..@ columns:&#39;data.frame&#39;:    0 obs. of  2 variables:
@@ -253,10 +279,14 @@ gse</code></pre></div>
 ##   .. ..$ technology      : chr &quot;high-throughput sequencing&quot;
 ##   .. ..$ title           : chr &quot;Illumina HiSeq 2000 (Homo sapiens)&quot;</code></pre>
 <p>The <code>gse</code> object <em>may</em> contain useful information about both samples and genes. Unfortunately for this example dataset there is only information available regarding the samples which we can access in the <code>phenoData</code> <strong>slot</strong>. Slots in R objects are a method of storing multiple data objects into a single R object, in this case this object is called an <code>ExpressionSet</code> (see <code>?ExpressionSet</code> for a description of its contents and structure). For storing information about an experiment this is very handy; you can store a dataframe with the actual expression data, a list containing laboratory information, a chunk of text with an abstract, etc. all in a single object.</p>
-<p>The most common datasets found in an <code>ExpressionSet</code> object: * <code>@assayData</code>: the actual expression data. Most common for microarray experiments and (very) rare for RNA-seq experiments * <code>@phenoData</code>: sample information, should be present for each GEO dataset * <code>@featureData</code>: a dataframe holding feature (=gene) information, slightly rare for RNA-seq datasets * <code>@experimentData</code>: information about the lab which performed the experiment</p>
+<p>The most common datasets found in an <code>ExpressionSet</code> object:
+* <code>@assayData</code>: the actual expression data. Most common for microarray experiments and (very) rare for RNA-seq experiments
+* <code>@phenoData</code>: sample information, should be present for each GEO dataset
+* <code>@featureData</code>: a dataframe holding feature (=gene) information, slightly rare for RNA-seq datasets
+* <code>@experimentData</code>: information about the lab which performed the experiment</p>
 <p>You already know how to access a column in a data frame using the <code>$</code> notation, and accessing a complete dataframe in the <code>gse</code> object is done using the <code>@</code> symbol:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Access a data frame containing phenotype information</span>
-gse<span class="op">@</span>phenoData<span class="op">@</span>data</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Access a data frame containing phenotype information</span>
+gse<span class="op">@</span>phenoData<span class="op">@</span>data</code></pre>
 <p>Here you see that each sample is described using its sample identifier (<code>GSM****</code>), information about the the sample group (<code>title</code> column) and a number of characteristics. The actual information included depends on your dataset.</p>
 <table>
 <colgroup>
@@ -278,45 +308,51 @@ gse<span class="op">@</span>phenoData<span class="op">@</span>data</code></pre><
 <td align="center"><strong>GSM2719212</strong></td>
 <td align="center">C2A</td>
 <td align="center">trisomic_IPSC</td>
-<td align="center">cell type: human induced pluripotent stem cells (iPSCs)</td>
+<td align="center">cell type: human induced
+pluripotent stem cells (iPSCs)</td>
 </tr>
 <tr class="even">
 <td align="center"><strong>GSM2719213</strong></td>
 <td align="center">C2B</td>
 <td align="center">trisomic_IPSC</td>
-<td align="center">cell type: human induced pluripotent stem cells (iPSCs)</td>
+<td align="center">cell type: human induced
+pluripotent stem cells (iPSCs)</td>
 </tr>
 <tr class="odd">
 <td align="center"><strong>GSM2719214</strong></td>
 <td align="center">C2C</td>
 <td align="center">trisomic_IPSC</td>
-<td align="center">cell type: human induced pluripotent stem cells (iPSCs)</td>
+<td align="center">cell type: human induced
+pluripotent stem cells (iPSCs)</td>
 </tr>
 <tr class="even">
 <td align="center"><strong>GSM2719215</strong></td>
 <td align="center">C244-A</td>
 <td align="center">disomic_IPSC</td>
-<td align="center">cell type: human induced pluripotent stem cells (iPSCs)</td>
+<td align="center">cell type: human induced
+pluripotent stem cells (iPSCs)</td>
 </tr>
 <tr class="odd">
 <td align="center"><strong>GSM2719216</strong></td>
 <td align="center">C244-B</td>
 <td align="center">disomic_IPSC</td>
-<td align="center">cell type: human induced pluripotent stem cells (iPSCs)</td>
+<td align="center">cell type: human induced
+pluripotent stem cells (iPSCs)</td>
 </tr>
 <tr class="even">
 <td align="center"><strong>GSM2719217</strong></td>
 <td align="center">C243</td>
 <td align="center">disomic_IPSC</td>
-<td align="center">cell type: human induced pluripotent stem cells (iPSCs)</td>
+<td align="center">cell type: human induced
+pluripotent stem cells (iPSCs)</td>
 </tr>
 </tbody>
 </table>
 <p>Contents of the <code>gse@phenoData@data</code> information (selection) (continued below)</p>
-<table style="width:56%;">
+<table style="width:57%;">
 <colgroup>
 <col width="23%" />
-<col width="31%" />
+<col width="33%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -352,10 +388,10 @@ gse<span class="op">@</span>phenoData<span class="op">@</span>data</code></pre><
 </tbody>
 </table>
 <p>If your dataset has properly annotated gene information, this should be accessible in the <code>@featureData</code> slot. For instance, the dataset <a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE20489"><code>GSE20489</code></a> does have this annotation available. Once loaded, we see that the following annotation columns are present for <em>each gene</em> in the <code>featureData</code> slot (following is a small subset, in total there can be well over 20 columns of information per gene). Also, the <em>metadata</em> listing shows for how many features (=genes, 54675) and samples (54) the expression data is present (in the <code>@assayData</code> slot):</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># This gets a list with a single &#39;ExpressionSet&#39; object</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># This gets a list with a single &#39;ExpressionSet&#39; object</span>
 GSE20489 &lt;-<span class="st"> </span><span class="kw">getGEO</span>(<span class="st">&quot;GSE20489&quot;</span>, <span class="dt">destdir =</span> <span class="st">&#39;../data&#39;</span>)
 <span class="co"># Print some metadata of the featureData slot</span>
-GSE20489[[<span class="dv">1</span>]]</code></pre></div>
+GSE20489[[<span class="dv">1</span>]]</code></pre>
 <pre><code>## ExpressionSet (storageMode: lockedEnvironment)
 ## assayData: 54675 features, 54 samples 
 ##   element names: exprs 
@@ -376,8 +412,8 @@ GSE20489[[<span class="dv">1</span>]]</code></pre></div>
 <colgroup>
 <col width="15%" />
 <col width="35%" />
-<col width="24%" />
-<col width="25%" />
+<col width="23%" />
+<col width="26%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -390,19 +426,22 @@ GSE20489[[<span class="dv">1</span>]]</code></pre></div>
 <tbody>
 <tr class="odd">
 <td align="center">1007_s_at</td>
-<td align="center">discoidin domain receptor tyrosine kinase …</td>
+<td align="center">discoidin domain receptor
+tyrosine kinase …</td>
 <td align="center">DDR1 /// MIR4640</td>
 <td align="center">780 /// 100616237</td>
 </tr>
 <tr class="even">
 <td align="center">1053_at</td>
-<td align="center">replication factor C (activator 1) 2, 40kDa</td>
+<td align="center">replication factor C
+(activator 1) 2, 40kDa</td>
 <td align="center">RFC2</td>
 <td align="center">5982</td>
 </tr>
 <tr class="odd">
 <td align="center">117_at</td>
-<td align="center">heat shock 70kDa protein 6 (HSP70B’)</td>
+<td align="center">heat shock 70kDa protein
+6 (HSP70B’)</td>
 <td align="center">HSPA6</td>
 <td align="center">3310</td>
 </tr>
@@ -414,46 +453,58 @@ GSE20489[[<span class="dv">1</span>]]</code></pre></div>
 </tr>
 <tr class="odd">
 <td align="center">1255_g_at</td>
-<td align="center">guanylate cyclase activator 1A (retina)</td>
+<td align="center">guanylate cyclase
+activator 1A (retina)</td>
 <td align="center">GUCA1A</td>
 <td align="center">2978</td>
 </tr>
 <tr class="even">
 <td align="center">1294_at</td>
-<td align="center">microRNA 5193 /// ubiquitin-like modifier …</td>
+<td align="center">microRNA 5193 ///
+ubiquitin-like modifier
+…</td>
 <td align="center">MIR5193 /// UBA7</td>
 <td align="center">7318 /// 100847079</td>
 </tr>
 </tbody>
 </table>
 <p>Gene information stored in an <code>ExpressionSet</code> object for experiment GSE20489 (continued below)</p>
-<table style="width:38%;">
+<table style="width:39%;">
 <colgroup>
-<col width="37%" />
+<col width="38%" />
 </colgroup>
 <thead>
 <tr class="header">
-<th align="center">Gene Ontology Biological Process</th>
+<th align="center">Gene Ontology Biological
+Process</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="center">0001558 // regulation of cell growth // in…</td>
+<td align="center">0001558 // regulation of
+cell growth // in…</td>
 </tr>
 <tr class="even">
-<td align="center">0000278 // mitotic cell cycle // traceable…</td>
+<td align="center">0000278 // mitotic cell
+cycle // traceable…</td>
 </tr>
 <tr class="odd">
-<td align="center">0000902 // cell morphogenesis // inferred …</td>
+<td align="center">0000902 // cell
+morphogenesis // inferred
+…</td>
 </tr>
 <tr class="even">
-<td align="center">0001655 // urogenital system development /…</td>
+<td align="center">0001655 // urogenital
+system development /…</td>
 </tr>
 <tr class="odd">
-<td align="center">0007165 // signal transduction // non-trac…</td>
+<td align="center">0007165 // signal
+transduction //
+non-trac…</td>
 </tr>
 <tr class="even">
-<td align="center">0006464 // cellular protein modification p…</td>
+<td align="center">0006464 // cellular
+protein modification p…</td>
 </tr>
 </tbody>
 </table>
@@ -466,7 +517,7 @@ GSE20489[[<span class="dv">1</span>]]</code></pre></div>
 <div id="annotationDBI" class="section level3">
 <h3><span class="header-section-number">B.2.1</span> Using <code>AnnotationDBI</code></h3>
 <p>The <code>AnnotationDbi</code> offers data sets for many organisms in the form of installable libraries and depending on your experiment you need to find the proper library. The example experiment contains samples of the house mouse (Mus musculus) and therefore we select its data set.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Load the AnnotationDbi interface library</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Load the AnnotationDbi interface library</span>
 <span class="kw">library</span>(AnnotationDbi)
 <span class="co"># Load the Bioconductor installation library (contains &#39;biocLite()&#39;)</span>
 <span class="kw">library</span>(BiocInstaller)
@@ -477,7 +528,7 @@ GSE20489[[<span class="dv">1</span>]]</code></pre></div>
 <span class="co"># &#39;eg&#39; for Entrez Gene IDs</span>
 <span class="co"># (try to load (using the library function) first before installing, it might already be present)</span>
 <span class="kw">biocLite</span>(<span class="st">&#39;org.Hs.eg.db&#39;</span>)
-<span class="kw">library</span>(org.Hs.eg.db)</code></pre></div>
+<span class="kw">library</span>(org.Hs.eg.db)</code></pre>
 <p>The following information types are available in this database (use the <code>columns</code> function to inspect).</p>
 <table style="width:88%;">
 <colgroup>
@@ -543,12 +594,12 @@ GSE20489[[<span class="dv">1</span>]]</code></pre></div>
 </table>
 <p>Available fields in the database</p>
 <p>The table below shows the data available for all information types given a randomly chosen <a href="http://www.ncbi.nlm.nih.gov/gene/1080"><em>EntrezID</em> of ‘1080’</a>. Note that the table has been split to show the 24 data types with their values.</p>
-<table>
+<table style="width:100%;">
 <colgroup>
 <col width="19%" />
-<col width="42%" />
+<col width="41%" />
 <col width="18%" />
-<col width="19%" />
+<col width="20%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -615,7 +666,8 @@ GSE20489[[<span class="dv">1</span>]]</code></pre></div>
 </tr>
 <tr class="even">
 <td align="center">GENENAME</td>
-<td align="center">cystic fibrosis transmembrane conductance regulator</td>
+<td align="center">cystic fibrosis transmembrane
+conductance regulator</td>
 <td align="center">REFSEQ</td>
 <td align="center">NM_000492</td>
 </tr>
@@ -643,7 +695,7 @@ GSE20489[[<span class="dv">1</span>]]</code></pre></div>
 <li><strong><code>multiVals</code></strong>: a number of columns contain more then one entry for a single gene, in that case we only want to store the first one.</li>
 </ul>
 <p>The output of the <code>mapIds</code> function is a single character vector that we can add to our data frame containing the DEGs (in this case the DEGs for the IPSC trisomic vs disomic comparison containing 828 genes stored in the <code>ipsc.tri.vs.di</code> data frame).</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Retrieve the ENSEMBL gene ID, e.g. &#39;ENSG00000001626&#39;</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Retrieve the ENSEMBL gene ID, e.g. &#39;ENSG00000001626&#39;</span>
 ipsc.tri.vs.di<span class="op">$</span>Ensembl &lt;-<span class="st"> </span><span class="kw">mapIds</span>(<span class="dt">x =</span> org.Hs.eg.db,
                            <span class="dt">keys=</span><span class="kw">row.names</span>(ipsc.tri.vs.di),
                            <span class="dt">column=</span><span class="st">&quot;ENSEMBL&quot;</span>,
@@ -662,7 +714,7 @@ ipsc.tri.vs.di<span class="op">$</span>Enzyme &lt;-<span class="st"> </span><spa
                            <span class="dt">keys=</span><span class="kw">row.names</span>(ipsc.tri.vs.di),
                            <span class="dt">column=</span><span class="st">&quot;ENZYME&quot;</span>,
                            <span class="dt">keytype=</span><span class="st">&quot;SYMBOL&quot;</span>,
-                           <span class="dt">multiVals=</span><span class="st">&quot;first&quot;</span>)</code></pre></div>
+                           <span class="dt">multiVals=</span><span class="st">&quot;first&quot;</span>)</code></pre>
 <p>Unfortunately, not all organisms offer access to such information nor is the information always complete. For instance, the following table shows the number of available records for the Ensembl, Entrez en KEGG IDs downloaded:</p>
 <table style="width:61%;">
 <colgroup>
@@ -706,15 +758,15 @@ ipsc.tri.vs.di<span class="op">$</span>Enzyme &lt;-<span class="st"> </span><spa
 <p>The text above mentiones <em>species</em>, <em>attributes</em> and <em>filters</em>, and we need to combine these elements to query the biomart databases for our annotation. The following code ‘chunks’ show possible values for these elements and how to gather and store the relevant data.</p>
 <p>The <code>biomaRt</code> library interfaces with the <a href="http://www.biomart.org">biomart.org</a> online database. Sometimes the biomart website (which offers a browsable database) is down due to maintanance, but its many mirrors can still be used, for instance at <a href="http://www.ensembl.org/biomart/martview/fc683a66d09fd1f42be754bcd90ba7da">Ensembl</a>.</p>
 <p>You are required to explore a number of objects and the given example code is most likely not suitable for your data/ organism. The project is well documented on the <a href="https://bioconductor.org/packages/release/bioc/html/biomaRt.html">Bioconductor biomaRt</a> website that links to the <a href="https://bioconductor.org/packages/release/bioc/vignettes/biomaRt/inst/doc/biomaRt.html">biomaRt users guide</a>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Load the library</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Load the library</span>
 <span class="kw">library</span>(biomaRt)
 
 <span class="co"># Use an alternative database server as the regular one sometimes has issues..</span>
-ensembl=<span class="kw">useMart</span>(<span class="st">&quot;ENSEMBL_MART_ENSEMBL&quot;</span>, <span class="dt">host=</span><span class="st">&quot;www.ensembl.org&quot;</span>)</code></pre></div>
-<table style="width:64%;">
+ensembl=<span class="kw">useMart</span>(<span class="st">&quot;ENSEMBL_MART_ENSEMBL&quot;</span>, <span class="dt">host=</span><span class="st">&quot;www.ensembl.org&quot;</span>)</code></pre>
+<table style="width:65%;">
 <colgroup>
 <col width="31%" />
-<col width="31%" />
+<col width="33%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -742,18 +794,18 @@ ensembl=<span class="kw">useMart</span>(<span class="st">&quot;ENSEMBL_MART_ENSE
 </tbody>
 </table>
 <p>Available databases in the Ensembl biomaRt</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Select the &#39;ensembl&#39; database</span>
-ensembl &lt;-<span class="st"> </span><span class="kw">useMart</span>(<span class="st">&quot;ensembl&quot;</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Select the &#39;ensembl&#39; database</span>
+ensembl &lt;-<span class="st"> </span><span class="kw">useMart</span>(<span class="st">&quot;ensembl&quot;</span>)</code></pre>
 <p>Using the <code>listDatasets</code> function you can get a full list of available datasets. Store this list in an R object and ‘browse’ this object in RStudio to see if your organism is included. Copy the name of the dataset, this is the <em>species</em> element we will use.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mart.datasets &lt;-<span class="st"> </span><span class="kw">listDatasets</span>(ensembl)
+<pre class="sourceCode r"><code class="sourceCode r">mart.datasets &lt;-<span class="st"> </span><span class="kw">listDatasets</span>(ensembl)
 
 <span class="co"># Select the correct dataset, for the example data we select the &#39;hsapiens_gene_ensembl&#39; </span>
-ensembl &lt;-<span class="st"> </span><span class="kw">useDataset</span>(<span class="st">&#39;hsapiens_gene_ensembl&#39;</span>, <span class="dt">mart =</span> ensembl)</code></pre></div>
+ensembl &lt;-<span class="st"> </span><span class="kw">useDataset</span>(<span class="st">&#39;hsapiens_gene_ensembl&#39;</span>, <span class="dt">mart =</span> ensembl)</code></pre>
 <table>
 <colgroup>
-<col width="44%" />
-<col width="44%" />
-<col width="12%" />
+<col width="43%" />
+<col width="43%" />
+<col width="13%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -765,32 +817,38 @@ ensembl &lt;-<span class="st"> </span><span class="kw">useDataset</span>(<span c
 <tbody>
 <tr class="odd">
 <td align="center">oanatinus_gene_ensembl</td>
-<td align="center">Ornithorhynchus anatinus genes (OANA5)</td>
+<td align="center">Ornithorhynchus anatinus genes
+(OANA5)</td>
 <td align="center">OANA5</td>
 </tr>
 <tr class="even">
 <td align="center">cporcellus_gene_ensembl</td>
-<td align="center">Cavia porcellus genes (cavPor3)</td>
+<td align="center">Cavia porcellus genes
+(cavPor3)</td>
 <td align="center">cavPor3</td>
 </tr>
 <tr class="odd">
 <td align="center">gaculeatus_gene_ensembl</td>
-<td align="center">Gasterosteus aculeatus genes (BROADS1)</td>
+<td align="center">Gasterosteus aculeatus genes
+(BROADS1)</td>
 <td align="center">BROADS1</td>
 </tr>
 <tr class="even">
 <td align="center">itridecemlineatus_gene_ensembl</td>
-<td align="center">Ictidomys tridecemlineatus genes (spetri2)</td>
+<td align="center">Ictidomys tridecemlineatus
+genes (spetri2)</td>
 <td align="center">spetri2</td>
 </tr>
 <tr class="odd">
 <td align="center">lafricana_gene_ensembl</td>
-<td align="center">Loxodonta africana genes (loxAfr3)</td>
+<td align="center">Loxodonta africana genes
+(loxAfr3)</td>
 <td align="center">loxAfr3</td>
 </tr>
 <tr class="even">
 <td align="center">choffmanni_gene_ensembl</td>
-<td align="center">Choloepus hoffmanni genes (choHof1)</td>
+<td align="center">Choloepus hoffmanni genes
+(choHof1)</td>
 <td align="center">choHof1</td>
 </tr>
 </tbody>
@@ -798,11 +856,11 @@ ensembl &lt;-<span class="st"> </span><span class="kw">useDataset</span>(<span c
 <p>Subset of the 69 datasets available</p>
 <p>Next is deciding on a filter. For this we can use the <code>listFilters</code> function on the <code>ensembl</code> object, storing the full list of filters. Here too it is wise to view this in RStudio to find the filter to use.</p>
 <p>The filter specifies <em>what</em> you will use to search on. For instance, the <code>AnnotationDbi</code> queries above gave us <code>Ensembl</code> gene ID’s and we could use those with the <code>ensembl_gene_id</code> filter. When viewing the list of filters in RStudio you can use the search text-box in the top-right of the view, for example with <code>ensembl</code> to look for filters to use with this type of identifier.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">filters &lt;-<span class="st"> </span><span class="kw">listFilters</span>(ensembl)</code></pre></div>
-<table style="width:94%;">
+<pre class="sourceCode r"><code class="sourceCode r">filters &lt;-<span class="st"> </span><span class="kw">listFilters</span>(ensembl)</code></pre>
+<table style="width:96%;">
 <colgroup>
 <col width="52%" />
-<col width="41%" />
+<col width="43%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -849,7 +907,8 @@ ensembl &lt;-<span class="st"> </span><span class="kw">useDataset</span>(<span c
 </tr>
 <tr class="even">
 <td align="center">chromosomal_region</td>
-<td align="center">e.g. 1:100:10000:-1, 1:100000:200000:1</td>
+<td align="center">e.g. 1:100:10000:-1,
+1:100000:200000:1</td>
 </tr>
 <tr class="odd">
 <td align="center">with_ccds</td>
@@ -861,26 +920,29 @@ ensembl &lt;-<span class="st"> </span><span class="kw">useDataset</span>(<span c
 </tr>
 <tr class="odd">
 <td align="center">with_clone_based_ensembl_gene</td>
-<td align="center">With Clone-based (Ensembl) gene ID(s)</td>
+<td align="center">With Clone-based (Ensembl)
+gene ID(s)</td>
 </tr>
 <tr class="even">
 <td align="center">with_clone_based_ensembl_transcript</td>
-<td align="center">With Clone-based (Ensembl) transcript ID(s)</td>
+<td align="center">With Clone-based (Ensembl)
+transcript ID(s)</td>
 </tr>
 <tr class="odd">
 <td align="center">with_dbass3</td>
-<td align="center">With DataBase of Aberrant 3’ Splice Sites ID(s)</td>
+<td align="center">With DataBase of Aberrant 3’
+Splice Sites ID(s)</td>
 </tr>
 </tbody>
 </table>
 <p>Subset of the 340 available filters</p>
 <p>Finally we get to the point to determine what data we would like to get from the database. These are the <code>attributes</code> which we can get with the <code>listAttributes</code> function on the <code>ensembl</code> object. Again - and especially with the attributes since there are often &gt;1000 of selectable options - we store the attributes and view them in RStudio to look for data that we want.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">attributes &lt;-<span class="st"> </span><span class="kw">listAttributes</span>(ensembl)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">attributes &lt;-<span class="st"> </span><span class="kw">listAttributes</span>(ensembl)</code></pre>
 <table>
 <colgroup>
 <col width="40%" />
 <col width="41%" />
-<col width="17%" />
+<col width="18%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -974,10 +1036,10 @@ ensembl &lt;-<span class="st"> </span><span class="kw">useDataset</span>(<span c
 </table>
 <p>Subset of the 1944 available attributes</p>
 <p>If we want to have the gene chromosome, start- and end-position as well as its description (note, just as an example, there is other, more interesting information available too!) we combine this in a character vector (<code>attrs.get</code>, see below). There is one <em>caveat</em> though, the <em>order</em> in which you get back the results are <strong>not</strong> the same as the input order! This means that we cannot simple combine the data with our original data set but we need to <strong>merge</strong> it together. However, to be able to merge the data we need to know which record belongs to which gene and therefore we add our selected <code>filter</code> (in our case the <code>ensembl_gene_id</code>) to the list of attributes to get. Then, when we get the <code>results dataframe</code> we can use the <code>merge</code> function in R to combine the gene information with the actual data:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">merge</span>(<span class="dt">x =</span> ipsc.tri.vs.di, <span class="dt">y =</span> results, <span class="dt">by.x =</span> <span class="st">&#39;Ensembl&#39;</span>, <span class="dt">by.y =</span> <span class="st">&#39;ensembl_gene_id&#39;</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">merge</span>(<span class="dt">x =</span> ipsc.tri.vs.di, <span class="dt">y =</span> results, <span class="dt">by.x =</span> <span class="st">&#39;Ensembl&#39;</span>, <span class="dt">by.y =</span> <span class="st">&#39;ensembl_gene_id&#39;</span>)</code></pre>
 <p>We now have all three needed elements (species, filter and attributes) so we are ready to query the database with the <code>getBM</code> function (read the help using <code>?getBM</code>).</p>
 <p>The example below retrieves data using a set of five Ensembl gene IDs since not all genes have an Ensembl ID as we’ve seen above, so we filter those out first and use this as the <code>values</code> parameter below.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Set the &#39;attributes&#39; values</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Set the &#39;attributes&#39; values</span>
 attrs.get &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;ensembl_gene_id&quot;</span>, <span class="st">&quot;chromosome_name&quot;</span>, 
                <span class="st">&quot;start_position&quot;</span>,<span class="st">&quot;end_position&quot;</span>, <span class="st">&quot;description&quot;</span>)
 
@@ -987,7 +1049,7 @@ results &lt;-<span class="st"> </span><span class="kw">getBM</span>(<span class=
                  <span class="dt">values =</span> ipsc.tri.vs.di<span class="op">$</span>Ensembl[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>], 
                  <span class="dt">mart =</span> ensembl)
 
-results<span class="op">$</span>gene_length &lt;-<span class="st"> </span><span class="kw">abs</span>(results<span class="op">$</span>end_position <span class="op">-</span><span class="st"> </span>results<span class="op">$</span>start_position)</code></pre></div>
+results<span class="op">$</span>gene_length &lt;-<span class="st"> </span><span class="kw">abs</span>(results<span class="op">$</span>end_position <span class="op">-</span><span class="st"> </span>results<span class="op">$</span>start_position)</code></pre>
 <p>The <code>results</code> object is a <code>data.frame</code> with 5 columns that we can merge with our data set giving us the following annotation columns (combined from the <code>AnnotationDBI</code> and <code>biomaRt</code> libraries).</p>
 <table style="width:100%;">
 <colgroup>
@@ -1031,11 +1093,11 @@ results<span class="op">$</span>gene_length &lt;-<span class="st"> </span><span 
 </tbody>
 </table>
 <p>Table continues below</p>
-<table style="width:85%;">
+<table style="width:86%;">
 <colgroup>
 <col width="20%" />
 <col width="19%" />
-<col width="44%" />
+<col width="45%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -1048,17 +1110,24 @@ results<span class="op">$</span>gene_length &lt;-<span class="st"> </span><span 
 <tr class="odd">
 <td align="center">50904970</td>
 <td align="center">32810</td>
-<td align="center">abhydrolase domain containing 12B [Source:HGNC Symbol;Acc:HGNC:19837]</td>
+<td align="center">abhydrolase domain containing
+12B [Source:HGNC
+Symbol;Acc:HGNC:19837]</td>
 </tr>
 <tr class="even">
 <td align="center">8784575</td>
 <td align="center">110010</td>
-<td align="center">4-aminobutyrate aminotransferase [Source:HGNC Symbol;Acc:HGNC:23]</td>
+<td align="center">4-aminobutyrate
+aminotransferase [Source:HGNC
+Symbol;Acc:HGNC:23]</td>
 </tr>
 <tr class="odd">
 <td align="center">14362754</td>
 <td align="center">126548</td>
-<td align="center">ATP binding cassette subfamily C member 13 (pseudogene) [Source:HGNC Symbol;Acc:HGNC:16022]</td>
+<td align="center">ATP binding cassette subfamily
+C member 13 (pseudogene)
+[Source:HGNC
+Symbol;Acc:HGNC:16022]</td>
 </tr>
 </tbody>
 </table>
@@ -1073,16 +1142,16 @@ results<span class="op">$</span>gene_length &lt;-<span class="st"> </span><span 
 <p>al., Patrick Deelen et. 2015. “Calling Genotypes from Public Rna-Sequencing Data Enables Identification of Genetic Variants That Affect Gene-Expression Levels.” <em>Genome Medicine</em> 7 (30).</p>
 </div>
 <div>
-<p>Chen, Yunshun, Aaron Lun, Davis McCarthy, Xiaobei Zhou, Mark Robinson, and Gordon Smyth. 2018. <em>EdgeR: Empirical Analysis of Digital Gene Expression Data in R</em>. <a href="http://bioinf.wehi.edu.au/edgeR" class="uri">http://bioinf.wehi.edu.au/edgeR</a>.</p>
+<p>Chen, Yunshun, Aaron Lun, Davis McCarthy, Xiaobei Zhou, Mark Robinson, and Gordon Smyth. 2018. <em>EdgeR: Empirical Analysis of Digital Gene Expression Data in R</em>. <a href="http://bioinf.wehi.edu.au/edgeR">http://bioinf.wehi.edu.au/edgeR</a>.</p>
 </div>
 <div>
-<p>Daróczi, Gergely, and Roman Tsegelskyi. 2017. <em>Pander: An R ’Pandoc’ Writer</em>. <a href="https://CRAN.R-project.org/package=pander" class="uri">https://CRAN.R-project.org/package=pander</a>.</p>
+<p>Daróczi, Gergely, and Roman Tsegelskyi. 2017. <em>Pander: An R ’Pandoc’ Writer</em>. <a href="https://CRAN.R-project.org/package=pander">https://CRAN.R-project.org/package=pander</a>.</p>
 </div>
 <div>
 <p>Himes BE, Wagner P, Jiang X. 2014. “RNA-Seq Transcriptome Profiling Identifies Crispld2 as a Glucocorticoid Responsive Gene That Modulates Cytokine Function in Airway Smooth Muscle Cells.” <em>PLoS One</em> 9 (6).</p>
 </div>
 <div>
-<p>Love, Michael, Simon Anders, and Wolfgang Huber. 2017. <em>DESeq2: Differential Gene Expression Analysis Based on the Negative Binomial Distribution</em>. <a href="https://github.com/mikelove/DESeq2" class="uri">https://github.com/mikelove/DESeq2</a>.</p>
+<p>Love, Michael, Simon Anders, and Wolfgang Huber. 2017. <em>DESeq2: Differential Gene Expression Analysis Based on the Negative Binomial Distribution</em>. <a href="https://github.com/mikelove/DESeq2">https://github.com/mikelove/DESeq2</a>.</p>
 </div>
 </div>
 </div>
@@ -1143,7 +1212,7 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    var src = "";
+    var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(src))
       src = src.replace(/^https?:/, '');

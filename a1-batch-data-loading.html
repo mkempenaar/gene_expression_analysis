@@ -25,7 +25,7 @@
 <meta name="author" content="Marcel Kempenaar">
 
 
-<meta name="date" content="2019-04-24">
+<meta name="date" content="2019-05-23">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -51,41 +51,67 @@
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -174,7 +200,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="A" data-path="a1-batch-data-loading.html"><a href="a1-batch-data-loading.html"><i class="fa fa-check"></i><b>A</b> Appendix A: Batch Loading Expression Data in R</a><ul>
 <li class="chapter" data-level="A.1" data-path="a1-batch-data-loading.html"><a href="a1-batch-data-loading.html#decompressing"><i class="fa fa-check"></i><b>A.1</b> Decompressing</a></li>
 <li class="chapter" data-level="A.2" data-path="a1-batch-data-loading.html"><a href="a1-batch-data-loading.html#determining-data-format"><i class="fa fa-check"></i><b>A.2</b> Determining Data Format</a></li>
-<li class="chapter" data-level="A.3" data-path="chapter-3.html"><a href="chapter-3.html#loading-data"><i class="fa fa-check"></i><b>A.3</b> Loading Data</a></li>
+<li class="chapter" data-level="A.3" data-path="a1-batch-data-loading.html"><a href="a1-batch-data-loading.html#loading-data-1"><i class="fa fa-check"></i><b>A.3</b> Loading Data</a></li>
 </ul></li>
 <li class="chapter" data-level="B" data-path="a2-annotation.html"><a href="a2-annotation.html"><i class="fa fa-check"></i><b>B</b> Annotating an RNA-Seq Experiment</a><ul>
 <li class="chapter" data-level="B.1" data-path="a2-annotation.html"><a href="a2-annotation.html#download-geo"><i class="fa fa-check"></i><b>B.1</b> Downloading annotation data from GEO</a></li>
@@ -204,7 +230,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="a1-batch_data_loading" class="section level1">
 <h1><span class="header-section-number">A</span> Appendix A: Batch Loading Expression Data in R</h1>
 <p>This code example shows how to batch-load multiple files containing expression (count) data for a <em>single</em> sample. The data for this example can be found on GEO with ID <a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE109798">GSE109798</a>. Downloading the data for this experiment from GEO gives us a single <code>.tar</code> file called <code>GSE109798_RAW.tar</code>. Extracting this archive file nets us a folder with the following files:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">file.names &lt;-<span class="st"> </span><span class="kw">list.files</span>(<span class="st">&#39;./data/GSE109798_RAW/&#39;</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">file.names &lt;-<span class="st"> </span><span class="kw">list.files</span>(<span class="st">&#39;./data/GSE109798_RAW/&#39;</span>)</code></pre>
 <table>
 <thead>
 <tr class="header">
@@ -253,19 +279,19 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="decompressing" class="section level2">
 <h2><span class="header-section-number">A.1</span> Decompressing</h2>
 <p>The file extension of all these files is <code>.txt.gz</code> which means that all files are compressed using <code>gzip</code> and need to be unpacked before they can be loaded. The easiest method is using the system <code>gunzip</code> command on all files which can be done from within R by <em>applying</em> the <code>gunzip</code> command using the <code>system</code> function on each file.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Change directory to where the files are stored
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co">## Change directory to where the files are stored</span>
 <span class="kw">setwd</span>(<span class="st">&#39;./data/GSE109798_RAW/&#39;</span>)
 <span class="kw">sapply</span>(file.names, <span class="dt">FUN =</span> <span class="cf">function</span>(file.name) {
   <span class="kw">system</span>(<span class="kw">paste</span>(<span class="st">&quot;gunzip&quot;</span>, file.name)) 
-  })</code></pre></div>
+  })</code></pre>
 <p>Now we can update the <code>file.names</code> variable since each file name has changed.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">file.names &lt;-<span class="st"> </span><span class="kw">list.files</span>(<span class="st">&#39;./data/GSE109798_RAW/&#39;</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">file.names &lt;-<span class="st"> </span><span class="kw">list.files</span>(<span class="st">&#39;./data/GSE109798_RAW/&#39;</span>)</code></pre>
 </div>
 <div id="determining-data-format" class="section level2">
 <h2><span class="header-section-number">A.2</span> Determining Data Format</h2>
 <p>Next, we can inspect what the contents are of these files, assuming that they all have the same layout/ column names etc. to decide what we need to use for our analysis.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Call the system &#39;head&#39; tool to &#39;peek&#39; inside the file
-<span class="kw">system</span>(<span class="kw">paste0</span>(<span class="st">&quot;head &quot;</span>, <span class="st">&quot;./data/GSE109798_RAW/&quot;</span>, file.names[<span class="dv">1</span>]))</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co">## Call the system &#39;head&#39; tool to &#39;peek&#39; inside the file</span>
+<span class="kw">system</span>(<span class="kw">paste0</span>(<span class="st">&quot;head &quot;</span>, <span class="st">&quot;./data/GSE109798_RAW/&quot;</span>, file.names[<span class="dv">1</span>]))</code></pre>
 <table>
 <thead>
 <tr class="header">
@@ -382,30 +408,30 @@ As mentioned before, we require integer count data for use with packages such as
 </p>
 </div>
 </div>
-<div id="loading-data" class="section level2">
+<div id="loading-data-1" class="section level2">
 <h2><span class="header-section-number">A.3</span> Loading Data</h2>
-<p>From all these columns we want to keep the <em>transcript_id</em> and <em>expected_count</em> columns and ignore the rest (we might be interested in this data later on though). As we need to lead each file separately we can define a function that reads in the data, keeping the columns of interest and returning a dataframe with this data. Note that the first line of each file is used as a header, but check before setting the <code>header</code> argument to <code>TRUE</code>, sometimes the expression data starts at line 1. The file name is then also used to name the column in the dataframe so that we know which column is which sample. This is done by splitting the file name (using <code>strsplit</code>) using the dot (‘<code>.</code>’) keeping the first part (i.e. ‘<code>GSM2970156_HCC1806E224A</code>’) and discarding the second part (‘<code>isoforms.results.txt</code>’). The <code>strsplit</code> function however always returns a list, in this case containing a vector with the 5 splitted elements:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## String splitting in R
-## (the fixed = TRUE is required as the dot is a special character, see &#39;?strsplit&#39;)
-<span class="kw">strsplit</span>(<span class="st">&#39;GSM2970155_HCC1806E224B.isoforms.results.txt.gz&#39;</span>, <span class="st">&#39;.&#39;</span>, <span class="dt">fixed =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<p>From all these columns we want to keep the <em>transcript_id</em> and <em>expected_count</em> columns and ignore the rest (we might be interested in this data later on though). As we need to lead each file separately we can define a function that reads in the data, keeping the columns of interest and returning a dataframe with this data. Note that the first line of each file is used as a header, but check before setting the <code>header</code> argument to <code>TRUE</code>, sometimes the expression data starts at line 1. The file name is then also used to name the column in the dataframe so that we know which column is which sample. This is done by splitting the file name (using <code>strsplit</code>) using the dot (‘<code>.</code>’) keeping the first part (i.e. ‘<code>GSM2970156_HCC1806E224A</code>’) and discarding the second part (‘<code>isoforms.results.txt</code>’). The <code>strsplit</code> function however always returns a list, in this case containing a vector with the 5 splitted elements:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co">## String splitting in R</span>
+<span class="co">## (the fixed = TRUE is required as the dot is a special character, see &#39;?strsplit&#39;)</span>
+<span class="kw">strsplit</span>(<span class="st">&#39;GSM2970155_HCC1806E224B.isoforms.results.txt.gz&#39;</span>, <span class="st">&#39;.&#39;</span>, <span class="dt">fixed =</span> <span class="ot">TRUE</span>)</code></pre>
 <pre><code>## [[1]]
 ## [1] &quot;GSM2970155_HCC1806E224B&quot; &quot;isoforms&quot;               
 ## [3] &quot;results&quot;                 &quot;txt&quot;                    
 ## [5] &quot;gz&quot;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Keeping the sample identifier
-<span class="kw">strsplit</span>(<span class="st">&#39;GSM2970155_HCC1806E224B.isoforms.results.txt.gz&#39;</span>, <span class="st">&#39;.&#39;</span>, <span class="dt">fixed =</span> <span class="ot">TRUE</span>)[[<span class="dv">1</span>]][<span class="dv">1</span>]</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co">## Keeping the sample identifier</span>
+<span class="kw">strsplit</span>(<span class="st">&#39;GSM2970155_HCC1806E224B.isoforms.results.txt.gz&#39;</span>, <span class="st">&#39;.&#39;</span>, <span class="dt">fixed =</span> <span class="ot">TRUE</span>)[[<span class="dv">1</span>]][<span class="dv">1</span>]</code></pre>
 <pre><code>## [1] &quot;GSM2970155_HCC1806E224B&quot;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Function for reading in files
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co">## Function for reading in files</span>
 read_sample &lt;-<span class="st"> </span><span class="cf">function</span>(file.name) {
-  ## Extract the sample name for naming the column
+  <span class="co">## Extract the sample name for naming the column</span>
   sample.name &lt;-<span class="st"> </span><span class="kw">strsplit</span>(file.name, <span class="st">&quot;.&quot;</span>, <span class="dt">fixed =</span> <span class="ot">TRUE</span>)[[<span class="dv">1</span>]][<span class="dv">1</span>]
-  ## Read the data, setting the &#39;transcript_id&#39; as row.names (column 1)
+  <span class="co">## Read the data, setting the &#39;transcript_id&#39; as row.names (column 1)</span>
   sample &lt;-<span class="st"> </span><span class="kw">read.table</span>(file.name, <span class="dt">header =</span> <span class="ot">TRUE</span>, <span class="dt">sep=</span><span class="st">&quot;</span><span class="ch">\t</span><span class="st">&quot;</span>, <span class="dt">row.names =</span> <span class="ot">NULL</span>)
-  ## Rename the count column
+  <span class="co">## Rename the count column</span>
   <span class="kw">names</span>(sample)[<span class="dv">5</span>] &lt;-<span class="st"> </span>sample.name
-  ## Return a subset containing the &#39;transcript_id&#39; and sample name columns
+  <span class="co">## Return a subset containing the &#39;transcript_id&#39; and sample name columns</span>
   <span class="kw">return</span>(sample[<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">5</span>)])
-}</code></pre></div>
+}</code></pre>
 <p>Applying the <code>read_sample</code> function to all file names gives us a set of data frames that we can merge together using the <code>merge</code> function. We merge the data based on the transcript id defined with the <code>by = 1</code> argument pointing to the first column. We start by reading in just one file which is the ‘base’ dataframe to which we will merge the other files.</p>
 <p>During processing it seemed that this data set is divided into two groups which is also listed on the GEO website for this project:</p>
 <ul>
@@ -413,24 +439,24 @@ read_sample &lt;-<span class="st"> </span><span class="cf">function</span>(file.
 <li>GPL13112 Illumina HiSeq 2000 (Mus musculus)</li>
 </ul>
 <p>where the first 6 files are from human source and the last 6 from the mouse. Therefore, the following code only shows how to read the first 6 samples and merge these into a single dataframe. Repeating this process for the other 6 files would result into another dataframe for those samples.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">setwd</span>(<span class="st">&#39;./data/GSE109798_RAW/&#39;</span>)
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">setwd</span>(<span class="st">&#39;./data/GSE109798_RAW/&#39;</span>)
 
-## Read the FIRST sample
+<span class="co">## Read the FIRST sample</span>
 dataset &lt;-<span class="st"> </span><span class="kw">read_sample</span>(file.names[<span class="dv">1</span>])
 
-## Read first sample group (6)
+<span class="co">## Read first sample group (6)</span>
 <span class="cf">for</span> (file.name <span class="cf">in</span> file.names[<span class="dv">2</span><span class="op">:</span><span class="dv">6</span>]) {
   sample &lt;-<span class="st"> </span><span class="kw">read_sample</span>(file.name)
   dataset &lt;-<span class="st"> </span><span class="kw">merge</span>(dataset, sample, <span class="dt">by =</span> <span class="dv">1</span>)
 }
 
-<span class="kw">pander</span>(<span class="kw">head</span>(dataset))</code></pre></div>
-<table style="width:100%;">
+<span class="kw">pander</span>(<span class="kw">head</span>(dataset))</code></pre>
+<table>
 <colgroup>
 <col width="20%" />
 <col width="26%" />
 <col width="26%" />
-<col width="26%" />
+<col width="27%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -586,7 +612,7 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    var src = "";
+    var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(src))
       src = src.replace(/^https?:/, '');
