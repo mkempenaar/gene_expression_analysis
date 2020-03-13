@@ -1,5 +1,15 @@
 # Introduction {#chapter-1}
 
+## Important, Updated Instructions (13/03/2020)
+
+Due to cancellation of all lectures for the month March; the documentation has been updated to make it easier for independent usage. The following sections have been **removed** from the manual and are now regarded fully optional. If you have done them already they will add to your grade. The listing contains a link to the chapter on a backup-site where the contents are still available. The complete previous version of this manual is available at [https://bioinf.nl/~marcelk/theme07/](https://bioinf.nl/~marcelk/theme07/). Please **do** read the parts that have been removed as they might contain information that is helpful for the remaining parts.
+
+* [3.4.4 Scatterplots](https://bioinf.nl/~marcelk/theme07/chapter-3.html#eda_scatter_plot) - this plot can only compare between single samples and is better to do *after* we have our DEGs comparing the average expression of replicates between groups.
+* [3.4.5 MA-plot](https://bioinf.nl/~marcelk/theme07/chapter-3.html#MA_plot) - same as with the scatterplots, we will most likely create this plot using the identified DEGs as part of chapter 5.
+* [3.5.5 Principal Component Analysis](https://bioinf.nl/~marcelk/theme07/chapter-3.html#eda_pca) - comparable with MDS and therefore superfluous
+* [4.3 Using Manual Methods (t-test & ANOVA)](https://bioinf.nl/~marcelk/theme07/chapter-4.html#deg-manual) - we will now only focus on finding our DEGs using the packages described in chapter 4, the manual analysis - while a valuable exercise - is often not used in the end conclusions
+* [4.4 Multiple Testing Correction](https://bioinf.nl/~marcelk/theme07/chapter-4.html#deg-mtc) - only needed when doing manual testing, therefore removed.
+
 ## Theme 7 - Analysis of Gene Expression Project
 
 The use of RNA-Sequencing techniques for measuring gene expression is relatively new and replaces *microarrays*, though in some cases microarrays are still used. Gene expression data gives valuable insights into the workings of cells in certain conditions. Especially when comparing for instance healthy and diseased samples it can become clear which genes are causal or under influence of a specific condition. Finding the genes of interest (genes showing differing expression accross conditions, called the Differentially Expressed Genes (DEGs)) is the goal of this project.
