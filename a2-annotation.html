@@ -24,7 +24,7 @@
 <meta name="author" content="Marcel Kempenaar" />
 
 
-<meta name="date" content="2020-03-13" />
+<meta name="date" content="2020-04-15" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -128,20 +128,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">Theme 07 - Analysis of Gene Expression</a></li>
+<li><a href="./">Capstone Project - Analysis of Gene Expression</a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#analysis-of-gene-expression-project"><i class="fa fa-check"></i>Analysis of Gene Expression Project</a></li>
 </ul></li>
 <li class="chapter" data-level="1" data-path="chapter-1.html"><a href="chapter-1.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
-<li class="chapter" data-level="1.1" data-path="chapter-1.html"><a href="chapter-1.html#important-updated-instructions-13032020"><i class="fa fa-check"></i><b>1.1</b> Important, Updated Instructions (13/03/2020)</a></li>
-<li class="chapter" data-level="1.2" data-path="chapter-1.html"><a href="chapter-1.html#theme-7---analysis-of-gene-expression-project"><i class="fa fa-check"></i><b>1.2</b> Theme 7 - Analysis of Gene Expression Project</a></li>
-<li class="chapter" data-level="1.3" data-path="chapter-1.html"><a href="chapter-1.html#project-deliverables"><i class="fa fa-check"></i><b>1.3</b> Project Deliverables</a></li>
-<li class="chapter" data-level="1.4" data-path="chapter-1.html"><a href="chapter-1.html#project-schedule"><i class="fa fa-check"></i><b>1.4</b> Project Schedule</a></li>
-<li class="chapter" data-level="1.5" data-path="chapter-1.html"><a href="chapter-1.html#grading"><i class="fa fa-check"></i><b>1.5</b> Grading</a></li>
-<li class="chapter" data-level="1.6" data-path="chapter-1.html"><a href="chapter-1.html#project-proposal"><i class="fa fa-check"></i><b>1.6</b> Project Proposal</a></li>
-<li class="chapter" data-level="1.7" data-path="chapter-1.html"><a href="chapter-1.html#lab-journal"><i class="fa fa-check"></i><b>1.7</b> <em>Lab Journal</em></a></li>
+<li class="chapter" data-level="1.1" data-path="chapter-1.html"><a href="chapter-1.html#capstone-project---analysis-of-gene-expression"><i class="fa fa-check"></i><b>1.1</b> Capstone Project - Analysis of Gene Expression</a></li>
+<li class="chapter" data-level="1.2" data-path="chapter-1.html"><a href="chapter-1.html#project-deliverables"><i class="fa fa-check"></i><b>1.2</b> Project Deliverables</a></li>
+<li class="chapter" data-level="1.3" data-path="chapter-1.html"><a href="chapter-1.html#project-schedule"><i class="fa fa-check"></i><b>1.3</b> Project Schedule</a></li>
+<li class="chapter" data-level="1.4" data-path="chapter-1.html"><a href="chapter-1.html#grading"><i class="fa fa-check"></i><b>1.4</b> Grading</a></li>
+<li class="chapter" data-level="1.5" data-path="chapter-1.html"><a href="chapter-1.html#project-proposal"><i class="fa fa-check"></i><b>1.5</b> Project Proposal</a></li>
+<li class="chapter" data-level="1.6" data-path="chapter-1.html"><a href="chapter-1.html#lab-journal"><i class="fa fa-check"></i><b>1.6</b> <em>Lab Journal</em></a></li>
+<li class="chapter" data-level="1.7" data-path="chapter-1.html"><a href="chapter-1.html#article"><i class="fa fa-check"></i><b>1.7</b> Article</a><ul>
+<li class="chapter" data-level="1.7.1" data-path="chapter-1.html"><a href="chapter-1.html#installing-the-article-template"><i class="fa fa-check"></i><b>1.7.1</b> Installing the Article Template</a></li>
+<li class="chapter" data-level="1.7.2" data-path="chapter-1.html"><a href="chapter-1.html#using-the-template"><i class="fa fa-check"></i><b>1.7.2</b> Using the Template</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="chapter-2.html"><a href="chapter-2.html"><i class="fa fa-check"></i><b>2</b> Discovering Data Sets</a><ul>
 <li class="chapter" data-level="2.1" data-path="chapter-2.html"><a href="chapter-2.html#finding-public-data"><i class="fa fa-check"></i><b>2.1</b> Finding Public Data Sets of Interest</a></li>
@@ -223,15 +226,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="download-geo" class="section level2">
 <h2><span class="header-section-number">B.1</span> Downloading annotation data from GEO</h2>
 <p>Given the <code>GSE****</code> id of your experiment you can download any available (annotation)data from GEO using the <code>GEOquery</code> library. For the example experiment used previously, the following code downloads two files; a <code>series_matrix.txt.gz</code> file and a <code>.soft</code> file that are both also available for download from the NCBI GEO website. Note the <code>destdir</code> argument for storing it in a known location instead of the <code>/tmp</code> folder for later use.</p>
-<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb50-1" data-line-number="1"><span class="kw">library</span>(GEOquery)</a>
-<a class="sourceLine" id="cb50-2" data-line-number="2">gse.id &lt;-<span class="st"> &#39;GSE101942&#39;</span></a>
-<a class="sourceLine" id="cb50-3" data-line-number="3">gse &lt;-<span class="st"> </span><span class="kw">getGEO</span>(gse.id, <span class="dt">destdir =</span> <span class="st">&quot;./data/&quot;</span>, <span class="dt">getGPL =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
-<p>Once downloaded, you can load the data later using:</p>
 <div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb51-1" data-line-number="1"><span class="kw">library</span>(GEOquery)</a>
-<a class="sourceLine" id="cb51-2" data-line-number="2">gse &lt;-<span class="st"> </span><span class="kw">getGEO</span>(<span class="dt">filename =</span> <span class="st">&#39;./data/GSE101942_series_matrix.txt.gz&#39;</span>) <span class="co"># Sample details</span></a>
-<a class="sourceLine" id="cb51-3" data-line-number="3">gpl &lt;-<span class="st"> </span><span class="kw">getGEO</span>(<span class="dt">filename =</span> <span class="st">&#39;./data/GPL11154.soft&#39;</span>) <span class="co"># Platform details</span></a>
-<a class="sourceLine" id="cb51-4" data-line-number="4"><span class="co"># Print some metadata of the gse object</span></a>
-<a class="sourceLine" id="cb51-5" data-line-number="5">gse</a></code></pre></div>
+<a class="sourceLine" id="cb51-2" data-line-number="2">gse.id &lt;-<span class="st"> &#39;GSE101942&#39;</span></a>
+<a class="sourceLine" id="cb51-3" data-line-number="3">gse &lt;-<span class="st"> </span><span class="kw">getGEO</span>(gse.id, <span class="dt">destdir =</span> <span class="st">&quot;./data/&quot;</span>, <span class="dt">getGPL =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<p>Once downloaded, you can load the data later using:</p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb52-1" data-line-number="1"><span class="kw">library</span>(GEOquery)</a>
+<a class="sourceLine" id="cb52-2" data-line-number="2">gse &lt;-<span class="st"> </span><span class="kw">getGEO</span>(<span class="dt">filename =</span> <span class="st">&#39;./data/GSE101942_series_matrix.txt.gz&#39;</span>) <span class="co"># Sample details</span></a>
+<a class="sourceLine" id="cb52-3" data-line-number="3">gpl &lt;-<span class="st"> </span><span class="kw">getGEO</span>(<span class="dt">filename =</span> <span class="st">&#39;./data/GPL11154.soft&#39;</span>) <span class="co"># Platform details</span></a>
+<a class="sourceLine" id="cb52-4" data-line-number="4"><span class="co"># Print some metadata of the gse object</span></a>
+<a class="sourceLine" id="cb52-5" data-line-number="5">gse</a></code></pre></div>
 <pre><code>## ExpressionSet (storageMode: lockedEnvironment)
 ## assayData: 0 features, 12 samples 
 ##   element names: exprs 
@@ -243,8 +246,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## featureData: none
 ## experimentData: use &#39;experimentData(object)&#39;
 ## Annotation: GPL11154</code></pre>
-<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb53-1" data-line-number="1"><span class="co"># And the structure of the gpl object</span></a>
-<a class="sourceLine" id="cb53-2" data-line-number="2"><span class="kw">str</span>(gpl)</a></code></pre></div>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb54-1" data-line-number="1"><span class="co"># And the structure of the gpl object</span></a>
+<a class="sourceLine" id="cb54-2" data-line-number="2"><span class="kw">str</span>(gpl)</a></code></pre></div>
 <pre><code>## Formal class &#39;GPL&#39; [package &quot;GEOquery&quot;] with 2 slots
 ##   ..@ dataTable:Formal class &#39;GEODataTable&#39; [package &quot;GEOquery&quot;] with 2 slots
 ##   .. .. ..@ columns:&#39;data.frame&#39;:    0 obs. of  2 variables:
@@ -273,8 +276,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 * <code>@featureData</code>: a dataframe holding feature (=gene) information, slightly rare for RNA-seq datasets
 * <code>@experimentData</code>: information about the lab which performed the experiment</p>
 <p>You already know how to access a column in a data frame using the <code>$</code> notation, and accessing a complete dataframe in the <code>gse</code> object is done using the <code>@</code> symbol:</p>
-<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb55-1" data-line-number="1"><span class="co"># Access a data frame containing phenotype information</span></a>
-<a class="sourceLine" id="cb55-2" data-line-number="2">gse<span class="op">@</span>phenoData<span class="op">@</span>data</a></code></pre></div>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb56-1" data-line-number="1"><span class="co"># Access a data frame containing phenotype information</span></a>
+<a class="sourceLine" id="cb56-2" data-line-number="2">gse<span class="op">@</span>phenoData<span class="op">@</span>data</a></code></pre></div>
 <p>Here you see that each sample is described using its sample identifier (<code>GSM****</code>), information about the the sample group (<code>title</code> column) and a number of characteristics. The actual information included depends on your dataset.</p>
 <table>
 <colgroup>
@@ -376,10 +379,10 @@ pluripotent stem cells (iPSCs)</td>
 </tbody>
 </table>
 <p>If your dataset has properly annotated gene information, this should be accessible in the <code>@featureData</code> slot. For instance, the dataset <a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE20489"><code>GSE20489</code></a> does have this annotation available. Once loaded, we see that the following annotation columns are present for <em>each gene</em> in the <code>featureData</code> slot (following is a small subset, in total there can be well over 20 columns of information per gene). Also, the <em>metadata</em> listing shows for how many features (=genes, 54675) and samples (54) the expression data is present (in the <code>@assayData</code> slot):</p>
-<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb56-1" data-line-number="1"><span class="co"># This gets a list with a single &#39;ExpressionSet&#39; object</span></a>
-<a class="sourceLine" id="cb56-2" data-line-number="2">GSE20489 &lt;-<span class="st"> </span><span class="kw">getGEO</span>(<span class="st">&quot;GSE20489&quot;</span>, <span class="dt">destdir =</span> <span class="st">&#39;../data&#39;</span>)</a>
-<a class="sourceLine" id="cb56-3" data-line-number="3"><span class="co"># Print some metadata of the featureData slot</span></a>
-<a class="sourceLine" id="cb56-4" data-line-number="4">GSE20489[[<span class="dv">1</span>]]</a></code></pre></div>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb57-1" data-line-number="1"><span class="co"># This gets a list with a single &#39;ExpressionSet&#39; object</span></a>
+<a class="sourceLine" id="cb57-2" data-line-number="2">GSE20489 &lt;-<span class="st"> </span><span class="kw">getGEO</span>(<span class="st">&quot;GSE20489&quot;</span>, <span class="dt">destdir =</span> <span class="st">&#39;../data&#39;</span>)</a>
+<a class="sourceLine" id="cb57-3" data-line-number="3"><span class="co"># Print some metadata of the featureData slot</span></a>
+<a class="sourceLine" id="cb57-4" data-line-number="4">GSE20489[[<span class="dv">1</span>]]</a></code></pre></div>
 <pre><code>## ExpressionSet (storageMode: lockedEnvironment)
 ## assayData: 54675 features, 54 samples 
 ##   element names: exprs 
@@ -505,18 +508,18 @@ protein modification p…</td>
 <div id="annotationDBI" class="section level3">
 <h3><span class="header-section-number">B.2.1</span> Using <code>AnnotationDBI</code></h3>
 <p>The <code>AnnotationDbi</code> offers data sets for many organisms in the form of installable libraries and depending on your experiment you need to find the proper library. The example experiment contains samples of the house mouse (Mus musculus) and therefore we select its data set.</p>
-<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb58-1" data-line-number="1"><span class="co"># Load the AnnotationDbi interface library</span></a>
-<a class="sourceLine" id="cb58-2" data-line-number="2"><span class="kw">library</span>(AnnotationDbi)</a>
-<a class="sourceLine" id="cb58-3" data-line-number="3"><span class="co"># Load the Bioconductor installation library (contains &#39;biocLite()&#39;)</span></a>
-<a class="sourceLine" id="cb58-4" data-line-number="4"><span class="kw">library</span>(BiocInstaller)</a>
-<a class="sourceLine" id="cb58-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb58-6" data-line-number="6"><span class="co"># Install and load the organism specific gene database</span></a>
-<a class="sourceLine" id="cb58-7" data-line-number="7"><span class="co"># &#39;org&#39; for Organism</span></a>
-<a class="sourceLine" id="cb58-8" data-line-number="8"><span class="co"># &#39;Hs&#39; for Homo sapiens</span></a>
-<a class="sourceLine" id="cb58-9" data-line-number="9"><span class="co"># &#39;eg&#39; for Entrez Gene IDs</span></a>
-<a class="sourceLine" id="cb58-10" data-line-number="10"><span class="co"># (try to load (using the library function) first before installing, it might already be present)</span></a>
-<a class="sourceLine" id="cb58-11" data-line-number="11"><span class="kw">biocLite</span>(<span class="st">&#39;org.Hs.eg.db&#39;</span>)</a>
-<a class="sourceLine" id="cb58-12" data-line-number="12"><span class="kw">library</span>(org.Hs.eg.db)</a></code></pre></div>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb59-1" data-line-number="1"><span class="co"># Load the AnnotationDbi interface library</span></a>
+<a class="sourceLine" id="cb59-2" data-line-number="2"><span class="kw">library</span>(AnnotationDbi)</a>
+<a class="sourceLine" id="cb59-3" data-line-number="3"><span class="co"># Load the Bioconductor installation library (contains &#39;biocLite()&#39;)</span></a>
+<a class="sourceLine" id="cb59-4" data-line-number="4"><span class="kw">library</span>(BiocInstaller)</a>
+<a class="sourceLine" id="cb59-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb59-6" data-line-number="6"><span class="co"># Install and load the organism specific gene database</span></a>
+<a class="sourceLine" id="cb59-7" data-line-number="7"><span class="co"># &#39;org&#39; for Organism</span></a>
+<a class="sourceLine" id="cb59-8" data-line-number="8"><span class="co"># &#39;Hs&#39; for Homo sapiens</span></a>
+<a class="sourceLine" id="cb59-9" data-line-number="9"><span class="co"># &#39;eg&#39; for Entrez Gene IDs</span></a>
+<a class="sourceLine" id="cb59-10" data-line-number="10"><span class="co"># (try to load (using the library function) first before installing, it might already be present)</span></a>
+<a class="sourceLine" id="cb59-11" data-line-number="11"><span class="kw">biocLite</span>(<span class="st">&#39;org.Hs.eg.db&#39;</span>)</a>
+<a class="sourceLine" id="cb59-12" data-line-number="12"><span class="kw">library</span>(org.Hs.eg.db)</a></code></pre></div>
 <p>The following information types are available in this database (use the <code>columns</code> function to inspect).</p>
 <table style="width:88%;">
 <colgroup>
@@ -683,26 +686,26 @@ conductance regulator</td>
 <li><strong><code>multiVals</code></strong>: a number of columns contain more then one entry for a single gene, in that case we only want to store the first one.</li>
 </ul>
 <p>The output of the <code>mapIds</code> function is a single character vector that we can add to our data frame containing the DEGs (in this case the DEGs for the IPSC trisomic vs disomic comparison containing 828 genes stored in the <code>ipsc.tri.vs.di</code> data frame).</p>
-<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb59-1" data-line-number="1"><span class="co"># Retrieve the ENSEMBL gene ID, e.g. &#39;ENSG00000001626&#39;</span></a>
-<a class="sourceLine" id="cb59-2" data-line-number="2">ipsc.tri.vs.di<span class="op">$</span>Ensembl &lt;-<span class="st"> </span><span class="kw">mapIds</span>(<span class="dt">x =</span> org.Hs.eg.db,</a>
-<a class="sourceLine" id="cb59-3" data-line-number="3">                           <span class="dt">keys=</span><span class="kw">row.names</span>(ipsc.tri.vs.di),</a>
-<a class="sourceLine" id="cb59-4" data-line-number="4">                           <span class="dt">column=</span><span class="st">&quot;ENSEMBL&quot;</span>,</a>
-<a class="sourceLine" id="cb59-5" data-line-number="5">                           <span class="dt">keytype=</span><span class="st">&quot;SYMBOL&quot;</span>,</a>
-<a class="sourceLine" id="cb59-6" data-line-number="6">                           <span class="dt">multiVals=</span><span class="st">&quot;first&quot;</span>)</a>
-<a class="sourceLine" id="cb59-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb59-8" data-line-number="8"><span class="co"># Retrieve the ENTREZ gene ID, e.g. &#39;12323&#39;</span></a>
-<a class="sourceLine" id="cb59-9" data-line-number="9">ipsc.tri.vs.di<span class="op">$</span>EntrezID &lt;-<span class="st"> </span><span class="kw">mapIds</span>(<span class="dt">x =</span> org.Hs.eg.db,</a>
-<a class="sourceLine" id="cb59-10" data-line-number="10">                            <span class="dt">keys=</span><span class="kw">row.names</span>(ipsc.tri.vs.di),</a>
-<a class="sourceLine" id="cb59-11" data-line-number="11">                            <span class="dt">column=</span><span class="st">&quot;ENTREZID&quot;</span>,</a>
-<a class="sourceLine" id="cb59-12" data-line-number="12">                            <span class="dt">keytype=</span><span class="st">&quot;SYMBOL&quot;</span>,</a>
-<a class="sourceLine" id="cb59-13" data-line-number="13">                            <span class="dt">multiVals=</span><span class="st">&quot;first&quot;</span>)</a>
-<a class="sourceLine" id="cb59-14" data-line-number="14"></a>
-<a class="sourceLine" id="cb59-15" data-line-number="15"><span class="co"># Retrieve the KEGG enzyme code, e.g. 2.7.11.17</span></a>
-<a class="sourceLine" id="cb59-16" data-line-number="16">ipsc.tri.vs.di<span class="op">$</span>Enzyme &lt;-<span class="st"> </span><span class="kw">mapIds</span>(<span class="dt">x =</span> org.Hs.eg.db,</a>
-<a class="sourceLine" id="cb59-17" data-line-number="17">                           <span class="dt">keys=</span><span class="kw">row.names</span>(ipsc.tri.vs.di),</a>
-<a class="sourceLine" id="cb59-18" data-line-number="18">                           <span class="dt">column=</span><span class="st">&quot;ENZYME&quot;</span>,</a>
-<a class="sourceLine" id="cb59-19" data-line-number="19">                           <span class="dt">keytype=</span><span class="st">&quot;SYMBOL&quot;</span>,</a>
-<a class="sourceLine" id="cb59-20" data-line-number="20">                           <span class="dt">multiVals=</span><span class="st">&quot;first&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb60-1" data-line-number="1"><span class="co"># Retrieve the ENSEMBL gene ID, e.g. &#39;ENSG00000001626&#39;</span></a>
+<a class="sourceLine" id="cb60-2" data-line-number="2">ipsc.tri.vs.di<span class="op">$</span>Ensembl &lt;-<span class="st"> </span><span class="kw">mapIds</span>(<span class="dt">x =</span> org.Hs.eg.db,</a>
+<a class="sourceLine" id="cb60-3" data-line-number="3">                           <span class="dt">keys=</span><span class="kw">row.names</span>(ipsc.tri.vs.di),</a>
+<a class="sourceLine" id="cb60-4" data-line-number="4">                           <span class="dt">column=</span><span class="st">&quot;ENSEMBL&quot;</span>,</a>
+<a class="sourceLine" id="cb60-5" data-line-number="5">                           <span class="dt">keytype=</span><span class="st">&quot;SYMBOL&quot;</span>,</a>
+<a class="sourceLine" id="cb60-6" data-line-number="6">                           <span class="dt">multiVals=</span><span class="st">&quot;first&quot;</span>)</a>
+<a class="sourceLine" id="cb60-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb60-8" data-line-number="8"><span class="co"># Retrieve the ENTREZ gene ID, e.g. &#39;12323&#39;</span></a>
+<a class="sourceLine" id="cb60-9" data-line-number="9">ipsc.tri.vs.di<span class="op">$</span>EntrezID &lt;-<span class="st"> </span><span class="kw">mapIds</span>(<span class="dt">x =</span> org.Hs.eg.db,</a>
+<a class="sourceLine" id="cb60-10" data-line-number="10">                            <span class="dt">keys=</span><span class="kw">row.names</span>(ipsc.tri.vs.di),</a>
+<a class="sourceLine" id="cb60-11" data-line-number="11">                            <span class="dt">column=</span><span class="st">&quot;ENTREZID&quot;</span>,</a>
+<a class="sourceLine" id="cb60-12" data-line-number="12">                            <span class="dt">keytype=</span><span class="st">&quot;SYMBOL&quot;</span>,</a>
+<a class="sourceLine" id="cb60-13" data-line-number="13">                            <span class="dt">multiVals=</span><span class="st">&quot;first&quot;</span>)</a>
+<a class="sourceLine" id="cb60-14" data-line-number="14"></a>
+<a class="sourceLine" id="cb60-15" data-line-number="15"><span class="co"># Retrieve the KEGG enzyme code, e.g. 2.7.11.17</span></a>
+<a class="sourceLine" id="cb60-16" data-line-number="16">ipsc.tri.vs.di<span class="op">$</span>Enzyme &lt;-<span class="st"> </span><span class="kw">mapIds</span>(<span class="dt">x =</span> org.Hs.eg.db,</a>
+<a class="sourceLine" id="cb60-17" data-line-number="17">                           <span class="dt">keys=</span><span class="kw">row.names</span>(ipsc.tri.vs.di),</a>
+<a class="sourceLine" id="cb60-18" data-line-number="18">                           <span class="dt">column=</span><span class="st">&quot;ENZYME&quot;</span>,</a>
+<a class="sourceLine" id="cb60-19" data-line-number="19">                           <span class="dt">keytype=</span><span class="st">&quot;SYMBOL&quot;</span>,</a>
+<a class="sourceLine" id="cb60-20" data-line-number="20">                           <span class="dt">multiVals=</span><span class="st">&quot;first&quot;</span>)</a></code></pre></div>
 <p>Unfortunately, not all organisms offer access to such information nor is the information always complete. For instance, the following table shows the number of available records for the Ensembl, Entrez en KEGG IDs downloaded:</p>
 <table style="width:61%;">
 <colgroup>
@@ -746,11 +749,11 @@ conductance regulator</td>
 <p>The text above mentiones <em>species</em>, <em>attributes</em> and <em>filters</em>, and we need to combine these elements to query the biomart databases for our annotation. The following code ‘chunks’ show possible values for these elements and how to gather and store the relevant data.</p>
 <p>The <code>biomaRt</code> library interfaces with the <a href="http://www.biomart.org">biomart.org</a> online database. Sometimes the biomart website (which offers a browsable database) is down due to maintanance, but its many mirrors can still be used, for instance at <a href="http://www.ensembl.org/biomart/martview/fc683a66d09fd1f42be754bcd90ba7da">Ensembl</a>.</p>
 <p>You are required to explore a number of objects and the given example code is most likely not suitable for your data/ organism. The project is well documented on the <a href="https://bioconductor.org/packages/release/bioc/html/biomaRt.html">Bioconductor biomaRt</a> website that links to the <a href="https://bioconductor.org/packages/release/bioc/vignettes/biomaRt/inst/doc/biomaRt.html">biomaRt users guide</a>.</p>
-<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb60-1" data-line-number="1"><span class="co"># Load the library</span></a>
-<a class="sourceLine" id="cb60-2" data-line-number="2"><span class="kw">library</span>(biomaRt)</a>
-<a class="sourceLine" id="cb60-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb60-4" data-line-number="4"><span class="co"># Use an alternative database server as the regular one sometimes has issues..</span></a>
-<a class="sourceLine" id="cb60-5" data-line-number="5">ensembl=<span class="kw">useMart</span>(<span class="st">&quot;ENSEMBL_MART_ENSEMBL&quot;</span>, <span class="dt">host=</span><span class="st">&quot;www.ensembl.org&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb61-1" data-line-number="1"><span class="co"># Load the library</span></a>
+<a class="sourceLine" id="cb61-2" data-line-number="2"><span class="kw">library</span>(biomaRt)</a>
+<a class="sourceLine" id="cb61-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb61-4" data-line-number="4"><span class="co"># Use an alternative database server as the regular one sometimes has issues..</span></a>
+<a class="sourceLine" id="cb61-5" data-line-number="5">ensembl=<span class="kw">useMart</span>(<span class="st">&quot;ENSEMBL_MART_ENSEMBL&quot;</span>, <span class="dt">host=</span><span class="st">&quot;www.ensembl.org&quot;</span>)</a></code></pre></div>
 <table style="width:65%;">
 <colgroup>
 <col width="31%" />
@@ -782,13 +785,13 @@ conductance regulator</td>
 </tbody>
 </table>
 <p>Available databases in the Ensembl biomaRt</p>
-<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb61-1" data-line-number="1"><span class="co"># Select the &#39;ensembl&#39; database</span></a>
-<a class="sourceLine" id="cb61-2" data-line-number="2">ensembl &lt;-<span class="st"> </span><span class="kw">useMart</span>(<span class="st">&quot;ensembl&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb62-1" data-line-number="1"><span class="co"># Select the &#39;ensembl&#39; database</span></a>
+<a class="sourceLine" id="cb62-2" data-line-number="2">ensembl &lt;-<span class="st"> </span><span class="kw">useMart</span>(<span class="st">&quot;ensembl&quot;</span>)</a></code></pre></div>
 <p>Using the <code>listDatasets</code> function you can get a full list of available datasets. Store this list in an R object and ‘browse’ this object in RStudio to see if your organism is included. Copy the name of the dataset, this is the <em>species</em> element we will use.</p>
-<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb62-1" data-line-number="1">mart.datasets &lt;-<span class="st"> </span><span class="kw">listDatasets</span>(ensembl)</a>
-<a class="sourceLine" id="cb62-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb62-3" data-line-number="3"><span class="co"># Select the correct dataset, for the example data we select the &#39;hsapiens_gene_ensembl&#39; </span></a>
-<a class="sourceLine" id="cb62-4" data-line-number="4">ensembl &lt;-<span class="st"> </span><span class="kw">useDataset</span>(<span class="st">&#39;hsapiens_gene_ensembl&#39;</span>, <span class="dt">mart =</span> ensembl)</a></code></pre></div>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb63-1" data-line-number="1">mart.datasets &lt;-<span class="st"> </span><span class="kw">listDatasets</span>(ensembl)</a>
+<a class="sourceLine" id="cb63-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb63-3" data-line-number="3"><span class="co"># Select the correct dataset, for the example data we select the &#39;hsapiens_gene_ensembl&#39; </span></a>
+<a class="sourceLine" id="cb63-4" data-line-number="4">ensembl &lt;-<span class="st"> </span><span class="kw">useDataset</span>(<span class="st">&#39;hsapiens_gene_ensembl&#39;</span>, <span class="dt">mart =</span> ensembl)</a></code></pre></div>
 <table>
 <colgroup>
 <col width="43%" />
@@ -844,7 +847,7 @@ genes (spetri2)</td>
 <p>Subset of the 69 datasets available</p>
 <p>Next is deciding on a filter. For this we can use the <code>listFilters</code> function on the <code>ensembl</code> object, storing the full list of filters. Here too it is wise to view this in RStudio to find the filter to use.</p>
 <p>The filter specifies <em>what</em> you will use to search on. For instance, the <code>AnnotationDbi</code> queries above gave us <code>Ensembl</code> gene ID’s and we could use those with the <code>ensembl_gene_id</code> filter. When viewing the list of filters in RStudio you can use the search text-box in the top-right of the view, for example with <code>ensembl</code> to look for filters to use with this type of identifier.</p>
-<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb63-1" data-line-number="1">filters &lt;-<span class="st"> </span><span class="kw">listFilters</span>(ensembl)</a></code></pre></div>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb64-1" data-line-number="1">filters &lt;-<span class="st"> </span><span class="kw">listFilters</span>(ensembl)</a></code></pre></div>
 <table style="width:96%;">
 <colgroup>
 <col width="52%" />
@@ -925,7 +928,7 @@ Splice Sites ID(s)</td>
 </table>
 <p>Subset of the 340 available filters</p>
 <p>Finally we get to the point to determine what data we would like to get from the database. These are the <code>attributes</code> which we can get with the <code>listAttributes</code> function on the <code>ensembl</code> object. Again - and especially with the attributes since there are often &gt;1000 of selectable options - we store the attributes and view them in RStudio to look for data that we want.</p>
-<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb64-1" data-line-number="1">attributes &lt;-<span class="st"> </span><span class="kw">listAttributes</span>(ensembl)</a></code></pre></div>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb65-1" data-line-number="1">attributes &lt;-<span class="st"> </span><span class="kw">listAttributes</span>(ensembl)</a></code></pre></div>
 <table>
 <colgroup>
 <col width="40%" />
@@ -1024,20 +1027,20 @@ Splice Sites ID(s)</td>
 </table>
 <p>Subset of the 1944 available attributes</p>
 <p>If we want to have the gene chromosome, start- and end-position as well as its description (note, just as an example, there is other, more interesting information available too!) we combine this in a character vector (<code>attrs.get</code>, see below). There is one <em>caveat</em> though, the <em>order</em> in which you get back the results are <strong>not</strong> the same as the input order! This means that we cannot simple combine the data with our original data set but we need to <strong>merge</strong> it together. However, to be able to merge the data we need to know which record belongs to which gene and therefore we add our selected <code>filter</code> (in our case the <code>ensembl_gene_id</code>) to the list of attributes to get. Then, when we get the <code>results dataframe</code> we can use the <code>merge</code> function in R to combine the gene information with the actual data:</p>
-<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb65-1" data-line-number="1"><span class="kw">merge</span>(<span class="dt">x =</span> ipsc.tri.vs.di, <span class="dt">y =</span> results, <span class="dt">by.x =</span> <span class="st">&#39;Ensembl&#39;</span>, <span class="dt">by.y =</span> <span class="st">&#39;ensembl_gene_id&#39;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb66-1" data-line-number="1"><span class="kw">merge</span>(<span class="dt">x =</span> ipsc.tri.vs.di, <span class="dt">y =</span> results, <span class="dt">by.x =</span> <span class="st">&#39;Ensembl&#39;</span>, <span class="dt">by.y =</span> <span class="st">&#39;ensembl_gene_id&#39;</span>)</a></code></pre></div>
 <p>We now have all three needed elements (species, filter and attributes) so we are ready to query the database with the <code>getBM</code> function (read the help using <code>?getBM</code>).</p>
 <p>The example below retrieves data using a set of five Ensembl gene IDs since not all genes have an Ensembl ID as we’ve seen above, so we filter those out first and use this as the <code>values</code> parameter below.</p>
-<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb66-1" data-line-number="1"><span class="co"># Set the &#39;attributes&#39; values</span></a>
-<a class="sourceLine" id="cb66-2" data-line-number="2">attrs.get &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;ensembl_gene_id&quot;</span>, <span class="st">&quot;chromosome_name&quot;</span>, </a>
-<a class="sourceLine" id="cb66-3" data-line-number="3">               <span class="st">&quot;start_position&quot;</span>,<span class="st">&quot;end_position&quot;</span>, <span class="st">&quot;description&quot;</span>)</a>
-<a class="sourceLine" id="cb66-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb66-5" data-line-number="5"><span class="co"># Perform a biomaRt query using &#39;getBM&#39;</span></a>
-<a class="sourceLine" id="cb66-6" data-line-number="6">results &lt;-<span class="st"> </span><span class="kw">getBM</span>(<span class="dt">attributes =</span> attrs.get,</a>
-<a class="sourceLine" id="cb66-7" data-line-number="7">                 <span class="dt">filters =</span> <span class="st">&quot;ensembl_gene_id&quot;</span>,</a>
-<a class="sourceLine" id="cb66-8" data-line-number="8">                 <span class="dt">values =</span> ipsc.tri.vs.di<span class="op">$</span>Ensembl[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>], </a>
-<a class="sourceLine" id="cb66-9" data-line-number="9">                 <span class="dt">mart =</span> ensembl)</a>
-<a class="sourceLine" id="cb66-10" data-line-number="10"></a>
-<a class="sourceLine" id="cb66-11" data-line-number="11">results<span class="op">$</span>gene_length &lt;-<span class="st"> </span><span class="kw">abs</span>(results<span class="op">$</span>end_position <span class="op">-</span><span class="st"> </span>results<span class="op">$</span>start_position)</a></code></pre></div>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb67-1" data-line-number="1"><span class="co"># Set the &#39;attributes&#39; values</span></a>
+<a class="sourceLine" id="cb67-2" data-line-number="2">attrs.get &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;ensembl_gene_id&quot;</span>, <span class="st">&quot;chromosome_name&quot;</span>, </a>
+<a class="sourceLine" id="cb67-3" data-line-number="3">               <span class="st">&quot;start_position&quot;</span>,<span class="st">&quot;end_position&quot;</span>, <span class="st">&quot;description&quot;</span>)</a>
+<a class="sourceLine" id="cb67-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb67-5" data-line-number="5"><span class="co"># Perform a biomaRt query using &#39;getBM&#39;</span></a>
+<a class="sourceLine" id="cb67-6" data-line-number="6">results &lt;-<span class="st"> </span><span class="kw">getBM</span>(<span class="dt">attributes =</span> attrs.get,</a>
+<a class="sourceLine" id="cb67-7" data-line-number="7">                 <span class="dt">filters =</span> <span class="st">&quot;ensembl_gene_id&quot;</span>,</a>
+<a class="sourceLine" id="cb67-8" data-line-number="8">                 <span class="dt">values =</span> ipsc.tri.vs.di<span class="op">$</span>Ensembl[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>], </a>
+<a class="sourceLine" id="cb67-9" data-line-number="9">                 <span class="dt">mart =</span> ensembl)</a>
+<a class="sourceLine" id="cb67-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb67-11" data-line-number="11">results<span class="op">$</span>gene_length &lt;-<span class="st"> </span><span class="kw">abs</span>(results<span class="op">$</span>end_position <span class="op">-</span><span class="st"> </span>results<span class="op">$</span>start_position)</a></code></pre></div>
 <p>The <code>results</code> object is a <code>data.frame</code> with 5 columns that we can merge with our data set giving us the following annotation columns (combined from the <code>AnnotationDBI</code> and <code>biomaRt</code> libraries).</p>
 <table style="width:100%;">
 <colgroup>
