@@ -33,7 +33,7 @@ The aim is to keep to the below schedule during this course. Use the first two w
 
 ## Grading {#grading}
 
-The final grade consists of a weighted average of the work done for weeks 1 & 2 (resulting in the *project proposal*) (**15%**), the *lab journal* containing all performed steps, their code and outputs (**50%**) and the *article* report (**25%**) and finally your *work attitude* (**10%**). A grade >= **5.5** will give a total of 8 EC. The rest of this chapter explains the expected contents for the three graded products (each of these elements is explained in greater detail in other chapters).
+The final grade consists of a weighted average of the work done for weeks 1 & 2 (resulting in the *project proposal*) (**15%**), the *lab journal* containing all performed steps, their code and outputs (**60%**) and the *article* report (**25%**). A grade >= **5.5** will give a total of 8 EC. The rest of this chapter explains the expected contents for the three graded products (each of these elements is explained in greater detail in other chapters).
 
 ## Project Proposal
 
