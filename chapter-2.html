@@ -24,7 +24,7 @@
 <meta name="author" content="Marcel Kempenaar" />
 
 
-<meta name="date" content="2020-04-15" />
+<meta name="date" content="2020-04-16" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -256,14 +256,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="ncbi-geo" class="section level2">
 <h2><span class="header-section-number">2.2</span> The NCBI <em>Gene Expression Omnibus</em></h2>
-<p>The easiest method of exploring and finding interesting datasets is by simply using your web-browser to access a data-repository. You could also download a few gigabytes of SQL database and query that if you’d like, but I would advice against that. One such repository is the <a href="https://www.ncbi.nlm.nih.gov/geo/">NCBI Gene Expression Omnibus</a> (GEO). This <em>repository</em> was primarily used to store microarray datasets and describe those experiments, linking to raw data, processed data and an accompanying publication. There are however many more sources of data browsable in the GEO, and for this project we will limit our searches to “<em>Expression profiling by high throughput sequencing</em>” for which almost 17.000 experiments are listed. The <a href="https://www.ncbi.nlm.nih.gov/geo/summary">GEO Summary</a> page shows all available data sources, click on the right <em>Expression profiling</em> link to get to the full table of relevant experiments.</p>
-<p>Besides finding an experiment that you are interested in, there are some further requirements that you need to account for when browsing:</p>
+<p>The easiest method of exploring and finding interesting datasets is by simply using your web-browser to access a data-repository. You could also download a few gigabytes of SQL database and query that if you’d like, but I would advice against that. One such repository is the <a href="https://www.ncbi.nlm.nih.gov/geo/summary">NCBI Gene Expression Omnibus</a> (GEO). This <em>repository</em> was primarily used to store microarray datasets and describe those experiments, linking to raw data, processed data and an accompanying publication. There are however many more sources of data browsable in the GEO, and for this project we will limit our searches to experiments using the RNA-Seq technology for which over 35.000 experiments are listed. Following the “<em>Expression profiling by high throughput sequencing</em>” link in this summary table we get the complete listing in which you can find an interesting experiment. Besides finding an experiment that you are interested in, there are some further important requirements that you need to account for when browsing:</p>
 <ul>
 <li>The experiment must be published and the publication must be fully available, free or otherwise through the Hanze University library.</li>
-<li>For each <em>sample group</em>, a minimum of <strong>three</strong> replicates must be present. If one or more groups have less then three replicates, that group cannot be used (the rest of the data might still be usable).</li>
+<li>For each <em>sample group</em>, a minimum of <strong>three</strong> replicates must be present. If one or more groups have less then three replicates, that group cannot be used (the rest of the data might still be usable if there are at minimum two groups that do have 3 replicates).
+<ul>
+<li>Replicates are often not very easy to spot. When lucky samples are named “WildType - rep 2” for instance but most often you need to read the “Overall design” part of the page or click on the samples (with the “GSM…” ID) to make sure.</li>
+</ul></li>
 <li>The available data must contain at least the <strong>count</strong> data.
 <ul>
-<li>Data is offered in multiple formats, always including the RAW data (reads), but also in further processed data such as FPKM, RPKM and TPM (see this <a href="https://haroldpimentel.wordpress.com/2014/05/08/what-the-fpkm-a-review-rna-seq-expression-units/">interesting blog-post</a> discussing the use of these data). The tools and R analysis libraries that we will use for the downstream analysis rely on unnormalized or unprocessed data which is the <strong>count</strong> data. These counts simply represent the number of reads mapped to a transcript. For manual analysis, these need to be normalized across samples (which has been done to get the FPKM, RPKM or TPM values) but will be done by the analysis software using the count data (unbiased).</li>
+<li>Data is offered in multiple formats, always including the RAW data (the actual reads which we don’t use), but also in further processed data such as FPKM, RPKM and TPM (see this <a href="https://haroldpimentel.wordpress.com/2014/05/08/what-the-fpkm-a-review-rna-seq-expression-units/">interesting blog-post</a> discussing the use of these data). The tools and R analysis libraries that we will use for the downstream analysis rely on unnormalized and unprocessed data which is the <strong>count</strong> data. These counts simply represent the number of reads mapped to a transcript.</li>
 </ul></li>
 </ul>
 <p>Once you’ve found an experiment, write a mail to <a href="mailto:m.kempenaar@pl.hanze.nl">m.kempenaar@pl.hanze.nl</a> where you link your experiment. Once you receive a <em>go-ahead</em> you can start by reading the accompanying article and writing a project proposal.</p>
