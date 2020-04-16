@@ -19,7 +19,7 @@ The aim is to keep to the below schedule during this course. Use the first two w
 * Data Gathering and Literature Research [week three]
     + Make a final project choice
     + Retrieve the accompanying publication
-    + Write and present a short project proposal (section [2.3](#project-proposal_ch2))
+    + Write a short project proposal (section [2.3](#project-proposal_ch2))
     + Starting with Exploratory Data Analysis (chapter [3](#chapter-3))
 * Data Analysis [weeks four and five]
     + Finalizing Exploratory Data Analysis
@@ -37,7 +37,7 @@ The final grade consists of a weighted average of the work done for weeks 1 & 2 
 
 ## Project Proposal
 
-As you are free to choose from thousands of public data sets on a large variety of biological subjects, it is important to demonstrate a good understanding of the experiment, biology and the available data. This is demonstrated by presenting a short project proposal where you briefly explain the subject of the chosen research article, the experimental setup (how many samples were used, etc.) and what types of data are available for you to use.
+As you are free to choose from thousands of public data sets on a large variety of biological subjects, it is important to demonstrate a good understanding of the experiment, biology and the available data. This is demonstrated by writing a short project proposal where you briefly explain the subject of the chosen research article, the experimental setup (how many samples were used, etc.) and what types of data are available for you to use.
 
 ## *Lab Journal*
 
