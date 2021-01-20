@@ -32,7 +32,7 @@ gse
 str(gpl)
 ```
 
-The `gse` object *may* contain useful information about both samples and genes. Unfortunately for this example dataset there is only information available regarding the samples which we can access in the `phenoData` **slot**. Slots in R objects are a method of storing multiple data objects into a single R object, in this case this object is called an `ExpressionSet` (see `?ExpressionSet` for a description of its contents and structure). For storing information about an experiment this is very handy; you can store a dataframe with the actual expression data, a list containing laboratory information, a chunk of text with an abstract, etc. all in a single object.  
+The `gse` object *may* contain useful information about both samples and genes. Unfortunately for this example dataset there is only information available regarding the samples which we can access in the `phenoData` **slot**. Slots in R objects are a method of storing multiple data objects into a single R object, in this case this object is called an `ExpressionSet` (see `?ExpressionSet` for a description of its contents and structure). For storing information about an experiment this is very handy; you can store a dataframe with the actual expression data, a list containing laboratory information, a chunk of text with an abstract, etc. all in a single object.
 
 The most common datasets found in an `ExpressionSet` object:
 * `@assayData`: the actual expression data. Most common for microarray experiments and (very) rare for RNA-seq experiments

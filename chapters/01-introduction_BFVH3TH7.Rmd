@@ -1,11 +1,11 @@
 # Introduction {#chapter-1}
 
-## Important, Updated Instructions (13/03/2020)
+## COVID Edition - changes to the course
 
-Due to cancellation of all lectures for the month March; the documentation has been updated to make it easier for independent usage. The following sections have been **removed** from the manual and are now regarded fully optional. If you have done them already they will add to your grade. The listing contains a link to the chapter on a backup-site where the contents are still available. The complete previous version of this manual is available at [https://bioinf.nl/~marcelk/theme07/](https://bioinf.nl/~marcelk/theme07/). Please **do** read the parts that have been removed as they might contain information that is helpful for the remaining parts.
+Due to the current new norm of mostly online education, the documentation has been updated to make it easier for independent usage. The following sections have been **removed** from the manual and are now regarded as optional for 2021. The following listing contains links to the sections on a backup-site where the contents are still available. The complete previous version of this manual is available at [https://bioinf.nl/~marcelk/theme07/](https://bioinf.nl/~marcelk/theme07/). Please **do** read the parts (once you are working on the respective chapters) that have been removed as they might contain information that is helpful for the understanding of the remaining parts.
 
 * [3.4.4 Scatterplots](https://bioinf.nl/~marcelk/theme07/chapter-3.html#eda_scatter_plot) - this plot can only compare between single samples and is better to do *after* we have our DEGs comparing the average expression of replicates between groups.
-* [3.4.5 MA-plot](https://bioinf.nl/~marcelk/theme07/chapter-3.html#MA_plot) - same as with the scatterplots, we will most likely create this plot using the identified DEGs as part of chapter 5.
+* [3.4.5 MA-plot](https://bioinf.nl/~marcelk/theme07/chapter-3.html#MA_plot) - same as with the scatterplots; we will most likely create this plot using the identified DEGs as part of chapter 5.
 * [3.5.5 Principal Component Analysis](https://bioinf.nl/~marcelk/theme07/chapter-3.html#eda_pca) - comparable with MDS and therefore superfluous
 * [4.3 Using Manual Methods (t-test & ANOVA)](https://bioinf.nl/~marcelk/theme07/chapter-4.html#deg-manual) - we will now only focus on finding our DEGs using the packages described in chapter 4, the manual analysis - while a valuable exercise - is often not used in the end conclusions
 * [4.4 Multiple Testing Correction](https://bioinf.nl/~marcelk/theme07/chapter-4.html#deg-mtc) - only needed when doing manual testing, therefore removed.
@@ -14,7 +14,7 @@ Due to cancellation of all lectures for the month March; the documentation has b
 
 The use of RNA-Sequencing techniques for measuring gene expression is relatively new and replaces *microarrays*, though in some cases microarrays are still used. Gene expression data gives valuable insights into the workings of cells in certain conditions. Especially when comparing for instance healthy and diseased samples it can become clear which genes are causal or under influence of a specific condition. Finding the genes of interest (genes showing differing expression accross conditions, called the Differentially Expressed Genes (DEGs)) is the goal of this project.
 
-While there is no golden standard for analyzing RNA-sequencing datasets as there are many tools (all manufacturers of sequencing equiptment also deliver software packages) we will use proven R libraries for processing, visualizing and analyzing publically available datasets. While in some cases you are allowed to use the actual *raw* data that is available, it is highly recommended to use the pre-processed data which often is a table with a *count* value for each gene. This count is the number of reads that was mapped to that gene which corresponds to the relative number of transcripts (mRNA sequences) of that gene present in the cell at the time of sampling.
+While there is no golden standard for analyzing RNA-sequencing datasets as there are many tools (all manufacturers of sequencing equiptment also deliver software packages) we will use proven R libraries for processing, visualizing and analyzing publically available datasets. While in some cases you are allowed to use the actual *raw* data (sequence reads, in FastQ format) that is available, it is highly recommended to use the pre-processed data which often is a table with a *count* value for each gene. This count is the number of reads that was mapped to that gene which corresponds to the relative number of transcripts (mRNA sequences) of that gene present in the cell at the time of sampling.
 
 ## Project Deliverables
 
@@ -29,13 +29,13 @@ The aim is to keep to the below schedule during this course. Use the first two w
 * Data Gathering and Literature Research [week three]
     + Make a final project choice
     + Retrieve the accompanying publication
-    + Write and present a short project proposal (section [2.3](#project-proposal_ch2))
+    + Write a short project proposal (section [2.3](#project-proposal_ch2))
     + Starting with Exploratory Data Analysis (chapter [3](#chapter-3))
 * Data Analysis [weeks four and five]
     + Finalizing Exploratory Data Analysis
     + Discovering Differentially Expressed Genes (chapter [4](#chapter-4))
-    + Data Annotation (optional; appendix [a2](#a2-annotation))
-    + Techniques used: R with bioconductor, the EdgeR and/ or DESeq2 packages, RMarkdown
+    + Data Annotation (**optional**; appendix [a2](#a2-annotation))
+    + Techniques used: R with bioconductor, the EdgeR and/ or DESeq2 packages
 * Result Analysis [week six]
     + Analyzing and Visualizing your results (chapter [5](#chapter-5))
     + Techniques used: clustering, pathway analysis, gene-enrichment analysis

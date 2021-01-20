@@ -15,7 +15,7 @@ source('utils.R')
 
 # Exploratory Data Analysis {#chapter-3}
 
-We will be performing some exploratory data analysis with the goal of getting to grips with your chosen data set to properly identify a strategy for the actual analysis steps. During this exploration we will also keep an eye on the quality of the data. Even though the downloadable data is 'processed', there might be samples present that deviate too much from the other group of samples (a so called *outlier*). Creating basic visualizations of the data will give the necessary insight before we continue. We first start by downloading and loading in the actual count data.
+We start with performing some exploratory data analysis steps with the goal of getting to grips with your chosen data set to properly identify a strategy for the actual analysis steps. During this exploration we will also keep an eye on the quality of the data. Even though the downloadable data is 'processed', there might be samples present that deviate too much from the other group of samples (a so called *outlier*). Creating basic visualizations of the data will give the necessary insight before we continue. We first start by downloading and loading in the actual count data.
 
 ## Exploring the Available Project Data {#expl-data}
 
@@ -29,10 +29,9 @@ Whether you've found a dataset through the SRA or GEO, we want to get the data i
 
 **Data types**: 
 
-* **Read Count** (simple *raw* count of mapped reads to a certain gene or transcript).
+* **Read Count** (**required**; simple *raw* count of mapped reads to a certain gene or transcript).
 * **FPKM** (Fragments Per Kilobase Million, **F** for *Fragment*, paired-end sequencing),
 * **RPKM** (Reads Per Kilobase Million, **R** for *Read*, single-end sequencing),
-    + **Note**: if you want to use this, make sure that the raw data is *actually* single-end (should be stated in the article)
 * **TPM** (Transcripts Per Kilobase Million, **T** for *Transcript*, technique independent),
 
 **Layouts**
@@ -58,7 +57,7 @@ Back on the experiment overview page you'll see a (variable) number of links to 
 knitr::include_graphics("chapters/images/geo_data-download.png")
 ```
 
-As a bioinformatician we love to compress all the files so for this particular example, we download the `tar`-archive file, extract it to find a folder with another archive file for each sample. After extracting these files we end up with 12 `TXT`-files with just two columns; a *gene* identifier and a semi-raw *count* value (~4500 rows of data per sample):
+As a bioinformatician we love to compress all the files so for this particular example, we download the `tar`-archive file, extract it to find a folder with another archive file for each sample. After extracting these files we end up with 12 `TXT`-files with just two columns; a *gene* identifier and a raw *count* value (~4500 rows of data per sample):
 
 Table: (\#tab:foo) Contents of a `TXT`-file for sample [`GSM2563998`](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM2563998)
 
@@ -85,7 +84,7 @@ R works best with data in simple text formats. If your project data is offered a
 
 Once you have one or more column based text files they can be read into R simply by using the `read.table()` function.
 
-Follow the following steps to read in the data and start the exploratory data analysis. The resulting document should be semi-treated as a lab journal where you log the process from loading the data to the final analysis steps.
+Follow the following steps to read in the data and start the exploratory data analysis. The resulting document should be treated as a lab journal where you log the process from loading the data to the final analysis steps.
 
 * Open RStudio
 * Create a new R Markdown document
@@ -101,8 +100,8 @@ Follow the following steps to read in the data and start the exploratory data an
         * Check the output of the `str` function to see if all columns are of the expected R data type (e.g. `values`, `factors`, `character`, etc.)
 * Examine the samples included in the experiment and create as many R character objects as needed to store the classification.
     + **Note**: this is an important item and is often overlooked. See the *last 4 lines* in the code chunk in the section [Example Data](#ch3_example_data) below.
-    + For instance, if you have eight samples divided into case/ control columns you create an object called `case` in which you store the column **indices** (**only** numbers!) of the respective columns in the data set and an object called `control` with the remaining four data column **indices**. These are for later use.
-    + These variables allows us to repeatedly access the same data during the rest of this course, i.e. the code `boxplot(counts[case])` immediately shows that we are plotting the `case` samples from the `counts` data which is more clear than reading `boxplot()
+    + For instance, if you have eight samples divided into case/ control columns you create a variable called `case` in which you store the column **indices** (**only** numbers!) of the respective columns in the data set and a variable called `control` with the remaining four data column **indices**. These are for later use.
+    + These variables allows us to repeatedly access the same data during the rest of this course, i.e. the code `boxplot(counts[case])` immediately shows that we are plotting the `case` samples from the `counts` data which is more clear than reading `boxplot(counts[c(5:8)])` as that gives no reference to what these indices mean.
     
 ```{block, type='rmdtip'}
 For some datasets the order in which the samples are listed in your loaded dataset is different from the order that is shown on the GEO website. Most often, the names are different too or they are lacking any description and all you have are the `GSM` IDs. When creating these variables such as `control` that need to point to all control samples, you need to make sure that you have the right columns from your dataframe. Go to Appendix [A2; annotation](#download-geo) if the order is unclear or you just have a large number of samples as there might be supporting data available that can help make sense of your sample layout.
@@ -155,7 +154,7 @@ names(counts) <- c(paste0('di_IPSC_r', 1:3),  # Disomic IPSC, replicates 1-3
 # Show results of renaming the samples
 print(names(counts))
 
-# Assign column -indices- to variables for later use (chapter 4)
+# Assign column -indices- to variables for later use (i.e. counts[di_NEUR] selects the relevant columns)
 di_IPSC <- 1:3
 tri_IPSC <- 4:6
 di_NEUR <- 7:9
