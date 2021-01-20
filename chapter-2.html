@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title> Discovering Data Sets | Analysis of Gene Expression</title>
   <meta name="description" content="Course Syllabus for BFV: Theme 07 course" />
-  <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
   <meta property="og:title" content=" Discovering Data Sets | Analysis of Gene Expression" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Marcel Kempenaar" />
 
 
-<meta name="date" content="2020-04-16" />
+<meta name="date" content="2021-01-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -135,16 +135,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#analysis-of-gene-expression-project"><i class="fa fa-check"></i>Analysis of Gene Expression Project</a></li>
 </ul></li>
 <li class="chapter" data-level="1" data-path="chapter-1.html"><a href="chapter-1.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
-<li class="chapter" data-level="1.1" data-path="chapter-1.html"><a href="chapter-1.html#capstone-project---analysis-of-gene-expression"><i class="fa fa-check"></i><b>1.1</b> Capstone Project - Analysis of Gene Expression</a></li>
-<li class="chapter" data-level="1.2" data-path="chapter-1.html"><a href="chapter-1.html#project-deliverables"><i class="fa fa-check"></i><b>1.2</b> Project Deliverables</a></li>
-<li class="chapter" data-level="1.3" data-path="chapter-1.html"><a href="chapter-1.html#project-schedule"><i class="fa fa-check"></i><b>1.3</b> Project Schedule</a></li>
-<li class="chapter" data-level="1.4" data-path="chapter-1.html"><a href="chapter-1.html#grading"><i class="fa fa-check"></i><b>1.4</b> Grading</a></li>
-<li class="chapter" data-level="1.5" data-path="chapter-1.html"><a href="chapter-1.html#project-proposal"><i class="fa fa-check"></i><b>1.5</b> Project Proposal</a></li>
-<li class="chapter" data-level="1.6" data-path="chapter-1.html"><a href="chapter-1.html#lab-journal"><i class="fa fa-check"></i><b>1.6</b> <em>Lab Journal</em></a></li>
-<li class="chapter" data-level="1.7" data-path="chapter-1.html"><a href="chapter-1.html#article"><i class="fa fa-check"></i><b>1.7</b> Article</a><ul>
-<li class="chapter" data-level="1.7.1" data-path="chapter-1.html"><a href="chapter-1.html#installing-the-article-template"><i class="fa fa-check"></i><b>1.7.1</b> Installing the Article Template</a></li>
-<li class="chapter" data-level="1.7.2" data-path="chapter-1.html"><a href="chapter-1.html#using-the-template"><i class="fa fa-check"></i><b>1.7.2</b> Using the Template</a></li>
-</ul></li>
+<li class="chapter" data-level="1.1" data-path="chapter-1.html"><a href="chapter-1.html#covid-edition---changes-to-the-course"><i class="fa fa-check"></i><b>1.1</b> COVID Edition - changes to the course</a></li>
+<li class="chapter" data-level="1.2" data-path="chapter-1.html"><a href="chapter-1.html#theme-7---analysis-of-gene-expression-project"><i class="fa fa-check"></i><b>1.2</b> Theme 7 - Analysis of Gene Expression Project</a></li>
+<li class="chapter" data-level="1.3" data-path="chapter-1.html"><a href="chapter-1.html#project-deliverables"><i class="fa fa-check"></i><b>1.3</b> Project Deliverables</a></li>
+<li class="chapter" data-level="1.4" data-path="chapter-1.html"><a href="chapter-1.html#project-schedule"><i class="fa fa-check"></i><b>1.4</b> Project Schedule</a></li>
+<li class="chapter" data-level="1.5" data-path="chapter-1.html"><a href="chapter-1.html#grading"><i class="fa fa-check"></i><b>1.5</b> Grading</a></li>
+<li class="chapter" data-level="1.6" data-path="chapter-1.html"><a href="chapter-1.html#project-proposal"><i class="fa fa-check"></i><b>1.6</b> Project Proposal</a></li>
+<li class="chapter" data-level="1.7" data-path="chapter-1.html"><a href="chapter-1.html#lab-journal"><i class="fa fa-check"></i><b>1.7</b> <em>Lab Journal</em></a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="chapter-2.html"><a href="chapter-2.html"><i class="fa fa-check"></i><b>2</b> Discovering Data Sets</a><ul>
 <li class="chapter" data-level="2.1" data-path="chapter-2.html"><a href="chapter-2.html#finding-public-data"><i class="fa fa-check"></i><b>2.1</b> Finding Public Data Sets of Interest</a></li>
@@ -256,16 +253,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="ncbi-geo" class="section level2">
 <h2><span class="header-section-number">2.2</span> The NCBI <em>Gene Expression Omnibus</em></h2>
-<p>The easiest method of exploring and finding interesting datasets is by simply using your web-browser to access a data-repository. You could also download a few gigabytes of SQL database and query that if you’d like, but I would advice against that. One such repository is the <a href="https://www.ncbi.nlm.nih.gov/geo/summary">NCBI Gene Expression Omnibus</a> (GEO). This <em>repository</em> was primarily used to store microarray datasets and describe those experiments, linking to raw data, processed data and an accompanying publication. There are however many more sources of data browsable in the GEO, and for this project we will limit our searches to experiments using the RNA-Seq technology for which over 35.000 experiments are listed. Following the “<em>Expression profiling by high throughput sequencing</em>” link in this summary table we get the complete listing in which you can find an interesting experiment. Besides finding an experiment that you are interested in, there are some further important requirements that you need to account for when browsing:</p>
+<p>The easiest method of exploring and finding interesting datasets is by simply using your web-browser to access a data-repository. One such repository is the <a href="https://www.ncbi.nlm.nih.gov/geo/summary">NCBI Gene Expression Omnibus</a> (GEO). This <em>repository</em> was primarily used to store microarray datasets and describe those experiments, linking to raw data, processed data and an accompanying publication. There are however many more sources of data browsable in the GEO, and for this project we will limit our searches to experiments using the RNA-Seq technology for which over 40.000 experiments are listed. Following the “<em>Expression profiling by high throughput sequencing</em>” link in this summary table we get the complete listing in which you can find an interesting experiment. Besides finding an experiment that you are interested in, there are some further important requirements that you need to account for when browsing listed below. Note that at this point we do not need to download the data yet, this is described in chapter 3.</p>
 <ul>
-<li>The experiment must be published and the publication must be fully available, free or otherwise through the Hanze University library.</li>
+<li>The experiment <strong>must</strong> be published and the publication must be fully available, free or otherwise through the Hanze University library.</li>
 <li>For each <em>sample group</em>, a minimum of <strong>three</strong> replicates must be present. If one or more groups have less then three replicates, that group cannot be used (the rest of the data might still be usable if there are at minimum two groups that do have 3 replicates).
 <ul>
 <li>Replicates are often not very easy to spot. When lucky samples are named “WildType - rep 2” for instance but most often you need to read the “Overall design” part of the page or click on the samples (with the “GSM…” ID) to make sure.</li>
 </ul></li>
-<li>The available data must contain at least the <strong>count</strong> data.
+<li>The available data <strong>must</strong> contain at least the <strong>count</strong> data.
 <ul>
 <li>Data is offered in multiple formats, always including the RAW data (the actual reads which we don’t use), but also in further processed data such as FPKM, RPKM and TPM (see this <a href="https://haroldpimentel.wordpress.com/2014/05/08/what-the-fpkm-a-review-rna-seq-expression-units/">interesting blog-post</a> discussing the use of these data). The tools and R analysis libraries that we will use for the downstream analysis rely on unnormalized and unprocessed data which is the <strong>count</strong> data. These counts simply represent the number of reads mapped to a transcript.</li>
+<li>This is often the hardest part to assess; sometimes it is not clear if the provided data are the actual raw count values. Usually, you can find some (sometimes rather cryptic) information by clicking on a sample ID under the ‘Data processing’ section. In this paragraph of text is often a mention of the ‘<em>Supplementary_files_format_and_content</em>’ that describes the actual content of the downloadable files. Following are a number of examples of valid and invalid data provided by the experiment. These are the single-sample pages where you can find such a description. Unfortunately, the authors of each experiment are free to explain their data as they please, so you will most likely not encounter the exact same descriptions:
+<ul>
+<li><span style="color: green;"><strong>Valid</strong></span>: <a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM3223408"><em>Global effects of SUPT4H1 RNAi on gene expression of HEK293 cells</em></a>; description: <em>Supplementary_files_format_and_content: tab-delimited, gzip-compressed text file with <strong>matrix of raw quantitation</strong> results for each sample.</em> Mentions of <em>raw</em>-anything are most likely valid.</li>
+<li><span style="color: green;"><strong>Valid</strong></span>: <a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM3014578"><em>Transcriptome profiling of normal and transformed mouse urothelial cells</em></a>; description: <em>Supplementary_files_format_and_content: raw_counts_unfiltered.txt.gz: Raw counts.</em>. Even though 4 different file types are available for download, one of these contains the actual raw count data.</li>
+<li><span style="color: green;"><strong>Valid</strong></span>: <a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM3021001"><em>Quantitative Analysis of PPARD RNA-Seq Transcriptomes of Mouse Gastric Corpus Epithenial Cells by Next Generation Sequencing (NGS)</em></a>; description: <em>Supplementary_files_format_and_content: <strong>raw counts</strong> of sequencing reads for the genes</em>. Single file download containing only the raw counts.</li>
+<li><span style="color: green;"><strong>Valid</strong></span>: <a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM3039677"><em>Impact of shRNA-mediated KLF4 down-modulation on the transcriptome profile of human keratinocyte precursor cells</em></a>; description: <em>Supplementary_files_format_and_content: <strong>raw</strong> and normalized counts</em>.</li>
+<li><span style="color: green;"><strong>Valid</strong></span>: <a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM3103304"><em>Role of TAF5L and TAF6L in controlling the mouse ESC state</em></a>; description: <em>Supplementary_files_format_and_content: Comma-separated text files containing <strong>raw counts</strong>, normalized counts, FPKM expression values and TPM expression values.</em>. Very common to include both normalized and raw values.</li>
+<li><span style="color: red;"><strong>Invalid</strong></span>: <a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM3318897"><em>Co-chaperone Mzb1 is a key effector of Blimp1 in plasma cell differentiation and b1 integrin function</em></a>; description: <em>Supplementary_files_format_and_content: The normalized gene expression values (FPKM) calculated by Cuffnorm (v2.2.1) is provided in TXT format</em>. This clearly states that there is only normalized data (FPKM values) available.</li>
+<li><span style="color: red;"><strong>Invalid</strong></span>: <a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM2909402"><em>EGFR-targeted therapy-induced resistance mechanism in glioblastoma</em></a>; description: <em>Supplementary_files_format_and_content: .txt file including gene name, RefSeq id, locus, RPKM value of each gene in each sample</em>. Only the RPKM values are available and these are normalized raw count values, not usable.</li>
+<li><span style="color: red;"><strong>Invalid</strong></span>: <a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM2643080"><em>RNA-seq of subcellular fractions from nESC and EpiLC</em></a>; description: <em>Supplementary_files_format_and_content: </em>_genes.fpkm_table.txt: Tab-delimited text files include FPKM values for each replicate.*. Only FPKM data available.</li>
+</ul></li>
 </ul></li>
 </ul>
 <p>Once you’ve found an experiment, write a mail to <a href="mailto:m.kempenaar@pl.hanze.nl">m.kempenaar@pl.hanze.nl</a> where you link your experiment. Once you receive a <em>go-ahead</em> you can start by reading the accompanying article and writing a project proposal.</p>

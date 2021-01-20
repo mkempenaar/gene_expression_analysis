@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title> Discovering Differentialy Expressed Genes (DEGs) | Analysis of Gene Expression</title>
   <meta name="description" content="Course Syllabus for BFV: Theme 07 course" />
-  <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
   <meta property="og:title" content=" Discovering Differentialy Expressed Genes (DEGs) | Analysis of Gene Expression" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Marcel Kempenaar" />
 
 
-<meta name="date" content="2020-04-16" />
+<meta name="date" content="2021-01-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -135,16 +135,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#analysis-of-gene-expression-project"><i class="fa fa-check"></i>Analysis of Gene Expression Project</a></li>
 </ul></li>
 <li class="chapter" data-level="1" data-path="chapter-1.html"><a href="chapter-1.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
-<li class="chapter" data-level="1.1" data-path="chapter-1.html"><a href="chapter-1.html#capstone-project---analysis-of-gene-expression"><i class="fa fa-check"></i><b>1.1</b> Capstone Project - Analysis of Gene Expression</a></li>
-<li class="chapter" data-level="1.2" data-path="chapter-1.html"><a href="chapter-1.html#project-deliverables"><i class="fa fa-check"></i><b>1.2</b> Project Deliverables</a></li>
-<li class="chapter" data-level="1.3" data-path="chapter-1.html"><a href="chapter-1.html#project-schedule"><i class="fa fa-check"></i><b>1.3</b> Project Schedule</a></li>
-<li class="chapter" data-level="1.4" data-path="chapter-1.html"><a href="chapter-1.html#grading"><i class="fa fa-check"></i><b>1.4</b> Grading</a></li>
-<li class="chapter" data-level="1.5" data-path="chapter-1.html"><a href="chapter-1.html#project-proposal"><i class="fa fa-check"></i><b>1.5</b> Project Proposal</a></li>
-<li class="chapter" data-level="1.6" data-path="chapter-1.html"><a href="chapter-1.html#lab-journal"><i class="fa fa-check"></i><b>1.6</b> <em>Lab Journal</em></a></li>
-<li class="chapter" data-level="1.7" data-path="chapter-1.html"><a href="chapter-1.html#article"><i class="fa fa-check"></i><b>1.7</b> Article</a><ul>
-<li class="chapter" data-level="1.7.1" data-path="chapter-1.html"><a href="chapter-1.html#installing-the-article-template"><i class="fa fa-check"></i><b>1.7.1</b> Installing the Article Template</a></li>
-<li class="chapter" data-level="1.7.2" data-path="chapter-1.html"><a href="chapter-1.html#using-the-template"><i class="fa fa-check"></i><b>1.7.2</b> Using the Template</a></li>
-</ul></li>
+<li class="chapter" data-level="1.1" data-path="chapter-1.html"><a href="chapter-1.html#covid-edition---changes-to-the-course"><i class="fa fa-check"></i><b>1.1</b> COVID Edition - changes to the course</a></li>
+<li class="chapter" data-level="1.2" data-path="chapter-1.html"><a href="chapter-1.html#theme-7---analysis-of-gene-expression-project"><i class="fa fa-check"></i><b>1.2</b> Theme 7 - Analysis of Gene Expression Project</a></li>
+<li class="chapter" data-level="1.3" data-path="chapter-1.html"><a href="chapter-1.html#project-deliverables"><i class="fa fa-check"></i><b>1.3</b> Project Deliverables</a></li>
+<li class="chapter" data-level="1.4" data-path="chapter-1.html"><a href="chapter-1.html#project-schedule"><i class="fa fa-check"></i><b>1.4</b> Project Schedule</a></li>
+<li class="chapter" data-level="1.5" data-path="chapter-1.html"><a href="chapter-1.html#grading"><i class="fa fa-check"></i><b>1.5</b> Grading</a></li>
+<li class="chapter" data-level="1.6" data-path="chapter-1.html"><a href="chapter-1.html#project-proposal"><i class="fa fa-check"></i><b>1.6</b> Project Proposal</a></li>
+<li class="chapter" data-level="1.7" data-path="chapter-1.html"><a href="chapter-1.html#lab-journal"><i class="fa fa-check"></i><b>1.7</b> <em>Lab Journal</em></a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="chapter-2.html"><a href="chapter-2.html"><i class="fa fa-check"></i><b>2</b> Discovering Data Sets</a><ul>
 <li class="chapter" data-level="2.1" data-path="chapter-2.html"><a href="chapter-2.html#finding-public-data"><i class="fa fa-check"></i><b>2.1</b> Finding Public Data Sets of Interest</a></li>
@@ -226,10 +223,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">4.1</span> Pre-processing</h2>
 <p>Given the results of the exploratory data analysis performed in <a href="chapter-3.html#chapter-3">chapter 3</a>, you might have concluded that there are one or more samples that show (very) deviating expression patterns compared to samples from the same group. As mentioned before, <em>if</em> you have more then enough (&gt; 3) samples in a group, you might opt to remove a sample to reduce the noise as the statistical tests are very sensitive to this. Since we are performing all analysis steps programatically it is also very easy to test for DEGs with and without the sample(s) in question and see if the removal results in lower p-values (= higher significance). If this is the case you can continue on without those sample(s), but</p>
 <p>If your data <strong>only</strong> consists of the read counts we are going to apply another normalization technique. The previously used <code>vst</code> normalization is the advised method for the visualizations we performed, but for finding DEGs there are better methods. One of these generally accepted method of normalizing count data is to calculate the <em>fragments per million mapped fragments</em> (FPM) value and then transform this with log2. Opposed to FPKM and RPKM this does not include the gene-length in its calculation (which you most likely don’t have). If your dataset also includes FPKM or RPKM (pre-normalized), you are allowed to use this data too. Always clearly document if you did so!</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1"><span class="co"># Perform FPM normalization using DESeq2 &#39;fpm&#39; and perform log2 transformation</span></a>
-<a class="sourceLine" id="cb16-2" data-line-number="2"><span class="co"># The &#39;ddsMat&#39; object is the &#39;DESeqDataSet&#39; created in chapter 3; EDA.</span></a>
-<a class="sourceLine" id="cb16-3" data-line-number="3"><span class="co"># </span><span class="al">NOTE</span><span class="co">: only for count data and observe the pseudocount of 1 (remove if data does not contain 0-values)</span></a>
-<a class="sourceLine" id="cb16-4" data-line-number="4">counts.fpm &lt;-<span class="st"> </span><span class="kw">log2</span>( <span class="kw">fpm</span>(ddsMat, <span class="dt">robust =</span> <span class="ot">TRUE</span>) <span class="op">+</span><span class="st"> </span><span class="dv">1</span> )</a></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="co"># Perform FPM normalization using DESeq2 &#39;fpm&#39; and perform log2 transformation</span></a>
+<a class="sourceLine" id="cb15-2" data-line-number="2"><span class="co"># The &#39;ddsMat&#39; object is the &#39;DESeqDataSet&#39; created in chapter 3; EDA.</span></a>
+<a class="sourceLine" id="cb15-3" data-line-number="3"><span class="co"># </span><span class="al">NOTE</span><span class="co">: only for count data and observe the pseudocount of 1 (remove if data does not contain 0-values)</span></a>
+<a class="sourceLine" id="cb15-4" data-line-number="4">counts.fpm &lt;-<span class="st"> </span><span class="kw">log2</span>( <span class="kw">fpm</span>(ddsMat, <span class="dt">robust =</span> <span class="ot">TRUE</span>) <span class="op">+</span><span class="st"> </span><span class="dv">1</span> )</a></code></pre></div>
 <p>Another step we can do - and this might be guided by your article - is to filter out (partially) inactive genes. While this is only <em>required</em> when using the <code>edgeR</code> library (<code>DESeq2</code> includes its own low-count filtering methods), it is a good exercise to do manually and we will use it below when calculating the lFC values. Most datasets available contains a lot of 0-measurements (see for instance your density plot from the previous chapter); genes where no reads have mapped. In the R-studio <em>Environment</em> tab, click on your dataset (or perform the <code>View(data)</code> command and click on one of the sample columns to order the data ascending. You will now most likely (unless you have bacterial data for instance) see a lot of zero values in all columns. In an experiment with two groups, three replicates each, if three out of those six samples have 0-reads mapped, it is often adviced to remove the gene completely. But this can be very subjective to the experiment, it might be expected (thus important) when comparing different tissues or knockout experiments. Also, genes with a (very) low read count (&lt; 5) can give a very high (artificial) FC value (see the lefthand side of an MA-plot). Comparing two samples where one has a value of 2 and the other 11, this reads as an up-regulated gene by a factor of <em>5.5</em> while it might actually just be <em>noise</em>!</p>
 <ul>
 <li><strong>Assignment</strong>: Search through your article for any advice on how to filter out zero values or low count genes. If there is nothing stated on this subject, think of your own tactic (or search the literature/ online!). It is perfectly fine to discuss with your peers.
@@ -286,8 +283,8 @@ The two listed packages come with a very complete and extensive manual. These ma
 <div id="deg-design" class="section level3">
 <h3><span class="header-section-number">4.3.1</span> The <code>Design</code> (matrix)</h3>
 <p>For all of these packages you need to properly specify <em>how</em> your samples are grouped. We have seen examples of this using an <code>R factor</code> object with the heatmap and MDS visualizations to tell which groups of samples we have and to which group each sample belongs. Reading the documentation for the below packages shows that this is an important part of performing DE-analysis. For example, the following code is shown in de <code>edgeR</code> documentation on page 8 where two sample groups are defined (numbered <code>1</code> and <code>2</code>), placed in a <code>factor</code> object and used as input in the <code>model.matrix</code> function.</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1">group &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>), <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;Control&quot;</span>, <span class="st">&quot;Case&quot;</span>))</a>
-<a class="sourceLine" id="cb17-2" data-line-number="2">(design &lt;-<span class="st"> </span><span class="kw">model.matrix</span>( <span class="op">~</span><span class="st"> </span>group))</a></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1">group &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>), <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;Control&quot;</span>, <span class="st">&quot;Case&quot;</span>))</a>
+<a class="sourceLine" id="cb16-2" data-line-number="2">(design &lt;-<span class="st"> </span><span class="kw">model.matrix</span>( <span class="op">~</span><span class="st"> </span>group))</a></code></pre></div>
 <pre><code>##   (Intercept) groupCase
 ## 1           1         0
 ## 2           1         0
@@ -484,8 +481,8 @@ IPSC.trisomic vs IPSC.disomic</td>
 </table>
 <p><em>How</em> you call the <code>results</code> function depends heavily on your experiment. As you can see from the output of the <code>summary</code> function, there are no details given about <em>which</em> comparison is shown (and also, by default a p-value of 0.1 is used instead of 0.05).</p>
 <p>Depending on the <em>design</em> used to create the <code>DESeqDataSet</code> with, one or more comparisons can be made (applying the <code>DESeq</code> function calculates all and you filter with the <code>results</code> function). Read the help for the <code>results</code> function carefully; especially regarding the <code>contrast</code> argument where you define the comparison to retrieve. The following code can be used for our example experiment to get the DEGs comparing the celltypes using an adjusted p-value of 0.05:</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1">res &lt;-<span class="st"> </span><span class="kw">results</span>(dds, <span class="dt">contrast =</span> <span class="kw">c</span>(<span class="st">&quot;Cell&quot;</span>, <span class="st">&quot;IPSC&quot;</span>, <span class="st">&quot;Neuron&quot;</span>),</a>
-<a class="sourceLine" id="cb19-2" data-line-number="2">               <span class="dt">alpha =</span> <span class="fl">0.05</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1">res &lt;-<span class="st"> </span><span class="kw">results</span>(dds, <span class="dt">contrast =</span> <span class="kw">c</span>(<span class="st">&quot;Cell&quot;</span>, <span class="st">&quot;IPSC&quot;</span>, <span class="st">&quot;Neuron&quot;</span>),</a>
+<a class="sourceLine" id="cb18-2" data-line-number="2">               <span class="dt">alpha =</span> <span class="fl">0.05</span>)</a></code></pre></div>
 <p>The <code>DESeq2</code> library contains a number of plotting functions that can be applied to a <code>DESeqResults</code> object (output of the <code>results</code> function), the most notable is the <code>plotMA</code> function. Note that the first MA-plot shown below has a very high range for the log fold changes (-10, 10) where the maximum value is 22.4 (shown as a triangle stating it is outside of the plotting range). A <strong>log</strong> fold change of 22 means &gt;5 <em>million</em> increased expression which seems artificially high. DESeq2 includes a function to perform downstream processing of the estimated log fold change values called <code>lfcShrink</code> which is adviced to always run afterwards. The reason for executing this function is described in the vignette with:</p>
 <blockquote>
 <p>“It is more useful visualize the MA-plot for the shrunken log2 fold changes, which remove the noise associated with log2 fold changes from low count genes without requiring arbitrary filtering thresholds.”</p>
@@ -627,7 +624,7 @@ Figure 4.1: MA-plots with the standard DESeq2 output (left) and after shrinking 
 </table>
 <p>Most significant genes given by edgeR</p>
 <p>The package also contains a few plotting methods that you can use at intermediate steps during the analysis. For instance, after calculating the normalization factors (<code>calcNormFactors</code>), you can perform multi-dimensional scaling with the <code>plotMDS</code> function which is similar to what we’ve done manually in chapter three:</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1"><span class="kw">plotMDS</span>(y)</a></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1"><span class="kw">plotMDS</span>(y)</a></code></pre></div>
 <div class="figure"><span id="fig:edgeRPlotMDS"></span>
 <img src="gene_expression_files/figure-html/edgeRPlotMDS-1.png" alt="edgeR MDS plot based on the calculated log2 fold changes" width="672" />
 <p class="caption">
@@ -635,7 +632,7 @@ Figure 4.2: edgeR MDS plot based on the calculated log2 fold changes
 </p>
 </div>
 <p>Or the <em>dispersion</em> after running the <code>estimateDisp</code> function with the <code>plotBCV</code> function:</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1"><span class="kw">plotBCV</span>(y)</a></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1"><span class="kw">plotBCV</span>(y)</a></code></pre></div>
 <div class="figure"><span id="fig:edgeRPlotBCV"></span>
 <img src="gene_expression_files/figure-html/edgeRPlotBCV-1.png" alt="edgeR plot of several dispersion methods" width="672" />
 <p class="caption">
@@ -643,10 +640,10 @@ Figure 4.3: edgeR plot of several dispersion methods
 </p>
 </div>
 <p>Or the log-fold changes for all genes, once we have the output of the <code>exactTest</code> function (output <code>et</code> is an <code>DGEExact</code> object) with the <code>plotSmear</code> function. The <code>abline</code> shows a log-FC threshold:</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1">deGenes &lt;-<span class="st"> </span><span class="kw">decideTestsDGE</span>(qlf, <span class="dt">p=</span><span class="fl">0.05</span>)</a>
-<a class="sourceLine" id="cb22-2" data-line-number="2">deGenes &lt;-<span class="st"> </span><span class="kw">rownames</span>(qlf)[<span class="kw">as.logical</span>(deGenes)]</a>
-<a class="sourceLine" id="cb22-3" data-line-number="3"><span class="kw">plotSmear</span>(qlf, <span class="dt">de.tags=</span>deGenes)</a>
-<a class="sourceLine" id="cb22-4" data-line-number="4"><span class="kw">abline</span>(<span class="dt">h=</span><span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>), <span class="dt">col=</span><span class="dv">2</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1">deGenes &lt;-<span class="st"> </span><span class="kw">decideTestsDGE</span>(qlf, <span class="dt">p=</span><span class="fl">0.05</span>)</a>
+<a class="sourceLine" id="cb21-2" data-line-number="2">deGenes &lt;-<span class="st"> </span><span class="kw">rownames</span>(qlf)[<span class="kw">as.logical</span>(deGenes)]</a>
+<a class="sourceLine" id="cb21-3" data-line-number="3"><span class="kw">plotSmear</span>(qlf, <span class="dt">de.tags=</span>deGenes)</a>
+<a class="sourceLine" id="cb21-4" data-line-number="4"><span class="kw">abline</span>(<span class="dt">h=</span><span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>), <span class="dt">col=</span><span class="dv">2</span>)</a></code></pre></div>
 <div class="figure"><span id="fig:edgerResults"></span>
 <img src="gene_expression_files/figure-html/edgerResults-1.png" alt="edgeR results; genes marked in red are DEGs" width="672" />
 <p class="caption">
