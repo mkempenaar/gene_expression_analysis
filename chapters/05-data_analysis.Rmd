@@ -39,14 +39,15 @@ xi <- which(deseq.threshold == TRUE)
 length(xi)
 ```
 
-```{r pander.deseq2.res, echo=FALSE}
+```{r pander.deseq2.res, echo=FALSE, eval=FALSE}
 pander(vector.to.table(names(deseq.degs), nrow = 7, colname = "Columns"), 
        caption = "Column names from the DESeq2-`res@listData` object")
 ```
 
 The volcano plot below is created on the *complete* dataset (all genes from the `deseq.results` dataframe from the chunk above) where the coloring is done based on the `threshold` variable. Genes with an adjusted p-value of 1 (shown as `log10(1)`) are included (shown at `y=0`). It is perfectly fine to use the standard R plot method combined with the `abline` function to separate the DEGs from the other genes. If you already have experience with `ggplot2`, you can use the code below to reproduce this image, otherwise, there is a vanilla R solution further below. 
 
-**Notes**: 
+**Notes**:
+
 * When you have used edgeR instead you need to change the names of the columns (i.e. `log2FoldChange` == `logFC` and `padj` == `FDR`) used in this example.
 * In this example there are too many DEGs to annotate with their name in the plot. Therefore the last line (call to the `geom_text_repel` function) uses a more strict selection to limit the number of labels, *just for demonstration purposes*. Disable labels completely if you have > 50 DEGs determined by both the log fold change and adjusted p-value or only label those genes showing the biggest/ most significant effect
 * Also, this example *limits* the ranges on both the x- and y-axis (`xlim` and `ylim` functions) which might hide data, do not use this setting in your final report.
@@ -70,11 +71,11 @@ g = ggplot(data=deseq.results,
   geom_vline(xintercept = logfc_threshold) +
   geom_vline(xintercept = -logfc_threshold) +
   geom_hline(yintercept = -log10(pval_threshold)) +
-  xlim(c(-5, 5)) + ylim(c(0, 18)) +
   xlab("log2 fold change") + ylab("-log10 FDR") +
   ggtitle("IPSC trisomic vs disomic DEGs according to DESeq2\nwith FDR <= 0.05 and absolute FC >= 2") +
   # Add the text labels only for DEGs. Using `ggrepel` to make sure labels don't overlap
-  geom_text_repel(aes(label=ifelse(padj < 0.1e-6 & abs(log2FoldChange) >= 4,
+  # Note: p-value threshold is set very low, to only highlight very significant genes
+  geom_text_repel(aes(label=ifelse(padj < 0.1e-6 & abs(log2FoldChange) >= logfc_threshold,
                                    row.names(deseq.results), '')))
 
 # Show the plot
@@ -89,10 +90,10 @@ As an alternative method that uses standard R plotting with color-coding the DEG
 # Base plot
 with(deseq.results, plot(log2FoldChange, -log10(padj), pch=20,
                          main=paste("IPSC trisomic vs disomic DEGs according to DESeq2",
-                               "with FDR <= 0.05 and absolute FC >= 2", sep="\n"),
-                         xlim=c(-5,5), ylim=c(0,18), xaxt = 'n'))
+                               "with FDR <= 0.05 and absolute FC >= 2", sep="\n"), xaxt = 'n'))
 
 # Add custom x-axis with more ticks (default was (-)2, 4, 6)
+# NOTE: adjust for your own data!
 axis(side = 1, at = seq(-6, 6, 1))
 
 with(subset(deseq.results, padj < pval_threshold ), 
@@ -150,7 +151,7 @@ deg.venn <- list('intersect' = deg.intersect,
                  'DESeq2' = length(DESeq.degs))
 
 # Arguments for a pairwise (two-sets) venn-diagram are sizes for set1, set2 and overlap (intersect)
-# Many more functions are available for triple, quad and quantuple diagrams
+# Many more functions are available for triple, quad and quantuple diagrams (starting with 'draw.***')
 venn.plot <- draw.pairwise.venn(deg.venn$edgeR, deg.venn$DESeq2, deg.venn$intersect,
                                 category = c("edgeR", "DeSEQ2"), scaled = F,
                                 fill = c("light blue", "pink"), alpha = rep(0.5, 2),
