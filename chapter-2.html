@@ -24,7 +24,7 @@
 <meta name="author" content="Marcel Kempenaar" />
 
 
-<meta name="date" content="2021-01-20" />
+<meta name="date" content="2021-04-15" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,6 +33,7 @@
   
 <link rel="prev" href="chapter-1.html"/>
 <link rel="next" href="chapter-3.html"/>
+<script src="libs/header-attrs-2.6/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -53,25 +54,27 @@
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -80,9 +83,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -131,33 +134,43 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="./">Capstone Project - Analysis of Gene Expression</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
+<ul>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#analysis-of-gene-expression-project"><i class="fa fa-check"></i>Analysis of Gene Expression Project</a></li>
 </ul></li>
-<li class="chapter" data-level="1" data-path="chapter-1.html"><a href="chapter-1.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
-<li class="chapter" data-level="1.1" data-path="chapter-1.html"><a href="chapter-1.html#covid-edition---changes-to-the-course"><i class="fa fa-check"></i><b>1.1</b> COVID Edition - changes to the course</a></li>
-<li class="chapter" data-level="1.2" data-path="chapter-1.html"><a href="chapter-1.html#theme-7---analysis-of-gene-expression-project"><i class="fa fa-check"></i><b>1.2</b> Theme 7 - Analysis of Gene Expression Project</a></li>
-<li class="chapter" data-level="1.3" data-path="chapter-1.html"><a href="chapter-1.html#project-deliverables"><i class="fa fa-check"></i><b>1.3</b> Project Deliverables</a></li>
-<li class="chapter" data-level="1.4" data-path="chapter-1.html"><a href="chapter-1.html#project-schedule"><i class="fa fa-check"></i><b>1.4</b> Project Schedule</a></li>
-<li class="chapter" data-level="1.5" data-path="chapter-1.html"><a href="chapter-1.html#grading"><i class="fa fa-check"></i><b>1.5</b> Grading</a></li>
-<li class="chapter" data-level="1.6" data-path="chapter-1.html"><a href="chapter-1.html#project-proposal"><i class="fa fa-check"></i><b>1.6</b> Project Proposal</a></li>
-<li class="chapter" data-level="1.7" data-path="chapter-1.html"><a href="chapter-1.html#lab-journal"><i class="fa fa-check"></i><b>1.7</b> <em>Lab Journal</em></a></li>
+<li class="chapter" data-level="1" data-path="chapter-1.html"><a href="chapter-1.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="chapter-1.html"><a href="chapter-1.html#capstone-project---analysis-of-gene-expression"><i class="fa fa-check"></i><b>1.1</b> Capstone Project - Analysis of Gene Expression</a></li>
+<li class="chapter" data-level="1.2" data-path="chapter-1.html"><a href="chapter-1.html#project-deliverables"><i class="fa fa-check"></i><b>1.2</b> Project Deliverables</a></li>
+<li class="chapter" data-level="1.3" data-path="chapter-1.html"><a href="chapter-1.html#project-schedule"><i class="fa fa-check"></i><b>1.3</b> Project Schedule</a></li>
+<li class="chapter" data-level="1.4" data-path="chapter-1.html"><a href="chapter-1.html#grading"><i class="fa fa-check"></i><b>1.4</b> Grading</a></li>
+<li class="chapter" data-level="1.5" data-path="chapter-1.html"><a href="chapter-1.html#project-proposal"><i class="fa fa-check"></i><b>1.5</b> Project Proposal</a></li>
+<li class="chapter" data-level="1.6" data-path="chapter-1.html"><a href="chapter-1.html#lab-journal"><i class="fa fa-check"></i><b>1.6</b> <em>Lab Journal</em></a></li>
+<li class="chapter" data-level="1.7" data-path="chapter-1.html"><a href="chapter-1.html#article"><i class="fa fa-check"></i><b>1.7</b> Article</a>
+<ul>
+<li class="chapter" data-level="1.7.1" data-path="chapter-1.html"><a href="chapter-1.html#installing-the-article-template"><i class="fa fa-check"></i><b>1.7.1</b> Installing the Article Template</a></li>
+<li class="chapter" data-level="1.7.2" data-path="chapter-1.html"><a href="chapter-1.html#using-the-template"><i class="fa fa-check"></i><b>1.7.2</b> Using the Template</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="chapter-2.html"><a href="chapter-2.html"><i class="fa fa-check"></i><b>2</b> Discovering Data Sets</a><ul>
+</ul></li>
+<li class="chapter" data-level="2" data-path="chapter-2.html"><a href="chapter-2.html"><i class="fa fa-check"></i><b>2</b> Discovering Data Sets</a>
+<ul>
 <li class="chapter" data-level="2.1" data-path="chapter-2.html"><a href="chapter-2.html#finding-public-data"><i class="fa fa-check"></i><b>2.1</b> Finding Public Data Sets of Interest</a></li>
 <li class="chapter" data-level="2.2" data-path="chapter-2.html"><a href="chapter-2.html#ncbi-geo"><i class="fa fa-check"></i><b>2.2</b> The NCBI <em>Gene Expression Omnibus</em></a></li>
 <li class="chapter" data-level="2.3" data-path="chapter-2.html"><a href="chapter-2.html#project-proposal_ch2"><i class="fa fa-check"></i><b>2.3</b> Creating a Project Proposal</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="chapter-3.html"><a href="chapter-3.html"><i class="fa fa-check"></i><b>3</b> Exploratory Data Analysis</a><ul>
+<li class="chapter" data-level="3" data-path="chapter-3.html"><a href="chapter-3.html"><i class="fa fa-check"></i><b>3</b> Exploratory Data Analysis</a>
+<ul>
 <li class="chapter" data-level="3.1" data-path="chapter-3.html"><a href="chapter-3.html#expl-data"><i class="fa fa-check"></i><b>3.1</b> Exploring the Available Project Data</a></li>
 <li class="chapter" data-level="3.2" data-path="chapter-3.html"><a href="chapter-3.html#loading-data"><i class="fa fa-check"></i><b>3.2</b> Loading data into R</a></li>
 <li class="chapter" data-level="3.3" data-path="chapter-3.html"><a href="chapter-3.html#ch3_example_data"><i class="fa fa-check"></i><b>3.3</b> Example Data</a></li>
-<li class="chapter" data-level="3.4" data-path="chapter-3.html"><a href="chapter-3.html#EDA_part1"><i class="fa fa-check"></i><b>3.4</b> Visualizing using <code>boxplot</code> and <code>density plot</code></a><ul>
+<li class="chapter" data-level="3.4" data-path="chapter-3.html"><a href="chapter-3.html#EDA_part1"><i class="fa fa-check"></i><b>3.4</b> Visualizing using <code>boxplot</code> and <code>density plot</code></a>
+<ul>
 <li class="chapter" data-level="3.4.1" data-path="chapter-3.html"><a href="chapter-3.html#eda_statistics"><i class="fa fa-check"></i><b>3.4.1</b> Statistics</a></li>
 <li class="chapter" data-level="3.4.2" data-path="chapter-3.html"><a href="chapter-3.html#eda_boxplots"><i class="fa fa-check"></i><b>3.4.2</b> Boxplots</a></li>
 <li class="chapter" data-level="3.4.3" data-path="chapter-3.html"><a href="chapter-3.html#eda_density_plot"><i class="fa fa-check"></i><b>3.4.3</b> Density Plots</a></li>
 </ul></li>
-<li class="chapter" data-level="3.5" data-path="chapter-3.html"><a href="chapter-3.html#EDA_part2"><i class="fa fa-check"></i><b>3.5</b> Visualizing using <code>heatmap</code> and <code>MDS</code></a><ul>
+<li class="chapter" data-level="3.5" data-path="chapter-3.html"><a href="chapter-3.html#EDA_part2"><i class="fa fa-check"></i><b>3.5</b> Visualizing using <code>heatmap</code> and <code>MDS</code></a>
+<ul>
 <li class="chapter" data-level="3.5.1" data-path="chapter-3.html"><a href="chapter-3.html#normalization"><i class="fa fa-check"></i><b>3.5.1</b> Normalization</a></li>
 <li class="chapter" data-level="3.5.2" data-path="chapter-3.html"><a href="chapter-3.html#eda_distance"><i class="fa fa-check"></i><b>3.5.2</b> Distance Calculation</a></li>
 <li class="chapter" data-level="3.5.3" data-path="chapter-3.html"><a href="chapter-3.html#eda_heatmap"><i class="fa fa-check"></i><b>3.5.3</b> Sample Distances using a Heatmap</a></li>
@@ -165,34 +178,41 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="3.6" data-path="chapter-3.html"><a href="chapter-3.html#cleaning-data"><i class="fa fa-check"></i><b>3.6</b> Cleaning Data</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="chapter-4.html"><a href="chapter-4.html"><i class="fa fa-check"></i><b>4</b> Discovering Differentialy Expressed Genes (DEGs)</a><ul>
+<li class="chapter" data-level="4" data-path="chapter-4.html"><a href="chapter-4.html"><i class="fa fa-check"></i><b>4</b> Discovering Differentialy Expressed Genes (DEGs)</a>
+<ul>
 <li class="chapter" data-level="4.1" data-path="chapter-4.html"><a href="chapter-4.html#deg-preprocessing"><i class="fa fa-check"></i><b>4.1</b> Pre-processing</a></li>
 <li class="chapter" data-level="4.2" data-path="chapter-4.html"><a href="chapter-4.html#deg-fc"><i class="fa fa-check"></i><b>4.2</b> The <em>Fold Change</em> Value</a></li>
-<li class="chapter" data-level="4.3" data-path="chapter-4.html"><a href="chapter-4.html#deg-bioconductor"><i class="fa fa-check"></i><b>4.3</b> Using Bioconductor Packages</a><ul>
+<li class="chapter" data-level="4.3" data-path="chapter-4.html"><a href="chapter-4.html#deg-bioconductor"><i class="fa fa-check"></i><b>4.3</b> Using Bioconductor Packages</a>
+<ul>
 <li class="chapter" data-level="4.3.1" data-path="chapter-4.html"><a href="chapter-4.html#deg-design"><i class="fa fa-check"></i><b>4.3.1</b> The <code>Design</code> (matrix)</a></li>
 <li class="chapter" data-level="4.3.2" data-path="chapter-4.html"><a href="chapter-4.html#deg-deseq2"><i class="fa fa-check"></i><b>4.3.2</b> <code>DESeq2</code></a></li>
 <li class="chapter" data-level="4.3.3" data-path="chapter-4.html"><a href="chapter-4.html#deg-edger"><i class="fa fa-check"></i><b>4.3.3</b> <code>edgeR</code></a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="chapter-5.html"><a href="chapter-5.html"><i class="fa fa-check"></i><b>5</b> Data Analysis and Visualization</a><ul>
+<li class="chapter" data-level="5" data-path="chapter-5.html"><a href="chapter-5.html"><i class="fa fa-check"></i><b>5</b> Data Analysis and Visualization</a>
+<ul>
 <li class="chapter" data-level="5.1" data-path="chapter-5.html"><a href="chapter-5.html#volcano"><i class="fa fa-check"></i><b>5.1</b> Volcano Plot</a></li>
 <li class="chapter" data-level="5.2" data-path="chapter-5.html"><a href="chapter-5.html#venn-diagram"><i class="fa fa-check"></i><b>5.2</b> Venn Diagram</a></li>
 <li class="chapter" data-level="5.3" data-path="chapter-5.html"><a href="chapter-5.html#clustering"><i class="fa fa-check"></i><b>5.3</b> Clustering</a></li>
-<li class="chapter" data-level="5.4" data-path="chapter-5.html"><a href="chapter-5.html#pathway-analysis"><i class="fa fa-check"></i><b>5.4</b> Pathway Analysis</a><ul>
+<li class="chapter" data-level="5.4" data-path="chapter-5.html"><a href="chapter-5.html#pathway-analysis"><i class="fa fa-check"></i><b>5.4</b> Pathway Analysis</a>
+<ul>
 <li class="chapter" data-level="5.4.1" data-path="chapter-5.html"><a href="chapter-5.html#gene-functional-classification-using-david-100-degs"><i class="fa fa-check"></i><b>5.4.1</b> Gene Functional Classification using DAVID (&gt;100 DEGs)</a></li>
 <li class="chapter" data-level="5.4.2" data-path="chapter-5.html"><a href="chapter-5.html#kegg-pathway-visualization-10-degs"><i class="fa fa-check"></i><b>5.4.2</b> KEGG-pathway Visualization (&gt;10 DEGs)</a></li>
 <li class="chapter" data-level="5.4.3" data-path="chapter-5.html"><a href="chapter-5.html#spia"><i class="fa fa-check"></i><b>5.4.3</b> Signaling Pathway Impact Analysis (&gt;20 DEGs)</a></li>
 </ul></li>
 </ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
-<li class="chapter" data-level="A" data-path="a1-batch-data-loading.html"><a href="a1-batch-data-loading.html"><i class="fa fa-check"></i><b>A</b> Appendix A: Batch Loading Expression Data in R</a><ul>
+<li class="chapter" data-level="A" data-path="a1-batch-data-loading.html"><a href="a1-batch-data-loading.html"><i class="fa fa-check"></i><b>A</b> Appendix A: Batch Loading Expression Data in R</a>
+<ul>
 <li class="chapter" data-level="A.1" data-path="a1-batch-data-loading.html"><a href="a1-batch-data-loading.html#decompressing"><i class="fa fa-check"></i><b>A.1</b> Decompressing</a></li>
 <li class="chapter" data-level="A.2" data-path="a1-batch-data-loading.html"><a href="a1-batch-data-loading.html#determining-data-format"><i class="fa fa-check"></i><b>A.2</b> Determining Data Format</a></li>
 <li class="chapter" data-level="A.3" data-path="a1-batch-data-loading.html"><a href="a1-batch-data-loading.html#loading-data-1"><i class="fa fa-check"></i><b>A.3</b> Loading Data</a></li>
 </ul></li>
-<li class="chapter" data-level="B" data-path="a2-annotation.html"><a href="a2-annotation.html"><i class="fa fa-check"></i><b>B</b> Annotating an RNA-Seq Experiment</a><ul>
+<li class="chapter" data-level="B" data-path="a2-annotation.html"><a href="a2-annotation.html"><i class="fa fa-check"></i><b>B</b> Annotating an RNA-Seq Experiment</a>
+<ul>
 <li class="chapter" data-level="B.1" data-path="a2-annotation.html"><a href="a2-annotation.html#download-geo"><i class="fa fa-check"></i><b>B.1</b> Downloading annotation data from GEO</a></li>
-<li class="chapter" data-level="B.2" data-path="a2-annotation.html"><a href="a2-annotation.html#manually-annotate"><i class="fa fa-check"></i><b>B.2</b> Manual Data Annotation</a><ul>
+<li class="chapter" data-level="B.2" data-path="a2-annotation.html"><a href="a2-annotation.html#manually-annotate"><i class="fa fa-check"></i><b>B.2</b> Manual Data Annotation</a>
+<ul>
 <li class="chapter" data-level="B.2.1" data-path="a2-annotation.html"><a href="a2-annotation.html#annotationDBI"><i class="fa fa-check"></i><b>B.2.1</b> Using <code>AnnotationDBI</code></a></li>
 <li class="chapter" data-level="B.2.2" data-path="a2-annotation.html"><a href="a2-annotation.html#using-biomart"><i class="fa fa-check"></i><b>B.2.2</b> Using <code>biomaRt</code></a></li>
 </ul></li>
@@ -215,13 +235,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="chapter-2" class="section level1">
+<div id="chapter-2" class="section level1" number="2">
 <h1><span class="header-section-number"></span> Discovering Data Sets</h1>
-<div id="finding-public-data" class="section level2">
+<div id="finding-public-data" class="section level2" number="2.1">
 <h2><span class="header-section-number">2.1</span> Finding Public Data Sets of Interest</h2>
 <p>This chapter describes a method of finding public datasets of interest. A <em>dataset</em> in the context of this course refers to all data belonging to a certain gene-expression experiment, usually consisting of a number of sequencing-samples combined with <em>meta-data</em> describing the experiment.</p>
 <p>There are a number of very large databases online that offer access to thousands of - published - experiments and here we will focus on searching and downloading gene expression data from high-throughput (<code>NGS</code>) sequencing techniques (<code>RNA-Seq</code>).</p>
-<p>With thousands of freely available datasets it is possible to start performing research without the need of actually performing your own lab-experiment. For all common conditions, organisms and tissues you can download samples and compare them over multiple studies to find novel relations between genes and conditions or to verify experiments performed in your laboratory. For instance, the power of public datasets was demonstrated jointly by three of our alumni in an article called <em>Calling genotypes from public RNA-sequencing data enables identification of genetic variants that affect gene-expression levels.</em><span class="citation">(al. <a href="#ref-deelen15">2015</a>)</span>.</p>
+<p>With thousands of freely available datasets it is possible to start performing research without the need of actually performing your own lab-experiment. For all common conditions, organisms and tissues you can download samples and compare them over multiple studies to find novel relations between genes and conditions or to verify experiments performed in your laboratory. For instance, the power of public datasets was demonstrated jointly by three of our alumni in an article called <em>Calling genotypes from public RNA-sequencing data enables identification of genetic variants that affect gene-expression levels.</em><span class="citation">(<a href="a2-annotation.html#ref-deelen15" role="doc-biblioref">al. 2015</a>)</span>.</p>
 <p>It’s method section begins with the sentence “<em>We downloaded the raw reads for all available human RNA-seq datasets …</em>” of which the amount of data and work will become clear later on. If you are interested in <em>expression Quantitative Trait Loci</em> (<code>eQTLs</code>) or <em>Allele-Specific Expression</em> (<code>ASE</code>) analysis, please read this very interesting paper.</p>
 <p>The following weeks you will be investigating one or more public RNA-sequencing datasets yourself and the rest of this document focuses on databases containing such public data sets and - especially - how to find a dataset or experiment you would like to use.</p>
 <p>But before we start diving into large and complex databases potentially containing thousands of experiments with millions of samples and terabytes of data, we need to get a rough idea on what we would like to do once we have found something of interest in order to know what we are looking for in the first place. While there is no definitive guide or protocol that can be followed for processing and analysing a gene-expression dataset, the following goals can be considered:</p>
@@ -251,7 +271,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ol>
 <p>The list above is a guideline to be kept in mind while browsing for suitable data sets and it will be extended in week three. Also, don’t worry if some of the terms above are unclear, getting a good understanding on the used terminology is part of these first few weeks</p>
 </div>
-<div id="ncbi-geo" class="section level2">
+<div id="ncbi-geo" class="section level2" number="2.2">
 <h2><span class="header-section-number">2.2</span> The NCBI <em>Gene Expression Omnibus</em></h2>
 <p>The easiest method of exploring and finding interesting datasets is by simply using your web-browser to access a data-repository. One such repository is the <a href="https://www.ncbi.nlm.nih.gov/geo/summary">NCBI Gene Expression Omnibus</a> (GEO). This <em>repository</em> was primarily used to store microarray datasets and describe those experiments, linking to raw data, processed data and an accompanying publication. There are however many more sources of data browsable in the GEO, and for this project we will limit our searches to experiments using the RNA-Seq technology for which over 40.000 experiments are listed. Following the “<em>Expression profiling by high throughput sequencing</em>” link in this summary table we get the complete listing in which you can find an interesting experiment. Besides finding an experiment that you are interested in, there are some further important requirements that you need to account for when browsing listed below. Note that at this point we do not need to download the data yet, this is described in chapter 3.</p>
 <ul>
@@ -278,7 +298,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <p>Once you’ve found an experiment, write a mail to <a href="mailto:m.kempenaar@pl.hanze.nl">m.kempenaar@pl.hanze.nl</a> where you link your experiment. Once you receive a <em>go-ahead</em> you can start by reading the accompanying article and writing a project proposal.</p>
 </div>
-<div id="project-proposal_ch2" class="section level2">
+<div id="project-proposal_ch2" class="section level2" number="2.3">
 <h2><span class="header-section-number">2.3</span> Creating a Project Proposal</h2>
 <p>For week two, you are asked to write short project proposal (max. 2 A4 papers) where you:</p>
 <ul>
@@ -286,16 +306,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>describe the experimental design of the chosen experiment; how many samples and in how many groups are they divided (i.e. how many replicates per group)?</li>
 <li>Describe what <em>your</em> plan is with the dataset, given the choices listed in the section about <a href="chapter-2.html#finding-public-data">Finding Public Data</a>. Note that whatever choice you make, the first steps will most likely be the same leading to finding the <em>Differentially Expressed Genes</em> (DEGs). It is very difficult to plan your complete project based on what you read in the article and it is not expected to get a planning for the full remaining 6 weeks. You can however specify a bit more given what you’ve read in the article, such as trying to reproduce a certain figure or repeat a certain analysis step.</li>
 <li>List the software and any libraries used in the article for performing the statistical analysis on the count data (i.e. R with bioconductor package(s) DESeq or edgeR).</li>
-<li>Other software or methods described for downstream analysis of the DEGs found (i.e. ‘Gene Ontology enrichment analysis using DAVID’)</li>
+<li>Other software or methods described for downstream analysis of the DEGs found (i.e. ‘Gene Ontology enrichment analysis using DAVID’)</li>
 <li>An example (first 5 rows) and very brief description of the available data. Sometimes experiments include much more then just a single count-column but also annotation data might be present.</li>
 </ul>
 
-</div>
-</div>
-<h3>References</h3>
-<div id="refs" class="references">
-<div id="ref-deelen15">
-<p>al., Patrick Deelen et. 2015. “Calling Genotypes from Public Rna-Sequencing Data Enables Identification of Genetic Variants That Affect Gene-Expression Levels.” <em>Genome Medicine</em> 7 (30).</p>
 </div>
 </div>
             </section>

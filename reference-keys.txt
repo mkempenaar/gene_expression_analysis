@@ -19,13 +19,15 @@ fig:expressionHeatmap
 fig:lfcHeatmap
 fig:spiaResultPlotP
 chapter-1
-covid-edition---changes-to-the-course
-theme-7---analysis-of-gene-expression-project
+capstone-project---analysis-of-gene-expression
 project-deliverables
 project-schedule
 grading
 project-proposal
 lab-journal
+article
+installing-the-article-template
+using-the-template
 chapter-2
 finding-public-data
 ncbi-geo
