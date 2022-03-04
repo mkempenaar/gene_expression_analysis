@@ -1,6 +1,3 @@
-fig:GEODataOverview
-fig:GEODataDownload
-tab:foo
 fig:edaBoxplot
 fig:densityPlot
 fig:librarySizes
@@ -10,6 +7,9 @@ fig:DESeq2MAPlot
 fig:edgeRPlotMDS
 fig:edgeRPlotBCV
 fig:edgerResults
+fig:GEODataOverview
+fig:GEODataDownload
+tab:foo
 chapter-1
 course-changes-due-to-covid-restrictions
 theme-7---analysis-of-gene-expression-project
@@ -23,7 +23,6 @@ finding-public-data
 ncbi-geo
 project-proposal_ch2
 chapter-3
-expl-data
 loading-data
 ch3_example_data
 EDA_part1
@@ -43,6 +42,8 @@ deg-bioconductor
 deg-design
 deg-deseq2
 deg-edger
+a1-data_loading
+expl-data
 a1-batch_data_loading
 decompressing
 determining-data-format
