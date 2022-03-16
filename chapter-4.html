@@ -311,13 +311,15 @@ div.csl-indent {
 </ul>
 
 <div class="rmdtip">
-The two listed packages come with a very complete and extensive manual. These manuals can be found as PDF on the BioConductor website, or opened from within R using the <code>vignette</code> function. To see all available manuals (note; these are very different from the function-help documentation) execute the function without arguments: <code>vignette()</code>. This lists the vignettes for edgeR and DESeq2 as:
-* <code>vignette("DESeq2")</code> (this whole course is partly designed on this document!)
-* <code>vignette("edgeR")</code>
-</div>
+<p>The two listed packages come with a very complete and extensive manual. Therefore, the course manual (this document) does <em>not</em> guide you exactly on how to use them; that is for you to find out. These manuals can be found as PDF on the BioConductor website, or opened from within R using the <code>vignette</code> function. To see all available manuals (note; these are very different from the function-help documentation) execute the function without arguments: <code>vignette()</code>. This lists the vignettes for edgeR and DESeq2 as:</p>
+<ul>
+<li><code>vignette("DESeq2")</code> (this whole course is partly designed on this document!)</li>
+<li><code>vignette("edgeR")</code>
+</div></li>
+</ul>
 <div id="deg-design" class="section level3 hasAnchor" number="4.3.1">
 <h3><span class="header-section-number">4.3.1</span> The <code>Design</code> (matrix)<a href="chapter-4.html#deg-design" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>For all of these packages you need to properly specify <em>how</em> your samples are grouped. We have seen examples of this using an <code>R factor</code> object with the heatmap and MDS visualizations to tell which groups of samples we have and to which group each sample belongs. Reading the documentation for the below packages shows that this is an important part of performing DE-analysis. For example, the following code is shown in de <code>edgeR</code> documentation on page 8 where two sample groups are defined (numbered <code>1</code> and <code>2</code>), placed in a <code>factor</code> object and used as input in the <code>model.matrix</code> function.</p>
+<p>For all of these packages you need to properly specify <em>how</em> your samples are grouped. We have seen examples of this using an <code>R factor</code> object with the heatmap and MDS visualizations to tell which groups of samples we have and to which group each sample belongs. Reading the documentation for the below packages shows that this is an important part of performing DE-analysis. For example, the following code is shown in the <code>edgeR</code> documentation on page 8 where two sample groups are defined (numbered <code>1</code> and <code>2</code>), placed in a <code>factor</code> object and used as input in the <code>model.matrix</code> function.</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="chapter-4.html#cb17-1" aria-hidden="true" tabindex="-1"></a>group <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Control&quot;</span>, <span class="st">&quot;Case&quot;</span>))</span>
 <span id="cb17-2"><a href="chapter-4.html#cb17-2" aria-hidden="true" tabindex="-1"></a>(design <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>( <span class="sc">~</span> group))</span></code></pre></div>
 <pre><code>##   (Intercept) groupCase
@@ -330,7 +332,13 @@ The two listed packages come with a very complete and extensive manual. These ma
 ## attr(,&quot;contrasts&quot;)
 ## attr(,&quot;contrasts&quot;)$group
 ## [1] &quot;contr.treatment&quot;</code></pre>
-<p>As mentioned before we <strong>need</strong> to think about the <em>question</em> we want to aks; which difference do we want to know? With two sample groups as used here the question is rather easy; ‘which genes show an effect between case/ control samples?’ With more then two sample groups however the question becomes more difficult. If we have an experiment comparing influence of three kinds of drugs (thus three groups) <em>combined</em> with effect over time, do we then want to focus on the influence of the <em>drugs</em> or the <em>time</em>? Both are valid questions but they define the way of how to create the <code>design matrix</code>.</p>
+<p>This can often be a very complex part and while it seems very theoretical, in practice it’s not that difficult. To really grasp this topic it is <strong>strongly</strong> adviced to watch these two videos on how to define your design:</p>
+<ul>
+<li><em>StatQuest</em> on YouTube: <a href="https://www.youtube.com/watch?v=NF5_btOaCig">Using Linear Models for t-tests and ANOVA, Clearly Explained</a></li>
+<li><em>StatQuest</em> on YouTube: <a href="https://www.youtube.com/watch?v=CqLGvwi-5Pc">Design Matrices For Linear Models, Clearly Explained</a></li>
+</ul>
+<p>These videos expects some basic understanding of topics already discussed in the statistics course, otherwise for each mentioned topic in those videos he has other videos available explaining them. See the <a href="https://statquest.org/video-index/">video-index</a> for a handy overview of all topics discussed on that channel.</p>
+<p>As mentioned before we <strong>need</strong> to think about the <em>question</em> we want to ask; which difference do we want to know? With two sample groups as shown above the question is rather easy; ‘which genes show an effect between case/ control samples?’ With more than two sample groups however the question becomes more complex. If we have an experiment comparing influence of three kinds of drugs (thus three groups) <em>combined</em> with effect over time, do we then want to focus on the influence of the <em>drugs</em> or the <em>time</em>? Both are valid questions but they define the way of how to create the <code>design matrix</code>.</p>
 <p>Documentation on this subject is plenty, however it often contains overwhelming information. <a href="http://genomicsclass.github.io/book/pages/expressing_design_formula.html">This page</a> contains some valuable details (you can safely start reading at <strong>Choice of design</strong>), including the following text which is based on the same example used in the <code>edgeR</code> documentation:</p>
 <blockquote>
 <p>“For the examples we cover here, we use linear models to make comparisons between different groups. Hence, the design matrices that we ultimately work with will have at least two columns: an intercept column, which consists of a column of 1’s, and a second column, which specifies which samples are in a second group. In this case, two coefficients are fit in the linear model: the intercept, which represents the population average of the first group, and a second coefficient, which represents the difference between the population averages of the second group and the first group. The latter is typically the coefficient we are interested in when we are performing statistical tests: we want to know if their is a difference between the two groups.”</p>
@@ -340,11 +348,11 @@ The two listed packages come with a very complete and extensive manual. These ma
 <div id="deg-deseq2" class="section level3 hasAnchor" number="4.3.2">
 <h3><span class="header-section-number">4.3.2</span> <code>DESeq2</code><a href="chapter-4.html#deg-deseq2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>We have used the <code>DESeq2</code> library before and for DEG analysis we could re-use the <code>DESeqDataSet</code> object but it is adviced to create a new object with the proper design formula instead of the <code>~ 1</code> we used before.</p>
-<p>There is no need to normalize the data using the previously used <code>vst</code> or <code>fpm</code> functions because the <code>DESeq2</code> library will normalize the count data for you as follows:</p>
+<p>There is no need to normalize the data using the previously used <code>vst</code> function because the <code>DESeq2</code> library will normalize the count data for you as follows:</p>
 <blockquote>
 <p>“DESeq computes a scaling factor for a given sample by computing the median of the ratio, for each gene, of its read count over its geometric mean across all samples. It then uses the assumption that most genes are not DE and uses this median of ratios to obtain the scaling factor associated with this sample.”</p>
 </blockquote>
-<p>For our example data with four sample groups we re-use the annotation dataframe as created in the <a href="chapter-3.html#eda_heatmap">EDA: Heatmap</a> section (printed below). This allows us to do comparisons based on the celltype and ploidy of the samples. One minor note of importance is that the first level in each factor is taken as the <em>reference</em>, or for expression analysis, the <em>control</em> group. In our example (see the table below) the IPSC is the control-celltype and disomic the control-ploidy. In a simple case/ control study, the first level (check with the <code>levels()</code> function) should be the control group. Use the <code>relevel()</code> function if the levels need to be switched.</p>
+<p>For our example data with four sample groups we re-use the annotation data frame as created in the <a href="chapter-3.html#eda_heatmap">EDA: Heatmap</a> section (printed below). This allows us to do comparisons based on the celltype and ploidy of the samples. One minor note of importance is that the first level in each factor is taken as the <em>reference</em>, or for expression analysis, the <em>control</em> group. In our example (see the table below) the IPSC is the control-celltype and disomic the control-ploidy. In a simple case/ control study, the first level (check with the <code>levels()</code> function) should be the control group. Use the <code>relevel()</code> function if the levels need to be switched.</p>
 <table style="width:53%;">
 <colgroup>
 <col width="25%" />
@@ -428,7 +436,7 @@ The two listed packages come with a very complete and extensive manual. These ma
 IPSC - Trisomic vs Disomic
 </th>
 <th align="center">
-Disomic Neuron vs Disomic IPSC
+Neuron - Trisomic vs Disomic
 </th>
 </tr>
 <tr>
@@ -450,8 +458,8 @@ low counts [2]     : 17004, 38%
 <pre>
 out of 44504 with nonzero total read count
 adjusted p-value < 0.05
-LFC > 0 (up)       : 9594, 22%
-LFC < 0 (down)     : 8224, 18%
+LFC > 0 (up)       : 8224, 18%
+LFC < 0 (down)     : 9594, 22%
 outliers [1]       : 219, 0.49%
 low counts [2]     : 11906, 27%
 (mean count < 2)
@@ -518,12 +526,12 @@ IPSC.trisomic vs IPSC.disomic</td>
 <p>Depending on the <em>design</em> used to create the <code>DESeqDataSet</code> with, one or more comparisons can be made (applying the <code>DESeq</code> function calculates all and you filter with the <code>results</code> function). Read the help for the <code>results</code> function carefully; especially regarding the <code>contrast</code> argument where you define the comparison to retrieve. The following code can be used for our example experiment to get the DEGs comparing the celltypes using an adjusted p-value of 0.05:</p>
 <div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="chapter-4.html#cb19-1" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">results</span>(dds, <span class="at">contrast =</span> <span class="fu">c</span>(<span class="st">&quot;Cell&quot;</span>, <span class="st">&quot;IPSC&quot;</span>, <span class="st">&quot;Neuron&quot;</span>),</span>
 <span id="cb19-2"><a href="chapter-4.html#cb19-2" aria-hidden="true" tabindex="-1"></a>               <span class="at">alpha =</span> <span class="fl">0.05</span>)</span></code></pre></div>
-<p>The <code>DESeq2</code> library contains a number of plotting functions that can be applied to a <code>DESeqResults</code> object (output of the <code>results</code> function), the most notable is the <code>plotMA</code> function. Note that the first MA-plot shown below has a very high range for the log fold changes (-10, 10) where the maximum value is 22.4 (shown as a triangle stating it is outside of the plotting range). A <strong>log</strong> fold change of 22 means &gt;5 <em>million</em> increased expression which seems artificially high. DESeq2 includes a function to perform downstream processing of the estimated log fold change values called <code>lfcShrink</code> which is adviced to always run afterwards. The reason for executing this function is described in the vignette with:</p>
+<p>The <code>DESeq2</code> library contains a number of plotting functions that can be applied to a <code>DESeqResults</code> object (output of the <code>results</code> function), the most notable is the <code>plotMA</code> function. Note that the first MA-plot shown below has a very high range for the log fold changes (-10, 10) where the maximum value is 22.4 (shown as a triangle stating it is outside of the plotting range). A <strong>log</strong> fold change of 22 means &gt;5 <em>million</em> increased expression which seems artificially high. DESeq2 includes a function to perform downstream processing of the estimated log fold change values called <code>lfcShrink</code> which is advised to always run afterwards. The reason for executing this function is described in the vignette with:</p>
 <blockquote>
 <p>“It is more useful visualize the MA-plot for the shrunken log2 fold changes, which remove the noise associated with log2 fold changes from low count genes without requiring arbitrary filtering thresholds.”</p>
 </blockquote>
-<div class="figure"><span style="display:block;" id="fig:DESeq2MAPlot"></span>
-<img src="chapters/images/DESeq2MAplot.png" alt="MA-plots with the standard DESeq2 output (left) and after shrinking with 'lfcShrink' (right)"  />
+<div class="figure"><span style="display:block;" id="fig:deseqResultsPlotMA"></span>
+<img src="gene_expression_files/figure-html/deseqResultsPlotMA-1.png" alt="MA-plots with the standard DESeq2 output (left) and after shrinking with 'lfcShrink' (right)" width="960" />
 <p class="caption">
 Figure 4.1: MA-plots with the standard DESeq2 output (left) and after shrinking with ‘lfcShrink’ (right)
 </p>

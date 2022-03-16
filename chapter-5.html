@@ -256,11 +256,13 @@ div.csl-indent {
 <div id="volcano" class="section level2 hasAnchor" number="5.1">
 <h2><span class="header-section-number">5.1</span> Volcano Plot<a href="chapter-5.html#volcano" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>A volcano plot is often the first visualization of the data once the statistical tests are completed. This plot shows data for <em>all</em> genes and we highlight those genes that are considered DEG by using thresholds for both the (adjusted) p-value and a fold-change. Many articles describe values used for these thresholds in their methods section, otherwise a good default is 0.05 for the adjusted p-value and around 1.0 for the log-FC.</p>
-<p>Here we use the <code>EnhancedVolcano</code> library that creates a <code>ggplot2</code> volcano plot as shown below. This is packaged in a function <code>deseq.volcano</code> just because we create two figures and only need to change the input data set and plot title. The resulting scatterplot places the <code>-log10(pvalue)</code> values on the y-axis and the log-FC on the x-axis. This often results in a plot representing a volcanic ‘eruption’ where the fold-change influences the spread and the significance the height. Coloring is done based on the thresholds (-log10(0.05) for the adjusted and log2(2) for the log-FC) as follows:
-* (dark) gray: not significant; both the FC and adjusted p-value is below the thresholds.
-* green: high FC, but adjusted p-value is below the threshold.
-* blue: adjusted p-value indicates significance, but FC below the threshold
-* red: significant DEG</p>
+<p>Here we use the <code>EnhancedVolcano</code> library that creates a <code>ggplot2</code> volcano plot as shown below. This is packaged in a function <code>deseq.volcano</code> just because we create two figures and only need to change the input data set and plot title. The resulting scatterplot places the <code>-log10(pvalue)</code> values on the y-axis and the log-FC on the x-axis. This often results in a plot representing a volcanic ‘eruption’ where the fold-change influences the spread and the significance the height. Coloring is done based on the thresholds (-log10(0.05) for the adjusted and log2(2) for the log-FC) as follows:</p>
+<ul>
+<li>(dark) gray: not significant; both the FC and adjusted p-value is below the thresholds.</li>
+<li>green: high FC, but adjusted p-value is below the threshold.</li>
+<li>blue: adjusted p-value indicates significance, but FC below the threshold</li>
+<li>red: significant DEG</li>
+</ul>
 <p>You can adjust the <code>pCutoff</code> and <code>FCcutoff</code> values depending on your own requirements, see the elaborate <a href="https://github.com/kevinblighe/EnhancedVolcano">documentation and examples</a> on GitHub.</p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="chapter-5.html#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(EnhancedVolcano)</span>
 <span id="cb23-2"><a href="chapter-5.html#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -279,9 +281,10 @@ div.csl-indent {
 <span id="cb23-15"><a href="chapter-5.html#cb23-15" aria-hidden="true" tabindex="-1"></a>                         <span class="at">pCutoff =</span> <span class="fl">0.05</span>, <span class="at">FCcutoff =</span> <span class="dv">2</span>))</span>
 <span id="cb23-16"><a href="chapter-5.html#cb23-16" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb23-17"><a href="chapter-5.html#cb23-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-18"><a href="chapter-5.html#cb23-18" aria-hidden="true" tabindex="-1"></a><span class="fu">deseq.volcano</span>(<span class="at">res =</span> res.ipsc, <span class="at">datasetName =</span> <span class="st">&quot;IPSC&quot;</span>)</span></code></pre></div>
+<span id="cb23-18"><a href="chapter-5.html#cb23-18" aria-hidden="true" tabindex="-1"></a><span class="do">## Note: input data is the corrected DESeq2 output using the &#39;lfcShrink&#39; function (see chapter 4)</span></span>
+<span id="cb23-19"><a href="chapter-5.html#cb23-19" aria-hidden="true" tabindex="-1"></a><span class="fu">deseq.volcano</span>(<span class="at">res =</span> res.ipsc.lfc, <span class="at">datasetName =</span> <span class="st">&quot;IPSC&quot;</span>)</span></code></pre></div>
 <p><img src="gene_expression_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="chapter-5.html#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">deseq.volcano</span>(<span class="at">res =</span> res.neuron, <span class="at">datasetName =</span> <span class="st">&quot;Neuron&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="chapter-5.html#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">deseq.volcano</span>(<span class="at">res =</span> res.neuron.lfc, <span class="at">datasetName =</span> <span class="st">&quot;Neuron&quot;</span>)</span></code></pre></div>
 <p><img src="gene_expression_files/figure-html/unnamed-chunk-7-2.png" width="672" /></p>
 <div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="chapter-5.html#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Note that the most simplest case is:</span></span>
 <span id="cb25-2"><a href="chapter-5.html#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">EnhancedVolcano</span>(res.ipsc, <span class="at">x =</span> <span class="st">&#39;log2FoldChange&#39;</span>, <span class="at">y =</span> <span class="st">&#39;padj&#39;</span>, <span class="at">lab =</span> <span class="fu">rownames</span>(res.ipsc))</span></code></pre></div>
@@ -289,7 +292,7 @@ div.csl-indent {
 <ul>
 <li>When you have used edgeR instead you need to change the names of the columns (i.e. <code>log2FoldChange</code> == <code>logFC</code> and <code>padj</code> == <code>FDR</code>) used in this example.</li>
 <li>In this example there are too many DEGs to annotate with their name in the plots. The <code>EnhancedVolcano</code> plot function has many options for annotating significant genes, see the linked manual for further information</li>
-<li>This section has been rewritten to use the <code>EnhancedVolcano</code> function instead of creating a manual ggplot2 plot as can be seen <a href="https://bioinf.nl/~marcelk/theme07/chapter-5.html#volcano">in the old version</a></li>
+<li>This section has been rewritten to use the <code>EnhancedVolcano</code> function instead of creating a manual ggplot2 plot as can be seen <a href="https://bioinf.nl/~marcelk/theme07/chapter-5.html#volcano">in the old version</a> of the course manual.</li>
 </ul>
 </div>
 <div id="venn-diagram" class="section level2 hasAnchor" number="5.2">
@@ -297,7 +300,7 @@ div.csl-indent {
 <p>Another common visualization is a Venn-diagram. In this document for instance, both DESeq2 and edgeR have been used to find DEGs. To quickly compare the results from these packages we can create a single diagram showing how many DEGs are found by both packages and - also interesting - the number of genes (<em>amount</em>, not <em>which</em>) that are uniquely found by both approaches. Most likely you will be comparing DEGs between <em>groups</em> instead of methods. For our example dataset, this could have been comparing DEGs comparing <em>IPSC trisomic vs IPSC disomic</em> DEGs with <em>NEUR trisomic vs NEUR disomic</em> DEGs.</p>
 <p>Creating a Venn-diagram can be a good method for selecting a (sub)set of DEGs, for instance by selecting the set of DEGs that are shared between groups (the <em>Intersection</em>, see the <a href="https://en.wikipedia.org/wiki/Set_theory">Wikipedia page on Set Theory</a> or the other way around, only the DEGs that are unique for a group (the <em>Difference</em>). Keep this in mind when continuing on to the <a href="chapter-5.html#clustering">clustering</a> section below where it is most likely not useful to cluster all combinations you might have.</p>
 <p>Code examples:
-* Data preparation (first code-chunk): creating vectors of DEGs for both packages. These DEGs are the gene names (taken from the rownames of the edgeR and DESeq2 outputs)
+* Data preparation (first code-chunk): creating vectors of DEGs for both packages. These DEGs are the gene names (taken from the row names of the edgeR and DESeq2 outputs)
 * Using the <code>VennDiagram</code> library (second code-chunk): good for complex/ large number of comparison, highly configurable but more difficult to use. To see some examples, run the following function in the Console: <code>example('draw.quad.venn')</code>
 * Using the <code>gplots</code> library (third code-chunk): Easier to use and support for more complex Venn diagrams, but not good for adjusting appearance.</p>
 <div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="chapter-5.html#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># edgeR data:</span></span>

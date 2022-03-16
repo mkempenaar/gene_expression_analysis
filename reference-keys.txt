@@ -3,7 +3,7 @@ fig:densityPlot
 fig:librarySizes
 fig:pheatmapDistances
 fig:mdsPoissonPlot
-fig:DESeq2MAPlot
+fig:deseqResultsPlotMA
 fig:edgeRPlotMDS
 fig:edgeRPlotBCV
 fig:edgerResults
