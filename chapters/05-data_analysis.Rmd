@@ -4,114 +4,47 @@ At this point we have one or more sets of DEGs from our experiment. It might be 
 
 ## Volcano Plot {#volcano}
 
-A volcano plot is often the first visualization of the data once the statistical tests are completed. This plot shows data for *all* genes and we highlight those genes that are considered DEG by using thresholds for both the (adjusted) p-value and a fold-change. Many articles describe values used for these thresholds in their methods section, otherwise a good default is 0.05 for the adjusted p-value and around 1.0 for the log-FC. 
+A volcano plot is often the first visualization of the data once the statistical tests are completed. This plot shows data for *all* genes and we highlight those genes that are considered DEG by using thresholds for both the (adjusted) p-value and a fold-change. Many articles describe values used for these thresholds in their methods section, otherwise a good default is 0.05 for the adjusted p-value and around 1.0 for the log-FC.
 
-This scatterplot places the `-log10(pvalue)` values on the y-axis and the log-FC on the x-axis. Coloring is done based on the thresholds (-log10(0.05) for the pvalue and log2(2) for the log-FC).
+Here we use the `EnhancedVolcano` library that creates a `ggplot2` volcano plot as shown below. This is packaged in a function `deseq.volcano` just because we create two figures and only need to change the input data set and plot title. The resulting scatterplot places the `-log10(pvalue)` values on the y-axis and the log-FC on the x-axis. This often results in a plot representing a volcanic 'eruption' where the fold-change influences the spread and the significance the height. Coloring is done based on the thresholds (-log10(0.05) for the adjusted and log2(2) for the log-FC) as follows:
+* (dark) gray: not significant; both the FC and adjusted p-value is below the thresholds.
+* green: high FC, but adjusted p-value is below the threshold.
+* blue: adjusted p-value indicates significance, but FC below the threshold
+* red: significant DEG
 
-The code below shows how to get data from DESeq2 and format this in a usable dataframe to create the figures below. Basically it's a combination of `rlog`-normalized count data from the `rld`-object (to calculate the fold-changes manually, see the heatmap below), results from DESeq2 (to filter for significant genes) and the Entrez IDs that we will use in the [pathway analysis](#pathway-analysis) *for all genes*. The `threshold` variable is used to subset the complete dataset for DEGs that are also filtered for their log-FC value (stored in the `deg` dataframe).
+You can adjust the `pCutoff` and `FCcutoff` values depending on your own requirements, see the elaborate [documentation and examples](https://github.com/kevinblighe/EnhancedVolcano) on GitHub.
 
-```{r prepareDeseqData, echo=FALSE}
-# Prepare output of resuts()
-res <- res.ipsc.lfc
+```{r message=FALSE, warning=FALSE}
+library(EnhancedVolcano)
+
+## Simple function for plotting a Volcano plot, returns a ggplot object
+deseq.volcano <- function(res, datasetName) {
+  return(EnhancedVolcano(res, x = 'log2FoldChange', y = 'padj',
+                         lab=rownames(res),
+                         title = paste(datasetName, "trisomic vs disomic"),
+                         subtitle = bquote(italic('FDR <= 0.05 and absolute FC >= 2')),
+                         # Change text and icon sizes
+                         labSize = 3, pointSize = 1.5, axisLabSize=10, titleLabSize=12,
+                         subtitleLabSize=8, captionLabSize=10,
+                         # Disable legend
+                         legendPosition = "none",
+                         # Set cutoffs
+                         pCutoff = 0.05, FCcutoff = 2))
+}
+
+deseq.volcano(res = res.ipsc, datasetName = "IPSC")
+deseq.volcano(res = res.neuron, datasetName = "Neuron")
 ```
-
-
-```{r, deseqData.analysis.data.prep}
-# Combining normalized counts with output of DESeq (from the 'results' function) into a single dataframe
-# 'rld'-object: rlog-normalized data from chapter 3.5.1
-# 'res'-object: the output of the DESeq2 'results' function (DESeqResults object) containing
-#               calculated (adjusted)p-values, fold changes etc.
-deseq.results <- cbind(rld, 
-                       # Get the actual values from the 'listData' slot
-                       as.data.frame(res@listData))
-
-pval_threshold <- 0.05
-logfc_threshold <- 1
-
-# Find DEGs (FDR < 0.05 and absolute (non-log) fold change >= 2)
-deseq.threshold <- as.factor(abs(deseq.results$log2FoldChange) >= logfc_threshold & 
-                             deseq.results$padj < pval_threshold)
-
-# Get the indices of interesting genes using the threshold
-xi <- which(deseq.threshold == TRUE)
-
-# Number of interesting genes
-length(xi)
+```{r, eval=FALSE}
+# Note that the most simplest case is:
+EnhancedVolcano(res.ipsc, x = 'log2FoldChange', y = 'padj', lab = rownames(res.ipsc))
 ```
-
-```{r pander.deseq2.res, echo=FALSE, eval=FALSE}
-pander(vector.to.table(names(deseq.degs), nrow = 7, colname = "Columns"), 
-       caption = "Column names from the DESeq2-`res@listData` object")
-```
-
-The volcano plot below is created on the *complete* dataset (all genes from the `deseq.results` dataframe from the chunk above) where the coloring is done based on the `threshold` variable. Genes with an adjusted p-value of 1 (shown as `log10(1)`) are included (shown at `y=0`). It is perfectly fine to use the standard R plot method combined with the `abline` function to separate the DEGs from the other genes. If you already have experience with `ggplot2`, you can use the code below to reproduce this image, otherwise, there is a vanilla R solution further below. 
 
 **Notes**:
 
 * When you have used edgeR instead you need to change the names of the columns (i.e. `log2FoldChange` == `logFC` and `padj` == `FDR`) used in this example.
-* In this example there are too many DEGs to annotate with their name in the plot. Therefore the last line (call to the `geom_text_repel` function) uses a more strict selection to limit the number of labels, *just for demonstration purposes*. Disable labels completely if you have > 50 DEGs determined by both the log fold change and adjusted p-value or only label those genes showing the biggest/ most significant effect
-* Also, this example *limits* the ranges on both the x- and y-axis (`xlim` and `ylim` functions) which might hide data, do not use this setting in your final report.
-
-
-```{r deseqVolcano, warning=FALSE, fig.cap="ggplot2 Volcano plot for DESeq2 output"}
-library(ggplot2)
-library(ggrepel)
-
-g = ggplot(data=deseq.results, 
-           aes(x=log2FoldChange, y=-log10(padj), 
-               # Colour based on the threshold defined before
-               colour=deseq.threshold)) +
-  # Define the look of the points
-  geom_point(alpha=0.4, size=1.75) +
-  # Hide the legend
-  theme(legend.position = "none") +
-  # Apply another theme
-  theme_bw() + theme(legend.position="none") +
-  # Add the lines separating the DEGs
-  geom_vline(xintercept = logfc_threshold) +
-  geom_vline(xintercept = -logfc_threshold) +
-  geom_hline(yintercept = -log10(pval_threshold)) +
-  xlab("log2 fold change") + ylab("-log10 FDR") +
-  ggtitle("IPSC trisomic vs disomic DEGs according to DESeq2\nwith FDR <= 0.05 and absolute FC >= 2") +
-  # Add the text labels only for DEGs. Using `ggrepel` to make sure labels don't overlap
-  # Note: p-value threshold is set very low, to only highlight very significant genes
-  geom_text_repel(aes(label=ifelse(padj < 0.1e-6 & abs(log2FoldChange) >= logfc_threshold,
-                                   row.names(deseq.results), '')))
-
-# Show the plot
-g
-```
-
-
-As an alternative method that uses standard R plotting with color-coding the DEGs can be done by adding points for each group separately and giving them a certain color. By using the `with` function we don't have to type `deseq.results$padj` but can suffice with typing `padj` to access this column. The first plot command plots all the points in black and we *overwrite* points in different colors with the `points` function later on. 
-
-
-```{r volcanoRplot, fig.cap="Vanilla R Volcano plot for DESeq2 output"}
-# Base plot
-with(deseq.results, plot(log2FoldChange, -log10(padj), pch=20,
-                         main=paste("IPSC trisomic vs disomic DEGs according to DESeq2",
-                               "with FDR <= 0.05 and absolute FC >= 2", sep="\n"), xaxt = 'n'))
-
-# Add custom x-axis with more ticks (default was (-)2, 4, 6)
-# NOTE: adjust for your own data!
-axis(side = 1, at = seq(-6, 6, 1))
-
-with(subset(deseq.results, padj < pval_threshold ), 
-     # Add points for statistically significant genes
-     points(log2FoldChange, -log10(padj), pch=20, col="red"))
-
-with(subset(deseq.results, abs(log2FoldChange) > logfc_threshold), 
-     # Add points for expression > logfc_threshold
-     points(log2FoldChange, -log10(padj), pch=20, col="orange"))
-
-with(subset(deseq.results, padj < pval_threshold & abs(log2FoldChange) > logfc_threshold), 
-    # Add points based on both significance and expression
-     points(log2FoldChange, -log10(padj), pch=20, col="green"))
-
-# Add threshold lines
-abline(h=-log10(pval_threshold), lwd=1.5, lty=2, col='gray')
-abline(v=c(-logfc_threshold, logfc_threshold), lwd=1.5, lty=2, col='gray')
-```
+* In this example there are too many DEGs to annotate with their name in the plots. The `EnhancedVolcano` plot function has many options for annotating significant genes, see the linked manual for further information
+* This section has been rewritten to use the `EnhancedVolcano` function instead of creating a manual ggplot2 plot as can be seen [in the old version](https://bioinf.nl/~marcelk/theme07/chapter-5.html#volcano) of the course manual.
 
 
 ## Venn Diagram {#venn-diagram}
@@ -213,7 +146,7 @@ rm(.rld.fc, .y.cpm.fc)
 
 One of the basic visualization steps to show expression data and patterns accross samples. Here, we can create a heatmap of the found DEGs for all samples where the colors show the fold-change value. Usually this heatmap is shown with a two color gradient; from red (downregulated) to green (upregulated). This is however optional and using the default colors from `pheatmap` for example is perfectly fine as long as a proper legend is present.
 
-There are multiple methods of creating a heatmap (one of which you've already used) and most of these directly apply clustering in the visualization. This clustering can be applied to the expression pattern of a gene (row-clustering), the expression pattern of a sample (column-clustering) or both (default for `pheatmap`). The first example shown here uses column-based clustering as it shows the replicates for multiple groups (IPSC disomic and trisomic) with their rlog-transformed expression values for the top 30 genes as found by DESeq2. This first example allows an overview of the expression patterns for the DEGs and to see the differences in expression between replicates. It is expected that the replicates for each group cluster together as shown in this example. Genes (rows) are clustered based on their expression values.
+There are multiple methods of creating a heatmap (one of which you've already used) and most of these directly apply clustering in the visualization. This clustering can be applied to the expression pattern of a gene (row-clustering), the expression pattern of a sample (column-clustering) or both (default for `pheatmap`). The first example shown here uses column-based clustering as it shows the replicates for multiple groups (IPSC disomic and trisomic) with their normalized expression values for the top 30 genes as found by DESeq2. This first example allows an overview of the expression patterns for the DEGs and to see the differences in expression between replicates. It is expected that the replicates for each group cluster together as shown in this example. Genes (rows) are clustered based on their expression values.
 
 
 ```{r heatmapDataPrep}
