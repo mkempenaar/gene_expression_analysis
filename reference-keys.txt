@@ -7,6 +7,12 @@ fig:DESeq2MAPlot
 fig:edgeRPlotMDS
 fig:edgeRPlotBCV
 fig:edgerResults
+fig:vennDiagram
+fig:alternativeVenn
+fig:logFCBoxplot
+fig:expressionHeatmap
+fig:lfcHeatmap
+fig:spiaResultPlotP
 fig:GEODataOverview
 fig:GEODataDownload
 tab:foo
@@ -42,6 +48,14 @@ deg-bioconductor
 deg-design
 deg-deseq2
 deg-edger
+chapter-5
+volcano
+venn-diagram
+clustering
+pathway-analysis
+gene-functional-classification-using-david-100-degs
+kegg-pathway-visualization-10-degs
+spia
 a1-data_loading
 expl-data
 a1-batch_data_loading

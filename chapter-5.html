@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title> Data Analysis and Visualization | Analysis of Gene Expression</title>
+  <meta name="description" content="Course Syllabus for BFV: Theme 07 course" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content=" Data Analysis and Visualization | Analysis of Gene Expression" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Course Syllabus for BFV: Theme 07 course" />
+  <meta name="github-repo" content="mkempenaar/gene_expression_analysis" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content=" Data Analysis and Visualization | Analysis of Gene Expression" />
+  
+  <meta name="twitter:description" content="Course Syllabus for BFV: Theme 07 course" />
+  
+
+<meta name="author" content="Marcel Kempenaar" />
+
+
+<meta name="date" content="2022-03-16" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="chapter-4.html"/>
+<link rel="next" href="a1-data_loading.html"/>
+<script src="libs/header-attrs-2.13/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Analysis of Gene Expression</a></li>
+
+<li class="divider"></li>
+<li><a href="index.html#preface">Preface<span></span></a>
+<ul>
+<li><a href="index.html#analysis-of-gene-expression-project">Analysis of Gene Expression Project<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="chapter-1.html"><a href="chapter-1.html"><i class="fa fa-check"></i><b>1</b> Introduction<span></span></a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="chapter-1.html"><a href="chapter-1.html#course-changes-due-to-covid-restrictions"><i class="fa fa-check"></i><b>1.1</b> Course changes due to COVID restrictions<span></span></a></li>
+<li class="chapter" data-level="1.2" data-path="chapter-1.html"><a href="chapter-1.html#theme-7---analysis-of-gene-expression-project"><i class="fa fa-check"></i><b>1.2</b> Theme 7 - Analysis of Gene Expression Project<span></span></a></li>
+<li class="chapter" data-level="1.3" data-path="chapter-1.html"><a href="chapter-1.html#project-deliverables"><i class="fa fa-check"></i><b>1.3</b> Project Deliverables<span></span></a></li>
+<li class="chapter" data-level="1.4" data-path="chapter-1.html"><a href="chapter-1.html#project-schedule"><i class="fa fa-check"></i><b>1.4</b> Project Schedule<span></span></a></li>
+<li class="chapter" data-level="1.5" data-path="chapter-1.html"><a href="chapter-1.html#grading"><i class="fa fa-check"></i><b>1.5</b> Grading<span></span></a></li>
+<li class="chapter" data-level="1.6" data-path="chapter-1.html"><a href="chapter-1.html#project-proposal"><i class="fa fa-check"></i><b>1.6</b> Project Proposal<span></span></a></li>
+<li class="chapter" data-level="1.7" data-path="chapter-1.html"><a href="chapter-1.html#lab-journal"><i class="fa fa-check"></i><b>1.7</b> <em>Lab Journal</em><span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="chapter-2.html"><a href="chapter-2.html"><i class="fa fa-check"></i><b>2</b> Discovering Data Sets<span></span></a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="chapter-2.html"><a href="chapter-2.html#finding-public-data"><i class="fa fa-check"></i><b>2.1</b> Finding Public Data Sets of Interest<span></span></a></li>
+<li class="chapter" data-level="2.2" data-path="chapter-2.html"><a href="chapter-2.html#ncbi-geo"><i class="fa fa-check"></i><b>2.2</b> The NCBI <em>Gene Expression Omnibus</em><span></span></a></li>
+<li class="chapter" data-level="2.3" data-path="chapter-2.html"><a href="chapter-2.html#project-proposal_ch2"><i class="fa fa-check"></i><b>2.3</b> Creating a Project Proposal<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="chapter-3.html"><a href="chapter-3.html"><i class="fa fa-check"></i><b>3</b> Exploratory Data Analysis<span></span></a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="chapter-3.html"><a href="chapter-3.html#loading-data"><i class="fa fa-check"></i><b>3.1</b> Loading data into R<span></span></a></li>
+<li class="chapter" data-level="3.2" data-path="chapter-3.html"><a href="chapter-3.html#ch3_example_data"><i class="fa fa-check"></i><b>3.2</b> Example Data<span></span></a></li>
+<li class="chapter" data-level="3.3" data-path="chapter-3.html"><a href="chapter-3.html#EDA_part1"><i class="fa fa-check"></i><b>3.3</b> Visualizing using <code>boxplot</code> and <code>density plot</code><span></span></a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="chapter-3.html"><a href="chapter-3.html#eda_statistics"><i class="fa fa-check"></i><b>3.3.1</b> Statistics<span></span></a></li>
+<li class="chapter" data-level="3.3.2" data-path="chapter-3.html"><a href="chapter-3.html#eda_boxplots"><i class="fa fa-check"></i><b>3.3.2</b> Boxplots<span></span></a></li>
+<li class="chapter" data-level="3.3.3" data-path="chapter-3.html"><a href="chapter-3.html#eda_density_plot"><i class="fa fa-check"></i><b>3.3.3</b> Density Plots<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="chapter-3.html"><a href="chapter-3.html#EDA_part2"><i class="fa fa-check"></i><b>3.4</b> Visualizing using <code>heatmap</code> and <code>MDS</code><span></span></a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="chapter-3.html"><a href="chapter-3.html#normalization"><i class="fa fa-check"></i><b>3.4.1</b> Normalization<span></span></a></li>
+<li class="chapter" data-level="3.4.2" data-path="chapter-3.html"><a href="chapter-3.html#eda_distance"><i class="fa fa-check"></i><b>3.4.2</b> Distance Calculation<span></span></a></li>
+<li class="chapter" data-level="3.4.3" data-path="chapter-3.html"><a href="chapter-3.html#eda_heatmap"><i class="fa fa-check"></i><b>3.4.3</b> Sample Distances using a Heatmap<span></span></a></li>
+<li class="chapter" data-level="3.4.4" data-path="chapter-3.html"><a href="chapter-3.html#eda_mds"><i class="fa fa-check"></i><b>3.4.4</b> Multi-Dimensional Scaling<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="chapter-3.html"><a href="chapter-3.html#cleaning-data"><i class="fa fa-check"></i><b>3.5</b> Cleaning Data<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="chapter-4.html"><a href="chapter-4.html"><i class="fa fa-check"></i><b>4</b> Discovering Differentialy Expressed Genes (DEGs)<span></span></a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="chapter-4.html"><a href="chapter-4.html#deg-preprocessing"><i class="fa fa-check"></i><b>4.1</b> Pre-processing<span></span></a></li>
+<li class="chapter" data-level="4.2" data-path="chapter-4.html"><a href="chapter-4.html#deg-fc"><i class="fa fa-check"></i><b>4.2</b> The <em>Fold Change</em> Value<span></span></a></li>
+<li class="chapter" data-level="4.3" data-path="chapter-4.html"><a href="chapter-4.html#deg-bioconductor"><i class="fa fa-check"></i><b>4.3</b> Using Bioconductor Packages<span></span></a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="chapter-4.html"><a href="chapter-4.html#deg-design"><i class="fa fa-check"></i><b>4.3.1</b> The <code>Design</code> (matrix)<span></span></a></li>
+<li class="chapter" data-level="4.3.2" data-path="chapter-4.html"><a href="chapter-4.html#deg-deseq2"><i class="fa fa-check"></i><b>4.3.2</b> <code>DESeq2</code><span></span></a></li>
+<li class="chapter" data-level="4.3.3" data-path="chapter-4.html"><a href="chapter-4.html#deg-edger"><i class="fa fa-check"></i><b>4.3.3</b> <code>edgeR</code><span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="chapter-5.html"><a href="chapter-5.html"><i class="fa fa-check"></i><b>5</b> Data Analysis and Visualization<span></span></a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="chapter-5.html"><a href="chapter-5.html#volcano"><i class="fa fa-check"></i><b>5.1</b> Volcano Plot<span></span></a></li>
+<li class="chapter" data-level="5.2" data-path="chapter-5.html"><a href="chapter-5.html#venn-diagram"><i class="fa fa-check"></i><b>5.2</b> Venn Diagram<span></span></a></li>
+<li class="chapter" data-level="5.3" data-path="chapter-5.html"><a href="chapter-5.html#clustering"><i class="fa fa-check"></i><b>5.3</b> Clustering<span></span></a></li>
+<li class="chapter" data-level="5.4" data-path="chapter-5.html"><a href="chapter-5.html#pathway-analysis"><i class="fa fa-check"></i><b>5.4</b> Pathway Analysis<span></span></a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="chapter-5.html"><a href="chapter-5.html#gene-functional-classification-using-david-100-degs"><i class="fa fa-check"></i><b>5.4.1</b> Gene Functional Classification using DAVID (&gt;100 DEGs)<span></span></a></li>
+<li class="chapter" data-level="5.4.2" data-path="chapter-5.html"><a href="chapter-5.html#kegg-pathway-visualization-10-degs"><i class="fa fa-check"></i><b>5.4.2</b> KEGG-pathway Visualization (&gt;10 DEGs)<span></span></a></li>
+<li class="chapter" data-level="5.4.3" data-path="chapter-5.html"><a href="chapter-5.html#spia"><i class="fa fa-check"></i><b>5.4.3</b> Signaling Pathway Impact Analysis (&gt;20 DEGs)<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="appendix"><span><b>Appendix<span></span></b></span></li>
+<li class="chapter" data-level="A" data-path="a1-data_loading.html"><a href="a1-data_loading.html"><i class="fa fa-check"></i><b>A</b> Appendix A: Loading Expression Data in R<span></span></a>
+<ul>
+<li class="chapter" data-level="A.1" data-path="a1-data_loading.html"><a href="a1-data_loading.html#expl-data"><i class="fa fa-check"></i><b>A.1</b> Exploring the Available Project Data<span></span></a></li>
+<li class="chapter" data-level="A.2" data-path="a1-data_loading.html"><a href="a1-data_loading.html#a1-batch_data_loading"><i class="fa fa-check"></i><b>A.2</b> Batch Loading Expression Data<span></span></a>
+<ul>
+<li class="chapter" data-level="A.2.1" data-path="a1-data_loading.html"><a href="a1-data_loading.html#decompressing"><i class="fa fa-check"></i><b>A.2.1</b> Decompressing<span></span></a></li>
+<li class="chapter" data-level="A.2.2" data-path="a1-data_loading.html"><a href="a1-data_loading.html#determining-data-format"><i class="fa fa-check"></i><b>A.2.2</b> Determining Data Format<span></span></a></li>
+<li class="chapter" data-level="A.2.3" data-path="a1-data_loading.html"><a href="a1-data_loading.html#loading-data-1"><i class="fa fa-check"></i><b>A.2.3</b> Loading Data<span></span></a></li>
+</ul></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Analysis of Gene Expression</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="chapter-5" class="section level1 hasAnchor" number="5">
+<h1><span class="header-section-number"></span> Data Analysis and Visualization<a href="chapter-5.html#chapter-5" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>At this point we have one or more sets of DEGs from our experiment. It might be just one set or it might be a large number of comparisons made with a set of DEGs per comparison and/ or results from multiple approaches (manual, packages). This chapter offers some guidance to visualize, summarize and - finally - connect some biological relevance to the results. <strong>Browse this chapter first</strong> before choosing the visualization(s) to make for your data! If your article contains relevant figures that you would like to try and reproduce (given that enough data is available) that can be done as well instead of the visualizations shown here. Note however that the Volcano plot described below <strong>is</strong> required.</p>
+<div id="volcano" class="section level2 hasAnchor" number="5.1">
+<h2><span class="header-section-number">5.1</span> Volcano Plot<a href="chapter-5.html#volcano" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>A volcano plot is often the first visualization of the data once the statistical tests are completed. This plot shows data for <em>all</em> genes and we highlight those genes that are considered DEG by using thresholds for both the (adjusted) p-value and a fold-change. Many articles describe values used for these thresholds in their methods section, otherwise a good default is 0.05 for the adjusted p-value and around 1.0 for the log-FC.</p>
+<p>Here we use the <code>EnhancedVolcano</code> library that creates a <code>ggplot2</code> volcano plot as shown below. This is packaged in a function <code>deseq.volcano</code> just because we create two figures and only need to change the input data set and plot title. The resulting scatterplot places the <code>-log10(pvalue)</code> values on the y-axis and the log-FC on the x-axis. This often results in a plot representing a volcanic ‘eruption’ where the fold-change influences the spread and the significance the height. Coloring is done based on the thresholds (-log10(0.05) for the adjusted and log2(2) for the log-FC) as follows:
+* (dark) gray: not significant; both the FC and adjusted p-value is below the thresholds.
+* green: high FC, but adjusted p-value is below the threshold.
+* blue: adjusted p-value indicates significance, but FC below the threshold
+* red: significant DEG</p>
+<p>You can adjust the <code>pCutoff</code> and <code>FCcutoff</code> values depending on your own requirements, see the elaborate <a href="https://github.com/kevinblighe/EnhancedVolcano">documentation and examples</a> on GitHub.</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="chapter-5.html#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(EnhancedVolcano)</span>
+<span id="cb23-2"><a href="chapter-5.html#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-3"><a href="chapter-5.html#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Simple function for plotting a Volcano plot, returns a ggplot object</span></span>
+<span id="cb23-4"><a href="chapter-5.html#cb23-4" aria-hidden="true" tabindex="-1"></a>deseq.volcano <span class="ot">&lt;-</span> <span class="cf">function</span>(res, datasetName) {</span>
+<span id="cb23-5"><a href="chapter-5.html#cb23-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">EnhancedVolcano</span>(res, <span class="at">x =</span> <span class="st">&#39;log2FoldChange&#39;</span>, <span class="at">y =</span> <span class="st">&#39;padj&#39;</span>,</span>
+<span id="cb23-6"><a href="chapter-5.html#cb23-6" aria-hidden="true" tabindex="-1"></a>                         <span class="at">lab=</span><span class="fu">rownames</span>(res),</span>
+<span id="cb23-7"><a href="chapter-5.html#cb23-7" aria-hidden="true" tabindex="-1"></a>                         <span class="at">title =</span> <span class="fu">paste</span>(datasetName, <span class="st">&quot;trisomic vs disomic&quot;</span>),</span>
+<span id="cb23-8"><a href="chapter-5.html#cb23-8" aria-hidden="true" tabindex="-1"></a>                         <span class="at">subtitle =</span> <span class="fu">bquote</span>(<span class="fu">italic</span>(<span class="st">&#39;FDR &lt;= 0.05 and absolute FC &gt;= 2&#39;</span>)),</span>
+<span id="cb23-9"><a href="chapter-5.html#cb23-9" aria-hidden="true" tabindex="-1"></a>                         <span class="co"># Change text and icon sizes</span></span>
+<span id="cb23-10"><a href="chapter-5.html#cb23-10" aria-hidden="true" tabindex="-1"></a>                         <span class="at">labSize =</span> <span class="dv">3</span>, <span class="at">pointSize =</span> <span class="fl">1.5</span>, <span class="at">axisLabSize=</span><span class="dv">10</span>, <span class="at">titleLabSize=</span><span class="dv">12</span>,</span>
+<span id="cb23-11"><a href="chapter-5.html#cb23-11" aria-hidden="true" tabindex="-1"></a>                         <span class="at">subtitleLabSize=</span><span class="dv">8</span>, <span class="at">captionLabSize=</span><span class="dv">10</span>,</span>
+<span id="cb23-12"><a href="chapter-5.html#cb23-12" aria-hidden="true" tabindex="-1"></a>                         <span class="co"># Disable legend</span></span>
+<span id="cb23-13"><a href="chapter-5.html#cb23-13" aria-hidden="true" tabindex="-1"></a>                         <span class="at">legendPosition =</span> <span class="st">&quot;none&quot;</span>,</span>
+<span id="cb23-14"><a href="chapter-5.html#cb23-14" aria-hidden="true" tabindex="-1"></a>                         <span class="co"># Set cutoffs</span></span>
+<span id="cb23-15"><a href="chapter-5.html#cb23-15" aria-hidden="true" tabindex="-1"></a>                         <span class="at">pCutoff =</span> <span class="fl">0.05</span>, <span class="at">FCcutoff =</span> <span class="dv">2</span>))</span>
+<span id="cb23-16"><a href="chapter-5.html#cb23-16" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb23-17"><a href="chapter-5.html#cb23-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-18"><a href="chapter-5.html#cb23-18" aria-hidden="true" tabindex="-1"></a><span class="fu">deseq.volcano</span>(<span class="at">res =</span> res.ipsc, <span class="at">datasetName =</span> <span class="st">&quot;IPSC&quot;</span>)</span></code></pre></div>
+<p><img src="gene_expression_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="chapter-5.html#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">deseq.volcano</span>(<span class="at">res =</span> res.neuron, <span class="at">datasetName =</span> <span class="st">&quot;Neuron&quot;</span>)</span></code></pre></div>
+<p><img src="gene_expression_files/figure-html/unnamed-chunk-7-2.png" width="672" /></p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="chapter-5.html#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Note that the most simplest case is:</span></span>
+<span id="cb25-2"><a href="chapter-5.html#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">EnhancedVolcano</span>(res.ipsc, <span class="at">x =</span> <span class="st">&#39;log2FoldChange&#39;</span>, <span class="at">y =</span> <span class="st">&#39;padj&#39;</span>, <span class="at">lab =</span> <span class="fu">rownames</span>(res.ipsc))</span></code></pre></div>
+<p><strong>Notes</strong>:</p>
+<ul>
+<li>When you have used edgeR instead you need to change the names of the columns (i.e. <code>log2FoldChange</code> == <code>logFC</code> and <code>padj</code> == <code>FDR</code>) used in this example.</li>
+<li>In this example there are too many DEGs to annotate with their name in the plots. The <code>EnhancedVolcano</code> plot function has many options for annotating significant genes, see the linked manual for further information</li>
+<li>This section has been rewritten to use the <code>EnhancedVolcano</code> function instead of creating a manual ggplot2 plot as can be seen <a href="https://bioinf.nl/~marcelk/theme07/chapter-5.html#volcano">in the old version</a></li>
+</ul>
+</div>
+<div id="venn-diagram" class="section level2 hasAnchor" number="5.2">
+<h2><span class="header-section-number">5.2</span> Venn Diagram<a href="chapter-5.html#venn-diagram" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Another common visualization is a Venn-diagram. In this document for instance, both DESeq2 and edgeR have been used to find DEGs. To quickly compare the results from these packages we can create a single diagram showing how many DEGs are found by both packages and - also interesting - the number of genes (<em>amount</em>, not <em>which</em>) that are uniquely found by both approaches. Most likely you will be comparing DEGs between <em>groups</em> instead of methods. For our example dataset, this could have been comparing DEGs comparing <em>IPSC trisomic vs IPSC disomic</em> DEGs with <em>NEUR trisomic vs NEUR disomic</em> DEGs.</p>
+<p>Creating a Venn-diagram can be a good method for selecting a (sub)set of DEGs, for instance by selecting the set of DEGs that are shared between groups (the <em>Intersection</em>, see the <a href="https://en.wikipedia.org/wiki/Set_theory">Wikipedia page on Set Theory</a> or the other way around, only the DEGs that are unique for a group (the <em>Difference</em>). Keep this in mind when continuing on to the <a href="chapter-5.html#clustering">clustering</a> section below where it is most likely not useful to cluster all combinations you might have.</p>
+<p>Code examples:
+* Data preparation (first code-chunk): creating vectors of DEGs for both packages. These DEGs are the gene names (taken from the rownames of the edgeR and DESeq2 outputs)
+* Using the <code>VennDiagram</code> library (second code-chunk): good for complex/ large number of comparison, highly configurable but more difficult to use. To see some examples, run the following function in the Console: <code>example('draw.quad.venn')</code>
+* Using the <code>gplots</code> library (third code-chunk): Easier to use and support for more complex Venn diagrams, but not good for adjusting appearance.</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="chapter-5.html#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># edgeR data:</span></span>
+<span id="cb26-2"><a href="chapter-5.html#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="co">#   Get the set using topTags from the output of the</span></span>
+<span id="cb26-3"><a href="chapter-5.html#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   &quot;Genewise Negative Binomial Generalized Linear Models with Quasi-likelihood Tests&quot;</span></span>
+<span id="cb26-4"><a href="chapter-5.html#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="co">#   otherwise known as the &#39;glmQLFit&#39; function from edgeR</span></span>
+<span id="cb26-5"><a href="chapter-5.html#cb26-5" aria-hidden="true" tabindex="-1"></a>ttags <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">topTags</span>(qlf, <span class="at">n =</span> <span class="fu">nrow</span>(qlf)))</span>
+<span id="cb26-6"><a href="chapter-5.html#cb26-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-7"><a href="chapter-5.html#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter on adjusted p-value and get the rownames</span></span>
+<span id="cb26-8"><a href="chapter-5.html#cb26-8" aria-hidden="true" tabindex="-1"></a><span class="co"># edgeR</span></span>
+<span id="cb26-9"><a href="chapter-5.html#cb26-9" aria-hidden="true" tabindex="-1"></a>edgeR.degs <span class="ot">&lt;-</span> <span class="fu">row.names</span>(ttags[ttags<span class="sc">$</span>FDR <span class="sc">&lt;=</span> pval_threshold,])</span>
+<span id="cb26-10"><a href="chapter-5.html#cb26-10" aria-hidden="true" tabindex="-1"></a><span class="co"># DESeq2</span></span>
+<span id="cb26-11"><a href="chapter-5.html#cb26-11" aria-hidden="true" tabindex="-1"></a>DESeq.degs <span class="ot">&lt;-</span> <span class="fu">row.names</span>(deseq.results[deseq.results<span class="sc">$</span>padj <span class="sc">&lt;=</span> pval_threshold,])</span></code></pre></div>
+<p>The two created vectors of rownames can be used by either taking their lengths (for the <code>VennDiagram</code> library) or just their names (for the <code>gplots</code> library).</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="chapter-5.html#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Venn-diagram using the `VennDiagram` library (see below for alternative method)</span></span>
+<span id="cb27-2"><a href="chapter-5.html#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(VennDiagram)</span>
+<span id="cb27-3"><a href="chapter-5.html#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the intersection of the two sets</span></span>
+<span id="cb27-4"><a href="chapter-5.html#cb27-4" aria-hidden="true" tabindex="-1"></a>deg.intersect <span class="ot">=</span> <span class="fu">length</span>(<span class="fu">intersect</span>(edgeR.degs, DESeq.degs))</span>
+<span id="cb27-5"><a href="chapter-5.html#cb27-5" aria-hidden="true" tabindex="-1"></a>deg.venn <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="st">&#39;intersect&#39;</span> <span class="ot">=</span> deg.intersect,</span>
+<span id="cb27-6"><a href="chapter-5.html#cb27-6" aria-hidden="true" tabindex="-1"></a>                 <span class="st">&#39;edgeR&#39;</span> <span class="ot">=</span> <span class="fu">length</span>(edgeR.degs),</span>
+<span id="cb27-7"><a href="chapter-5.html#cb27-7" aria-hidden="true" tabindex="-1"></a>                 <span class="st">&#39;DESeq2&#39;</span> <span class="ot">=</span> <span class="fu">length</span>(DESeq.degs))</span>
+<span id="cb27-8"><a href="chapter-5.html#cb27-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-9"><a href="chapter-5.html#cb27-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Arguments for a pairwise (two-sets) venn-diagram are sizes for set1, set2 and overlap (intersect)</span></span>
+<span id="cb27-10"><a href="chapter-5.html#cb27-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Many more functions are available for triple, quad and quantuple diagrams (starting with &#39;draw.***&#39;)</span></span>
+<span id="cb27-11"><a href="chapter-5.html#cb27-11" aria-hidden="true" tabindex="-1"></a>venn.plot <span class="ot">&lt;-</span> <span class="fu">draw.pairwise.venn</span>(deg.venn<span class="sc">$</span>edgeR, deg.venn<span class="sc">$</span>DESeq2, deg.venn<span class="sc">$</span>intersect,</span>
+<span id="cb27-12"><a href="chapter-5.html#cb27-12" aria-hidden="true" tabindex="-1"></a>                                <span class="at">category =</span> <span class="fu">c</span>(<span class="st">&quot;edgeR&quot;</span>, <span class="st">&quot;DeSEQ2&quot;</span>), <span class="at">scaled =</span> F,</span>
+<span id="cb27-13"><a href="chapter-5.html#cb27-13" aria-hidden="true" tabindex="-1"></a>                                <span class="at">fill =</span> <span class="fu">c</span>(<span class="st">&quot;light blue&quot;</span>, <span class="st">&quot;pink&quot;</span>), <span class="at">alpha =</span> <span class="fu">rep</span>(<span class="fl">0.5</span>, <span class="dv">2</span>),</span>
+<span id="cb27-14"><a href="chapter-5.html#cb27-14" aria-hidden="true" tabindex="-1"></a>                                <span class="at">cat.pos =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>))</span>
+<span id="cb27-15"><a href="chapter-5.html#cb27-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-16"><a href="chapter-5.html#cb27-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Actually plot the plot</span></span>
+<span id="cb27-17"><a href="chapter-5.html#cb27-17" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.draw</span>(venn.plot)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:vennDiagram"></span>
+<img src="gene_expression_files/figure-html/vennDiagram-1.png" alt="Venn diagram comparing edgeR and DESeq2 DEGs using 'VennDiagram'" width="672" />
+<p class="caption">
+Figure 5.1: Venn diagram comparing edgeR and DESeq2 DEGs using ‘VennDiagram’
+</p>
+</div>
+<p>As mentioned, following is an easier alternative (especially when you have &gt; 2 groups) with the <code>venn</code> function from the <code>gplots</code> library. This only needs a list containing either the row-numbers or the gene-names of the DEGs which is easier (but offers less adjustability to make it prettier).</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="chapter-5.html#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Alternative method using the `gplots` library</span></span>
+<span id="cb28-2"><a href="chapter-5.html#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gplots)</span>
+<span id="cb28-3"><a href="chapter-5.html#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a Venn-diagram given just the list of gene-names for both sets</span></span>
+<span id="cb28-4"><a href="chapter-5.html#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="fu">venn</span>(<span class="fu">list</span>(<span class="at">edgeR =</span> edgeR.degs,</span>
+<span id="cb28-5"><a href="chapter-5.html#cb28-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">DESeq =</span> DESeq.degs))</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:alternativeVenn"></span>
+<img src="gene_expression_files/figure-html/alternativeVenn-1.png" alt="Venn diagram comparing edgeR and DESeq2 DEGs using 'gplots'" width="672" />
+<p class="caption">
+Figure 5.2: Venn diagram comparing edgeR and DESeq2 DEGs using ‘gplots’
+</p>
+</div>
+<p>While there is an almost complete overlap between both techniques, DESeq2 finds a total of &gt;700 genes that edgeR does not denote as DEG. Besides the difference in nuber of DEGs, there is also a notable difference in the calculated log fold change values. The following boxplot shows - for all DEGs - the distribution of the log-FC values where DESeq2 shows a far wider range of values. This is possibly due to the large difference in number of DEGs but can also be attributed to different normalization techniques and the many choices of models to choose from for the analysis.</p>
+<div class="figure"><span style="display:block;" id="fig:logFCBoxplot"></span>
+<img src="gene_expression_files/figure-html/logFCBoxplot-1.png" alt="Boxplot comparing spread of log fold change values" width="672" />
+<p class="caption">
+Figure 5.3: Boxplot comparing spread of log fold change values
+</p>
+</div>
+<p>Let’s quickly compare these log-FC values on a per-gene basis including manually calculated from the DESeq2 <code>rlog</code> and the edgeR <code>cpm</code> methods.</p>
+<table style="width:81%;">
+<colgroup>
+<col width="15%" />
+<col width="16%" />
+<col width="18%" />
+<col width="15%" />
+<col width="15%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">Gene</th>
+<th align="center">edgeR.lFC</th>
+<th align="center">DESeq2.lFC</th>
+<th align="center">rlog.lFC</th>
+<th align="center">cpm.lFC</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">PCDHA10</td>
+<td align="center">-3.602</td>
+<td align="center">-3.631</td>
+<td align="center">-3.488</td>
+<td align="center">-3.492</td>
+</tr>
+<tr class="even">
+<td align="center">CHGA</td>
+<td align="center">2.923</td>
+<td align="center">2.83</td>
+<td align="center">2.871</td>
+<td align="center">2.988</td>
+</tr>
+<tr class="odd">
+<td align="center">ARRB1</td>
+<td align="center">-3.914</td>
+<td align="center">-3.901</td>
+<td align="center">-3.866</td>
+<td align="center">-3.779</td>
+</tr>
+<tr class="even">
+<td align="center">TSSC2</td>
+<td align="center">3.175</td>
+<td align="center">3.095</td>
+<td align="center">3.086</td>
+<td align="center">3.222</td>
+</tr>
+<tr class="odd">
+<td align="center">LRFN5</td>
+<td align="center">-4.638</td>
+<td align="center">-4.621</td>
+<td align="center">-4.534</td>
+<td align="center">-4.509</td>
+</tr>
+<tr class="even">
+<td align="center">C11orf54</td>
+<td align="center">-1.953</td>
+<td align="center">-1.967</td>
+<td align="center">-1.993</td>
+<td align="center">-1.887</td>
+</tr>
+<tr class="odd">
+<td align="center">MAP2</td>
+<td align="center">2.647</td>
+<td align="center">2.552</td>
+<td align="center">2.578</td>
+<td align="center">2.704</td>
+</tr>
+<tr class="even">
+<td align="center">WNT3</td>
+<td align="center">-3.488</td>
+<td align="center">-3.464</td>
+<td align="center">-3.432</td>
+<td align="center">-3.369</td>
+</tr>
+<tr class="odd">
+<td align="center">TFAP2C</td>
+<td align="center">-2.984</td>
+<td align="center">-2.955</td>
+<td align="center">-3.06</td>
+<td align="center">-2.983</td>
+</tr>
+<tr class="even">
+<td align="center">ASAP2</td>
+<td align="center">1.352</td>
+<td align="center">1.27</td>
+<td align="center">1.291</td>
+<td align="center">1.409</td>
+</tr>
+</tbody>
+</table>
+<p>Comparing lFC-values from edgeR, DESeq2 and manually using rlog- and cpm-normalized data</p>
+</div>
+<div id="clustering" class="section level2 hasAnchor" number="5.3">
+<h2><span class="header-section-number">5.3</span> Clustering<a href="chapter-5.html#clustering" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>One of the basic visualization steps to show expression data and patterns accross samples. Here, we can create a heatmap of the found DEGs for all samples where the colors show the fold-change value. Usually this heatmap is shown with a two color gradient; from red (downregulated) to green (upregulated). This is however optional and using the default colors from <code>pheatmap</code> for example is perfectly fine as long as a proper legend is present.</p>
+<p>There are multiple methods of creating a heatmap (one of which you’ve already used) and most of these directly apply clustering in the visualization. This clustering can be applied to the expression pattern of a gene (row-clustering), the expression pattern of a sample (column-clustering) or both (default for <code>pheatmap</code>). The first example shown here uses column-based clustering as it shows the replicates for multiple groups (IPSC disomic and trisomic) with their normalized expression values for the top 30 genes as found by DESeq2. This first example allows an overview of the expression patterns for the DEGs and to see the differences in expression between replicates. It is expected that the replicates for each group cluster together as shown in this example. Genes (rows) are clustered based on their expression values.</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="chapter-5.html#cb29-1" aria-hidden="true" tabindex="-1"></a>genes <span class="ot">&lt;-</span> <span class="fu">rownames</span>(ttags[<span class="fu">abs</span>(ttags<span class="sc">$</span>logFC) <span class="sc">&gt;=</span> <span class="dv">1</span>,])[<span class="dv">1</span><span class="sc">:</span><span class="dv">30</span>]</span>
+<span id="cb29-2"><a href="chapter-5.html#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Add the averages for both groups and (manually) calculate the log-FC</span></span>
+<span id="cb29-3"><a href="chapter-5.html#cb29-3" aria-hidden="true" tabindex="-1"></a>deseq.results<span class="sc">$</span>di <span class="ot">&lt;-</span> <span class="fu">rowMeans</span>(deseq.results[,ipsc.di])</span>
+<span id="cb29-4"><a href="chapter-5.html#cb29-4" aria-hidden="true" tabindex="-1"></a>deseq.results<span class="sc">$</span>tri <span class="ot">&lt;-</span> <span class="fu">rowMeans</span>(deseq.results[,ipsc.tri])</span>
+<span id="cb29-5"><a href="chapter-5.html#cb29-5" aria-hidden="true" tabindex="-1"></a>deseq.results<span class="sc">$</span>rloglFC <span class="ot">&lt;-</span> deseq.results<span class="sc">$</span>tri <span class="sc">-</span> deseq.results<span class="sc">$</span>di</span>
+<span id="cb29-6"><a href="chapter-5.html#cb29-6" aria-hidden="true" tabindex="-1"></a>replicate.lFC <span class="ot">&lt;-</span> deseq.results[genes, ipsc.tri] <span class="sc">-</span> deseq.results[genes, <span class="st">&#39;di&#39;</span>]</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:expressionHeatmap"></span>
+<img src="gene_expression_files/figure-html/expressionHeatmap-1.png" alt="Heatmap showing the expression values of all disomic and trisomic IPSC samples" width="672" />
+<p class="caption">
+Figure 5.4: Heatmap showing the expression values of all disomic and trisomic IPSC samples
+</p>
+</div>
+<p>This second example is more commonly found in publications as this shows the log fold change values for the comparison that was done. The first three columns shown in this heatmap are the log fold changes of the <em>separate</em> IPSC trisomic replicates vs the <em>average</em> IPSC disomic expression. The 4th column shows the log fold change values for the average IPSC trisomic vs average IPSC disomic samples. Note that column-clustering has been turned off for this type of plot by setting <code>cluster_cols = FALSE</code> (all replicates are from the same group, clustering will not add any useful information).</p>
+<div class="figure"><span style="display:block;" id="fig:lfcHeatmap"></span>
+<img src="gene_expression_files/figure-html/lfcHeatmap-1.png" alt="Heatmap showing the Log Fold Changes of all trisomic vs averaged disomic IPSC samples and the average trisomic vs average disomic IPSC samples" width="672" />
+<p class="caption">
+Figure 5.5: Heatmap showing the Log Fold Changes of all trisomic vs averaged disomic IPSC samples and the average trisomic vs average disomic IPSC samples
+</p>
+</div>
+<p>A limitation of a heatmap will show itself when more then 100 DEGs are found; this just doesn’t fit well in a single figure and causes the clustering and especially the gene names/ labels to be unreadable. It is therefore always adviced to not only filter on the adjusted p-value, but also on the log-FC value to reduce the number of genes shown. Alternatively if the data is properly annotated, instead of showing gene names for each row, showing a GO-term clustering might reveal expression patterns for certain gene groups.</p>
+</div>
+<div id="pathway-analysis" class="section level2 hasAnchor" number="5.4">
+<h2><span class="header-section-number">5.4</span> Pathway Analysis<a href="chapter-5.html#pathway-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In some cases you’ll see hundreds or even thousands of DEGs as a result of an analysis. These large amounts of DEGs are too much for most visualization approaches or to easily say something about the biological context for that many genes.</p>
+<p>One approach for tackling such a large set of DEGs is <em>pathway analysis</em> where through different methods genes are grouped by pathway to get an overview of affected pathways in the experiment.</p>
+<p>This section will demonstrate two methods for this analysis, one using an online platform for <em>gene-annotation enrichment</em> analysis and an R-method for <em>signaling pathway impact analysis</em>.</p>
+<div id="gene-functional-classification-using-david-100-degs" class="section level3 hasAnchor" number="5.4.1">
+<h3><span class="header-section-number">5.4.1</span> Gene Functional Classification using DAVID (&gt;100 DEGs)<a href="chapter-5.html#gene-functional-classification-using-david-100-degs" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The online <em>Database for Annotation, Visualization and Integrated Discovery</em> <a href="https://david.ncifcrf.gov/home.jsp">DAVID</a> tool suite allows for multiple - functional - annotation methods, one of these can be used for enrichment analysis based on gene annotation. To use the DAVID tools we need to have the list of gene names, ID’s or other identifyable information (no need for p-values or fold-changes). The basics of this method consist of grouping genes in pathways, count how many genes are in each pathway and compare this with what you would expect if you take a <em>random</em> sample from the genome with the same size as the number of your DEGs.</p>
+<p>For example, if the <strong>RNA transport</strong> pathway contains a total of 50 genes out of the total of 25.000 for the whole mouse genome. This means <strong>0.2%</strong> of <strong>all</strong> mouse genes have a role in this pathway.</p>
+<p>If you uploaded a total of 1000 DEGs for analysis, you expect 0.2% = <strong>2</strong> genes from your DEG list to be placed in this pathway. But, it seems that there are <strong>10</strong> genes from the <strong>RNA transport</strong> pathway in the set of 1000 genes, which is <strong>5</strong> times as much as expected. This difference between expected and observed gene counts per pathway allows to say if a particular pathway is <em>enriched</em>.</p>
+<p>DAVID provides a single interface to perform multiple different annotation pipelines, see the table below for available types and their use.</p>
+<div class="figure">
+<img src="chapters/images/DAVID_what_to_use.jpg" alt="" />
+<p class="caption"><em>DAVID functional annotation methods</em></p>
+</div>
+<p>The following example code writes the gene <em>symbols</em> for both analysis approaches to a file for upload on DAVID.</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="chapter-5.html#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Write gene names to a file</span></span>
+<span id="cb30-2"><a href="chapter-5.html#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">write.table</span>(edgeR.degs, <span class="at">file =</span> <span class="st">&quot;../data/edger-deg-names.txt&quot;</span>,</span>
+<span id="cb30-3"><a href="chapter-5.html#cb30-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">row.names =</span> <span class="cn">FALSE</span>, <span class="at">quote =</span> <span class="cn">FALSE</span>, <span class="at">col.names =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb30-4"><a href="chapter-5.html#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="fu">write.table</span>(DESeq.degs, <span class="at">file =</span> <span class="st">&quot;../data/deseq-deg-names.txt&quot;</span>,</span>
+<span id="cb30-5"><a href="chapter-5.html#cb30-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">row.names =</span> <span class="cn">FALSE</span>, <span class="at">quote =</span> <span class="cn">FALSE</span>, <span class="at">col.names =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<p><strong>Upload data</strong></p>
+<p>Click on the <em>Start Analysis</em> button at the top of the DAVID website. Then, copy the genes (<strong>A</strong>) or upload the file (<strong>B</strong>) and select the proper identifier type (<em>OFFICIAL_GENE_SYMBOL</em> in this example). Select the <em>Gene List</em> option in <em>Step 3</em> and click on the <em>Submit List</em> button in <em>Step 4</em>.</p>
+<div class="figure">
+<img src="chapters/images/DAVID_upload_gene_symbol.png" alt="" />
+<p class="caption"><em>Start analysis by uploading gene information data</em></p>
+</div>
+<p>This usually results in a popup that mentions that some of your IDs were found in multiple organisms. Close the popup and select your own organism (Mus musculus in this example) from the Species list. From the 940 uploaded gene-symbols, 881 were found in the mouse which we select followed by clicking on the <em>Select Species</em> button.</p>
+<div class="figure">
+<img src="chapters/images/DAVID_select_organism.png" alt="" />
+<p class="caption"><em>Select the source (organism) for the genes</em></p>
+</div>
+<p>The most useful analysis is the <em>Functional Annotation Chart</em>, selectable from the <em>Start Analysis</em> page after uploading the set of genes. The output table shows many (in this case ~560) <em>chart records</em> in which the genes were grouped. These records orginate from various sources, such as <em>GO-terms</em>, <em>Interpro</em>, <em>KEGG-pathways</em>, <em>SMART</em>, etc. See the image below for a quick explaination of what is displayed in such a chart (mostly just a table..).</p>
+<div class="figure">
+<img src="chapters/images/DAVID_annotation_chart.jpg" alt="" />
+<p class="caption"><em>DAVID functional annotation chart - Help</em></p>
+</div>
+<p>An interesting statistic to add to this table is the <em>Fold Enrichment</em> that shows how over- or under-represented this group is. Note that this is not based on <em>gene-expression</em> but only on the deviation of the of the amount of genes provided for a certain group from what is expected given the <em>total number</em> of uploaded gene IDs.</p>
+<div class="figure">
+<img src="chapters/images/DAVID_chart_settings.png" alt="" />
+<p class="caption"><em>DAVID functional annotation chart - Settings</em></p>
+</div>
+<p>Now, looking at the article for a random example set with GSE ID <a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE80128">GSE80128</a>, one of the conclusions mentions the following on their gene-in-research (<em>Igf2as</em>):</p>
+<blockquote>
+<p>It is suggested that Igf2as play a role in energy metabolism, the cell cycle, histone acetylation and muscle contraction pathways.</p>
+</blockquote>
+<p>With almost a 1000 DEGs grouped in 560 different categories, you can find ‘evidence’ for most conclusions and the difficulty here is finding the <em>truly</em> important pathways. Adviced is to only check the KEGG-pathways listed in the table, sort by the corrected p-value and inspect the pathways that look interesting. For this example, amongst others, the following pathways were listed as significant (p-value &lt; 0.05):</p>
+<ul>
+<li><em>Metabolic pathways</em>: includes many pathways, 100 genes in total with a 1.6-fold enrichment</li>
+<li><em>Citrate cycle (TCA)</em>: major metabolic pathway, 9 genes with a 5.7-fold enrichment</li>
+<li><em>Cardiac Muscle contraction</em>: 12 genes with a 3.3-fold enrichment</li>
+</ul>
+<p>Clicking on the <em>Term</em> in the table for a KEGG-pathway shows a graphical representation of this pathway indicating the found DEGs (blinking, even), see below.</p>
+<div class="figure">
+<img src="chapters/images/DAVID_TCA_pathway.png" alt="" />
+<p class="caption"><em>KEGG TCA-pathway, highlighting DEGs (red stars)</em></p>
+</div>
+</div>
+<div id="kegg-pathway-visualization-10-degs" class="section level3 hasAnchor" number="5.4.2">
+<h3><span class="header-section-number">5.4.2</span> KEGG-pathway Visualization (&gt;10 DEGs)<a href="chapter-5.html#kegg-pathway-visualization-10-degs" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Knowing the interesting KEGG-pathway(s) upfront (i.e. it is listed in the article) allows for visualizations applied to that selected pathway. For this we can use the <code>pathview</code> <a href="https://pathview.uncc.edu">website</a> or Bioconductor <a href="https://bioconductor.org/packages/release/bioc/html/pathview.html">library</a>:</p>
+<blockquote>
+<p>“… It maps and renders a wide variety of biological data on relevant pathway graphs. All users need is to supply their data and specify the target pathway. Pathview automatically downloads the pathway graph data, parses the data file, maps user data to the pathway, and render pathway graph with the mapped data.”</p>
+</blockquote>
+<p>This section demonstrates only the use of the bioconductor package for visualizing not only the DEGs onto pathways, but also the change in expression for each gene.</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="chapter-5.html#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Bioconductor library (install with bioclite() if missing)</span></span>
+<span id="cb31-2"><a href="chapter-5.html#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pathview)</span>
+<span id="cb31-3"><a href="chapter-5.html#cb31-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-4"><a href="chapter-5.html#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Example pathway IDs (for human, change organism key for other organisms)</span></span>
+<span id="cb31-5"><a href="chapter-5.html#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;paths.hsa&quot;</span>)</span>
+<span id="cb31-6"><a href="chapter-5.html#cb31-6" aria-hidden="true" tabindex="-1"></a><span class="fu">pander</span>(<span class="fu">head</span>(paths.hsa, <span class="at">n=</span><span class="dv">5</span>))</span></code></pre></div>
+<table style="width:82%;">
+<colgroup>
+<col width="43%" />
+<col width="38%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">hsa00010</th>
+<th align="center">hsa00020</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">Glycolysis / Gluconeogenesis</td>
+<td align="center">Citrate cycle (TCA cycle)</td>
+</tr>
+</tbody>
+</table>
+<p>Table continues below</p>
+<table>
+<colgroup>
+<col width="36%" />
+<col width="33%" />
+<col width="29%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">hsa00030</th>
+<th align="center">hsa00040</th>
+<th align="center">hsa00051</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">Pentose phosphate pathway</td>
+<td align="center">Pentose and glucuronate
+interconversions</td>
+<td align="center">Fructose and mannose
+metabolism</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="chapter-5.html#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Check &#39;gene.idtype&#39; argument possibilities</span></span>
+<span id="cb32-2"><a href="chapter-5.html#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(gene.idtype.list); </span>
+<span id="cb32-3"><a href="chapter-5.html#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="fu">pander</span>(gene.idtype.list)</span></code></pre></div>
+<p><em>SYMBOL</em>, <em>GENENAME</em>, <em>ENSEMBL</em>, <em>ENSEMBLPROT</em>, <em>UNIGENE</em>, <em>UNIPROT</em>, <em>ACCNUM</em>, <em>ENSEMBLTRANS</em>, <em>REFSEQ</em>, <em>ENZYME</em>, <em>TAIR</em>, <em>PROSITE</em> and <em>ORF</em></p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="chapter-5.html#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Prepare data for visualization</span></span>
+<span id="cb33-2"><a href="chapter-5.html#cb33-2" aria-hidden="true" tabindex="-1"></a>deseq.degs.logfc <span class="ot">&lt;-</span> <span class="fu">subset</span>(deseq.results, padj <span class="sc">&lt;</span> pval_threshold, <span class="at">select =</span> log2FoldChange)</span>
+<span id="cb33-3"><a href="chapter-5.html#cb33-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-4"><a href="chapter-5.html#cb33-4" aria-hidden="true" tabindex="-1"></a><span class="fu">pander</span>(<span class="fu">head</span>(deseq.degs.logfc))</span></code></pre></div>
+<table style="width:47%;">
+<colgroup>
+<col width="23%" />
+<col width="23%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center"> </th>
+<th align="center">log2FoldChange</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><strong>ABAT</strong></td>
+<td align="center">0.7499</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>ABCC13</strong></td>
+<td align="center">-3.452</td>
+</tr>
+<tr class="odd">
+<td align="center"><strong>ABHD12B</strong></td>
+<td align="center">-3.306</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>AC002480.2</strong></td>
+<td align="center">-0.1612</td>
+</tr>
+<tr class="odd">
+<td align="center"><strong>AC002480.5</strong></td>
+<td align="center">-5.13</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>AC005062.2</strong></td>
+<td align="center">-1.949</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="chapter-5.html#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pathview</span>(<span class="at">gene.data=</span>deseq.degs.logfc,</span>
+<span id="cb34-2"><a href="chapter-5.html#cb34-2" aria-hidden="true" tabindex="-1"></a>         <span class="at">pathway.id=</span><span class="st">&quot;00020&quot;</span>, <span class="co"># TCA-cycle</span></span>
+<span id="cb34-3"><a href="chapter-5.html#cb34-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">species=</span><span class="st">&quot;hsa&quot;</span>     <span class="co"># Organism key</span></span>
+<span id="cb34-4"><a href="chapter-5.html#cb34-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p>It is fine to use the webtool too for this purpose however it is not notacibly easier to use than the R package.</p>
+</div>
+<div id="spia" class="section level3 hasAnchor" number="5.4.3">
+<h3><span class="header-section-number">5.4.3</span> Signaling Pathway Impact Analysis (&gt;20 DEGs)<a href="chapter-5.html#spia" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>To also look at the <em>topology</em> of <em>how</em> genes interact with each other, we can use the <a href="http://bioconductor.org/packages/release/bioc/html/SPIA.html">SPIA</a> Bioconductor package. This package takes a list of Entrez gene IDs for all DEGs and the complete list of Entrez IDs for all present genes and evaluates - per pathway - if genes are involved and if the pathway is either inhibited or activated.</p>
+<p>The code below uses data objects that were not always shown before, see the tables below for their contents.</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="chapter-5.html#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Bioconductor package for &quot;Signaling Pathway Impact Analysis&quot;</span></span>
+<span id="cb35-2"><a href="chapter-5.html#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="co"># (install with biocLite(&quot;SPIA&quot;) if it is not installed)</span></span>
+<span id="cb35-3"><a href="chapter-5.html#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(SPIA)</span>
+<span id="cb35-4"><a href="chapter-5.html#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Only used for the `subset` function</span></span>
+<span id="cb35-5"><a href="chapter-5.html#cb35-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb35-6"><a href="chapter-5.html#cb35-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-7"><a href="chapter-5.html#cb35-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Get a vector of log(FC) values for all significant genes</span></span>
+<span id="cb35-8"><a href="chapter-5.html#cb35-8" aria-hidden="true" tabindex="-1"></a>sig_genes <span class="ot">&lt;-</span> <span class="fu">subset</span>(deseq.results, padj <span class="sc">&lt;</span> pval_threshold, <span class="at">select =</span> log2FoldChange)[[<span class="dv">1</span>]]</span>
+<span id="cb35-9"><a href="chapter-5.html#cb35-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Make it a named vector by assigning the Entrez ID&#39;s to each log(FC) value</span></span>
+<span id="cb35-10"><a href="chapter-5.html#cb35-10" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(sig_genes) <span class="ot">&lt;-</span> <span class="fu">subset</span>(deseq.results, padj <span class="sc">&lt;</span> pval_threshold, <span class="at">select =</span> EntrezID)[[<span class="dv">1</span>]]</span>
+<span id="cb35-11"><a href="chapter-5.html#cb35-11" aria-hidden="true" tabindex="-1"></a><span class="co"># A complete list of Entrez IDs for all genes in this experiment</span></span>
+<span id="cb35-12"><a href="chapter-5.html#cb35-12" aria-hidden="true" tabindex="-1"></a>all_genes <span class="ot">&lt;-</span> deseq.results<span class="sc">$</span>EntrezID</span></code></pre></div>
+<p>The input <code>sig_genes</code> named vector contents:</p>
+<table style="width:31%;">
+<colgroup>
+<col width="15%" />
+<col width="15%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">EntrezID</th>
+<th align="center">logFC</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">18</td>
+<td align="center">0.7499</td>
+</tr>
+<tr class="even">
+<td align="center">150000</td>
+<td align="center">-3.452</td>
+</tr>
+<tr class="odd">
+<td align="center">145447</td>
+<td align="center">-3.306</td>
+</tr>
+<tr class="even">
+<td align="center">43</td>
+<td align="center">-3.055</td>
+</tr>
+<tr class="odd">
+<td align="center">51412</td>
+<td align="center">1.847</td>
+</tr>
+<tr class="even">
+<td align="center">114</td>
+<td align="center">-1.926</td>
+</tr>
+<tr class="odd">
+<td align="center">146</td>
+<td align="center">2.754</td>
+</tr>
+<tr class="even">
+<td align="center">60312</td>
+<td align="center">-1.068</td>
+</tr>
+<tr class="odd">
+<td align="center">3899</td>
+<td align="center">1.061</td>
+</tr>
+<tr class="even">
+<td align="center">116986</td>
+<td align="center">1.222</td>
+</tr>
+</tbody>
+</table>
+<p>(subset) of DESeq2 DEGs with their Entrez ID and log2(FC) value</p>
+<p>And the <code>all_genes</code> vector or Entrez IDs input (note that this does not contain any expression information, just IDs):</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="chapter-5.html#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pander</span>(all_genes[<span class="fu">which</span>(idx)[<span class="dv">100</span><span class="sc">:</span><span class="dv">110</span>]])</span></code></pre></div>
+<p><em>55584</em>, <em>5010</em>, <em>6320</em>, <em>387836</em>, <em>154790</em>, <em>7461</em>, <em>79935</em>, <em>26047</em>, <em>85445</em>, <em>78989</em> and <em>57699</em></p>
+<p>To start processing all pathways looking for influenced signal pathway, execute the <code>spia</code> function for the proper organism (Mus Musculus, or <code>mmu</code> in this case):</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="chapter-5.html#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Process all signaling pathways to see if they are inhibited or activated</span></span>
+<span id="cb37-2"><a href="chapter-5.html#cb37-2" aria-hidden="true" tabindex="-1"></a>spia_result <span class="ot">&lt;-</span> <span class="fu">spia</span>(<span class="at">de=</span>sig_genes, <span class="at">all=</span>all_genes, <span class="at">organism=</span><span class="st">&quot;hsa&quot;</span>, <span class="at">plots=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<p>Running this function will print a list of (&gt; 100) pathways it will analyze, so this will take a while:</p>
+<pre><code>Done pathway 1 : RNA transport..
+Done pathway 2 : RNA degradation..
+Done pathway 3 : PPAR signaling pathway..
+Done pathway 4 : Fanconi anemia pathway..
+Done pathway 5 : MAPK signaling pathway..
+Done pathway 6 : ErbB signaling pathway..
+Done pathway 7 : Calcium signaling pathway..
+Done pathway 8 : Cytokine-cytokine receptor int..
+Done pathway 9 : Chemokine signaling pathway..
+Done pathway 10 : NF-kappa B signaling pathway..
+Done pathway 11 : Phosphatidylinositol signaling..
+Done pathway 12 : Neuroactive ligand-receptor in..
+Done pathway 13 : Cell cycle..
+...
+Done pathway 132 : Graft-versus-host disease..
+Done pathway 133 : Arrhythmogenic right ventricul..
+Done pathway 134 : Dilated cardiomyopathy..
+Done pathway 135 : Viral myocarditis..</code></pre>
+<p>The resulting data frame is ordered by a p-value and contains the following information:</p>
+<table>
+<colgroup>
+<col width="41%" />
+<col width="10%" />
+<col width="10%" />
+<col width="7%" />
+<col width="15%" />
+<col width="15%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">Name</th>
+<th align="center">ID</th>
+<th align="center">pSize</th>
+<th align="center">NDE</th>
+<th align="center">pNDE</th>
+<th align="center">tA</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">Alzheimer’s disease</td>
+<td align="center">05010</td>
+<td align="center">160</td>
+<td align="center">23</td>
+<td align="center">2.929e-06</td>
+<td align="center">-0.7695</td>
+</tr>
+<tr class="even">
+<td align="center">Parkinson’s disease</td>
+<td align="center">05012</td>
+<td align="center">113</td>
+<td align="center">19</td>
+<td align="center">2.002e-06</td>
+<td align="center">0</td>
+</tr>
+<tr class="odd">
+<td align="center">Focal adhesion</td>
+<td align="center">04510</td>
+<td align="center">196</td>
+<td align="center">22</td>
+<td align="center">0.0002214</td>
+<td align="center">9.707</td>
+</tr>
+<tr class="even">
+<td align="center">Glioma</td>
+<td align="center">05214</td>
+<td align="center">63</td>
+<td align="center">11</td>
+<td align="center">0.0002007</td>
+<td align="center">-0.6071</td>
+</tr>
+<tr class="odd">
+<td align="center">Neurotrophin signaling pathway</td>
+<td align="center">04722</td>
+<td align="center">120</td>
+<td align="center">15</td>
+<td align="center">0.000702</td>
+<td align="center">2.983</td>
+</tr>
+</tbody>
+</table>
+<p>Top signaling pathways (continued below)</p>
+<table style="width:75%;">
+<colgroup>
+<col width="11%" />
+<col width="16%" />
+<col width="15%" />
+<col width="15%" />
+<col width="16%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">pPERT</th>
+<th align="center">pG</th>
+<th align="center">pGFdr</th>
+<th align="center">pGFWER</th>
+<th align="center">Status</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">0.548</td>
+<td align="center">2.302e-05</td>
+<td align="center">0.001654</td>
+<td align="center">0.002693</td>
+<td align="center">Inhibited</td>
+</tr>
+<tr class="even">
+<td align="center">1</td>
+<td align="center">2.828e-05</td>
+<td align="center">0.001654</td>
+<td align="center">0.003308</td>
+<td align="center">Inhibited</td>
+</tr>
+<tr class="odd">
+<td align="center">0.018</td>
+<td align="center">5.352e-05</td>
+<td align="center">0.002087</td>
+<td align="center">0.006262</td>
+<td align="center">Activated</td>
+</tr>
+<tr class="even">
+<td align="center">0.863</td>
+<td align="center">0.001674</td>
+<td align="center">0.04258</td>
+<td align="center">0.1958</td>
+<td align="center">Inhibited</td>
+</tr>
+<tr class="odd">
+<td align="center">0.274</td>
+<td align="center">0.001838</td>
+<td align="center">0.04258</td>
+<td align="center">0.2151</td>
+<td align="center">Activated</td>
+</tr>
+</tbody>
+</table>
+<p>To get an overal picture we can create a plot where each pathway is a point which is placed according to the <code>spia</code> calculated over-representation p-value and pNDE (which is the probability to observe at least nDE genes on the pathway). In this case it is obvious that Alzheimer’s and Parkinson’s pathways with ID’s 05010 and 05012 respectively are the most influenced by this experiment, according to this method.</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="chapter-5.html#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotP</span>(spia_result)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:spiaResultPlotP"></span>
+<img src="gene_expression_files/figure-html/spiaResultPlotP-1.png" alt="SPIA two-way evidence plot showing the most influenced pathways" width="672" />
+<p class="caption">
+Figure 5.6: SPIA two-way evidence plot showing the most influenced pathways
+</p>
+</div>
+
+</div>
+</div>
+</div>
+
+
+
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="chapter-4.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="a1-data_loading.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
