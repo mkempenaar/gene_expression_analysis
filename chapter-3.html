@@ -24,7 +24,7 @@
 <meta name="author" content="Marcel Kempenaar" />
 
 
-<meta name="date" content="2022-03-16" />
+<meta name="date" content="2022-03-17" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -840,19 +840,22 @@ Figure 3.4: Heatmap showing the Euclidean distances between all samples
 The figure below is plotted using <code>ggplot2</code>, a more advanced method of plotting in R. While these plots are preferred over base-R plotting, it is always sufficient to use just that as it can be very challenging to alter the example code shown in this section. The data object plotted is shown and in this case contains simple X- and Y-coordinates.
 </p>
 </div>
-<p>For MDS we use a slightly different distance metric (Poisson instead of the default <code>euclidean</code> used in the <code>dist</code> function). The following code shows how to calculate a more fitting distance for sequencing data called the <em>Poisson Distance</em> with a number of optimizations available in the <code>PoiClaClu</code> library. This library was specifically designed to handle read count data and is less influenced by read-count differences across samples. Note that again, the code below is only usable for <strong>count</strong> data as this function requires:
-&gt; An n-by-p data matrix with observations on the rows, and p features on the columns. The (i,j) element of x is the <strong>number of reads</strong> in observation i that mapped to feature (e.g. gene or exon) j`.</p>
+<p>For MDS we use a slightly different distance metric (Poisson instead of the default <code>euclidean</code> used in the <code>dist</code> function). The following code shows how to calculate a more fitting distance for sequencing data called the <em>Poisson Distance</em> with a number of optimizations available in the <code>PoiClaClu</code> library. This library was specifically designed to handle read count data and is less influenced by read-count differences across samples. Note that again, the code below is only usable for <strong>count</strong> data as this function requires:</p>
+<blockquote>
+<p>An n-by-p data matrix with observations on the rows, and p features on the columns. The (i,j) element of x is the <strong>number of reads</strong> in observation i that mapped to feature (e.g. gene or exon) j`.</p>
+</blockquote>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="chapter-3.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&#39;PoiClaClu&#39;</span>)</span>
-<span id="cb13-2"><a href="chapter-3.html#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Use the raw (not r-log transformed!) counts</span></span>
-<span id="cb13-3"><a href="chapter-3.html#cb13-3" aria-hidden="true" tabindex="-1"></a>dds <span class="ot">&lt;-</span> <span class="fu">assay</span>(ddsMat)</span>
-<span id="cb13-4"><a href="chapter-3.html#cb13-4" aria-hidden="true" tabindex="-1"></a>poisd <span class="ot">&lt;-</span> <span class="fu">PoissonDistance</span>( <span class="fu">t</span>(dds) )</span>
-<span id="cb13-5"><a href="chapter-3.html#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract the matrix with distances</span></span>
-<span id="cb13-6"><a href="chapter-3.html#cb13-6" aria-hidden="true" tabindex="-1"></a>samplePoisDistMatrix <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(poisd<span class="sc">$</span>dd)</span>
-<span id="cb13-7"><a href="chapter-3.html#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the MDS and get the X- and Y-coordinates</span></span>
-<span id="cb13-8"><a href="chapter-3.html#cb13-8" aria-hidden="true" tabindex="-1"></a>mdsPoisData <span class="ot">&lt;-</span> <span class="fu">data.frame</span>( <span class="fu">cmdscale</span>(samplePoisDistMatrix) )</span>
-<span id="cb13-9"><a href="chapter-3.html#cb13-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-10"><a href="chapter-3.html#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="co"># And set some better readable names for the columns</span></span>
-<span id="cb13-11"><a href="chapter-3.html#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(mdsPoisData) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&#39;x_coord&#39;</span>, <span class="st">&#39;y_coord&#39;</span>)</span></code></pre></div>
+<span id="cb13-2"><a href="chapter-3.html#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Note: uses the raw-count data, PoissonDistance performs normalization</span></span>
+<span id="cb13-3"><a href="chapter-3.html#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co"># set by the &#39;type&#39; parameter (uses DESeq)</span></span>
+<span id="cb13-4"><a href="chapter-3.html#cb13-4" aria-hidden="true" tabindex="-1"></a>dds <span class="ot">&lt;-</span> <span class="fu">assay</span>(ddsMat)</span>
+<span id="cb13-5"><a href="chapter-3.html#cb13-5" aria-hidden="true" tabindex="-1"></a>poisd <span class="ot">&lt;-</span> <span class="fu">PoissonDistance</span>( <span class="fu">t</span>(dds), <span class="at">type =</span> <span class="st">&quot;deseq&quot;</span>)</span>
+<span id="cb13-6"><a href="chapter-3.html#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract the matrix with distances</span></span>
+<span id="cb13-7"><a href="chapter-3.html#cb13-7" aria-hidden="true" tabindex="-1"></a>samplePoisDistMatrix <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(poisd<span class="sc">$</span>dd)</span>
+<span id="cb13-8"><a href="chapter-3.html#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the MDS and get the X- and Y-coordinates</span></span>
+<span id="cb13-9"><a href="chapter-3.html#cb13-9" aria-hidden="true" tabindex="-1"></a>mdsPoisData <span class="ot">&lt;-</span> <span class="fu">data.frame</span>( <span class="fu">cmdscale</span>(samplePoisDistMatrix) )</span>
+<span id="cb13-10"><a href="chapter-3.html#cb13-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-11"><a href="chapter-3.html#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="co"># And set some better readable names for the columns</span></span>
+<span id="cb13-12"><a href="chapter-3.html#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(mdsPoisData) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&#39;x_coord&#39;</span>, <span class="st">&#39;y_coord&#39;</span>)</span></code></pre></div>
 <table style="width:28%;">
 <colgroup>
 <col width="13%" />
