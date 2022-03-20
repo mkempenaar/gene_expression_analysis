@@ -9,7 +9,6 @@ fig:edgeRPlotBCV
 fig:edgerResults
 fig:vennDiagram
 fig:alternativeVenn
-fig:logFCBoxplot
 fig:expressionHeatmap
 fig:lfcHeatmap
 fig:spiaResultPlotP
@@ -62,3 +61,9 @@ a1-batch_data_loading
 decompressing
 determining-data-format
 loading-data-1
+a2-annotation
+download-geo
+manually-annotate
+annotationDBI
+using-biomart
+references

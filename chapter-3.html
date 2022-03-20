@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title> Exploratory Data Analysis | Analysis of Gene Expression</title>
   <meta name="description" content="Course Syllabus for BFV: Theme 07 course" />
-  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.25 and GitBook 2.6.7" />
 
   <meta property="og:title" content=" Exploratory Data Analysis | Analysis of Gene Expression" />
   <meta property="og:type" content="book" />
-  
   
   <meta property="og:description" content="Course Syllabus for BFV: Theme 07 course" />
   <meta name="github-repo" content="mkempenaar/gene_expression_analysis" />
@@ -24,7 +23,7 @@
 <meta name="author" content="Marcel Kempenaar" />
 
 
-<meta name="date" content="2022-03-17" />
+<meta name="date" content="2022-03-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +32,6 @@
   
 <link rel="prev" href="chapter-2.html"/>
 <link rel="next" href="chapter-4.html"/>
-<script src="libs/header-attrs-2.13/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -233,6 +231,16 @@ div.csl-indent {
 <li class="chapter" data-level="A.2.3" data-path="a1-data_loading.html"><a href="a1-data_loading.html#loading-data-1"><i class="fa fa-check"></i><b>A.2.3</b> Loading Data<span></span></a></li>
 </ul></li>
 </ul></li>
+<li class="chapter" data-level="B" data-path="a2-annotation.html"><a href="a2-annotation.html"><i class="fa fa-check"></i><b>B</b> Annotating an RNA-Seq Experiment<span></span></a>
+<ul>
+<li class="chapter" data-level="B.1" data-path="a2-annotation.html"><a href="a2-annotation.html#download-geo"><i class="fa fa-check"></i><b>B.1</b> Downloading annotation data from GEO<span></span></a></li>
+<li class="chapter" data-level="B.2" data-path="a2-annotation.html"><a href="a2-annotation.html#manually-annotate"><i class="fa fa-check"></i><b>B.2</b> Manual Data Annotation<span></span></a>
+<ul>
+<li class="chapter" data-level="B.2.1" data-path="a2-annotation.html"><a href="a2-annotation.html#annotationDBI"><i class="fa fa-check"></i><b>B.2.1</b> Using <code>AnnotationDBI</code><span></span></a></li>
+<li class="chapter" data-level="B.2.2" data-path="a2-annotation.html"><a href="a2-annotation.html#using-biomart"><i class="fa fa-check"></i><b>B.2.2</b> Using <code>biomaRt</code><span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="B.3" data-path="a2-annotation.html"><a href="a2-annotation.html#references"><i class="fa fa-check"></i><b>B.3</b> References<span></span></a></li>
+</ul></li>
 </ul>
 
       </nav>
@@ -286,7 +294,7 @@ div.csl-indent {
 </ul>
 <div class="rmdtip">
 <p>
-For some data sets the order in which the samples are listed in your loaded data set is different from the order that is shown on the GEO website. Most often, the names are different too or they are lacking any description and all you have are the <code>GSM</code> IDs. When creating these variables such as <code>control</code> that need to point to all control samples, you need to make sure that you have the right columns from your data frame. Go to Appendix <a href="#download-geo">A2; annotation</a> if the order is unclear or you just have a large number of samples as there might be supporting data available that can help make sense of your sample layout.
+For some data sets the order in which the samples are listed in your loaded data set is different from the order that is shown on the GEO website. Most often, the names are different too or they are lacking any description and all you have are the <code>GSM</code> IDs. When creating these variables such as <code>control</code> that need to point to all control samples, you need to make sure that you have the right columns from your data frame. Go to Appendix <a href="a2-annotation.html#download-geo">A2; annotation</a> if the order is unclear or you just have a large number of samples as there might be supporting data available that can help make sense of your sample layout.
 </p>
 </div>
 <p>If you want to include external images to your log and to better control properties such as <em>height</em> and <em>width</em> for individual images you can use the following code. Note: the code below is an <em>example</em> and you need to replace the <code>img_to_include.png</code> file path to an actual image.):</p>
