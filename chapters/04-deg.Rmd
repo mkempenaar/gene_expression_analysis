@@ -1,40 +1,43 @@
 # Discovering Differentialy Expressed Genes (DEGs) {#chapter-4}
 
-The first and most important 'real' analysis step we will do is finding genes that show a difference in expression between sample groups; the *differentially expressed genes* (DEGs). The concept might sound rather simple; calculate the ratios for all genes between samples to determine the **fold-change** (FC) denoting the factor of change in expression between groups. Then, filter out only those genes that actually show a difference. While this does give a list of genes showing different behaviour across samples, we need to focus on genes that do not only show a difference, but are also *statistically significant*!
+The first and most important 'real' analysis step we will do is finding genes that show a difference in expression between sample groups; the *differentially expressed genes* (DEGs). The concept might sound rather simple; calculate the ratios for all genes between samples to determine the **fold-change** (FC) denoting the factor of change in expression between groups. Then, filter out only those genes that actually show a difference. While this does give a list of genes showing different behaviour across samples, we need to focus on genes that do not only show a difference, but where that observed difference is also *statistically significant*!
 
 To determine whether or not a gene can be classified as a significant DEG we are going to use existing libraries, one of which your own article might refer to. Before we do that we're going to a brief manual examination of the count data to make sure that you properly understand what we're looking for: significance and the Fold-Change value. 
 
 ## Pre-processing {#deg-preprocessing}
 
-Given the results of the exploratory data analysis performed in [chapter 3](#chapter-3), you might have concluded that there are one or more samples that show (very) deviating expression patterns compared to samples from the same group. As mentioned before, *if* you have more then enough (> 3) samples in a group, you might opt to remove a sample to reduce the noise as the statistical tests are very sensitive to this. Since we are performing all analysis steps programatically it is also very easy to test for DEGs with and without the sample(s) in question and see if the removal results in lower p-values (= higher significance). If this is the case you can continue on without those sample(s), but 
+Given the results of the exploratory data analysis performed in [chapter 3](#chapter-3), you might have concluded that there are one or more samples that show (very) deviating expression patterns compared to samples from the same group. As mentioned before, *if* you have more then enough (> 3) samples in a group, you might opt to remove a sample to reduce the noise as the statistical tests are very sensitive to this. Since we are performing all analysis steps programatically it is also very easy to test for DEGs with and without the sample(s) in question and see if the removal results in lower p-values (= higher significance). Remember to always properly document your choice and reasoning!
 
-If your data **only** consists of the read counts we are going to apply another normalization technique. The previously used `vst` normalization is the advised method for the visualizations we performed, but for finding DEGs there are better methods. One of these generally accepted method of normalizing count data is to calculate the *fragments per million mapped fragments* (FPM) value and then transform this with log2. Opposed to FPKM and RPKM this does not include the gene-length in its calculation (which you most likely don't have). If your dataset also includes FPKM or RPKM (pre-normalized), you are allowed to use this data too. Always clearly document if you did so! 
+To perform a few more manual steps on our data before using other libraries, we will re-do the normalization with a different technique. A simple method of normalizing count data is to calculate the *fragments per million mapped fragments* (FPM, equal to CPM) value and then transform this with log2. Opposed to FPKM and RPKM this does not include the gene-length in its calculation (which you most likely don't have). If your dataset also includes FPKM or RPKM (pre-normalized), you are allowed to use this data too.
+
+FPM and CPM are simply dividing the count values for a sample by the total number of reads of that sample divided by 1 million as shown below:
 
 ```{r fpm_normalization, echo=TRUE, eval=TRUE}
-# Perform FPM normalization using DESeq2 'fpm' and perform log2 transformation
-# The 'ddsMat' object is the 'DESeqDataSet' created in chapter 3; EDA.
-# NOTE: only for count data and observe the pseudocount of 1 (remove if data does not contain 0-values)
-counts.fpm <- log2( fpm(ddsMat, robust = TRUE) + 1 )
+# Perform a naive FPM normalization
+# Note: log transformation includes a pseudocount of 1
+counts.fpm <- log2( (counts / (colSums(counts) / 1e6)) + 1 )
 ```
 
-Another step we can do - and this might be guided by your article - is to filter out (partially) inactive genes. While this is only *required* when using the `edgeR` library (`DESeq2` includes its own low-count filtering methods), it is a good exercise to do manually and we will use it below when calculating the lFC values. Most datasets available contains a lot of 0-measurements (see for instance your density plot from the previous chapter); genes where no reads have mapped. In the R-studio *Environment* tab, click on your dataset (or perform the `View(data)` command and click on one of the sample columns to order the data ascending. You will now most likely (unless you have bacterial data for instance) see a lot of zero values in all columns. In an experiment with two groups, three replicates each, if three out of those six samples have 0-reads mapped, it is often adviced to remove the gene completely. But this can be very subjective to the experiment, it might be expected (thus important) when comparing different tissues or knockout experiments. Also, genes with a (very) low read count (< 5) can give a very high (artificial) FC value (see the lefthand side of an MA-plot). Comparing two samples where one has a value of 2 and the other 11, this reads as an up-regulated gene by a factor of *5.5* while it might actually just be *noise*!
+Another step we can do - and this might be guided by your article - is to filter out (partially) inactive genes. While this is only *required* when using the `edgeR` library (`DESeq2` includes its own low-count filtering methods), it is a good exercise to do manually and we will use it below when calculating the lFC values. Most data sets available contains a lot of 0-measurements (see for instance your density plot from the previous chapter); genes where no reads have mapped. In the R-studio *Environment* tab, click on your data set (or perform the `View(data)` command and click on one of the sample columns to order the data ascending. You will now most likely (unless you have bacterial data for instance) see a lot of zero values in all columns. 
+
+In an experiment with two groups, three replicates each, if three out of those six samples have 0-reads mapped, it is often advised to remove the gene completely. But this can be very subjective to the experiment, it might be expected (thus important) when comparing different tissues or knockout experiments. Also, genes with a (very) low read count (< 5) can give a very high (artificial) FC value (see the left hand side of an MA-plot). Comparing two samples where one has a value of 2 and the other 11, this reads as an up-regulated gene by a factor of *5.5* while it might actually just be *noise*!
 
 * **Assignment**: Search through your article for any advice on how to filter out zero values or low count genes. If there is nothing stated on this subject, think of your own tactic (or search the literature/ online!). It is perfectly fine to discuss with your peers.
     + **describe** what you will be doing for this aspect; if you do *not* filter your data, clearly explain why not (most likely because the article stated a proper reason)
-    + Perform the filtering on your dataset. For this you will most likely need to use one of the `apply`, `rowSums`, `rowMeans` functions, combined with maybe the `which`, `all` and `any` functions. Data transformations/ normalizations are often available from functions too, such as the `cpm` function from the `edgeR` library.
+    + Perform the filtering on your data set. For this you will most likely need to use one of the `apply`, `rowSums`, `rowMeans` functions, combined with maybe the `which`, `all` and `any` functions. 
     + Manually verify that the rows removed were correctly filtered.
     + Properly document how many genes have been filtered out!
 
 ## The *Fold Change* Value {#deg-fc}
 
-The FC is usually given as the calculated `log2` of the *case/control* ratio. For example, gene A has an average expression of 30 mapped reads in the control group and 88 reads in the experiment group, the **ratio** *case/control* is `2.93`. Ratio values > 1 indicate increased expression in the experiment in relation to the control and values between 0 and 1 indicate lower expression. The log2 transformed value of the ratio is calculated with `log2(2.93)` and results in `1.55`. If the counts were reversed, the ratio would have been `30/88`, which is `0.34`. The previously calculated value of `2.93` means a 3-fold up regulation while the `0.34` value means 3-fold down regulation but you can see the range of numbers is very different. Comparing log2 values this would be `1.55` and `-1.55` which compares much better. 
+The FC is usually given as the calculated `log2` of the *case/control* ratio. For example, gene A has an average expression of 30 mapped reads in the control group and 88 reads in the experiment group, the **ratio** *case/control* is `2.93`. Ratio values > 1 indicate increased expression in the experiment in relation to the control and values between 0 and 1 indicate lower expression. The log2 transformed value of the ratio is calculated with `log2(2.93)` and results in `1.55`. If the counts were reversed, the ratio would have been `30/88`, which is `0.34`. The previously calculated value of `2.93` means a 3-fold up regulation while the `0.34` value means 3-fold down regulation but as you can see the range of numbers is very different. Comparing log2 values this would be `1.55` and `-1.55` which compares much better. 
 
 While it is very easy to calculate the FC for all genes at once, a simple FC value doesn't mean much, yet! We still need to use the power that lie within the replicates we have for each sample group. Using these replicates, we want to determine if the observed FC is not just biological noise or a sequencing error.
 
 * **Assignment**: Create a `histogram` of your log2-FC values for *all* genes. Apply the following steps on your *FPM-normalized data* for at least one comparison (no need to do it for all possible combinations):
-  + average the replicates for two groups separately and add this as new columns to your data set,
+  + average the replicates for two groups separately and add this as new columns to your FPM-normalized data set,
   + calculate the log Fold Change (lFC); simply *subtract* one group (averaged-column) by another, usually `experiment`-`control`
-    - Note that since we already have log-transformed data, we do not calculate the ratio (`experiment`/`control`). Also, because of the Logarithm *quotient rule*, we do not divide both average colums as with the ratio calculation, but we subtract: $log_b{(x/y)} = log_b{(x)} - log_b{(y)}$
+    - Note that since we already have log-transformed data, we do not calculate the ratio (`experiment`/`control`). Also, because of the Logarithm *quotient rule*, we do not divide both average columns as with the ratio calculation, but we subtract: $log_b{(x/y)} = log_b{(x)} - log_b{(y)}$
   + plot the data using the `hist(logFC_column, breaks=60)` function (change the `breaks` argument if needed),
   + Add two vertical lines at `-1` and `1` (using `abline(v=...)`) to indicate some significance (2-fold change).
     - If your data shows very low fold-change values you might see no genes outside of this boundary. This does not mean that we will not find any significantly changed genes (DEGs).
@@ -55,21 +58,29 @@ Both packages apply their own normalization methods (described in the sections b
   + Start by documenting the relevant information from the article, also if they used other software for this analysis.
 
 ```{block2, type='rmdtip'}
-The two listed packages come with a very complete and extensive manual. These manuals can be found as PDF on the BioConductor website, or opened from within R using the `vignette` function. To see all available manuals (note; these are very different from the function-help documentation) execute the function without arguments: `vignette()`. This lists the vignettes for edgeR and DESeq2 as:
+The two listed packages come with a very complete and extensive manual. Therefore, the course manual (this document) does *not* guide you exactly on how to use them; that is for you to find out. These manuals can be found as PDF on the BioConductor website, or opened from within R using the `vignette` function. To see all available manuals (note; these are very different from the function-help documentation) execute the function without arguments: `vignette()`. This lists the vignettes for edgeR and DESeq2 as:
+
 * `vignette("DESeq2")` (this whole course is partly designed on this document!)
 * `vignette("edgeR")`
 ```
 
 ### The `Design` (matrix) {#deg-design}
 
-For all of these packages you need to properly specify *how* your samples are grouped. We have seen examples of this using an `R factor` object with the heatmap and MDS visualizations to tell which groups of samples we have and to which group each sample belongs. Reading the documentation for the below packages shows that this is an important part of performing DE-analysis. For example, the following code is shown in de `edgeR` documentation on page 8 where two sample groups are defined (numbered `1` and `2`), placed in a `factor` object and used as input in the `model.matrix` function. 
+For all of these packages you need to properly specify *how* your samples are grouped. We have seen examples of this using an `R factor` object with the heatmap and MDS visualizations to tell which groups of samples we have and to which group each sample belongs. Reading the documentation for the below packages shows that this is an important part of performing DE-analysis. For example, the following code is shown in the `edgeR` documentation on page 8 where two sample groups are defined (numbered `1` and `2`), placed in a `factor` object and used as input in the `model.matrix` function. 
 
 ```{r design_matrix, echo=TRUE, eval=TRUE}
 group <- factor(c(1,1,2,2), labels = c("Control", "Case"))
 (design <- model.matrix( ~ group))
 ```
 
-As mentioned before we **need** to think about the *question* we want to aks; which difference do we want to know? With two sample groups as used here the question is rather easy; 'which genes show an effect between case/ control samples?'. With more then two sample groups however the question becomes more difficult. If we have an experiment comparing influence of three kinds of drugs (thus three groups) *combined* with effect over time, do we then want to focus on the influence of the *drugs* or the *time*? Both are valid questions but they define the way of how to create the `design matrix`.
+This can often be a very complex part and while it seems very theoretical, in practice it's not that difficult. To really grasp this topic it is **strongly** adviced to watch these two videos on how to define your design:
+
+* *StatQuest* on YouTube: [Using Linear Models for t-tests and ANOVA, Clearly Explained](https://www.youtube.com/watch?v=NF5_btOaCig)
+* *StatQuest* on YouTube: [Design Matrices For Linear Models, Clearly Explained](https://www.youtube.com/watch?v=CqLGvwi-5Pc)
+
+These videos expects some basic understanding of topics already discussed in the statistics course, otherwise for each mentioned topic in those videos he has other videos available explaining them. See the [video-index](https://statquest.org/video-index/) for a handy overview of all topics discussed on that channel.
+
+As mentioned before we **need** to think about the *question* we want to ask; which difference do we want to know? With two sample groups as shown above the question is rather easy; 'which genes show an effect between case/ control samples?'. With more than two sample groups however the question becomes more complex. If we have an experiment comparing influence of three kinds of drugs (thus three groups) *combined* with effect over time, do we then want to focus on the influence of the *drugs* or the *time*? Both are valid questions but they define the way of how to create the `design matrix`.
 
 Documentation on this subject is plenty, however it often contains overwhelming information. [This page](http://genomicsclass.github.io/book/pages/expressing_design_formula.html) contains some valuable details (you can safely start reading at **Choice of design**), including the following text which is based on the same example used in the `edgeR` documentation:
 
@@ -81,11 +92,11 @@ If you have more then two sample groups and you want to change the *question* (i
 
 We have used the `DESeq2` library before and for DEG analysis we could re-use the `DESeqDataSet` object but it is adviced to create a new object with the proper design formula instead of the `~ 1` we used before.
 
-There is no need to normalize the data using the previously used `vst` or `fpm` functions because the `DESeq2` library will normalize the count data for you as follows:
+There is no need to normalize the data using the previously used `vst` function because the `DESeq2` library will normalize the count data for you as follows:
 
 > "DESeq computes a scaling factor for a given sample by computing the median of the ratio, for each gene, of its read count over its geometric mean across all samples. It then uses the assumption that most genes are not DE and uses this median of ratios to obtain the scaling factor associated with this sample."
 
-For our example data with four sample groups we re-use the annotation dataframe as created in the [EDA: Heatmap](#eda_heatmap) section (printed below). This allows us to do comparisons based on the celltype and ploidy of the samples. One minor note of importance is that the first level in each factor is taken as the *reference*, or for expression analysis, the *control* group. In our example (see the table below) the IPSC is the control-celltype and disomic the control-ploidy. In a simple case/ control study, the first level (check with the `levels()` function) should be the control group. Use the `relevel()` function if the levels need to be switched.
+For our example data with four sample groups we re-use the annotation data frame as created in the [EDA: Heatmap](#eda_heatmap) section (printed below). This allows us to do comparisons based on the celltype and ploidy of the samples. One minor note of importance is that the first level in each factor is taken as the *reference*, or for expression analysis, the *control* group. In our example (see the table below) the IPSC is the control-celltype and disomic the control-ploidy. In a simple case/ control study, the first level (check with the `levels()` function) should be the control group. Use the `relevel()` function if the levels need to be switched.
 
 ```{r relevel, echo=FALSE, eval=TRUE}
 pander(annotation)
@@ -99,26 +110,41 @@ colnames(design.mat) <- levels(group)
 
 dds <- DESeqDataSetFromMatrix(countData = counts,
                               colData = data.frame(group = group),
-                              design = ~ group)
+                              design = ~ 0 + group)
 
 library("BiocParallel")
 register(MulticoreParam(4))
-dds <- DESeq(dds)
-
+dds <- DESeq(dds, betaPrior = FALSE)
 rn <- resultsNames(dds)
+```
 
-res.ipsc <- results(dds, name = "group_IPSC.trisomic_vs_IPSC.disomic", 
+```{r .deseq2-RESULTS, eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE}
+## IPSC - Trisomic vs Disomic
+res.ipsc <- results(dds, contrast = c("group", "IPSC.trisomic", "IPSC.disomic"), 
                alpha = 0.05)
-# Used throughout chapters 3 and 4
-res.ipsc.lfc <- lfcShrink(dds, coef = "group_IPSC.trisomic_vs_IPSC.disomic",
-                          type = "apeglm")
-res.neuron <- results(dds, name = "group_Neuron.disomic_vs_IPSC.disomic",
-               alpha = 0.05)
-
-# Set padjusted NA's to 1
+res.ipsc.lfc <- lfcShrink(dds, res=res.ipsc, type = "ashr")
+# Replace NA values with 1 (insignificant)
 res.ipsc.lfc$padj[is.na(res.ipsc.lfc$padj)] <- 1
+# Re-set extremely low p-values and high fold-changes (for volcano plot)
+res.ipsc.lfc$padj[which(res.ipsc.lfc$padj < 1e-30)] <- 1e-30
+res.ipsc.lfc$log2FoldChange[which(res.ipsc.lfc$log2FoldChange > 15)] <- 11
+# Data frame with only DEGS
+ipsc.tri.vs.di <- as.data.frame(res.ipsc.lfc)[which(res.ipsc.lfc@listData$padj < 0.05),]
 
-ipsc.tri.vs.di <- as.data.frame(res.ipsc.lfc)[res.ipsc.lfc@listData$padj < 0.05,]
+## Neuron - Trisomic vs Disomic
+res.neuron <- results(dds, contrast = c("group", "Neuron.trisomic", "Neuron.disomic"),
+               alpha = 0.05)
+res.neuron.lfc <- lfcShrink(dds, res = res.neuron, type = "ashr")
+# Replace NA values with 1 (insignificant)
+res.neuron.lfc$padj[is.na(res.neuron.lfc$padj)] <- 1
+# Re-set extremely low p-values and high fold-changes (for volcano plot)
+res.neuron.lfc$padj[which(res.neuron.lfc$padj < 1e-30)] <- 1e-30
+# Data frame with only DEGS
+neuron.tri.vs.di <- as.data.frame(res.neuron.lfc)[which(res.neuron.lfc@listData$padj < 0.05),]
+
+## Celltype - IPSC disomic vs Neuron disomic
+res.celltype <- results(dds, contrast = c("group", "IPSC.disomic", "Neuron.disomic"),
+                        alpha = 0.05)
 ```
 
 Once you have a proper `DESeqDataSet` all you need to do is run the `DESeq` function on this object. Then, using the `results` function you can extract the DEGs as a `DESeqResults` object. Applying the `summary` function on these object(s) shows the number of up and down regulated DEGs as can be seen below that lists the impact of trisomy for the IPSC cell type (~800 DEGs) and comparing both the IPSC and Neuron disomic (control) cell types (as can be seen, a *huge* amount of genes are affected by differentiation from stem cell into cortical neurons):
@@ -126,12 +152,12 @@ Once you have a proper `DESeqDataSet` all you need to do is run the `DESeq` func
 ```{r deseq-summary, results='asis', echo=FALSE, out.extra=''}
 cat("<table class='container'>")
 cat('<tr><th align="center">IPSC - Trisomic vs Disomic</th>')
-cat('<th align="center">Disomic Neuron vs Disomic IPSC</th></tr>')
+cat('<th align="center">Neuron - Trisomic vs Disomic</th></tr>')
 cat("<tr><td><pre>")
 summary(res.ipsc)
 cat("</pre></td>")
 cat("<td><pre>")
-summary(res.neuron)
+summary(res.celltype)
 cat("</pre></td>")
 cat("</tr></table>")
 ```
@@ -158,20 +184,17 @@ res <- results(dds, contrast = c("Cell", "IPSC", "Neuron"),
                alpha = 0.05)
 ```
 
-The `DESeq2` library contains a number of plotting functions that can be applied to a `DESeqResults` object (output of the `results` function), the most notable is the `plotMA` function. Note that the first MA-plot shown below has a very high range for the log fold changes (-10, 10) where the maximum value is 22.4 (shown as a triangle stating it is outside of the plotting range). A **log** fold change of 22 means >5 *million* increased expression which seems artificially high. DESeq2 includes a function to perform downstream processing of the estimated log fold change values called `lfcShrink` which is adviced to always run afterwards. The reason for executing this function is described in the vignette with:
+The `DESeq2` library contains a number of plotting functions that can be applied to a `DESeqResults` object (output of the `results` function), the most notable is the `plotMA` function. Note that the first MA-plot shown below has a very high range for the log fold changes (-10, 10) where the maximum value is 22.4 (shown as a triangle stating it is outside of the plotting range). A **log** fold change of 22 means >5 *million* increased expression which seems artificially high. DESeq2 includes a function to perform downstream processing of the estimated log fold change values called `lfcShrink` which is advised to always run afterwards. The reason for executing this function is described in the vignette with:
 
 > "It is more useful visualize the MA-plot for the shrunken log2 fold changes, which remove the noise associated with log2 fold changes from low count genes without requiring arbitrary filtering thresholds."
 
-```{r deseqResultsPlotMA, fig.width=10, echo=FALSE, eval=FALSE}
+```{r deseqResultsPlotMA, fig.width=10, echo=FALSE, eval=TRUE, fig.cap="MA-plots with the standard DESeq2 output (left) and after shrinking with 'lfcShrink' (right)"}
 # Disabled; shows different results after rendering
 par(mfrow=c(1,2))
-plotMA(res.ipsc, ylim=c(-10,10), main = "IPSC trisomic vs disomic")
-plotMA(res.ipsc.lfc, ylim=c(-10,10), main = "IPSC trisomic vs disomic - corrected")
+DESeq2::plotMA(res.ipsc, ylim=c(-10,10), main = "IPSC trisomic vs disomic")
+DESeq2::plotMA(res.ipsc.lfc, ylim=c(-10,10), main = "IPSC trisomic vs disomic - corrected")
 ```
 
-```{r DESeq2MAPlot, fig.width=8, eval=TRUE, echo=FALSE, fig.cap="MA-plots with the standard DESeq2 output (left) and after shrinking with 'lfcShrink' (right)"}
-knitr::include_graphics("chapters/images/DESeq2MAplot.png", dpi = NA)
-```
 
 **Links**
 
@@ -239,14 +262,15 @@ colnames(design.mat) <- levels(group)
 
 fit <- glmQLFit(y, design = design.mat)
 
-my.contrats <- makeContrasts(
+my.contrasts <- makeContrasts(
   di_NEUR.vs.di_IPSC = Neuron.disomic-IPSC.disomic,
   tri_IPSC.vs.di_NEUR = IPSC.trisomic-Neuron.disomic,
   tri_IPSC.vs.di_IPSC = IPSC.trisomic-IPSC.disomic,
   tri_NEUR.vs.di_NEUR = Neuron.trisomic-Neuron.disomic,
 levels=design.mat)
 
-qlf <- glmQLFTest(fit, contrast = my.contrats[, "tri_IPSC.vs.di_IPSC"])
+qlf.ipsc <- glmQLFTest(fit, contrast = my.contrasts[, "tri_IPSC.vs.di_IPSC"])
+qlf.celltype <- glmQLFTest(fit, contrast = my.contrasts[, "di_NEUR.vs.di_IPSC"])
 
 # Find DEGs (4)
 #design.mat <- with(annotation, model.matrix(~Cell+Ploidy))

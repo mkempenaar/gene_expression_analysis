@@ -7,6 +7,7 @@ At this point we have one or more sets of DEGs from our experiment. It might be 
 A volcano plot is often the first visualization of the data once the statistical tests are completed. This plot shows data for *all* genes and we highlight those genes that are considered DEG by using thresholds for both the (adjusted) p-value and a fold-change. Many articles describe values used for these thresholds in their methods section, otherwise a good default is 0.05 for the adjusted p-value and around 1.0 for the log-FC.
 
 Here we use the `EnhancedVolcano` library that creates a `ggplot2` volcano plot as shown below. This is packaged in a function `deseq.volcano` just because we create two figures and only need to change the input data set and plot title. The resulting scatterplot places the `-log10(pvalue)` values on the y-axis and the log-FC on the x-axis. This often results in a plot representing a volcanic 'eruption' where the fold-change influences the spread and the significance the height. Coloring is done based on the thresholds (-log10(0.05) for the adjusted and log2(2) for the log-FC) as follows:
+
 * (dark) gray: not significant; both the FC and adjusted p-value is below the thresholds.
 * green: high FC, but adjusted p-value is below the threshold.
 * blue: adjusted p-value indicates significance, but FC below the threshold
@@ -32,8 +33,9 @@ deseq.volcano <- function(res, datasetName) {
                          pCutoff = 0.05, FCcutoff = 2))
 }
 
-deseq.volcano(res = res.ipsc, datasetName = "IPSC")
-deseq.volcano(res = res.neuron, datasetName = "Neuron")
+## Note: input data is the corrected DESeq2 output using the 'lfcShrink' function (see chapter 4)
+deseq.volcano(res = res.ipsc.lfc, datasetName = "IPSC")
+deseq.volcano(res = res.neuron.lfc, datasetName = "Neuron")
 ```
 ```{r, eval=FALSE}
 # Note that the most simplest case is:
@@ -49,44 +51,38 @@ EnhancedVolcano(res.ipsc, x = 'log2FoldChange', y = 'padj', lab = rownames(res.i
 
 ## Venn Diagram {#venn-diagram}
 
-Another common visualization is a Venn-diagram. In this document for instance, both DESeq2 and edgeR have been used to find DEGs. To quickly compare the results from these packages we can create a single diagram showing how many DEGs are found by both packages and - also interesting - the number of genes (*amount*, not *which*) that are uniquely found by both approaches. Most likely you will be comparing DEGs between *groups* instead of methods. For our example dataset, this could have been comparing DEGs comparing *IPSC trisomic vs IPSC disomic* DEGs with *NEUR trisomic vs NEUR disomic* DEGs.
+Another common visualization is a Venn-diagram. With our data set we've shown two comparisons; trisomic vs disomic in two cell types. Using a Venn-diagram we can show both the *shared* and *unique* DEGS for the *IPSC trisomic vs IPSC disomic* and *NEUR trisomic vs NEUR disomic* comparisons.
 
 Creating a Venn-diagram can be a good method for selecting a (sub)set of DEGs, for instance by selecting the set of DEGs that are shared between groups (the *Intersection*, see the [Wikipedia page on Set Theory](https://en.wikipedia.org/wiki/Set_theory) or the other way around, only the DEGs that are unique for a group (the *Difference*). Keep this in mind when continuing on to the [clustering](#clustering) section below where it is most likely not useful to cluster all combinations you might have.
 
 Code examples:
-* Data preparation (first code-chunk): creating vectors of DEGs for both packages. These DEGs are the gene names (taken from the rownames of the edgeR and DESeq2 outputs)
-* Using the `VennDiagram` library (second code-chunk): good for complex/ large number of comparison, highly configurable but more difficult to use. To see some examples, run the following function in the Console: `example('draw.quad.venn')`
-* Using the `gplots` library (third code-chunk): Easier to use and support for more complex Venn diagrams, but not good for adjusting appearance.
+
+* Data preparation (first code-chunk): creating vectors of DEGs for both packages. These DEGs are the gene names (taken from the row names of each DEG-analysis).
+  - The output of the DESeq2 `results` and `lfcShrink` functions are stored in the `res.ipsc.lfc` and `res.ipsc.neuron` objects.
+* Using the `VennDiagram` library (second code-chunk): good for complex/ large number of comparison, highly configurable but more difficult to use. To see some examples, run the following function in the R console: `example('draw.quad.venn')`
+* Using the `gplots` library (third code-chunk): Easier to use and support for complex Venn diagrams, but not good for adjusting appearance.
+
+See the blog post "[VENN DIAGRAM WITH R OR RSTUDIO: A MILLION WAYS](https://www.datanovia.com/en/blog/venn-diagram-with-r-or-rstudio-a-million-ways/)" for more methods of creating Venn diagrams.
 
 ```{r vennDataPrep}
-# edgeR data:
-#   Get the set using topTags from the output of the
-#   "Genewise Negative Binomial Generalized Linear Models with Quasi-likelihood Tests"
-#   otherwise known as the 'glmQLFit' function from edgeR
-ttags <- as.data.frame(topTags(qlf, n = nrow(qlf)))
-
-# Filter on adjusted p-value and get the rownames
-# edgeR
-edgeR.degs <- row.names(ttags[ttags$FDR <= pval_threshold,])
-# DESeq2
-DESeq.degs <- row.names(deseq.results[deseq.results$padj <= pval_threshold,])
+## Data preparation
+pval_threshold <- 0.05
+ipsc.degs <- row.names(res.ipsc.lfc[which(res.ipsc.lfc$padj <= pval_threshold), ])
+neur.degs <- row.names(res.neuron.lfc[which(res.neuron.lfc$padj <= pval_threshold), ])
 ```
 
-The two created vectors of rownames can be used by either taking their lengths (for the `VennDiagram` library) or just their names (for the `gplots` library). 
+The two created vectors of gene names can be used by either taking their lengths (for the `VennDiagram` library) or just their names (for the `gplots` library). 
 
 ```{r vennDiagram, fig.cap="Venn diagram comparing edgeR and DESeq2 DEGs using 'VennDiagram'"}
-# Venn-diagram using the `VennDiagram` library (see below for alternative method)
+## Venn-diagram using the `VennDiagram` library (see below for alternative method)
 library(VennDiagram)
-# Calculate the intersection of the two sets
-deg.intersect = length(intersect(edgeR.degs, DESeq.degs))
-deg.venn <- list('intersect' = deg.intersect,
-                 'edgeR' = length(edgeR.degs),
-                 'DESeq2' = length(DESeq.degs))
-
 # Arguments for a pairwise (two-sets) venn-diagram are sizes for set1, set2 and overlap (intersect)
 # Many more functions are available for triple, quad and quantuple diagrams (starting with 'draw.***')
-venn.plot <- draw.pairwise.venn(deg.venn$edgeR, deg.venn$DESeq2, deg.venn$intersect,
-                                category = c("edgeR", "DeSEQ2"), scaled = F,
+venn.plot <- draw.pairwise.venn(length(ipsc.degs),
+                                length(neur.degs),
+                                # Calculate the intersection of the two sets
+                                length( intersect(ipsc.degs, neur.degs) ),
+                                category = c("IPSC Trisomic vs Disomic", "NEURON Trisomic vs Disomic"), scaled = F,
                                 fill = c("light blue", "pink"), alpha = rep(0.5, 2),
                                 cat.pos = c(0, 0))
 
@@ -97,73 +93,51 @@ grid.draw(venn.plot)
 As mentioned, following is an easier alternative (especially when you have > 2 groups) with the `venn` function from the `gplots` library. This only needs a list containing either the row-numbers or the gene-names of the DEGs which is easier (but offers less adjustability to make it prettier).
 
 ```{r alternativeVenn, warning=FALSE, message=FALSE, fig.cap="Venn diagram comparing edgeR and DESeq2 DEGs using 'gplots'"}
-# Alternative method using the `gplots` library
+## Alternative method using the `gplots` library
 library(gplots)
 # Create a Venn-diagram given just the list of gene-names for both sets
-venn(list(edgeR = edgeR.degs,
-          DESeq = DESeq.degs))
+venn(list("IPSC Trisomic vs Disomic" = ipsc.degs,
+          "NEURON Trisomic vs Disomic" = neur.degs), )
 ```
-
-While there is an almost complete overlap between both techniques, DESeq2 finds a total of >700 genes that edgeR does not denote as DEG. Besides the difference in nuber of DEGs, there is also a notable difference in the calculated log fold change values. The following boxplot shows - for all DEGs - the distribution of the log-FC values where DESeq2 shows a far wider range of values. This is possibly due to the large difference in number of DEGs but can also be attributed to different normalization techniques and the many choices of models to choose from for the analysis.
-
-```{r logFCBoxplot, echo=FALSE, fig.cap="Boxplot comparing spread of log fold change values"}
-boxplot(ttags$logFC[ttags$FDR < pval_threshold], 
-        deseq.results$log2FoldChange[deseq.results$padj <= pval_threshold],
-        names=c('edgeR', 'DESeq2'), ylab="log-FC",
-        main = 'log-FC values for all DEGs by package')
-
-abline(h=0, lty=2, col='red')
-```
-
-Let's quickly compare these log-FC values on a per-gene basis including manually calculated from the DESeq2 `rlog` and the edgeR `cpm` methods.
-
-```{r logFCTable, echo=FALSE}
-# Manually calculate fold-changes from rlog and CPM normalized data
-.rld.fc <- as.data.frame(rld)
-.rld.fc$WTavg <- as.vector(rowMeans(.rld.fc[,1:3]))
-.rld.fc$KOavg <- as.vector(rowMeans(.rld.fc[,4:6]))
-.rld.fc$lFC <- as.vector(.rld.fc$KOavg - .rld.fc$WTavg)
-
-.y.cpm.fc <- as.data.frame(cpm(counts, log = TRUE))
-.y.cpm.fc$WTavg <- as.vector(rowMeans(.y.cpm.fc[,1:3]))
-.y.cpm.fc$KOavg <- as.vector(rowMeans(.y.cpm.fc[,4:6]))
-.y.cpm.fc$lFC <- as.vector(.y.cpm.fc$KOavg - .y.cpm.fc$WTavg)
-
-ngenes = 10
-genes <- head(row.names(ttags), n = ngenes)
-
-pander(data.frame(Gene=head(row.names(ttags), n = ngenes),
-                  edgeR.lFC=head(ttags$logFC, n = ngenes),
-                  DESeq2.lFC=deseq.results[genes, 'log2FoldChange'],
-                  rlog.lFC=.rld.fc[genes, "lFC"],
-                  cpm.lFC=.y.cpm.fc[genes, "lFC"]),
-       caption = "Comparing lFC-values from edgeR, DESeq2 and manually using rlog- and cpm-normalized data")
-
-rm(.rld.fc, .y.cpm.fc)
-```
+While both analysis result in a similar amount of DEGS (849 for the IPSC and 769 for the Neuron cell types) only 96 DEGs are shared between both cell types and most are thus unique.
 
 ## Clustering {#clustering}
 
-One of the basic visualization steps to show expression data and patterns accross samples. Here, we can create a heatmap of the found DEGs for all samples where the colors show the fold-change value. Usually this heatmap is shown with a two color gradient; from red (downregulated) to green (upregulated). This is however optional and using the default colors from `pheatmap` for example is perfectly fine as long as a proper legend is present.
+Clustering Here, we can create a heatmap of the found DEGs for all samples where the colors show the fold-change value. Usually this heatmap is shown with a two color gradient; from red (downregulated) to green (upregulated). This is however optional and using the default colors from `pheatmap` for example is perfectly fine as long as a proper legend is present.
 
 There are multiple methods of creating a heatmap (one of which you've already used) and most of these directly apply clustering in the visualization. This clustering can be applied to the expression pattern of a gene (row-clustering), the expression pattern of a sample (column-clustering) or both (default for `pheatmap`). The first example shown here uses column-based clustering as it shows the replicates for multiple groups (IPSC disomic and trisomic) with their normalized expression values for the top 30 genes as found by DESeq2. This first example allows an overview of the expression patterns for the DEGs and to see the differences in expression between replicates. It is expected that the replicates for each group cluster together as shown in this example. Genes (rows) are clustered based on their expression values.
 
 
-```{r heatmapDataPrep}
-genes <- rownames(ttags[abs(ttags$logFC) >= 1,])[1:30]
-# Add the averages for both groups and (manually) calculate the log-FC
-deseq.results$di <- rowMeans(deseq.results[,ipsc.di])
-deseq.results$tri <- rowMeans(deseq.results[,ipsc.tri])
-deseq.results$rloglFC <- deseq.results$tri - deseq.results$di
-replicate.lFC <- deseq.results[genes, ipsc.tri] - deseq.results[genes, 'di']
+```{r .heatmapDataPrepHidden, eval=TRUE, echo=FALSE}
+lfc.threshold <- 2
+# Filter for pvalue and lFC thresholds
+ipsc.degs.lfc <- rownames(res.ipsc.lfc[which( abs(res.ipsc.lfc$log2FoldChange) >= lfc.threshold &
+                                                    res.ipsc.lfc$padj <= pval_threshold), ])
+
+neur.degs.lfc <- rownames(res.neuron.lfc[which( abs(res.neuron.lfc$log2FoldChange) >= lfc.threshold &
+                                                    res.neuron.lfc$padj <= pval_threshold), ])
+
+genes <- intersect(ipsc.degs.lfc, neur.degs.lfc)
+
+ipsc.selected.degs <- data.frame(DESeq2.IPSC=res.ipsc.lfc[genes, "log2FoldChange"])
+ipsc.selected.degs$di_avg <- rowMeans(assay(rld.dds)[genes, di_IPSC])
+ipsc.selected.degs <- cbind(ipsc.selected.degs, assay(rld.dds)[genes, tri_IPSC]-ipsc.selected.degs$di_avg)
+ipsc.selected.degs <- ipsc.selected.degs[, -2]
+
+neur.selected.degs <- data.frame(DESeq2.Neuron=res.neuron.lfc[genes, "log2FoldChange"])
+neur.selected.degs$di_avg <- rowMeans(assay(rld.dds)[genes, di_NEUR])
+neur.selected.degs <- cbind(neur.selected.degs, assay(rld.dds)[genes, tri_NEUR]-neur.selected.degs$di_avg)
+neur.selected.degs <- neur.selected.degs[, -2]
 ```
 
-
-```{r expressionHeatmap, echo=FALSE, eval=TRUE, fig.cap="Heatmap showing the expression values of all disomic and trisomic IPSC samples"}
-# Expression
-pheatmap(deseq.results[genes, c(ipsc.di, ipsc.tri)], cex=0.9,
-         annotation_col = head(subset(annotation, select=Ploidy)), legend_labels = c("log2(expression"),
-         main="log2(Expression) for a subset of DESeq2 DEGS with Fold Change >= 2")
+```{r expressionHeatmap, echo=FALSE, eval=TRUE, fig.cap="Heatmap showing the fold changes of the Trisomic vs Disomic comparisons"}
+# DEGs
+heatmap.degs <- cbind(ipsc.selected.degs, neur.selected.degs)
+cells <- data.frame(Cell=factor(rep(1:2, each=4), labels = c("IPSC", "Neuron")))
+rownames(cells) <- names(heatmap.degs)
+pheatmap(heatmap.degs, cluster_cols = FALSE,
+         annotation_col = cells, fontsize_row = 7,
+         main="log2(Expression) for a subset of DESeq2 DEGS with log2(FC) >= 2")
 ```
 
 
@@ -308,7 +282,6 @@ all_genes <- deseq.results$EntrezID
 
 The input `sig_genes` named vector contents:
 ```{r spia_contents, echo=FALSE, eval=TRUE}
-library(pander)
 idx = !is.na(names(sig_genes))
 .sig.genes <- head(data.frame(EntrezID=names(sig_genes[idx]),
                               "logFC"=sig_genes[idx], 

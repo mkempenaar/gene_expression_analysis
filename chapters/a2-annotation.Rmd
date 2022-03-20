@@ -5,7 +5,7 @@ knitr::opts_chunk$set(cache=TRUE)
 #load('./data/chapter5.RData')
 ```
 
-This chapter describes *annotate* the data, meaning assigning names and functions to our Differentially Expressed Genes. This step can either be very easy or a bit more challenging depending on the data source of your project. The first example is relevant if your data set originated from the NCBI **GEO**, which 'should' always be annotated by default. If you have found your data set elsewhere (and do not have a GEO idetifier for your project), skip to the [Manually annotate your data](#manually-annotate) section below.
+This chapter describes *annotate* the data, meaning assigning names and functions to our Differentially Expressed Genes. This step can either be very easy or a bit more challenging depending on the data source of your project. The first example is relevant if your data set originated from the NCBI **GEO**, which 'should' always be annotated by default. If you have found your data set elsewhere (and do not have a GEO identifier for your project), skip to the [Manually annotate your data](#manually-annotate) section below.
 
 The goal of this chapter is to - at least - find a Gene Symbol or common ID (NCBI/ Ensembl) for each gene. Using this information it will be much easier to find relevant information from other online sources to say something about the functionality and impact of your DEGs.
 
@@ -13,50 +13,44 @@ Even though you might be lucky and either already have your data or a simple GEO
 
 ## Downloading annotation data from GEO {#download-geo}
 
-Given the `GSE****` id of your experiment you can download any available (annotation)data from GEO using the `GEOquery` library. For the example experiment used previously, the following code downloads two files; a `series_matrix.txt.gz` file and a `.soft` file that are both also available for download from the NCBI GEO website. Note the `destdir` argument for storing it in a known location instead of the `/tmp` folder for later use.
+Given the `GSE****` id of your experiment you can download any available (annotation)data from GEO using the `GEOquery` library. For the example experiment used previously, the following code downloads two files; a `series_matrix.txt.gz` file that is also available for download from the NCBI GEO website. Note the `destdir` argument for storing it in a known location instead of the `/tmp` folder for later use.
 
-```{r geoquery, echo=TRUE, eval=FALSE}
+```{r geoquery, echo=TRUE, eval=FALSE, message=FALSE, warning=FALSE}
 library(GEOquery)
-gse.id <- 'GSE101942'
-gse <- getGEO(gse.id, destdir = "./data/", getGPL = TRUE)
+getGEO(GEO = 'GSE101942', destdir = "./data/")
 ```
 
-Once downloaded, you can load the data later using:
+Once downloaded, you can load the data using:
 ```{r geoquery_gse80128, echo=TRUE, eval=TRUE, message=FALSE, warning=FALSE}
 library(GEOquery)
-gse <- getGEO(filename = './data/GSE101942_series_matrix.txt.gz') # Sample details
-gpl <- getGEO(filename = './data/GPL11154.soft') # Platform details
-# Print some metadata of the gse object
-gse
-# And the structure of the gpl object
-str(gpl)
+gse <- getGEO(filename = './data/GSE101942_series_matrix.txt.gz')
 ```
 
-The `gse` object *may* contain useful information about both samples and genes. Unfortunately for this example dataset there is only information available regarding the samples which we can access in the `phenoData` **slot**. Slots in R objects are a method of storing multiple data objects into a single R object, in this case this object is called an `ExpressionSet` (see `?ExpressionSet` for a description of its contents and structure). For storing information about an experiment this is very handy; you can store a dataframe with the actual expression data, a list containing laboratory information, a chunk of text with an abstract, etc. all in a single object.
+The `gse` object *may* contain useful information about both samples and genes. Unfortunately for this example data set there is only information available regarding the samples which we can access in the `phenoData` **slot**. Slots in R objects are a method of storing multiple data objects into a single R object, in this case this object is called an `ExpressionSet` (see `?ExpressionSet` for a description of its contents and structure). For storing information about an experiment this is very handy; you can store a data frame with the actual expression data, a list containing laboratory information, a chunk of text with an abstract, etc. all in a single object.
 
-The most common datasets found in an `ExpressionSet` object:
+The most common data sets found in an `ExpressionSet` object:
 * `@assayData`: the actual expression data. Most common for microarray experiments and (very) rare for RNA-seq experiments
-* `@phenoData`: sample information, should be present for each GEO dataset
-* `@featureData`: a dataframe holding feature (=gene) information, slightly rare for RNA-seq datasets
+* `@phenoData`: sample information, should be present for each GEO data set
+* `@featureData`: a data frame holding feature (=gene) information, slightly rare for RNA-seq data sets
 * `@experimentData`: information about the lab which performed the experiment
 
-You already know how to access a column in a data frame using the `$` notation, and accessing a complete dataframe in the `gse` object is done using the `@` symbol:
+You already know how to access a column in a data frame using the `$` notation, and accessing a complete data frame in the `gse` object is done using the `@` symbol:
 
 ```{r phenodata_access, echo=TRUE, eval=FALSE}
 # Access a data frame containing phenotype information
 gse@phenoData@data
 ```
 
-Here you see that each sample is described using its sample identifier (`GSM****`), information about the the sample group (`title` column) and a number of characteristics. The actual information included depends on your dataset. 
+Here you see that each sample is described using its sample identifier (`GSM****`), information about the the sample group (`title` column) and a number of characteristics. The actual information included depends on your data set. 
 ```{r phenodata_contents, echo=FALSE}
 pander(head(gse@phenoData@data[,c(1, 8, 10, 11)]), caption = 'Contents of the `gse@phenoData@data` information (selection)')
 ```
 
-If your dataset has properly annotated gene information, this should be accessible in the `@featureData` slot. For instance, the dataset [`GSE20489` ](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE20489) does have this annotation available. Once loaded, we see that the following annotation columns are present for *each gene* in the `featureData` slot (following is a small subset, in total there can be well over 20 columns of information per gene). Also, the *metadata* listing shows for how many features (=genes, 54675) and samples (54) the expression data is present (in the `@assayData` slot):
+If your data set has properly annotated gene information, this should be accessible in the `@featureData` slot. For instance, the data set [`GSE20489` ](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE20489) does have this annotation available. Once loaded, we see that the following annotation columns are present for *each gene* in the `featureData` slot (following is a small subset, in total there can be well over 20 columns of information per gene). Also, the *metadata* listing shows for how many features (=genes, 54675) and samples (54) the expression data is present (in the `@assayData` slot):
 
 ```{r example_microarray_annotation, echo=TRUE, eval=FALSE}
 # This gets a list with a single 'ExpressionSet' object
-GSE20489 <- getGEO("GSE20489", destdir = '../data')
+GSE20489 <- getGEO(GEO = "GSE20489", destdir = './data')
 # Print some metadata of the featureData slot
 GSE20489[[1]]
 ```
@@ -70,7 +64,7 @@ pander(gse.trimmed, split.cells = 25, caption = 'Gene information stored in an `
 
 ## Manual Data Annotation {#manually-annotate}
 
-Luckely for us, R offers a number of libraries to automatically retrieve information for large sets of genes, unless you have chosen an organism for which not much data is available. This section demonstrates the use of two such libraries, starting with `AnnotationDbi` followed by `biomaRt`.
+Luckily for us, R offers a number of libraries to automatically retrieve information for large sets of genes, unless you have chosen an organism for which not much data is available. This section demonstrates the use of two such libraries, starting with `AnnotationDbi` followed by `biomaRt`.
 
 The `AnnotationDbi` library downloads a local copy of an organism-specific database with gene information where `biomaRt` uses online databases to retrieve data given a `query`. `biomaRt` offers far more data (over 1000 data fields per organism) but is more complex to use. 
 
@@ -115,12 +109,14 @@ Hs.cols <- columns(org.Hs.eg.db)
 key = c("1080")
 for (type in Hs.cols) {
   .Hs.data <- rbind(.Hs.data, c(type, 
-                                as.character(select(org.Hs.eg.db,
+                                as.character(biomaRt::select(org.Hs.eg.db,
                                                     key, 
                                                     type, 
                                                     "ENTREZID")[1,])[2]))
 }
+```
 
+```{r possible error}
 .Hs.data.table <- cbind(.Hs.data[1:12,], .Hs.data[13:24,])
 colnames(.Hs.data.table) <- c('Data Type', 'Example Value',
                               'Data Type', 'Example Value')
@@ -186,7 +182,7 @@ A short explanation about biomart (source: [Wikipedia](https://en.wikipedia.org/
 
 The text above mentiones *species*, *attributes* and *filters*, and we need to combine these elements to query the biomart databases for our annotation. The following code 'chunks' show possible values for these elements and how to gather and store the relevant data.
 
-The `biomaRt` library interfaces with the [biomart.org](http://www.biomart.org) online database. Sometimes the biomart website (which offers a browsable database) is down due to maintanance, but its many mirrors can still be used, for instance at [Ensembl](http://www.ensembl.org/biomart/martview/fc683a66d09fd1f42be754bcd90ba7da). 
+The `biomaRt` library interfaces with the [biomart.org](http://www.biomart.org) online database. Sometimes the biomart website (which offers a browsable database) is down due to maintenance, but its many mirrors can still be used, for instance at [Ensembl](http://www.ensembl.org/biomart/martview/fc683a66d09fd1f42be754bcd90ba7da). 
 
 You are required to explore a number of objects and the given example code is most likely not suitable for your data/ organism. The project is well documented on the [Bioconductor biomaRt](https://bioconductor.org/packages/release/bioc/html/biomaRt.html) website that links to the [biomaRt users guide](https://bioconductor.org/packages/release/bioc/vignettes/biomaRt/inst/doc/biomaRt.html).
 
@@ -195,7 +191,7 @@ You are required to explore a number of objects and the given example code is mo
 library(biomaRt)
 
 # Use an alternative database server as the regular one sometimes has issues..
-ensembl=useMart("ENSEMBL_MART_ENSEMBL", host="www.ensembl.org")
+ensembl=useMart("ENSEMBL_MART_ENSEMBL", host="https://www.ensembl.org")
 ```
 
 ```{r .pander_marts, echo=FALSE, eval=TRUE}

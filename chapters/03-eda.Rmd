@@ -15,72 +15,11 @@ source('utils.R')
 
 # Exploratory Data Analysis {#chapter-3}
 
-We start with performing some exploratory data analysis steps with the goal of getting to grips with your chosen data set to properly identify a strategy for the actual analysis steps. During this exploration we will also keep an eye on the quality of the data. Even though the downloadable data is 'processed', there might be samples present that deviate too much from the other group of samples (a so called *outlier*). Creating basic visualizations of the data will give the necessary insight before we continue. We first start by downloading and loading in the actual count data.
-
-## Exploring the Available Project Data {#expl-data}
-
-Whether you've found a dataset through the SRA or GEO, we want to get the data into R to start working with it. For now, we will only download the **count data** which is most likely stored in a `TXT` or `XLS(X)` file format:
-
-**Data formats**:
-
-* **TXT**: simple text file containing a minimum of two columns (either tab or comma separated containing i.e. gene / transcript identifier and one of the above mentioned data types).
-    + However it can also contain up to 10 data columns either including more information regarding the gene/ transcript (i.e. gene ID, name, symbol, chromosome, start/ stop position, length, etc.) or more numerical columns (i.e. raw read count, normalized readcount, FPKM, etc.).
-* **XLS(X)**: Microsoft Excel file containing the same data columns as mentioned in the TXT files.
-
-**Data types**: 
-
-* **Read Count** (**required**; simple *raw* count of mapped reads to a certain gene or transcript).
-* **FPKM** (Fragments Per Kilobase Million, **F** for *Fragment*, paired-end sequencing),
-* **RPKM** (Reads Per Kilobase Million, **R** for *Read*, single-end sequencing),
-* **TPM** (Transcripts Per Kilobase Million, **T** for *Transcript*, technique independent),
-
-**Layouts**
-
-* Either one or more files **per sample** with one of the above data types or
-* One file containing the data types for **all samples** (with the samples as data columns in the file)
-
-**Please watch** the video and read the page found at the [RNA-Seq blog](http://www.rna-seqblog.com/rpkm-fpkm-and-tpm-clearly-explained/) regarding the meaning and calculation of the above mentioned expression data formats or a more technical document found at [The farrago blog page](https://haroldpimentel.wordpress.com/2014/05/08/what-the-fpkm-a-review-rna-seq-expression-units/).
-
-On GEO you can see what data *might* be availalbe in the `Supplementary` column, as shown below: 
-
-```{r GEODataOverview, eval=TRUE, echo=FALSE, fig.cap="Finding an experiment on GEO with a TXT file as supplementary data"}
-knitr::include_graphics("chapters/images/geo_data-overview.png")
-```
-
-This overview on GEO contains many links which are *not* direct links to the items for that dataset, but can be used as *filter* for browsing the results. If you want to actually download the data, click on the **GSE** identifier (first column) which brings you to an overview for this experiment containing a lot of information about the experiment (subject, research institute, publication, design, etc.) and links to each individual sample (**GSM** identifier). Following the link to a sample shows information on how this sample was retrieved with often many (lab) protocols used. Sometimes there is a segment regarding "*Data Processing*" that refers to techniques and software used for the full analysis and might contain something like:
-
->  ... Differential expression testing between sample groups was performed in Rstudio (v. 1.0.36) using DESeq2 (v.1.14.1) ...
-
-Back on the experiment overview page you'll see a (variable) number of links to data files belonging to this experiment, see \ref{fig:GEO_Data-download}. For now we are only interested in the count-data which is stored in the `TXT`-file (see the column `File type/resource`) called `GSE97406_RAW.tar`. This file contains *all* the data that we need, even though it is only **220Kb** in size where the experiment started with about **5Gb** of read-data for a small bacteria:
-
-```{r GEODataDownload, eval=TRUE, echo=FALSE, fig.cap="Finding the supplementary data in a GEO record"}
-knitr::include_graphics("chapters/images/geo_data-download.png")
-```
-
-As a bioinformatician we love to compress all the files so for this particular example, we download the `tar`-archive file, extract it to find a folder with another archive file for each sample. After extracting these files we end up with 12 `TXT`-files with just two columns; a *gene* identifier and a raw *count* value (~4500 rows of data per sample):
-
-Table: (\#tab:foo) Contents of a `TXT`-file for sample [`GSM2563998`](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM2563998)
-
-| Gene ID | Count Value |
-|---------|----------|
-| aaaD| 	0 | 
-| aaaE| 	0 |
-| aaeR| 	50 |
-| aaeX| 	0 |
-| aas| 	118 |
-| abgB| 	21 |
-| abgR| 	56 |
-| abgT| 	0 |
-| abrB| 	11 |
-| accA| 	453 |
-| accB| 	2492 |
-| accC| 	1197 |
-
-Other experiments combine their samples in a single file where each column represents a sample. If you do get an experiment with one file per sample, we can programmatically (yes, even in R) load this data in batch.
+We start with performing some exploratory data analysis steps with the goal of getting to grips with your chosen data set to properly identify a strategy for the actual analysis steps. During this exploration we will also keep an eye on the quality of the data. Even though the downloadable data is 'processed', there might be samples present that deviate too much from the other group of samples (a so called *outlier*). Creating basic visualizations of the data will give the necessary insight before we continue. 
 
 ## Loading data into R {#loading-data}
 
-R works best with data in simple text formats. If your project data is offered as an Excel file it is therefore advised to open it in Excel (or OpenOffice Calc) and save/ export the file as a *tab-separated* text file, alternatively you can search for how to import an Excel file into R.
+Download the project data from the GEO website, see the [Appendix A: *Loading Expression Data*](#a1-data_loading) for a description of available file formats and expected contents. R works best with data in simple text formats. If your project data is offered as an Excel file it is therefore advised to open it in Excel (or OpenOffice Calc) and save/ export the file as a *tab-separated* text file, alternatively you can search for how to import an Excel file into R.
 
 Once you have one or more column based text files they can be read into R simply by using the `read.table()` function.
 
@@ -90,9 +29,9 @@ Follow the following steps to read in the data and start the exploratory data an
 * Create a new R Markdown document
     + Give it a proper title and select the **PDF** format
 * Give the document some structure; e.g. create a segment (using single hash `#`) called *Exploratory Data Analysis* for this week's work.
-* Whenever you add code to your document make sure that it is both readable (keep the maximum line length < 100 if possible) and there is sufficient documentation either by text **around** the code 'chunks' or by using comments **in** the code chunk. 
+* Whenever you add code to your document make sure that it is both readable (keep the maximum line length < 100 if possible) and there is sufficient documentation either by text **around** the code 'chunks' (preferred) or by using comments **within** the code chunk. 
 * Read in the data file(s)
-    + Use the `read.table` function and carefully set its arguments. Open the file in a text editor first to check its contents; does it have a header? can we set the `row.names`? Are all columns needed? etc.
+    + Preferably use the `read.table` function and carefully set its arguments. Open the file in a text editor first to check its contents; does it have a header? can we set the `row.names`? Are all columns needed? etc.
     + **Note**: if the data set consists of separate files (i.e. one per sample) or for general tips on reading in data, see the [Appendix A: *Batch Loading Expression Data*](#a1-batch_data_loading) chapter.
     + For the remainder of the document, try to show either the contents, structure or - in this case - dimensions of relevant R objects
         * Show the first five lines of the loaded data set. Including tables in a markdown document can be done using the `pander` function from the `pander`[@R-pander] R-library.
@@ -101,10 +40,10 @@ Follow the following steps to read in the data and start the exploratory data an
 * Examine the samples included in the experiment and create as many R character objects as needed to store the classification.
     + **Note**: this is an important item and is often overlooked. See the *last 4 lines* in the code chunk in the section [Example Data](#ch3_example_data) below.
     + For instance, if you have eight samples divided into case/ control columns you create a variable called `case` in which you store the column **indices** (**only** numbers!) of the respective columns in the data set and a variable called `control` with the remaining four data column **indices**. These are for later use.
-    + These variables allows us to repeatedly access the same data during the rest of this course, i.e. the code `boxplot(counts[case])` immediately shows that we are plotting the `case` samples from the `counts` data which is more clear than reading `boxplot(counts[c(5:8)])` as that gives no reference to what these indices mean.
+    + These variables allows us to repeatedly access the same data during the rest of this course, i.e. the code `boxplot(counts[case])` immediately shows that we are plotting the `case` samples from the `counts` data which is more clear than reading `boxplot(counts[c(5:8)])` as that gives no reference to what these indices mean and can lead to typing mistakes.
     
 ```{block, type='rmdtip'}
-For some datasets the order in which the samples are listed in your loaded dataset is different from the order that is shown on the GEO website. Most often, the names are different too or they are lacking any description and all you have are the `GSM` IDs. When creating these variables such as `control` that need to point to all control samples, you need to make sure that you have the right columns from your dataframe. Go to Appendix [A2; annotation](#download-geo) if the order is unclear or you just have a large number of samples as there might be supporting data available that can help make sense of your sample layout.
+For some data sets the order in which the samples are listed in your loaded data set is different from the order that is shown on the GEO website. Most often, the names are different too or they are lacking any description and all you have are the `GSM` IDs. When creating these variables such as `control` that need to point to all control samples, you need to make sure that you have the right columns from your data frame. Go to Appendix [A2; annotation](#download-geo) if the order is unclear or you just have a large number of samples as there might be supporting data available that can help make sense of your sample layout.
 ```
 
 If you want to include external images to your log and to better control properties such as *height* and *width* for individual images you can use the following code. Note: the code below is an *example* and you need to replace the `img_to_include.png` file path to an actual image.):
@@ -116,9 +55,11 @@ If you want to include external images to your log and to better control propert
 knitr::include_graphics("figures/img_to_include.png", dpi = NA)
 ```
 
+See the [Knitr chunk options](https://yihui.org/knitr/options/) page for a full listing of all chunk options.
+
 ## Example Data {#ch3_example_data}
 
-This section lists all (publically available) dataset(s) used in this chapter. Each chapter contains this section *if* new datasets are used there. Note that for *all* examples, your data **will be different** from the examples and one of the challenges during this course will be translating the examples to your own data. Keep in mind that simple copy-pasting of most code will fail for that reason. Most examples therefore will *print* the input data for comparison to your own data.
+This section lists all (publically available) data set(s) used in this chapter. Each chapter contains this section *if* new data sets are used there. Note that for *all* examples, your data **will be different** from the examples and one of the challenges during this course will be translating the examples to your own data. Keep in mind that simple copy-pasting of most code will fail for that reason. Most examples therefore will *print* the input data for comparison to your own data.
 
 From the section [Normalization](#normalization) onwards, the experiment with identifier [GSE101942](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE101942) is used for visualizing the normalized raw count values (the earlier sections explore the unnormalized data). This experiment is titled *"Transcriptome analysis of genetically matched human induced pluripotent stem cells disomic or trisomic for chromosome 21"* and the experimental setup is described as follows:
 
@@ -174,11 +115,11 @@ Instead of using the basic R-plotting library (i.e. `plot`, `boxplot`, `hist`, e
 
 ### Statistics {#eda_statistics}
 
-Even the most basic statistics can give some insight into the data such as performing a 6-number-statistic on the data **columns** using the `summary()` function. Note: you can also use the `pander` function to *pretty-print* a summary from a markdown document. What do you notice if you look at the numbers produced by executing this function on the complete data set?
+Even the most basic statistics can give some insight into the data such as performing a 6-number-statistic on the data **columns** using the `summary()` function. Note: you can also use the `pander` function to *pretty-print* a summary in the knitted output. What do you notice if you look at the numbers produced by executing this function on the complete data set?
 
 ### Boxplots {#eda_boxplots}
 
-A visual representation of these values can be shown in a boxplot. Boxplots are very easy to create from an R data frame object by just passing in the data columns. The following boxplot shows the data for an experiment with a separate boxplot for each sample. This allows a quick overview for spotting irregularities (i.e. checking if the replicates within a sample-group show similar expression profiles). Of course, if we consider the amount of data in this single plot, it can only hint at any problems, we need to look in much more detail when doing any form of quality control. Creating a boxplot from a `dataframe` is easy, but as we saw with using the `summary` function; the data has a large range with the maximum and average values being very far apart. This will create a lot of *outliers* in the plot which will be interesting later on, but for the boxplot we can either:
+A visual representation of these values can be shown using a boxplot. Boxplots are very easy to create from an R data frame object by just passing in the data columns. The following boxplot shows the data for an experiment with a separate boxplot for each sample. This allows a quick overview for spotting irregularities (i.e. checking if the replicates within a sample-group show similar expression profiles). Of course, if we consider the amount of data in this single plot, it can only hint at any problems, we need to look in much more detail when doing any form of quality control. Creating a boxplot from a `dataframe` is easy, but as we saw with using the `summary` function; the data has a large range with the maximum and average values being very far apart. This will create a lot of *outliers* in the plot which will be interesting later on, but for the boxplot we can either:
 
 * hide them completely using the `outline = FALSE` argument to `boxplot()` (do say so in the figure description!), or
 * perform a `log2()` transformation as you can see below.
@@ -186,9 +127,9 @@ A visual representation of these values can be shown in a boxplot. Boxplots are 
 ```{block, type='rmdtip'}
 When creating plots of expression data without performing log-transformations we see that (for instance with the boxplot) the range of data is very large (from 0 up to 1.000.000) with a *lot* of outliers in the upper range. This makes for not very informative figures, so placing a simple `log2()` function call around the data *almost* resolves this issue.
 
-However, this might introduce another problem (taking the boxplot as an example) because this log-transformation results in data that contains *negative infinity* (`-Inf`) 'numbers'. These are caused by all the 0-values in the data since `log2(0) == -Inf`. To circumvent this issue, we can add a *pseudo count* to the data by simply adding the value `1` to all count values since the `log2(1) == 0`; `log2(counts + 1)`.
+However, this might introduce another problem (taking the boxplot as an example) because this log-transformation results in data that contains *negative infinity* (`-Inf`) values. These are caused by all the 0-values in the data since `log2(0) == -Inf`. To circumvent this issue, we can add a *pseudo count* to the data by simply adding the value `1` to all count values since the `log2(1) == 0`; `log2(counts + 1)`.
 
-There are more situations other than the boxplot where adding a pseudo count value to the complete dataset can be useful. Always add a pseudocount *in-place*, meaning within the plotting code instead of overwriting your original dataset with a pseudo count added as not all steps require this. In some cases (see the [density plot](#eda_density_plot) below) it can be useful to clearly separate the 0-values from the rest in which case a `0 < pseudo count < 1` value, such as `0.1` can be used as this generates a negative value (`-3.3`) that is far away from the rest of the data. All other count values are always >0 which result in a positive log2 value.
+There are more situations other than the boxplot where adding a pseudo count value to the complete dataset can be useful. Always add a pseudocount *in-place*, meaning within the plotting code instead of overwriting your original data set with a pseudo count added as not all steps require this. In some cases (see the [density plot](#eda_density_plot) below) it can be useful to clearly separate the 0-values from the rest in which case a `0 < pseudo count < 1` value, such as `0.1` can be used as this generates a negative value (`-3.3`) that is far away from the rest of the data. All other count values are always >0 which result in a positive log2 value.
 ```
 
 ```{r, edaBoxplot, echo=FALSE, fig.width=8, fig.cap="Boxplot comparing basic statistics for all genes across multiple samples"}
@@ -226,9 +167,9 @@ knitr::include_graphics("chapters/images/RNAdensityplot.png", dpi = NA)
 
 ## Visualizing using `heatmap` and `MDS` {#EDA_part2}
 
-This section adds a few Exploratory Data Analysis techniques where we will measure and look at *distances* between samples baed on normalized data. Measuring distances between two data objects (samples in our case) is a common task in cluster analysis to compare similarity (low distance indicates similar data). In this case we will calculate the distances between our samples and visualize them in a `heatmap` and using a `multidimensional scaling` (MDS) technique. 
+This section adds a few Exploratory Data Analysis techniques where we will measure and look at *distances* between samples based on *normalized* data. Measuring distances between two data objects (samples in our case) is a common task in cluster analysis to compare similarity (low distance indicates similar data). In this case we will calculate the distances between our samples and visualize them in a `heatmap` and using a `multidimensional scaling` (MDS) technique. 
 
-In the previous section we used the raw count data. You might have one or more samples that have different values (i.e. shifted) compared to other samples. While we need the raw count data to use R packages such as `edgeR` [@R-edgeR] and `DESeq2` [@R-DESeq2], calculating sample distances (used in the visualizations in this section) should be done on some form of normalized data. This data can either be RPKM/FPKM/TPM/CPM or vst-transformed (raw-)read counts. A proper method of transforming raw read count data is using the `vst` method from the `DESeq2` R Bioconductor library which is shown below. This normalized data will only be used in this chapter, in chapter 4 we will again normalize using a different technique.
+In the previous section we used the raw count data. You might have one or more samples that have different values (i.e. shifted) compared to other samples. While we need the raw count data to use R packages such as `edgeR` [@R-edgeR] and `DESeq2` [@R-DESeq2], calculating sample distances (used in the visualizations in this section) should be done on some form of normalized data. This data can either be RPKM/FPKM/TPM/CPM or vst-transformed (raw-)read counts. A proper method of transforming raw read count data is using the `vst` method from the `DESeq2` R Bioconductor library which is shown below. This '*variance stabilizing transformation*' normalized data will only be used in this chapter, in chapter 4 we will again normalize using a different technique.
 
 The following code examples shows how to use this library to normalize the count data from the **GSE101942** experiment to vst-normalized data before we calculate a distance metric.
 
@@ -267,11 +208,11 @@ grid.text("A1BG Expression", gp=gpar(fontsize=9, col = "grey40"),
           x = unit(0.91, "npc"), y = unit(0.9, "npc"))
 ```
 
-The numbers shown in `Table 2` and the barplot above immediately clearify that it is not just the experimental condition that might have caused this large difference between sample counts but the sequencing depth shows a substantial difference too. Both the minimum and maximum sequencing depth are within the trisomic neuron group (purple in the barplot). The average expression of the `A1BG` gene within this group is 820, but with a minimum of 461 and a maximum of 1010 there is a lot of variation. This is one more reason tellins us that we will have to **normalize** the data. The following code chunks show how to do this with `DESeq2`'s `vst` method (*variance stabilizing transformation*). Check the `Packages` tab in Rstudio to see if you have the `DESeq2` package installed and load it with the `library` command.
+The numbers shown in `Table 2` and the barplot above immediately clarify that it is not just the experimental condition that might have caused this large difference between sample counts but the sequencing depth shows a substantial difference too. Both the minimum and maximum sequencing depth are within the trisomic neuron group (purple in the barplot). The average expression of the `A1BG` gene within this group is 820, but with a minimum of 461 and a maximum of 1010 there is a lot of variation. This is one more reason telling us that we will have to **normalize** the data. The following code chunks show how to do this with `DESeq2`'s `vst` method (*variance stabilizing transformation*). Check the `Packages` tab in Rstudio to see if you have the `DESeq2` package installed and load it with the `library` command.
 
 ### Normalization {#normalization}
 
-To use the `vst` function from the `DESeq2` library we must contruct a `DESeqDataSet`-object consisting of the count data combined with sample annotation. Since we only want to use it (for now) for performing an vst-transformation we use the most basic form with a very simple `design` and the sample names as annotation (the `colData` argument):
+To use the `vst` function from the `DESeq2` library we must construct a `DESeqDataSet`-object consisting of the count data combined with sample annotation. Since we only want to use it (for now) for performing a vst-transformation we use the most basic form with a very simple `design` and the sample names as annotation (the `colData` argument):
 
 ```{r create_deseqdataset_from_matrix, eval=TRUE, echo=TRUE, warning=FALSE, message=FALSE}
 # Load the library
@@ -285,7 +226,7 @@ library('DESeq2')
                                   design = ~ 1))
 ```
 
-We now have a proper `DESeqDataSet` object as you can see above, containing 56640 rows and 12 columns (genes and samples) with the gene symbols as rownames. Usually this object would hold more data, but as this is only a requirement to perform the `vst` transformation it is good enough for now. Next step is performing this transformation (this can take a while depending on the size of the experiment and results in a `Large DESeqTransform` object) and retrieving the actual data from this with the `assay` function as this object too contains a lot of meta-data. The table below shows the updated values which are now comparable across genes whereas the raw count data was harder to compare.
+We now have a proper `DESeqDataSet` object as you can see above, containing 56640 rows and 12 columns (genes and samples) with the gene symbols as row names. Usually this object would hold more data, but as this is only a requirement to perform the `vst` transformation it is good enough for now. Next step is performing this transformation (this can take a while depending on the size of the experiment and results in a `Large DESeqTransform` object) and retrieving the actual data from this with the `assay` function as this object too contains a lot of meta-data. The table below shows the updated values which are now comparable across genes whereas the raw count data was harder to compare.
 
 ```{r vst_transformation, eval=TRUE, echo=TRUE}
 # Perform normalization
@@ -298,11 +239,11 @@ rld <- assay(rld.dds)
 pander(head(rld[,di_IPSC]), caption = 'Table 2; VST transformed disomic IPSC count data')
 ```
 
-Note that when again looking at the `A1BG` gene (the one displayed in figure 3.8), the normalized expression values show much less variation accross the samples (not shown, but also within each sample group). Therefore, we assume that the large difference in expression we observed earlier might be non-existent (there might still be a significant difference though!).
+Note that when again looking at the `A1BG` gene (the one displayed in figure 3.8), the normalized expression values show much less variation across the samples (not shown, but also within each sample group). Therefore, we assume that the large difference in expression we observed earlier might be non-existent (there might still be a significant difference though!).
 
 ### Distance Calculation {#eda_distance}
 
-We now have normalized data that we can use for distance calculation. This is a standard procedure for many data analysis tasks as it calculates a distance metric for each combination of samples that we will use to check for variation *within* the sample groups. We first need to [*transpose*](https://en.wikipedia.org/wiki/Transpose) the matrix (`rld`) of normalized values using the `t`-function, because the `dist` function expects the different samples as rows and the genes as columns. Note that the output matrix is symmetric. Table 3 below shows the calculated distances within the disomic IPSC group where the distance between samples varies from 100 to 140. The maximum distance between any samples is 380 as will be demonstrated with the visualisations in the next sections. 
+We now have normalized data that we can use for distance calculation. This is a standard procedure for many data analysis tasks as it calculates a distance metric for each combination of samples that we will use to check for variation *within* the sample groups. We first need to [*transpose*](https://en.wikipedia.org/wiki/Transpose) the matrix (`rld`) of normalized values using the `t`-function, because the `dist` function expects the different samples as rows and the genes as columns. Note that the output matrix is symmetric. Table 3 below shows the calculated distances within the disomic IPSC group where the distance between samples varies from 100 to 140. The maximum distance between any samples is 380 as will be demonstrated with the visualizations in the next sections. 
 
 ```{r calculate_distance, echo=TRUE, eval=TRUE}
 # Calculate basic distance metric (using euclidean distance, see '?dist')
@@ -318,7 +259,7 @@ pander(.dist.mat[di_IPSC, 1:3], caption = 'Table 3; Sample distances for the dis
 
 If you have both (raw-)count data *and* an other normalized format (TPM, RPKM, etc.), you can *optionally* follow the above procedure for your count data and create a heatmap for **both** formats to see if this makes any difference. The reason for this is that while the RNA-Seq method exists for over 10 years, there are still ongoing discussions on the subject of data processing, especially regarding subjects like which normalization technque to use for which data analysis. 
 
-The following code block creates a heatmap using the `pheatmap` library which offers on of the many available heatmap functions. Using the `annotation` dataframe (you can inspect the contents of it yourself) we identify the samples based on both the cell type and the ploidy. The clustering shown in the heatmap clearly separates the data based on the cell type and the differences between the ploidy seems to be minimal. Looking further still, the differences *within* a single group are minimal too meaning that we are not - yet - inclined to remove any outlier-samples. Since we have only have 3 samples per category, we would also lose statistical power if we eventually were to remove one or more samples (also, always check the article to see if they did remove any samples prior to the data analysis).
+The following code block creates a heatmap using the `pheatmap` library which offers on of the many available heatmap functions. Using the `annotation` data frame (you can inspect the contents of it yourself) we identify the samples based on both the cell type and the ploidy. The clustering shown in the heatmap clearly separates the data based on the cell type and the differences between the ploidy seems to be minimal. Looking further still, the differences *within* a single group are minimal too meaning that we are not - yet - inclined to remove any outlier-samples. Since we have only have 3 samples per category, we would also lose statistical power if we eventually were to remove one or more samples (also, always check the article to see if they did remove any samples prior to the data analysis).
 
 ```{r pheatmapDistances, echo=TRUE, eval=TRUE, fig.cap="Heatmap showing the Euclidean distances between all samples"}
 # We use the 'pheatmap' library (install with install.packages('pheatmap'))
@@ -344,7 +285,7 @@ pheatmap(sampleDistMatrix, show_colnames = FALSE,
          main = "Euclidean Sample Distances")
 ```
 
-The resulting heatmap shows an interesting comparison across all samples where the order of samples is purely determined using the distance and is often different from the order in the dataset. Ideally, we want the sample groups to be clustered together as we see with this data. This particular heatmap clearly shows a large difference in overal expression between the induced pluripotent stem cells (iPSCs) and their differentiated cortical neurons while the difference - within cell type - between disomic and trisomic is much lower.
+The resulting heatmap shows an interesting comparison across all samples where the order of samples is purely determined using the distance and is often different from the order in the data set. Ideally, we want the sample groups to be clustered together as we see with this data. This particular heatmap clearly shows a large difference in overal expression between the induced pluripotent stem cells (iPSCs) and their differentiated cortical neurons while the difference - within cell type - between disomic and trisomic is much lower.
 
 ### Multi-Dimensional Scaling {#eda_mds}
 
@@ -354,14 +295,16 @@ The following code example shows how to perform Multi-Dimensional Scaling (MDS) 
 The figure below is plotted using `ggplot2`, a more advanced method of plotting in R. While these plots are preferred over base-R plotting, it is always sufficient to use just that as it can be very challenging to alter the example code shown in this section. The data object plotted is shown and in this case contains simple X- and Y-coordinates.
 ```
 
-For MDS we use a slightly different distance metric (Poisson instead of the default `euclidean` used in the `dist` function). The following code shows how to calculate a more fitting distance for sequencing data called the *Poisson Distance* with a number of optimizations available in the `PoiClaClu` library. This library was specifically designed to handle read count data and is less influenced by read-count differences across samples. Note that again, the code below is only usable for **count** data as this function requires: 
+For MDS we use a slightly different distance metric (Poisson instead of the default `euclidean` used in the `dist` function). The following code shows how to calculate a more fitting distance for sequencing data called the *Poisson Distance* with a number of optimizations available in the `PoiClaClu` library. This library was specifically designed to handle read count data and is less influenced by read-count differences across samples. Note that again, the code below is only usable for **count** data as this function requires:
+
 > An n-by-p data matrix with observations on the rows, and p features on the columns. The (i,j) element of x is the **number of reads** in observation i that mapped to feature (e.g. gene or exon) j`.
 
 ```{r mdsPoissonData, echo=TRUE, eval=TRUE}
 library('PoiClaClu')
-# Use the raw (not r-log transformed!) counts
+# Note: uses the raw-count data, PoissonDistance performs normalization
+# set by the 'type' parameter (uses DESeq)
 dds <- assay(ddsMat)
-poisd <- PoissonDistance( t(dds) )
+poisd <- PoissonDistance( t(dds), type = "deseq")
 # Extract the matrix with distances
 samplePoisDistMatrix <- as.matrix(poisd$dd)
 # Calculate the MDS and get the X- and Y-coordinates
@@ -387,9 +330,13 @@ ggplot(mdsPoisData, aes(x_coord, y_coord, color = groups, label = coldata)) +
   ggtitle('Multi Dimensional Scaling') +
   labs(x = "Poisson Distance", y = "Poisson Distance") +
   theme_bw()
+
+## Using base-R plot and legend functions:
+# plot(mdsPoisData, col=rep(myColors, each=3), pch=20, lwd=2)
+# legend(x=-20000, y=11000, legend = levels(groups), col=myColors, pch=20)
 ```
 
-We clearly see a separation on cell type and a less clear separation on ploidy. The sample `di_NEUR_r3` shows a large difference in the MDS plot. Once we have a set of genes identified as being differentially expressed we could repeat this step with the expectation of a more clear clustering.
+We clearly see a separation on cell type and a less clear separation on ploidy. The spread within the disomic groups is much lower compared to the trisomic groups. Note that the y-axis range is about a 4th of the x-axis range. The sample `di_NEUR_r3` shows a large difference in the MDS plot. Once we have a set of genes identified as being differentially expressed we could repeat this step with the expectation of a more clear clustering.
 
 ## Cleaning Data
 

@@ -4,7 +4,7 @@ bookdown::gitbook:
   config:
     toc:
       before: |
-        <li><a href="./">Capstone Project - Analysis of Gene Expression</a></li>
+        <li><a href="./">Analysis of Gene Expression</a></li>
 
 bookdown::pdf_book:
   includes:

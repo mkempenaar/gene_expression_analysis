@@ -1,6 +1,69 @@
 # (APPENDIX) Appendix {-} 
 
-# Appendix A: Batch Loading Expression Data in R {#a1-batch_data_loading}
+# Appendix A: Loading Expression Data in R {#a1-data_loading}
+
+## Exploring the Available Project Data {#expl-data}
+
+Whether you've found a dataset through the SRA or GEO, we want to get the data into R to start working with it. For now, we will only download the **count data** which is most likely stored in a `TXT` or `XLS(X)` file format:
+
+**Data formats**:
+
+* **TXT**: simple text file containing a minimum of two columns (either tab or comma separated containing i.e. gene / transcript identifier and one of the above mentioned data types).
+    + However it can also contain up to 10 data columns either including more information regarding the gene/ transcript (i.e. gene ID, name, symbol, chromosome, start/ stop position, length, etc.) or more numerical columns (i.e. raw read count, normalized readcount, FPKM, etc.).
+* **XLS(X)**: Microsoft Excel file containing the same data columns as mentioned in the TXT files.
+
+**Data types**: 
+
+* **Read Count** (**required**; simple *raw* count of mapped reads to a certain gene or transcript).
+* **FPKM** (Fragments Per Kilobase Million, **F** for *Fragment*, paired-end sequencing),
+* **RPKM** (Reads Per Kilobase Million, **R** for *Read*, single-end sequencing),
+* **TPM** (Transcripts Per Kilobase Million, **T** for *Transcript*, technique independent),
+
+**Layouts**
+
+* Either one or more files **per sample** with one of the above data types or
+* One file containing the data types for **all samples** (with the samples as data columns in the file)
+
+**Please watch** the video and read the page found at the [RNA-Seq blog](http://www.rna-seqblog.com/rpkm-fpkm-and-tpm-clearly-explained/) regarding the meaning and calculation of the above mentioned expression data formats or a more technical document found at [The farrago blog page](https://haroldpimentel.wordpress.com/2014/05/08/what-the-fpkm-a-review-rna-seq-expression-units/).
+
+On GEO you can see what data *might* be availalbe in the `Supplementary` column, as shown below: 
+
+```{r GEODataOverview, eval=TRUE, echo=FALSE, fig.cap="Finding an experiment on GEO with a TXT file as supplementary data"}
+knitr::include_graphics("chapters/images/geo_data-overview.png")
+```
+
+This overview on GEO contains many links which are *not* direct links to the items for that dataset, but can be used as *filter* for browsing the results. If you want to actually download the data, click on the **GSE** identifier (first column) which brings you to an overview for this experiment containing a lot of information about the experiment (subject, research institute, publication, design, etc.) and links to each individual sample (**GSM** identifier). Following the link to a sample shows information on how this sample was retrieved with often many (lab) protocols used. Sometimes there is a segment regarding "*Data Processing*" that refers to techniques and software used for the full analysis and might contain something like:
+
+>  ... Differential expression testing between sample groups was performed in Rstudio (v. 1.0.36) using DESeq2 (v.1.14.1) ...
+
+Back on the experiment overview page you'll see a (variable) number of links to data files belonging to this experiment, see \ref{fig:GEO_Data-download}. For now we are only interested in the count-data which is stored in the `TXT`-file (see the column `File type/resource`) called `GSE97406_RAW.tar`. This file contains *all* the data that we need, even though it is only **220Kb** in size where the experiment started with about **5Gb** of read-data for a small bacteria:
+
+```{r GEODataDownload, eval=TRUE, echo=FALSE, fig.cap="Finding the supplementary data in a GEO record"}
+knitr::include_graphics("chapters/images/geo_data-download.png")
+```
+
+As a bioinformatician we love to compress all the files so for this particular example, we download the `tar`-archive file, extract it to find a folder with another archive file for each sample. After extracting these files we end up with 12 `TXT`-files with just two columns; a *gene* identifier and a raw *count* value (~4500 rows of data per sample):
+
+Table: (\#tab:foo) Contents of a `TXT`-file for sample [`GSM2563998`](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM2563998)
+
+| Gene ID | Count Value |
+|---------|----------|
+| aaaD| 	0 | 
+| aaaE| 	0 |
+| aaeR| 	50 |
+| aaeX| 	0 |
+| aas| 	118 |
+| abgB| 	21 |
+| abgR| 	56 |
+| abgT| 	0 |
+| abrB| 	11 |
+| accA| 	453 |
+| accB| 	2492 |
+| accC| 	1197 |
+
+Other experiments combine their samples in a single file where each column represents a sample. If you do get an experiment with one file per sample, we can programmatically (yes, even in R) load this data in batch.
+
+## Batch Loading Expression Data {#a1-batch_data_loading}
 
 This code example shows how to batch-load multiple files containing expression (count) data for a *single* sample. The data for this example can be found on GEO with ID [GSE109798](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE109798). Downloading the data for this experiment from GEO gives us a single `.tar` file called `GSE109798_RAW.tar`. Extracting this archive file nets us a folder with the following files:
 
@@ -13,7 +76,7 @@ file.names <- list.files("./data/GSE109798_RAW/")
 knitr::kable(vector.to.table(file.names, nrow = length(file.names), colname = "Files"))
 ```
 
-## Decompressing
+### Decompressing
 
 The file extension of all these files is `.txt.gz` which means that all files are compressed using `gzip` and need to be unpacked before they can be loaded. The easiest method is using the system `gunzip` command on all files which can be done from within R by *applying* the `gunzip` command using the `system` function on each file.
 
@@ -31,7 +94,7 @@ Now we can update the `file.names` variable since each file name has changed.
 file.names <- list.files('./data/GSE109798_RAW/')
 ```
 
-## Determining Data Format
+### Determining Data Format
 
 Next, we can inspect what the contents are of these files, assuming that they all have the same layout/ column names etc. to decide what we need to use for our analysis.
 
@@ -63,7 +126,7 @@ As mentioned before, we require integer count data for use with packages such as
   + discard the fraction part by using for example the `floor()` function.
 ```
 
-## Loading Data
+### Loading Data
 
 From all these columns we want to keep the *transcript_id* and *expected_count* columns and ignore the rest (we might be interested in this data later on though). As we need to lead each file separately we can define a function that reads in the data, keeping the columns of interest and returning a dataframe with this data. Note that the first line of each file is used as a header, but check before setting the `header` argument to `TRUE`, sometimes the expression data starts at line 1. The file name is then also used to name the column in the dataframe so that we know which column is which sample. This is done by splitting the file name (using `strsplit`) using the dot ('`.`') keeping the first part (i.e. '`GSM2970156_HCC1806E224A`') and discarding the second part ('`isoforms.results.txt`'). The `strsplit` function however always returns a list, in this case containing a vector with the 5 splitted elements:
 
