@@ -23,7 +23,7 @@
 <meta name="author" content="Marcel Kempenaar" />
 
 
-<meta name="date" content="2022-03-20" />
+<meta name="date" content="2022-03-25" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -260,7 +260,7 @@ div.csl-indent {
             <section class="normal" id="section-">
 <div id="chapter-3" class="section level1 hasAnchor" number="3">
 <h1><span class="header-section-number"></span> Exploratory Data Analysis<a href="chapter-3.html#chapter-3" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>We start with performing some exploratory data analysis steps with the goal of getting to grips with your chosen data set to properly identify a strategy for the actual analysis steps. During this exploration we will also keep an eye on the quality of the data. Even though the downloadable data is ‘processed,’ there might be samples present that deviate too much from the other group of samples (a so called <em>outlier</em>). Creating basic visualizations of the data will give the necessary insight before we continue.</p>
+<p>We start with performing some exploratory data analysis steps with the goal of getting to grips with your chosen data set to properly identify a strategy for the actual analysis steps. During this exploration we will also keep an eye on the quality of the data. Even though the downloadable data is ‘processed’, there might be samples present that deviate too much from the other group of samples (a so called <em>outlier</em>). Creating basic visualizations of the data will give the necessary insight before we continue.</p>
 <div id="loading-data" class="section level2 hasAnchor" number="3.1">
 <h2><span class="header-section-number">3.1</span> Loading data into R<a href="chapter-3.html#loading-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Download the project data from the GEO website, see the <a href="a1-data_loading.html#a1-data_loading">Appendix A: <em>Loading Expression Data</em></a> for a description of available file formats and expected contents. R works best with data in simple text formats. If your project data is offered as an Excel file it is therefore advised to open it in Excel (or OpenOffice Calc) and save/ export the file as a <em>tab-separated</em> text file, alternatively you can search for how to import an Excel file into R.</p>
@@ -314,7 +314,7 @@ For some data sets the order in which the samples are listed in your loaded data
 <p>The following code shows how to load the two available files containing the raw-count data (one file per 6 samples), stored locally in the <code>data/gse101942/</code> folder. Some simple ‘cleanup’ steps are performed which aren’t required but helpful for demonstration purposes (i.e., renaming samples to identify groups).</p>
 <ul>
 <li><strong><code>GSE101942_IPSC_rawCounts.txt</code></strong>: raw count data for the induced pluripotent stem cells (iPSCs), both <em>trisomic</em> and <em>disomic</em></li>
-<li><strong><code>GSE101942_Neuron_rawCounts.txt</code></strong>: raw count data for the IPSC-derived Neurons, both <em>trisomic</em> and <em>disomic</em>. These cells were treated to remove chromosome 21 from the iPSCs, as described by the treatment protocol as: “Targeted removal of CHR 21 in IPSC using TKNEO transgene.”</li>
+<li><strong><code>GSE101942_Neuron_rawCounts.txt</code></strong>: raw count data for the IPSC-derived Neurons, both <em>trisomic</em> and <em>disomic</em>. These cells were treated to remove chromosome 21 from the iPSCs, as described by the treatment protocol as: “Targeted removal of CHR 21 in IPSC using TKNEO transgene”.</li>
 </ul>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="chapter-3.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the two sets of 6 samples</span></span>
 <span id="cb2-2"><a href="chapter-3.html#cb2-2" aria-hidden="true" tabindex="-1"></a>ipsc.data <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">&#39;./data/gse101942/GSE101942_IPSC_rawCounts.txt&#39;</span>,</span>
@@ -850,7 +850,7 @@ The figure below is plotted using <code>ggplot2</code>, a more advanced method o
 </div>
 <p>For MDS we use a slightly different distance metric (Poisson instead of the default <code>euclidean</code> used in the <code>dist</code> function). The following code shows how to calculate a more fitting distance for sequencing data called the <em>Poisson Distance</em> with a number of optimizations available in the <code>PoiClaClu</code> library. This library was specifically designed to handle read count data and is less influenced by read-count differences across samples. Note that again, the code below is only usable for <strong>count</strong> data as this function requires:</p>
 <blockquote>
-<p>An n-by-p data matrix with observations on the rows, and p features on the columns. The (i,j) element of x is the <strong>number of reads</strong> in observation i that mapped to feature (e.g. gene or exon) j`.</p>
+<p>An n-by-p data matrix with observations on the rows, and p features on the columns. The (i,j) element of x is the <strong>number of reads</strong> in observation i that mapped to feature (e.g. gene or exon) j.</p>
 </blockquote>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="chapter-3.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&#39;PoiClaClu&#39;</span>)</span>
 <span id="cb13-2"><a href="chapter-3.html#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Note: uses the raw-count data, PoissonDistance performs normalization</span></span>

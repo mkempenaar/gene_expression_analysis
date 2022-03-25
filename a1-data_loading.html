@@ -23,7 +23,7 @@
 <meta name="author" content="Marcel Kempenaar" />
 
 
-<meta name="date" content="2022-03-20" />
+<meta name="date" content="2022-03-25" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -295,7 +295,7 @@ Figure A.1: Finding an experiment on GEO with a TXT file as supplementary data
 <blockquote>
 <p>… Differential expression testing between sample groups was performed in Rstudio (v. 1.0.36) using DESeq2 (v.1.14.1) …</p>
 </blockquote>
-<p>Back on the experiment overview page you’ll see a (variable) number of links to data files belonging to this experiment, see . For now we are only interested in the count-data which is stored in the <code>TXT</code>-file (see the column <code>File type/resource</code>) called <code>GSE97406_RAW.tar</code>. This file contains <em>all</em> the data that we need, even though it is only <strong>220Kb</strong> in size where the experiment started with about <strong>5Gb</strong> of read-data for a small bacteria:</p>
+<p>Back on the experiment overview page you’ll see a (variable) number of links to data files belonging to this experiment, see <span class="math inline">\(\ref{fig:GEO_Data-download}\)</span>. For now we are only interested in the count-data which is stored in the <code>TXT</code>-file (see the column <code>File type/resource</code>) called <code>GSE97406_RAW.tar</code>. This file contains <em>all</em> the data that we need, even though it is only <strong>220Kb</strong> in size where the experiment started with about <strong>5Gb</strong> of read-data for a small bacteria:</p>
 <div class="figure"><span style="display:block;" id="fig:GEODataDownload"></span>
 <img src="chapters/images/geo_data-download.png" alt="Finding the supplementary data in a GEO record" width="697" />
 <p class="caption">
@@ -430,6 +430,16 @@ Figure A.2: Finding the supplementary data in a GEO record
 <div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="a1-data_loading.html#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Call the system &#39;head&#39; tool to &#39;peek&#39; inside the file</span></span>
 <span id="cb42-2"><a href="a1-data_loading.html#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="fu">system</span>(<span class="fu">paste0</span>(<span class="st">&quot;head &quot;</span>, <span class="st">&quot;./data/GSE109798_RAW/&quot;</span>, file.names[<span class="dv">1</span>]))</span></code></pre></div>
 <table>
+<colgroup>
+<col width="17%" />
+<col width="10%" />
+<col width="8%" />
+<col width="21%" />
+<col width="19%" />
+<col width="6%" />
+<col width="6%" />
+<col width="8%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th align="left">transcript_id</th>

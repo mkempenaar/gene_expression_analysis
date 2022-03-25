@@ -23,7 +23,7 @@
 <meta name="author" content="Marcel Kempenaar" />
 
 
-<meta name="date" content="2022-03-20" />
+<meta name="date" content="2022-03-25" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -346,7 +346,7 @@ div.csl-indent {
 <li><em>StatQuest</em> on YouTube: <a href="https://www.youtube.com/watch?v=CqLGvwi-5Pc">Design Matrices For Linear Models, Clearly Explained</a></li>
 </ul>
 <p>These videos expects some basic understanding of topics already discussed in the statistics course, otherwise for each mentioned topic in those videos he has other videos available explaining them. See the <a href="https://statquest.org/video-index/">video-index</a> for a handy overview of all topics discussed on that channel.</p>
-<p>As mentioned before we <strong>need</strong> to think about the <em>question</em> we want to ask; which difference do we want to know? With two sample groups as shown above the question is rather easy; ‘which genes show an effect between case/ control samples?’ With more than two sample groups however the question becomes more complex. If we have an experiment comparing influence of three kinds of drugs (thus three groups) <em>combined</em> with effect over time, do we then want to focus on the influence of the <em>drugs</em> or the <em>time</em>? Both are valid questions but they define the way of how to create the <code>design matrix</code>.</p>
+<p>As mentioned before we <strong>need</strong> to think about the <em>question</em> we want to ask; which difference do we want to know? With two sample groups as shown above the question is rather easy; ‘which genes show an effect between case/ control samples?’. With more than two sample groups however the question becomes more complex. If we have an experiment comparing influence of three kinds of drugs (thus three groups) <em>combined</em> with effect over time, do we then want to focus on the influence of the <em>drugs</em> or the <em>time</em>? Both are valid questions but they define the way of how to create the <code>design matrix</code>.</p>
 <p>Documentation on this subject is plenty, however it often contains overwhelming information. <a href="http://genomicsclass.github.io/book/pages/expressing_design_formula.html">This page</a> contains some valuable details (you can safely start reading at <strong>Choice of design</strong>), including the following text which is based on the same example used in the <code>edgeR</code> documentation:</p>
 <blockquote>
 <p>“For the examples we cover here, we use linear models to make comparisons between different groups. Hence, the design matrices that we ultimately work with will have at least two columns: an intercept column, which consists of a column of 1’s, and a second column, which specifies which samples are in a second group. In this case, two coefficients are fit in the linear model: the intercept, which represents the population average of the first group, and a second coefficient, which represents the difference between the population averages of the second group and the first group. The latter is typically the coefficient we are interested in when we are performing statistical tests: we want to know if their is a difference between the two groups.”</p>

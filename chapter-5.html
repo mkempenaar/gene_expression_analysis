@@ -23,7 +23,7 @@
 <meta name="author" content="Marcel Kempenaar" />
 
 
-<meta name="date" content="2022-03-20" />
+<meta name="date" content="2022-03-25" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -299,7 +299,7 @@ div.csl-indent {
 <p><strong>Notes</strong>:</p>
 <ul>
 <li>When you have used edgeR instead you need to change the names of the columns (i.e. <code>log2FoldChange</code> == <code>logFC</code> and <code>padj</code> == <code>FDR</code>) used in this example.</li>
-<li>In this example there are too many DEGs to annotate with their name in the plots. The <code>EnhancedVolcano</code> plot function has many options for annotating significant genes, see the linked manual for further information</li>
+<li>In this example there are too many DEGs to annotate with their name in the plots. The <code>EnhancedVolcano</code> plot function has many options for annotating significant genes, see the linked manual for further information.</li>
 <li>This section has been rewritten to use the <code>EnhancedVolcano</code> function instead of creating a manual ggplot2 plot as can be seen <a href="https://bioinf.nl/~marcelk/theme07/chapter-5.html#volcano">in the old version</a> of the course manual.</li>
 </ul>
 </div>
@@ -358,19 +358,14 @@ Figure 5.2: Venn diagram comparing edgeR and DESeq2 DEGs using ‘gplots’
 </div>
 <div id="clustering" class="section level2 hasAnchor" number="5.3">
 <h2><span class="header-section-number">5.3</span> Clustering<a href="chapter-5.html#clustering" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Clustering Here, we can create a heatmap of the found DEGs for all samples where the colors show the fold-change value. Usually this heatmap is shown with a two color gradient; from red (downregulated) to green (upregulated). This is however optional and using the default colors from <code>pheatmap</code> for example is perfectly fine as long as a proper legend is present.</p>
-<p>There are multiple methods of creating a heatmap (one of which you’ve already used) and most of these directly apply clustering in the visualization. This clustering can be applied to the expression pattern of a gene (row-clustering), the expression pattern of a sample (column-clustering) or both (default for <code>pheatmap</code>). The first example shown here uses column-based clustering as it shows the replicates for multiple groups (IPSC disomic and trisomic) with their normalized expression values for the top 30 genes as found by DESeq2. This first example allows an overview of the expression patterns for the DEGs and to see the differences in expression between replicates. It is expected that the replicates for each group cluster together as shown in this example. Genes (rows) are clustered based on their expression values.</p>
+<p>Here, we can create a heatmap of the found DEGs for all samples where the colors show the fold-change value. Usually this heatmap is shown with a two color gradient; from red (downregulated) to green (upregulated). This is however optional and using the default colors from <code>pheatmap</code> for example is perfectly fine as long as a proper legend is present.</p>
+<p>There are multiple methods of creating a heatmap (one of which you’ve already used) and most of these directly apply clustering in the visualization. This clustering can be applied to the expression pattern of a gene (row-clustering), the expression pattern of a sample (column-clustering) or both (default for <code>pheatmap</code>).</p>
+<p>The following example is commonly found in publications as shows the log2 Fold Change values for the comparison that was done. The first and fifth columns show the log2(FC) as calculated by DESeq2 for the two trisomic vs disomic comparisons. The remaining columns are the log fold changes of the <em>separate</em> trisomic replicates vs the <em>average</em> disomic expression (manually calculating the Log(FC) as done in <a href="chapter-4.html#deg-fc">section 4.1</a> using the DESeq2 normalized count data from the <code>rld.dds</code> object). The DESeq2 calculated FC values show greater changes compared to the manually calculated FC values. The value in showing the manually calculated values too is to see if all replicates show the same patterns within groups. They are however optional <em>unless</em> you only have one comparison as you cannot create a heatmap with a single column.</p>
+<p>Note that column-clustering has been turned off for this type of plot by setting <code>cluster_cols = FALSE</code> (all replicates are from the same group, clustering will not add any useful information).</p>
 <div class="figure"><span style="display:block;" id="fig:expressionHeatmap"></span>
-<img src="gene_expression_files/figure-html/expressionHeatmap-1.png" alt="Heatmap showing the fold changes of the Trisomic vs Disomic comparisons" width="672" />
+<img src="gene_expression_files/figure-html/expressionHeatmap-1.png" alt="Heatmap showing the fold changes of the Trisomic vs Disomic comparisons for both cell types. The shown genes are all shared DEGS (the 96 shown in the Venn-diagrams) but also filtered for an absolute log2(FC) value of &gt;2." width="672" />
 <p class="caption">
-Figure 5.3: Heatmap showing the fold changes of the Trisomic vs Disomic comparisons
-</p>
-</div>
-<p>This second example is more commonly found in publications as this shows the log fold change values for the comparison that was done. The first three columns shown in this heatmap are the log fold changes of the <em>separate</em> IPSC trisomic replicates vs the <em>average</em> IPSC disomic expression. The 4th column shows the log fold change values for the average IPSC trisomic vs average IPSC disomic samples. Note that column-clustering has been turned off for this type of plot by setting <code>cluster_cols = FALSE</code> (all replicates are from the same group, clustering will not add any useful information).</p>
-<div class="figure"><span style="display:block;" id="fig:lfcHeatmap"></span>
-<img src="gene_expression_files/figure-html/lfcHeatmap-1.png" alt="Heatmap showing the Log Fold Changes of all trisomic vs averaged disomic IPSC samples and the average trisomic vs average disomic IPSC samples" width="672" />
-<p class="caption">
-Figure 5.4: Heatmap showing the Log Fold Changes of all trisomic vs averaged disomic IPSC samples and the average trisomic vs average disomic IPSC samples
+Figure 5.3: Heatmap showing the fold changes of the Trisomic vs Disomic comparisons for both cell types. The shown genes are all shared DEGS (the 96 shown in the Venn-diagrams) but also filtered for an absolute log2(FC) value of &gt;2.
 </p>
 </div>
 <p>A limitation of a heatmap will show itself when more then 100 DEGs are found; this just doesn’t fit well in a single figure and causes the clustering and especially the gene names/ labels to be unreadable. It is therefore always adviced to not only filter on the adjusted p-value, but also on the log-FC value to reduce the number of genes shown. Alternatively if the data is properly annotated, instead of showing gene names for each row, showing a GO-term clustering might reveal expression patterns for certain gene groups.</p>
@@ -761,7 +756,7 @@ Done pathway 135 : Viral myocarditis..</code></pre>
 <div class="figure"><span style="display:block;" id="fig:spiaResultPlotP"></span>
 <img src="gene_expression_files/figure-html/spiaResultPlotP-1.png" alt="SPIA two-way evidence plot showing the most influenced pathways" width="672" />
 <p class="caption">
-Figure 5.5: SPIA two-way evidence plot showing the most influenced pathways
+Figure 5.4: SPIA two-way evidence plot showing the most influenced pathways
 </p>
 </div>
 

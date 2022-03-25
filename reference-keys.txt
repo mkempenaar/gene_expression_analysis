@@ -10,7 +10,6 @@ fig:edgerResults
 fig:vennDiagram
 fig:alternativeVenn
 fig:expressionHeatmap
-fig:lfcHeatmap
 fig:spiaResultPlotP
 fig:GEODataOverview
 fig:GEODataDownload
