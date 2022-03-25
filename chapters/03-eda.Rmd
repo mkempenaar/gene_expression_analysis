@@ -297,7 +297,7 @@ The figure below is plotted using `ggplot2`, a more advanced method of plotting 
 
 For MDS we use a slightly different distance metric (Poisson instead of the default `euclidean` used in the `dist` function). The following code shows how to calculate a more fitting distance for sequencing data called the *Poisson Distance* with a number of optimizations available in the `PoiClaClu` library. This library was specifically designed to handle read count data and is less influenced by read-count differences across samples. Note that again, the code below is only usable for **count** data as this function requires:
 
-> An n-by-p data matrix with observations on the rows, and p features on the columns. The (i,j) element of x is the **number of reads** in observation i that mapped to feature (e.g. gene or exon) j`.
+> An n-by-p data matrix with observations on the rows, and p features on the columns. The (i,j) element of x is the **number of reads** in observation i that mapped to feature (e.g. gene or exon) j.
 
 ```{r mdsPoissonData, echo=TRUE, eval=TRUE}
 library('PoiClaClu')

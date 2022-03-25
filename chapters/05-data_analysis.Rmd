@@ -45,7 +45,7 @@ EnhancedVolcano(res.ipsc, x = 'log2FoldChange', y = 'padj', lab = rownames(res.i
 **Notes**:
 
 * When you have used edgeR instead you need to change the names of the columns (i.e. `log2FoldChange` == `logFC` and `padj` == `FDR`) used in this example.
-* In this example there are too many DEGs to annotate with their name in the plots. The `EnhancedVolcano` plot function has many options for annotating significant genes, see the linked manual for further information
+* In this example there are too many DEGs to annotate with their name in the plots. The `EnhancedVolcano` plot function has many options for annotating significant genes, see the linked manual for further information.
 * This section has been rewritten to use the `EnhancedVolcano` function instead of creating a manual ggplot2 plot as can be seen [in the old version](https://bioinf.nl/~marcelk/theme07/chapter-5.html#volcano) of the course manual.
 
 
@@ -103,9 +103,13 @@ While both analysis result in a similar amount of DEGS (849 for the IPSC and 769
 
 ## Clustering {#clustering}
 
-Clustering Here, we can create a heatmap of the found DEGs for all samples where the colors show the fold-change value. Usually this heatmap is shown with a two color gradient; from red (downregulated) to green (upregulated). This is however optional and using the default colors from `pheatmap` for example is perfectly fine as long as a proper legend is present.
+Here, we can create a heatmap of the found DEGs for all samples where the colors show the fold-change value. Usually this heatmap is shown with a two color gradient; from red (downregulated) to green (upregulated). This is however optional and using the default colors from `pheatmap` for example is perfectly fine as long as a proper legend is present.
 
-There are multiple methods of creating a heatmap (one of which you've already used) and most of these directly apply clustering in the visualization. This clustering can be applied to the expression pattern of a gene (row-clustering), the expression pattern of a sample (column-clustering) or both (default for `pheatmap`). The first example shown here uses column-based clustering as it shows the replicates for multiple groups (IPSC disomic and trisomic) with their normalized expression values for the top 30 genes as found by DESeq2. This first example allows an overview of the expression patterns for the DEGs and to see the differences in expression between replicates. It is expected that the replicates for each group cluster together as shown in this example. Genes (rows) are clustered based on their expression values.
+There are multiple methods of creating a heatmap (one of which you've already used) and most of these directly apply clustering in the visualization. This clustering can be applied to the expression pattern of a gene (row-clustering), the expression pattern of a sample (column-clustering) or both (default for `pheatmap`).
+
+The following example is  commonly found in publications as shows the log2 Fold Change values for the comparison that was done. The first and fifth columns show the log2(FC) as calculated by DESeq2 for the two trisomic vs disomic comparisons. The remaining columns are the log fold changes of the *separate* trisomic replicates vs the *average* disomic expression (manually calculating the Log(FC) as done in [section 4.1](#deg-fc) using the DESeq2 normalized count data from the `rld.dds` object). The DESeq2 calculated FC values show greater changes compared to the manually calculated FC values. The value in showing the manually calculated values too is to see if all replicates show the same patterns within groups. They are however optional *unless* you only have one comparison as you cannot create a heatmap with a single column.
+
+Note that column-clustering has been turned off for this type of plot by setting `cluster_cols = FALSE` (all replicates are from the same group, clustering will not add any useful information).
 
 
 ```{r .heatmapDataPrepHidden, eval=TRUE, echo=FALSE}
@@ -130,28 +134,18 @@ neur.selected.degs <- cbind(neur.selected.degs, assay(rld.dds)[genes, tri_NEUR]-
 neur.selected.degs <- neur.selected.degs[, -2]
 ```
 
-```{r expressionHeatmap, echo=FALSE, eval=TRUE, fig.cap="Heatmap showing the fold changes of the Trisomic vs Disomic comparisons"}
+```{r expressionHeatmap, echo=FALSE, eval=TRUE, fig.cap="Heatmap showing the fold changes of the Trisomic vs Disomic comparisons for both cell types. The shown genes are all shared DEGS (the 96 shown in the Venn-diagrams) but also filtered for an absolute log2(FC) value of >2."}
 # DEGs
 heatmap.degs <- cbind(ipsc.selected.degs, neur.selected.degs)
 cells <- data.frame(Cell=factor(rep(1:2, each=4), labels = c("IPSC", "Neuron")))
 rownames(cells) <- names(heatmap.degs)
 pheatmap(heatmap.degs, cluster_cols = FALSE,
-         annotation_col = cells, fontsize_row = 7,
-         main="log2(Expression) for a subset of DESeq2 DEGS with log2(FC) >= 2")
+         # Note: placing the 'Log2(FC)' label above the legend is tricky and optional
+         legend_breaks = c(-7.5, -5, -2.5, 0, 2.5, 5, 7.5, 9), 
+         legend_labels = c("-7.5,","-5,", "-2.5,", "0", "2.5", "5", "7.5", "Log2(FC)\n"),
+         annotation_col = cells, fontsize_row = 7, 
+         main="IPSC and Neuron shared DEGS with log2(FC) >= 2")
 ```
-
-
-This second example is more commonly found in publications as this shows the log fold change values for the comparison that was done. The first three columns shown in this heatmap are the log fold changes of the *separate* IPSC trisomic replicates vs the *average* IPSC disomic expression. The 4th column shows the log fold change values for the average IPSC trisomic vs average IPSC disomic samples. Note that column-clustering has been turned off for this type of plot by setting `cluster_cols = FALSE` (all replicates are from the same group, clustering will not add any useful information).
-
-
-```{r lfcHeatmap, echo=FALSE, eval=TRUE, fig.cap="Heatmap showing the Log Fold Changes of all trisomic vs averaged disomic IPSC samples and the average trisomic vs average disomic IPSC samples"}
-# Fold Change
-pheatmap(cbind(replicate.lFC, deseq.results[genes, 'rloglFC']),
-         cluster_cols = FALSE, cex=0.9,
-         labels_col = c(names(deseq.results[genes, ipsc.tri]), 'TrivsDi'),
-         main="Log Fold Change for a subset of DESeq2 DEGS with Fold Change >= 2")
-```
-
 
 A limitation of a heatmap will show itself when more then 100 DEGs are found; this just doesn't fit well in a single figure and causes the clustering and especially the gene names/ labels to be unreadable. It is therefore always adviced to not only filter on the adjusted p-value, but also on the log-FC value to reduce the number of genes shown. Alternatively if the data is properly annotated, instead of showing gene names for each row, showing a GO-term clustering might reveal expression patterns for certain gene groups.
 
