@@ -23,7 +23,7 @@
 <meta name="author" content="Marcel Kempenaar" />
 
 
-<meta name="date" content="2022-03-25" />
+<meta name="date" content="2022-04-27" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -164,13 +164,16 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="1" data-path="chapter-1.html"><a href="chapter-1.html"><i class="fa fa-check"></i><b>1</b> Introduction<span></span></a>
 <ul>
-<li class="chapter" data-level="1.1" data-path="chapter-1.html"><a href="chapter-1.html#course-changes-due-to-covid-restrictions"><i class="fa fa-check"></i><b>1.1</b> Course changes due to COVID restrictions<span></span></a></li>
-<li class="chapter" data-level="1.2" data-path="chapter-1.html"><a href="chapter-1.html#theme-7---analysis-of-gene-expression-project"><i class="fa fa-check"></i><b>1.2</b> Theme 7 - Analysis of Gene Expression Project<span></span></a></li>
-<li class="chapter" data-level="1.3" data-path="chapter-1.html"><a href="chapter-1.html#project-deliverables"><i class="fa fa-check"></i><b>1.3</b> Project Deliverables<span></span></a></li>
-<li class="chapter" data-level="1.4" data-path="chapter-1.html"><a href="chapter-1.html#project-schedule"><i class="fa fa-check"></i><b>1.4</b> Project Schedule<span></span></a></li>
-<li class="chapter" data-level="1.5" data-path="chapter-1.html"><a href="chapter-1.html#grading"><i class="fa fa-check"></i><b>1.5</b> Grading<span></span></a></li>
-<li class="chapter" data-level="1.6" data-path="chapter-1.html"><a href="chapter-1.html#project-proposal"><i class="fa fa-check"></i><b>1.6</b> Project Proposal<span></span></a></li>
-<li class="chapter" data-level="1.7" data-path="chapter-1.html"><a href="chapter-1.html#lab-journal"><i class="fa fa-check"></i><b>1.7</b> <em>Lab Journal</em><span></span></a></li>
+<li class="chapter" data-level="1.1" data-path="chapter-1.html"><a href="chapter-1.html#capstone-project---analysis-of-gene-expression"><i class="fa fa-check"></i><b>1.1</b> Capstone Project - Analysis of Gene Expression<span></span></a></li>
+<li class="chapter" data-level="1.2" data-path="chapter-1.html"><a href="chapter-1.html#project-deliverables"><i class="fa fa-check"></i><b>1.2</b> Project Deliverables<span></span></a></li>
+<li class="chapter" data-level="1.3" data-path="chapter-1.html"><a href="chapter-1.html#project-schedule"><i class="fa fa-check"></i><b>1.3</b> Project Schedule<span></span></a></li>
+<li class="chapter" data-level="1.4" data-path="chapter-1.html"><a href="chapter-1.html#grading"><i class="fa fa-check"></i><b>1.4</b> Grading<span></span></a></li>
+<li class="chapter" data-level="1.5" data-path="chapter-1.html"><a href="chapter-1.html#lab-journal"><i class="fa fa-check"></i><b>1.5</b> <em>Lab Journal</em><span></span></a></li>
+<li class="chapter" data-level="1.6" data-path="chapter-1.html"><a href="chapter-1.html#article"><i class="fa fa-check"></i><b>1.6</b> Article<span></span></a>
+<ul>
+<li class="chapter" data-level="1.6.1" data-path="chapter-1.html"><a href="chapter-1.html#installing-the-article-template"><i class="fa fa-check"></i><b>1.6.1</b> Installing the Article Template<span></span></a></li>
+<li class="chapter" data-level="1.6.2" data-path="chapter-1.html"><a href="chapter-1.html#using-the-template"><i class="fa fa-check"></i><b>1.6.2</b> Using the Template<span></span></a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="chapter-2.html"><a href="chapter-2.html"><i class="fa fa-check"></i><b>2</b> Discovering Data Sets<span></span></a>
 <ul>
@@ -367,7 +370,7 @@ Figure A.2: Finding the supplementary data in a GEO record
 <div id="a1-batch_data_loading" class="section level2 hasAnchor" number="6.2">
 <h2><span class="header-section-number">A.2</span> Batch Loading Expression Data<a href="a1-data_loading.html#a1-batch_data_loading" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>This code example shows how to batch-load multiple files containing expression (count) data for a <em>single</em> sample. The data for this example can be found on GEO with ID <a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE109798">GSE109798</a>. Downloading the data for this experiment from GEO gives us a single <code>.tar</code> file called <code>GSE109798_RAW.tar</code>. Extracting this archive file nets us a folder with the following files:</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="a1-data_loading.html#cb39-1" aria-hidden="true" tabindex="-1"></a>file.names <span class="ot">&lt;-</span> <span class="fu">list.files</span>(<span class="st">&#39;./data/GSE109798_RAW/&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="a1-data_loading.html#cb40-1" aria-hidden="true" tabindex="-1"></a>file.names <span class="ot">&lt;-</span> <span class="fu">list.files</span>(<span class="st">&#39;./data/GSE109798_RAW/&#39;</span>)</span></code></pre></div>
 <table>
 <thead>
 <tr class="header">
@@ -416,19 +419,19 @@ Figure A.2: Finding the supplementary data in a GEO record
 <div id="decompressing" class="section level3 hasAnchor" number="6.2.1">
 <h3><span class="header-section-number">A.2.1</span> Decompressing<a href="a1-data_loading.html#decompressing" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The file extension of all these files is <code>.txt.gz</code> which means that all files are compressed using <code>gzip</code> and need to be unpacked before they can be loaded. The easiest method is using the system <code>gunzip</code> command on all files which can be done from within R by <em>applying</em> the <code>gunzip</code> command using the <code>system</code> function on each file.</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="a1-data_loading.html#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Change directory to where the files are stored</span></span>
-<span id="cb40-2"><a href="a1-data_loading.html#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">&#39;./data/GSE109798_RAW/&#39;</span>)</span>
-<span id="cb40-3"><a href="a1-data_loading.html#cb40-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sapply</span>(file.names, <span class="at">FUN =</span> <span class="cf">function</span>(file.name) {</span>
-<span id="cb40-4"><a href="a1-data_loading.html#cb40-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">system</span>(<span class="fu">paste</span>(<span class="st">&quot;gunzip&quot;</span>, file.name)) </span>
-<span id="cb40-5"><a href="a1-data_loading.html#cb40-5" aria-hidden="true" tabindex="-1"></a>  })</span></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="a1-data_loading.html#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Change directory to where the files are stored</span></span>
+<span id="cb41-2"><a href="a1-data_loading.html#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">&#39;./data/GSE109798_RAW/&#39;</span>)</span>
+<span id="cb41-3"><a href="a1-data_loading.html#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sapply</span>(file.names, <span class="at">FUN =</span> <span class="cf">function</span>(file.name) {</span>
+<span id="cb41-4"><a href="a1-data_loading.html#cb41-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">system</span>(<span class="fu">paste</span>(<span class="st">&quot;gunzip&quot;</span>, file.name)) </span>
+<span id="cb41-5"><a href="a1-data_loading.html#cb41-5" aria-hidden="true" tabindex="-1"></a>  })</span></code></pre></div>
 <p>Now we can update the <code>file.names</code> variable since each file name has changed.</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="a1-data_loading.html#cb41-1" aria-hidden="true" tabindex="-1"></a>file.names <span class="ot">&lt;-</span> <span class="fu">list.files</span>(<span class="st">&#39;./data/GSE109798_RAW/&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="a1-data_loading.html#cb42-1" aria-hidden="true" tabindex="-1"></a>file.names <span class="ot">&lt;-</span> <span class="fu">list.files</span>(<span class="st">&#39;./data/GSE109798_RAW/&#39;</span>)</span></code></pre></div>
 </div>
 <div id="determining-data-format" class="section level3 hasAnchor" number="6.2.2">
 <h3><span class="header-section-number">A.2.2</span> Determining Data Format<a href="a1-data_loading.html#determining-data-format" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Next, we can inspect what the contents are of these files, assuming that they all have the same layout/ column names etc. to decide what we need to use for our analysis.</p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="a1-data_loading.html#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Call the system &#39;head&#39; tool to &#39;peek&#39; inside the file</span></span>
-<span id="cb42-2"><a href="a1-data_loading.html#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="fu">system</span>(<span class="fu">paste0</span>(<span class="st">&quot;head &quot;</span>, <span class="st">&quot;./data/GSE109798_RAW/&quot;</span>, file.names[<span class="dv">1</span>]))</span></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="a1-data_loading.html#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Call the system &#39;head&#39; tool to &#39;peek&#39; inside the file</span></span>
+<span id="cb43-2"><a href="a1-data_loading.html#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="fu">system</span>(<span class="fu">paste0</span>(<span class="st">&quot;head &quot;</span>, <span class="st">&quot;./data/GSE109798_RAW/&quot;</span>, file.names[<span class="dv">1</span>]))</span></code></pre></div>
 <table>
 <colgroup>
 <col width="17%" />
@@ -558,27 +561,27 @@ As mentioned before, we require integer count data for use with packages such as
 <div id="loading-data-1" class="section level3 hasAnchor" number="6.2.3">
 <h3><span class="header-section-number">A.2.3</span> Loading Data<a href="a1-data_loading.html#loading-data-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>From all these columns we want to keep the <em>transcript_id</em> and <em>expected_count</em> columns and ignore the rest (we might be interested in this data later on though). As we need to lead each file separately we can define a function that reads in the data, keeping the columns of interest and returning a dataframe with this data. Note that the first line of each file is used as a header, but check before setting the <code>header</code> argument to <code>TRUE</code>, sometimes the expression data starts at line 1. The file name is then also used to name the column in the dataframe so that we know which column is which sample. This is done by splitting the file name (using <code>strsplit</code>) using the dot (‘<code>.</code>’) keeping the first part (i.e. ‘<code>GSM2970156_HCC1806E224A</code>’) and discarding the second part (‘<code>isoforms.results.txt</code>’). The <code>strsplit</code> function however always returns a list, in this case containing a vector with the 5 splitted elements:</p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="a1-data_loading.html#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="do">## String splitting in R</span></span>
-<span id="cb43-2"><a href="a1-data_loading.html#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="do">## (the fixed = TRUE is required as the dot is a special character, see &#39;?strsplit&#39;)</span></span>
-<span id="cb43-3"><a href="a1-data_loading.html#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="fu">strsplit</span>(<span class="st">&#39;GSM2970155_HCC1806E224B.isoforms.results.txt.gz&#39;</span>, <span class="st">&#39;.&#39;</span>, <span class="at">fixed =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="a1-data_loading.html#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="do">## String splitting in R</span></span>
+<span id="cb44-2"><a href="a1-data_loading.html#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="do">## (the fixed = TRUE is required as the dot is a special character, see &#39;?strsplit&#39;)</span></span>
+<span id="cb44-3"><a href="a1-data_loading.html#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="fu">strsplit</span>(<span class="st">&#39;GSM2970155_HCC1806E224B.isoforms.results.txt.gz&#39;</span>, <span class="st">&#39;.&#39;</span>, <span class="at">fixed =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>## [[1]]
 ## [1] &quot;GSM2970155_HCC1806E224B&quot; &quot;isoforms&quot;               
 ## [3] &quot;results&quot;                 &quot;txt&quot;                    
 ## [5] &quot;gz&quot;</code></pre>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="a1-data_loading.html#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Keeping the sample identifier</span></span>
-<span id="cb45-2"><a href="a1-data_loading.html#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="fu">strsplit</span>(<span class="st">&#39;GSM2970155_HCC1806E224B.isoforms.results.txt.gz&#39;</span>, <span class="st">&#39;.&#39;</span>, <span class="at">fixed =</span> <span class="cn">TRUE</span>)[[<span class="dv">1</span>]][<span class="dv">1</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="a1-data_loading.html#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Keeping the sample identifier</span></span>
+<span id="cb46-2"><a href="a1-data_loading.html#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="fu">strsplit</span>(<span class="st">&#39;GSM2970155_HCC1806E224B.isoforms.results.txt.gz&#39;</span>, <span class="st">&#39;.&#39;</span>, <span class="at">fixed =</span> <span class="cn">TRUE</span>)[[<span class="dv">1</span>]][<span class="dv">1</span>]</span></code></pre></div>
 <pre><code>## [1] &quot;GSM2970155_HCC1806E224B&quot;</code></pre>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="a1-data_loading.html#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Function for reading in files</span></span>
-<span id="cb47-2"><a href="a1-data_loading.html#cb47-2" aria-hidden="true" tabindex="-1"></a>read_sample <span class="ot">&lt;-</span> <span class="cf">function</span>(file.name) {</span>
-<span id="cb47-3"><a href="a1-data_loading.html#cb47-3" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Extract the sample name for naming the column</span></span>
-<span id="cb47-4"><a href="a1-data_loading.html#cb47-4" aria-hidden="true" tabindex="-1"></a>  sample.name <span class="ot">&lt;-</span> <span class="fu">strsplit</span>(file.name, <span class="st">&quot;.&quot;</span>, <span class="at">fixed =</span> <span class="cn">TRUE</span>)[[<span class="dv">1</span>]][<span class="dv">1</span>]</span>
-<span id="cb47-5"><a href="a1-data_loading.html#cb47-5" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Read the data, setting the &#39;transcript_id&#39; as row.names (column 1)</span></span>
-<span id="cb47-6"><a href="a1-data_loading.html#cb47-6" aria-hidden="true" tabindex="-1"></a>  sample <span class="ot">&lt;-</span> <span class="fu">read.table</span>(file.name, <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">sep=</span><span class="st">&quot;</span><span class="sc">\t</span><span class="st">&quot;</span>, <span class="at">row.names =</span> <span class="cn">NULL</span>)</span>
-<span id="cb47-7"><a href="a1-data_loading.html#cb47-7" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Rename the count column</span></span>
-<span id="cb47-8"><a href="a1-data_loading.html#cb47-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">names</span>(sample)[<span class="dv">5</span>] <span class="ot">&lt;-</span> sample.name</span>
-<span id="cb47-9"><a href="a1-data_loading.html#cb47-9" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Return a subset containing the &#39;transcript_id&#39; and sample name columns</span></span>
-<span id="cb47-10"><a href="a1-data_loading.html#cb47-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(sample[<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">5</span>)])</span>
-<span id="cb47-11"><a href="a1-data_loading.html#cb47-11" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="a1-data_loading.html#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Function for reading in files</span></span>
+<span id="cb48-2"><a href="a1-data_loading.html#cb48-2" aria-hidden="true" tabindex="-1"></a>read_sample <span class="ot">&lt;-</span> <span class="cf">function</span>(file.name) {</span>
+<span id="cb48-3"><a href="a1-data_loading.html#cb48-3" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Extract the sample name for naming the column</span></span>
+<span id="cb48-4"><a href="a1-data_loading.html#cb48-4" aria-hidden="true" tabindex="-1"></a>  sample.name <span class="ot">&lt;-</span> <span class="fu">strsplit</span>(file.name, <span class="st">&quot;.&quot;</span>, <span class="at">fixed =</span> <span class="cn">TRUE</span>)[[<span class="dv">1</span>]][<span class="dv">1</span>]</span>
+<span id="cb48-5"><a href="a1-data_loading.html#cb48-5" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Read the data, setting the &#39;transcript_id&#39; as row.names (column 1)</span></span>
+<span id="cb48-6"><a href="a1-data_loading.html#cb48-6" aria-hidden="true" tabindex="-1"></a>  sample <span class="ot">&lt;-</span> <span class="fu">read.table</span>(file.name, <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">sep=</span><span class="st">&quot;</span><span class="sc">\t</span><span class="st">&quot;</span>, <span class="at">row.names =</span> <span class="cn">NULL</span>)</span>
+<span id="cb48-7"><a href="a1-data_loading.html#cb48-7" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Rename the count column</span></span>
+<span id="cb48-8"><a href="a1-data_loading.html#cb48-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">names</span>(sample)[<span class="dv">5</span>] <span class="ot">&lt;-</span> sample.name</span>
+<span id="cb48-9"><a href="a1-data_loading.html#cb48-9" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Return a subset containing the &#39;transcript_id&#39; and sample name columns</span></span>
+<span id="cb48-10"><a href="a1-data_loading.html#cb48-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(sample[<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">5</span>)])</span>
+<span id="cb48-11"><a href="a1-data_loading.html#cb48-11" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p>Applying the <code>read_sample</code> function to all file names gives us a set of data frames that we can merge together using the <code>merge</code> function. We merge the data based on the transcript id defined with the <code>by = 1</code> argument pointing to the first column. We start by reading in just one file which is the ‘base’ dataframe to which we will merge the other files.</p>
 <p>During processing it seemed that this data set is divided into two groups which is also listed on the GEO website for this project:</p>
 <ul>
@@ -586,18 +589,18 @@ As mentioned before, we require integer count data for use with packages such as
 <li>GPL13112 Illumina HiSeq 2000 (Mus musculus)</li>
 </ul>
 <p>where the first 6 files are from human source and the last 6 from the mouse. Therefore, the following code only shows how to read the first 6 samples and merge these into a single dataframe. Repeating this process for the other 6 files would result into another dataframe for those samples.</p>
-<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="a1-data_loading.html#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">&#39;./data/GSE109798_RAW/&#39;</span>)</span>
-<span id="cb48-2"><a href="a1-data_loading.html#cb48-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-3"><a href="a1-data_loading.html#cb48-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Read the FIRST sample</span></span>
-<span id="cb48-4"><a href="a1-data_loading.html#cb48-4" aria-hidden="true" tabindex="-1"></a>dataset <span class="ot">&lt;-</span> <span class="fu">read_sample</span>(file.names[<span class="dv">1</span>])</span>
-<span id="cb48-5"><a href="a1-data_loading.html#cb48-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-6"><a href="a1-data_loading.html#cb48-6" aria-hidden="true" tabindex="-1"></a><span class="do">## Read first sample group (6)</span></span>
-<span id="cb48-7"><a href="a1-data_loading.html#cb48-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (file.name <span class="cf">in</span> file.names[<span class="dv">2</span><span class="sc">:</span><span class="dv">6</span>]) {</span>
-<span id="cb48-8"><a href="a1-data_loading.html#cb48-8" aria-hidden="true" tabindex="-1"></a>  sample <span class="ot">&lt;-</span> <span class="fu">read_sample</span>(file.name)</span>
-<span id="cb48-9"><a href="a1-data_loading.html#cb48-9" aria-hidden="true" tabindex="-1"></a>  dataset <span class="ot">&lt;-</span> <span class="fu">merge</span>(dataset, sample, <span class="at">by =</span> <span class="dv">1</span>)</span>
-<span id="cb48-10"><a href="a1-data_loading.html#cb48-10" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb48-11"><a href="a1-data_loading.html#cb48-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-12"><a href="a1-data_loading.html#cb48-12" aria-hidden="true" tabindex="-1"></a><span class="fu">pander</span>(<span class="fu">head</span>(dataset))</span></code></pre></div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="a1-data_loading.html#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">&#39;./data/GSE109798_RAW/&#39;</span>)</span>
+<span id="cb49-2"><a href="a1-data_loading.html#cb49-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-3"><a href="a1-data_loading.html#cb49-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Read the FIRST sample</span></span>
+<span id="cb49-4"><a href="a1-data_loading.html#cb49-4" aria-hidden="true" tabindex="-1"></a>dataset <span class="ot">&lt;-</span> <span class="fu">read_sample</span>(file.names[<span class="dv">1</span>])</span>
+<span id="cb49-5"><a href="a1-data_loading.html#cb49-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-6"><a href="a1-data_loading.html#cb49-6" aria-hidden="true" tabindex="-1"></a><span class="do">## Read first sample group (6)</span></span>
+<span id="cb49-7"><a href="a1-data_loading.html#cb49-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (file.name <span class="cf">in</span> file.names[<span class="dv">2</span><span class="sc">:</span><span class="dv">6</span>]) {</span>
+<span id="cb49-8"><a href="a1-data_loading.html#cb49-8" aria-hidden="true" tabindex="-1"></a>  sample <span class="ot">&lt;-</span> <span class="fu">read_sample</span>(file.name)</span>
+<span id="cb49-9"><a href="a1-data_loading.html#cb49-9" aria-hidden="true" tabindex="-1"></a>  dataset <span class="ot">&lt;-</span> <span class="fu">merge</span>(dataset, sample, <span class="at">by =</span> <span class="dv">1</span>)</span>
+<span id="cb49-10"><a href="a1-data_loading.html#cb49-10" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb49-11"><a href="a1-data_loading.html#cb49-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-12"><a href="a1-data_loading.html#cb49-12" aria-hidden="true" tabindex="-1"></a><span class="fu">pander</span>(<span class="fu">head</span>(dataset))</span></code></pre></div>
 <table>
 <colgroup>
 <col width="20%" />

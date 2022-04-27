@@ -23,7 +23,7 @@
 <meta name="author" content="Marcel Kempenaar" />
 
 
-<meta name="date" content="2022-03-25" />
+<meta name="date" content="2022-04-27" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -164,13 +164,16 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="1" data-path="chapter-1.html"><a href="chapter-1.html"><i class="fa fa-check"></i><b>1</b> Introduction<span></span></a>
 <ul>
-<li class="chapter" data-level="1.1" data-path="chapter-1.html"><a href="chapter-1.html#course-changes-due-to-covid-restrictions"><i class="fa fa-check"></i><b>1.1</b> Course changes due to COVID restrictions<span></span></a></li>
-<li class="chapter" data-level="1.2" data-path="chapter-1.html"><a href="chapter-1.html#theme-7---analysis-of-gene-expression-project"><i class="fa fa-check"></i><b>1.2</b> Theme 7 - Analysis of Gene Expression Project<span></span></a></li>
-<li class="chapter" data-level="1.3" data-path="chapter-1.html"><a href="chapter-1.html#project-deliverables"><i class="fa fa-check"></i><b>1.3</b> Project Deliverables<span></span></a></li>
-<li class="chapter" data-level="1.4" data-path="chapter-1.html"><a href="chapter-1.html#project-schedule"><i class="fa fa-check"></i><b>1.4</b> Project Schedule<span></span></a></li>
-<li class="chapter" data-level="1.5" data-path="chapter-1.html"><a href="chapter-1.html#grading"><i class="fa fa-check"></i><b>1.5</b> Grading<span></span></a></li>
-<li class="chapter" data-level="1.6" data-path="chapter-1.html"><a href="chapter-1.html#project-proposal"><i class="fa fa-check"></i><b>1.6</b> Project Proposal<span></span></a></li>
-<li class="chapter" data-level="1.7" data-path="chapter-1.html"><a href="chapter-1.html#lab-journal"><i class="fa fa-check"></i><b>1.7</b> <em>Lab Journal</em><span></span></a></li>
+<li class="chapter" data-level="1.1" data-path="chapter-1.html"><a href="chapter-1.html#capstone-project---analysis-of-gene-expression"><i class="fa fa-check"></i><b>1.1</b> Capstone Project - Analysis of Gene Expression<span></span></a></li>
+<li class="chapter" data-level="1.2" data-path="chapter-1.html"><a href="chapter-1.html#project-deliverables"><i class="fa fa-check"></i><b>1.2</b> Project Deliverables<span></span></a></li>
+<li class="chapter" data-level="1.3" data-path="chapter-1.html"><a href="chapter-1.html#project-schedule"><i class="fa fa-check"></i><b>1.3</b> Project Schedule<span></span></a></li>
+<li class="chapter" data-level="1.4" data-path="chapter-1.html"><a href="chapter-1.html#grading"><i class="fa fa-check"></i><b>1.4</b> Grading<span></span></a></li>
+<li class="chapter" data-level="1.5" data-path="chapter-1.html"><a href="chapter-1.html#lab-journal"><i class="fa fa-check"></i><b>1.5</b> <em>Lab Journal</em><span></span></a></li>
+<li class="chapter" data-level="1.6" data-path="chapter-1.html"><a href="chapter-1.html#article"><i class="fa fa-check"></i><b>1.6</b> Article<span></span></a>
+<ul>
+<li class="chapter" data-level="1.6.1" data-path="chapter-1.html"><a href="chapter-1.html#installing-the-article-template"><i class="fa fa-check"></i><b>1.6.1</b> Installing the Article Template<span></span></a></li>
+<li class="chapter" data-level="1.6.2" data-path="chapter-1.html"><a href="chapter-1.html#using-the-template"><i class="fa fa-check"></i><b>1.6.2</b> Using the Template<span></span></a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="chapter-2.html"><a href="chapter-2.html"><i class="fa fa-check"></i><b>2</b> Discovering Data Sets<span></span></a>
 <ul>
@@ -266,11 +269,11 @@ div.csl-indent {
 <div id="download-geo" class="section level2 hasAnchor" number="7.1">
 <h2><span class="header-section-number">B.1</span> Downloading annotation data from GEO<a href="a2-annotation.html#download-geo" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Given the <code>GSE****</code> id of your experiment you can download any available (annotation)data from GEO using the <code>GEOquery</code> library. For the example experiment used previously, the following code downloads two files; a <code>series_matrix.txt.gz</code> file that is also available for download from the NCBI GEO website. Note the <code>destdir</code> argument for storing it in a known location instead of the <code>/tmp</code> folder for later use.</p>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="a2-annotation.html#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GEOquery)</span>
-<span id="cb49-2"><a href="a2-annotation.html#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="fu">getGEO</span>(<span class="at">GEO =</span> <span class="st">&#39;GSE101942&#39;</span>, <span class="at">destdir =</span> <span class="st">&quot;./data/&quot;</span>)</span></code></pre></div>
-<p>Once downloaded, you can load the data using:</p>
 <div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="a2-annotation.html#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GEOquery)</span>
-<span id="cb50-2"><a href="a2-annotation.html#cb50-2" aria-hidden="true" tabindex="-1"></a>gse <span class="ot">&lt;-</span> <span class="fu">getGEO</span>(<span class="at">filename =</span> <span class="st">&#39;./data/GSE101942_series_matrix.txt.gz&#39;</span>)</span></code></pre></div>
+<span id="cb50-2"><a href="a2-annotation.html#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="fu">getGEO</span>(<span class="at">GEO =</span> <span class="st">&#39;GSE101942&#39;</span>, <span class="at">destdir =</span> <span class="st">&quot;./data/&quot;</span>)</span></code></pre></div>
+<p>Once downloaded, you can load the data using:</p>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="a2-annotation.html#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GEOquery)</span>
+<span id="cb51-2"><a href="a2-annotation.html#cb51-2" aria-hidden="true" tabindex="-1"></a>gse <span class="ot">&lt;-</span> <span class="fu">getGEO</span>(<span class="at">filename =</span> <span class="st">&#39;./data/GSE101942_series_matrix.txt.gz&#39;</span>)</span></code></pre></div>
 <p>The <code>gse</code> object <em>may</em> contain useful information about both samples and genes. Unfortunately for this example data set there is only information available regarding the samples which we can access in the <code>phenoData</code> <strong>slot</strong>. Slots in R objects are a method of storing multiple data objects into a single R object, in this case this object is called an <code>ExpressionSet</code> (see <code>?ExpressionSet</code> for a description of its contents and structure). For storing information about an experiment this is very handy; you can store a data frame with the actual expression data, a list containing laboratory information, a chunk of text with an abstract, etc. all in a single object.</p>
 <p>The most common data sets found in an <code>ExpressionSet</code> object:
 * <code>@assayData</code>: the actual expression data. Most common for microarray experiments and (very) rare for RNA-seq experiments
@@ -278,8 +281,8 @@ div.csl-indent {
 * <code>@featureData</code>: a data frame holding feature (=gene) information, slightly rare for RNA-seq data sets
 * <code>@experimentData</code>: information about the lab which performed the experiment</p>
 <p>You already know how to access a column in a data frame using the <code>$</code> notation, and accessing a complete data frame in the <code>gse</code> object is done using the <code>@</code> symbol:</p>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="a2-annotation.html#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Access a data frame containing phenotype information</span></span>
-<span id="cb51-2"><a href="a2-annotation.html#cb51-2" aria-hidden="true" tabindex="-1"></a>gse<span class="sc">@</span>phenoData<span class="sc">@</span>data</span></code></pre></div>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="a2-annotation.html#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Access a data frame containing phenotype information</span></span>
+<span id="cb52-2"><a href="a2-annotation.html#cb52-2" aria-hidden="true" tabindex="-1"></a>gse<span class="sc">@</span>phenoData<span class="sc">@</span>data</span></code></pre></div>
 <p>Here you see that each sample is described using its sample identifier (<code>GSM****</code>), information about the the sample group (<code>title</code> column) and a number of characteristics. The actual information included depends on your data set.</p>
 <table>
 <colgroup>
@@ -381,10 +384,10 @@ pluripotent stem cells (iPSCs)</td>
 </tbody>
 </table>
 <p>If your data set has properly annotated gene information, this should be accessible in the <code>@featureData</code> slot. For instance, the data set <a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE20489"><code>GSE20489</code></a> does have this annotation available. Once loaded, we see that the following annotation columns are present for <em>each gene</em> in the <code>featureData</code> slot (following is a small subset, in total there can be well over 20 columns of information per gene). Also, the <em>metadata</em> listing shows for how many features (=genes, 54675) and samples (54) the expression data is present (in the <code>@assayData</code> slot):</p>
-<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="a2-annotation.html#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This gets a list with a single &#39;ExpressionSet&#39; object</span></span>
-<span id="cb52-2"><a href="a2-annotation.html#cb52-2" aria-hidden="true" tabindex="-1"></a>GSE20489 <span class="ot">&lt;-</span> <span class="fu">getGEO</span>(<span class="at">GEO =</span> <span class="st">&quot;GSE20489&quot;</span>, <span class="at">destdir =</span> <span class="st">&#39;./data&#39;</span>)</span>
-<span id="cb52-3"><a href="a2-annotation.html#cb52-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Print some metadata of the featureData slot</span></span>
-<span id="cb52-4"><a href="a2-annotation.html#cb52-4" aria-hidden="true" tabindex="-1"></a>GSE20489[[<span class="dv">1</span>]]</span></code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="a2-annotation.html#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This gets a list with a single &#39;ExpressionSet&#39; object</span></span>
+<span id="cb53-2"><a href="a2-annotation.html#cb53-2" aria-hidden="true" tabindex="-1"></a>GSE20489 <span class="ot">&lt;-</span> <span class="fu">getGEO</span>(<span class="at">GEO =</span> <span class="st">&quot;GSE20489&quot;</span>, <span class="at">destdir =</span> <span class="st">&#39;./data&#39;</span>)</span>
+<span id="cb53-3"><a href="a2-annotation.html#cb53-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Print some metadata of the featureData slot</span></span>
+<span id="cb53-4"><a href="a2-annotation.html#cb53-4" aria-hidden="true" tabindex="-1"></a>GSE20489[[<span class="dv">1</span>]]</span></code></pre></div>
 <pre><code>## ExpressionSet (storageMode: lockedEnvironment)
 ## assayData: 54675 features, 54 samples 
 ##   element names: exprs 
@@ -509,18 +512,18 @@ protein modification p…</td>
 <div id="annotationDBI" class="section level3 hasAnchor" number="7.2.1">
 <h3><span class="header-section-number">B.2.1</span> Using <code>AnnotationDBI</code><a href="a2-annotation.html#annotationDBI" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The <code>AnnotationDbi</code> offers data sets for many organisms in the form of installable libraries and depending on your experiment you need to find the proper library. The example experiment contains samples of the house mouse (Mus musculus) and therefore we select its data set.</p>
-<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="a2-annotation.html#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the AnnotationDbi interface library</span></span>
-<span id="cb54-2"><a href="a2-annotation.html#cb54-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(AnnotationDbi)</span>
-<span id="cb54-3"><a href="a2-annotation.html#cb54-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the Bioconductor installation library (contains &#39;biocLite()&#39;)</span></span>
-<span id="cb54-4"><a href="a2-annotation.html#cb54-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(BiocInstaller)</span>
-<span id="cb54-5"><a href="a2-annotation.html#cb54-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-6"><a href="a2-annotation.html#cb54-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Install and load the organism specific gene database</span></span>
-<span id="cb54-7"><a href="a2-annotation.html#cb54-7" aria-hidden="true" tabindex="-1"></a><span class="co"># &#39;org&#39; for Organism</span></span>
-<span id="cb54-8"><a href="a2-annotation.html#cb54-8" aria-hidden="true" tabindex="-1"></a><span class="co"># &#39;Hs&#39; for Homo sapiens</span></span>
-<span id="cb54-9"><a href="a2-annotation.html#cb54-9" aria-hidden="true" tabindex="-1"></a><span class="co"># &#39;eg&#39; for Entrez Gene IDs</span></span>
-<span id="cb54-10"><a href="a2-annotation.html#cb54-10" aria-hidden="true" tabindex="-1"></a><span class="co"># (try to load (using the library function) first before installing, it might already be present)</span></span>
-<span id="cb54-11"><a href="a2-annotation.html#cb54-11" aria-hidden="true" tabindex="-1"></a><span class="fu">biocLite</span>(<span class="st">&#39;org.Hs.eg.db&#39;</span>)</span>
-<span id="cb54-12"><a href="a2-annotation.html#cb54-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(org.Hs.eg.db)</span></code></pre></div>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="a2-annotation.html#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the AnnotationDbi interface library</span></span>
+<span id="cb55-2"><a href="a2-annotation.html#cb55-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(AnnotationDbi)</span>
+<span id="cb55-3"><a href="a2-annotation.html#cb55-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the Bioconductor installation library (contains &#39;biocLite()&#39;)</span></span>
+<span id="cb55-4"><a href="a2-annotation.html#cb55-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(BiocInstaller)</span>
+<span id="cb55-5"><a href="a2-annotation.html#cb55-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-6"><a href="a2-annotation.html#cb55-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Install and load the organism specific gene database</span></span>
+<span id="cb55-7"><a href="a2-annotation.html#cb55-7" aria-hidden="true" tabindex="-1"></a><span class="co"># &#39;org&#39; for Organism</span></span>
+<span id="cb55-8"><a href="a2-annotation.html#cb55-8" aria-hidden="true" tabindex="-1"></a><span class="co"># &#39;Hs&#39; for Homo sapiens</span></span>
+<span id="cb55-9"><a href="a2-annotation.html#cb55-9" aria-hidden="true" tabindex="-1"></a><span class="co"># &#39;eg&#39; for Entrez Gene IDs</span></span>
+<span id="cb55-10"><a href="a2-annotation.html#cb55-10" aria-hidden="true" tabindex="-1"></a><span class="co"># (try to load (using the library function) first before installing, it might already be present)</span></span>
+<span id="cb55-11"><a href="a2-annotation.html#cb55-11" aria-hidden="true" tabindex="-1"></a><span class="fu">biocLite</span>(<span class="st">&#39;org.Hs.eg.db&#39;</span>)</span>
+<span id="cb55-12"><a href="a2-annotation.html#cb55-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(org.Hs.eg.db)</span></code></pre></div>
 <p>The following information types are available in this database (use the <code>columns</code> function to inspect).</p>
 <table style="width:88%;">
 <colgroup>
@@ -586,10 +589,10 @@ protein modification p…</td>
 </table>
 <p>Available fields in the database</p>
 <p>The table below shows the data available for all information types given a randomly chosen <a href="http://www.ncbi.nlm.nih.gov/gene/1080"><em>EntrezID</em> of ‘1080’</a>. Note that the table has been split to show the 24 data types with their values.</p>
-<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="a2-annotation.html#cb55-1" aria-hidden="true" tabindex="-1"></a>.Hs.data.table <span class="ot">&lt;-</span> <span class="fu">cbind</span>(.Hs.data[<span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>,], .Hs.data[<span class="dv">13</span><span class="sc">:</span><span class="dv">24</span>,])</span>
-<span id="cb55-2"><a href="a2-annotation.html#cb55-2" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(.Hs.data.table) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&#39;Data Type&#39;</span>, <span class="st">&#39;Example Value&#39;</span>,</span>
-<span id="cb55-3"><a href="a2-annotation.html#cb55-3" aria-hidden="true" tabindex="-1"></a>                              <span class="st">&#39;Data Type&#39;</span>, <span class="st">&#39;Example Value&#39;</span>)</span>
-<span id="cb55-4"><a href="a2-annotation.html#cb55-4" aria-hidden="true" tabindex="-1"></a><span class="fu">pander</span>(.Hs.data.table, <span class="at">caption=</span><span class="st">&quot;Example values for each field in &#39;org.Hs.eg.db&#39;&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="a2-annotation.html#cb56-1" aria-hidden="true" tabindex="-1"></a>.Hs.data.table <span class="ot">&lt;-</span> <span class="fu">cbind</span>(.Hs.data[<span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>,], .Hs.data[<span class="dv">13</span><span class="sc">:</span><span class="dv">24</span>,])</span>
+<span id="cb56-2"><a href="a2-annotation.html#cb56-2" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(.Hs.data.table) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&#39;Data Type&#39;</span>, <span class="st">&#39;Example Value&#39;</span>,</span>
+<span id="cb56-3"><a href="a2-annotation.html#cb56-3" aria-hidden="true" tabindex="-1"></a>                              <span class="st">&#39;Data Type&#39;</span>, <span class="st">&#39;Example Value&#39;</span>)</span>
+<span id="cb56-4"><a href="a2-annotation.html#cb56-4" aria-hidden="true" tabindex="-1"></a><span class="fu">pander</span>(.Hs.data.table, <span class="at">caption=</span><span class="st">&quot;Example values for each field in &#39;org.Hs.eg.db&#39;&quot;</span>)</span></code></pre></div>
 <table>
 <colgroup>
 <col width="19%" />
@@ -691,26 +694,26 @@ regulator</td>
 <li><strong><code>multiVals</code></strong>: a number of columns contain more then one entry for a single gene, in that case we only want to store the first one.</li>
 </ul>
 <p>The output of the <code>mapIds</code> function is a single character vector that we can add to our data frame containing the DEGs (in this case the DEGs for the IPSC trisomic vs disomic comparison containing 828 genes stored in the <code>ipsc.tri.vs.di</code> data frame).</p>
-<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="a2-annotation.html#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Retrieve the ENSEMBL gene ID, e.g. &#39;ENSG00000001626&#39;</span></span>
-<span id="cb56-2"><a href="a2-annotation.html#cb56-2" aria-hidden="true" tabindex="-1"></a>ipsc.tri.vs.di<span class="sc">$</span>Ensembl <span class="ot">&lt;-</span> <span class="fu">mapIds</span>(<span class="at">x =</span> org.Hs.eg.db,</span>
-<span id="cb56-3"><a href="a2-annotation.html#cb56-3" aria-hidden="true" tabindex="-1"></a>                           <span class="at">keys=</span><span class="fu">row.names</span>(ipsc.tri.vs.di),</span>
-<span id="cb56-4"><a href="a2-annotation.html#cb56-4" aria-hidden="true" tabindex="-1"></a>                           <span class="at">column=</span><span class="st">&quot;ENSEMBL&quot;</span>,</span>
-<span id="cb56-5"><a href="a2-annotation.html#cb56-5" aria-hidden="true" tabindex="-1"></a>                           <span class="at">keytype=</span><span class="st">&quot;SYMBOL&quot;</span>,</span>
-<span id="cb56-6"><a href="a2-annotation.html#cb56-6" aria-hidden="true" tabindex="-1"></a>                           <span class="at">multiVals=</span><span class="st">&quot;first&quot;</span>)</span>
-<span id="cb56-7"><a href="a2-annotation.html#cb56-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-8"><a href="a2-annotation.html#cb56-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Retrieve the ENTREZ gene ID, e.g. &#39;12323&#39;</span></span>
-<span id="cb56-9"><a href="a2-annotation.html#cb56-9" aria-hidden="true" tabindex="-1"></a>ipsc.tri.vs.di<span class="sc">$</span>EntrezID <span class="ot">&lt;-</span> <span class="fu">mapIds</span>(<span class="at">x =</span> org.Hs.eg.db,</span>
-<span id="cb56-10"><a href="a2-annotation.html#cb56-10" aria-hidden="true" tabindex="-1"></a>                            <span class="at">keys=</span><span class="fu">row.names</span>(ipsc.tri.vs.di),</span>
-<span id="cb56-11"><a href="a2-annotation.html#cb56-11" aria-hidden="true" tabindex="-1"></a>                            <span class="at">column=</span><span class="st">&quot;ENTREZID&quot;</span>,</span>
-<span id="cb56-12"><a href="a2-annotation.html#cb56-12" aria-hidden="true" tabindex="-1"></a>                            <span class="at">keytype=</span><span class="st">&quot;SYMBOL&quot;</span>,</span>
-<span id="cb56-13"><a href="a2-annotation.html#cb56-13" aria-hidden="true" tabindex="-1"></a>                            <span class="at">multiVals=</span><span class="st">&quot;first&quot;</span>)</span>
-<span id="cb56-14"><a href="a2-annotation.html#cb56-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-15"><a href="a2-annotation.html#cb56-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Retrieve the KEGG enzyme code, e.g. 2.7.11.17</span></span>
-<span id="cb56-16"><a href="a2-annotation.html#cb56-16" aria-hidden="true" tabindex="-1"></a>ipsc.tri.vs.di<span class="sc">$</span>Enzyme <span class="ot">&lt;-</span> <span class="fu">mapIds</span>(<span class="at">x =</span> org.Hs.eg.db,</span>
-<span id="cb56-17"><a href="a2-annotation.html#cb56-17" aria-hidden="true" tabindex="-1"></a>                           <span class="at">keys=</span><span class="fu">row.names</span>(ipsc.tri.vs.di),</span>
-<span id="cb56-18"><a href="a2-annotation.html#cb56-18" aria-hidden="true" tabindex="-1"></a>                           <span class="at">column=</span><span class="st">&quot;ENZYME&quot;</span>,</span>
-<span id="cb56-19"><a href="a2-annotation.html#cb56-19" aria-hidden="true" tabindex="-1"></a>                           <span class="at">keytype=</span><span class="st">&quot;SYMBOL&quot;</span>,</span>
-<span id="cb56-20"><a href="a2-annotation.html#cb56-20" aria-hidden="true" tabindex="-1"></a>                           <span class="at">multiVals=</span><span class="st">&quot;first&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="a2-annotation.html#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Retrieve the ENSEMBL gene ID, e.g. &#39;ENSG00000001626&#39;</span></span>
+<span id="cb57-2"><a href="a2-annotation.html#cb57-2" aria-hidden="true" tabindex="-1"></a>ipsc.tri.vs.di<span class="sc">$</span>Ensembl <span class="ot">&lt;-</span> <span class="fu">mapIds</span>(<span class="at">x =</span> org.Hs.eg.db,</span>
+<span id="cb57-3"><a href="a2-annotation.html#cb57-3" aria-hidden="true" tabindex="-1"></a>                           <span class="at">keys=</span><span class="fu">row.names</span>(ipsc.tri.vs.di),</span>
+<span id="cb57-4"><a href="a2-annotation.html#cb57-4" aria-hidden="true" tabindex="-1"></a>                           <span class="at">column=</span><span class="st">&quot;ENSEMBL&quot;</span>,</span>
+<span id="cb57-5"><a href="a2-annotation.html#cb57-5" aria-hidden="true" tabindex="-1"></a>                           <span class="at">keytype=</span><span class="st">&quot;SYMBOL&quot;</span>,</span>
+<span id="cb57-6"><a href="a2-annotation.html#cb57-6" aria-hidden="true" tabindex="-1"></a>                           <span class="at">multiVals=</span><span class="st">&quot;first&quot;</span>)</span>
+<span id="cb57-7"><a href="a2-annotation.html#cb57-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-8"><a href="a2-annotation.html#cb57-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Retrieve the ENTREZ gene ID, e.g. &#39;12323&#39;</span></span>
+<span id="cb57-9"><a href="a2-annotation.html#cb57-9" aria-hidden="true" tabindex="-1"></a>ipsc.tri.vs.di<span class="sc">$</span>EntrezID <span class="ot">&lt;-</span> <span class="fu">mapIds</span>(<span class="at">x =</span> org.Hs.eg.db,</span>
+<span id="cb57-10"><a href="a2-annotation.html#cb57-10" aria-hidden="true" tabindex="-1"></a>                            <span class="at">keys=</span><span class="fu">row.names</span>(ipsc.tri.vs.di),</span>
+<span id="cb57-11"><a href="a2-annotation.html#cb57-11" aria-hidden="true" tabindex="-1"></a>                            <span class="at">column=</span><span class="st">&quot;ENTREZID&quot;</span>,</span>
+<span id="cb57-12"><a href="a2-annotation.html#cb57-12" aria-hidden="true" tabindex="-1"></a>                            <span class="at">keytype=</span><span class="st">&quot;SYMBOL&quot;</span>,</span>
+<span id="cb57-13"><a href="a2-annotation.html#cb57-13" aria-hidden="true" tabindex="-1"></a>                            <span class="at">multiVals=</span><span class="st">&quot;first&quot;</span>)</span>
+<span id="cb57-14"><a href="a2-annotation.html#cb57-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-15"><a href="a2-annotation.html#cb57-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Retrieve the KEGG enzyme code, e.g. 2.7.11.17</span></span>
+<span id="cb57-16"><a href="a2-annotation.html#cb57-16" aria-hidden="true" tabindex="-1"></a>ipsc.tri.vs.di<span class="sc">$</span>Enzyme <span class="ot">&lt;-</span> <span class="fu">mapIds</span>(<span class="at">x =</span> org.Hs.eg.db,</span>
+<span id="cb57-17"><a href="a2-annotation.html#cb57-17" aria-hidden="true" tabindex="-1"></a>                           <span class="at">keys=</span><span class="fu">row.names</span>(ipsc.tri.vs.di),</span>
+<span id="cb57-18"><a href="a2-annotation.html#cb57-18" aria-hidden="true" tabindex="-1"></a>                           <span class="at">column=</span><span class="st">&quot;ENZYME&quot;</span>,</span>
+<span id="cb57-19"><a href="a2-annotation.html#cb57-19" aria-hidden="true" tabindex="-1"></a>                           <span class="at">keytype=</span><span class="st">&quot;SYMBOL&quot;</span>,</span>
+<span id="cb57-20"><a href="a2-annotation.html#cb57-20" aria-hidden="true" tabindex="-1"></a>                           <span class="at">multiVals=</span><span class="st">&quot;first&quot;</span>)</span></code></pre></div>
 <p>Unfortunately, not all organisms offer access to such information nor is the information always complete. For instance, the following table shows the number of available records for the Ensembl, Entrez en KEGG IDs downloaded:</p>
 <table style="width:61%;">
 <colgroup>
@@ -754,11 +757,11 @@ regulator</td>
 <p>The text above mentiones <em>species</em>, <em>attributes</em> and <em>filters</em>, and we need to combine these elements to query the biomart databases for our annotation. The following code ‘chunks’ show possible values for these elements and how to gather and store the relevant data.</p>
 <p>The <code>biomaRt</code> library interfaces with the <a href="http://www.biomart.org">biomart.org</a> online database. Sometimes the biomart website (which offers a browsable database) is down due to maintenance, but its many mirrors can still be used, for instance at <a href="http://www.ensembl.org/biomart/martview/fc683a66d09fd1f42be754bcd90ba7da">Ensembl</a>.</p>
 <p>You are required to explore a number of objects and the given example code is most likely not suitable for your data/ organism. The project is well documented on the <a href="https://bioconductor.org/packages/release/bioc/html/biomaRt.html">Bioconductor biomaRt</a> website that links to the <a href="https://bioconductor.org/packages/release/bioc/vignettes/biomaRt/inst/doc/biomaRt.html">biomaRt users guide</a>.</p>
-<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="a2-annotation.html#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the library</span></span>
-<span id="cb57-2"><a href="a2-annotation.html#cb57-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(biomaRt)</span>
-<span id="cb57-3"><a href="a2-annotation.html#cb57-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb57-4"><a href="a2-annotation.html#cb57-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Use an alternative database server as the regular one sometimes has issues..</span></span>
-<span id="cb57-5"><a href="a2-annotation.html#cb57-5" aria-hidden="true" tabindex="-1"></a>ensembl<span class="ot">=</span><span class="fu">useMart</span>(<span class="st">&quot;ENSEMBL_MART_ENSEMBL&quot;</span>, <span class="at">host=</span><span class="st">&quot;https://www.ensembl.org&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="a2-annotation.html#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the library</span></span>
+<span id="cb58-2"><a href="a2-annotation.html#cb58-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(biomaRt)</span>
+<span id="cb58-3"><a href="a2-annotation.html#cb58-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-4"><a href="a2-annotation.html#cb58-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Use an alternative database server as the regular one sometimes has issues..</span></span>
+<span id="cb58-5"><a href="a2-annotation.html#cb58-5" aria-hidden="true" tabindex="-1"></a>ensembl<span class="ot">=</span><span class="fu">useMart</span>(<span class="st">&quot;ENSEMBL_MART_ENSEMBL&quot;</span>, <span class="at">host=</span><span class="st">&quot;https://www.ensembl.org&quot;</span>)</span></code></pre></div>
 <table style="width:67%;">
 <colgroup>
 <col width="31%" />
@@ -790,13 +793,13 @@ regulator</td>
 </tbody>
 </table>
 <p>Available databases in the Ensembl biomaRt</p>
-<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="a2-annotation.html#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Select the &#39;ensembl&#39; database</span></span>
-<span id="cb58-2"><a href="a2-annotation.html#cb58-2" aria-hidden="true" tabindex="-1"></a>ensembl <span class="ot">&lt;-</span> <span class="fu">useMart</span>(<span class="st">&quot;ensembl&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="a2-annotation.html#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Select the &#39;ensembl&#39; database</span></span>
+<span id="cb59-2"><a href="a2-annotation.html#cb59-2" aria-hidden="true" tabindex="-1"></a>ensembl <span class="ot">&lt;-</span> <span class="fu">useMart</span>(<span class="st">&quot;ensembl&quot;</span>)</span></code></pre></div>
 <p>Using the <code>listDatasets</code> function you can get a full list of available datasets. Store this list in an R object and ‘browse’ this object in RStudio to see if your organism is included. Copy the name of the dataset, this is the <em>species</em> element we will use.</p>
-<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="a2-annotation.html#cb59-1" aria-hidden="true" tabindex="-1"></a>mart.datasets <span class="ot">&lt;-</span> <span class="fu">listDatasets</span>(ensembl)</span>
-<span id="cb59-2"><a href="a2-annotation.html#cb59-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb59-3"><a href="a2-annotation.html#cb59-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Select the correct dataset, for the example data we select the &#39;hsapiens_gene_ensembl&#39; </span></span>
-<span id="cb59-4"><a href="a2-annotation.html#cb59-4" aria-hidden="true" tabindex="-1"></a>ensembl <span class="ot">&lt;-</span> <span class="fu">useDataset</span>(<span class="st">&#39;hsapiens_gene_ensembl&#39;</span>, <span class="at">mart =</span> ensembl)</span></code></pre></div>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="a2-annotation.html#cb60-1" aria-hidden="true" tabindex="-1"></a>mart.datasets <span class="ot">&lt;-</span> <span class="fu">listDatasets</span>(ensembl)</span>
+<span id="cb60-2"><a href="a2-annotation.html#cb60-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-3"><a href="a2-annotation.html#cb60-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Select the correct dataset, for the example data we select the &#39;hsapiens_gene_ensembl&#39; </span></span>
+<span id="cb60-4"><a href="a2-annotation.html#cb60-4" aria-hidden="true" tabindex="-1"></a>ensembl <span class="ot">&lt;-</span> <span class="fu">useDataset</span>(<span class="st">&#39;hsapiens_gene_ensembl&#39;</span>, <span class="at">mart =</span> ensembl)</span></code></pre></div>
 <table>
 <colgroup>
 <col width="39%" />
@@ -851,7 +854,7 @@ regulator</td>
 <p>Subset of the 214 datasets available</p>
 <p>Next is deciding on a filter. For this we can use the <code>listFilters</code> function on the <code>ensembl</code> object, storing the full list of filters. Here too it is wise to view this in RStudio to find the filter to use.</p>
 <p>The filter specifies <em>what</em> you will use to search on. For instance, the <code>AnnotationDbi</code> queries above gave us <code>Ensembl</code> gene ID’s and we could use those with the <code>ensembl_gene_id</code> filter. When viewing the list of filters in RStudio you can use the search text-box in the top-right of the view, for example with <code>ensembl</code> to look for filters to use with this type of identifier.</p>
-<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="a2-annotation.html#cb60-1" aria-hidden="true" tabindex="-1"></a>filters <span class="ot">&lt;-</span> <span class="fu">listFilters</span>(ensembl)</span></code></pre></div>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="a2-annotation.html#cb61-1" aria-hidden="true" tabindex="-1"></a>filters <span class="ot">&lt;-</span> <span class="fu">listFilters</span>(ensembl)</span></code></pre></div>
 <table style="width:86%;">
 <colgroup>
 <col width="40%" />
@@ -937,7 +940,7 @@ Archive ID(s)</td>
 </table>
 <p>Subset of the 439 available filters</p>
 <p>Finally we get to the point to determine what data we would like to get from the database. These are the <code>attributes</code> which we can get with the <code>listAttributes</code> function on the <code>ensembl</code> object. Again - and especially with the attributes since there are often &gt;1000 of selectable options - we store the attributes and view them in RStudio to look for data that we want.</p>
-<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="a2-annotation.html#cb61-1" aria-hidden="true" tabindex="-1"></a>attributes <span class="ot">&lt;-</span> <span class="fu">listAttributes</span>(ensembl)</span></code></pre></div>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="a2-annotation.html#cb62-1" aria-hidden="true" tabindex="-1"></a>attributes <span class="ot">&lt;-</span> <span class="fu">listAttributes</span>(ensembl)</span></code></pre></div>
 <table>
 <colgroup>
 <col width="40%" />
@@ -1036,20 +1039,20 @@ Archive ID(s)</td>
 </table>
 <p>Subset of the 3143 available attributes</p>
 <p>If we want to have the gene chromosome, start- and end-position as well as its description (note, just as an example, there is other, more interesting information available too!) we combine this in a character vector (<code>attrs.get</code>, see below). There is one <em>caveat</em> though, the <em>order</em> in which you get back the results are <strong>not</strong> the same as the input order! This means that we cannot simple combine the data with our original data set but we need to <strong>merge</strong> it together. However, to be able to merge the data we need to know which record belongs to which gene and therefore we add our selected <code>filter</code> (in our case the <code>ensembl_gene_id</code>) to the list of attributes to get. Then, when we get the <code>results dataframe</code> we can use the <code>merge</code> function in R to combine the gene information with the actual data:</p>
-<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="a2-annotation.html#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">merge</span>(<span class="at">x =</span> ipsc.tri.vs.di, <span class="at">y =</span> results, <span class="at">by.x =</span> <span class="st">&#39;Ensembl&#39;</span>, <span class="at">by.y =</span> <span class="st">&#39;ensembl_gene_id&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="a2-annotation.html#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="fu">merge</span>(<span class="at">x =</span> ipsc.tri.vs.di, <span class="at">y =</span> results, <span class="at">by.x =</span> <span class="st">&#39;Ensembl&#39;</span>, <span class="at">by.y =</span> <span class="st">&#39;ensembl_gene_id&#39;</span>)</span></code></pre></div>
 <p>We now have all three needed elements (species, filter and attributes) so we are ready to query the database with the <code>getBM</code> function (read the help using <code>?getBM</code>).</p>
 <p>The example below retrieves data using a set of five Ensembl gene IDs since not all genes have an Ensembl ID as we’ve seen above, so we filter those out first and use this as the <code>values</code> parameter below.</p>
-<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="a2-annotation.html#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set the &#39;attributes&#39; values</span></span>
-<span id="cb63-2"><a href="a2-annotation.html#cb63-2" aria-hidden="true" tabindex="-1"></a>attrs.get <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;ensembl_gene_id&quot;</span>, <span class="st">&quot;chromosome_name&quot;</span>, </span>
-<span id="cb63-3"><a href="a2-annotation.html#cb63-3" aria-hidden="true" tabindex="-1"></a>               <span class="st">&quot;start_position&quot;</span>,<span class="st">&quot;end_position&quot;</span>, <span class="st">&quot;description&quot;</span>)</span>
-<span id="cb63-4"><a href="a2-annotation.html#cb63-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb63-5"><a href="a2-annotation.html#cb63-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform a biomaRt query using &#39;getBM&#39;</span></span>
-<span id="cb63-6"><a href="a2-annotation.html#cb63-6" aria-hidden="true" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">getBM</span>(<span class="at">attributes =</span> attrs.get,</span>
-<span id="cb63-7"><a href="a2-annotation.html#cb63-7" aria-hidden="true" tabindex="-1"></a>                 <span class="at">filters =</span> <span class="st">&quot;ensembl_gene_id&quot;</span>,</span>
-<span id="cb63-8"><a href="a2-annotation.html#cb63-8" aria-hidden="true" tabindex="-1"></a>                 <span class="at">values =</span> ipsc.tri.vs.di<span class="sc">$</span>Ensembl[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>], </span>
-<span id="cb63-9"><a href="a2-annotation.html#cb63-9" aria-hidden="true" tabindex="-1"></a>                 <span class="at">mart =</span> ensembl)</span>
-<span id="cb63-10"><a href="a2-annotation.html#cb63-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb63-11"><a href="a2-annotation.html#cb63-11" aria-hidden="true" tabindex="-1"></a>results<span class="sc">$</span>gene_length <span class="ot">&lt;-</span> <span class="fu">abs</span>(results<span class="sc">$</span>end_position <span class="sc">-</span> results<span class="sc">$</span>start_position)</span></code></pre></div>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="a2-annotation.html#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set the &#39;attributes&#39; values</span></span>
+<span id="cb64-2"><a href="a2-annotation.html#cb64-2" aria-hidden="true" tabindex="-1"></a>attrs.get <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;ensembl_gene_id&quot;</span>, <span class="st">&quot;chromosome_name&quot;</span>, </span>
+<span id="cb64-3"><a href="a2-annotation.html#cb64-3" aria-hidden="true" tabindex="-1"></a>               <span class="st">&quot;start_position&quot;</span>,<span class="st">&quot;end_position&quot;</span>, <span class="st">&quot;description&quot;</span>)</span>
+<span id="cb64-4"><a href="a2-annotation.html#cb64-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-5"><a href="a2-annotation.html#cb64-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform a biomaRt query using &#39;getBM&#39;</span></span>
+<span id="cb64-6"><a href="a2-annotation.html#cb64-6" aria-hidden="true" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">getBM</span>(<span class="at">attributes =</span> attrs.get,</span>
+<span id="cb64-7"><a href="a2-annotation.html#cb64-7" aria-hidden="true" tabindex="-1"></a>                 <span class="at">filters =</span> <span class="st">&quot;ensembl_gene_id&quot;</span>,</span>
+<span id="cb64-8"><a href="a2-annotation.html#cb64-8" aria-hidden="true" tabindex="-1"></a>                 <span class="at">values =</span> ipsc.tri.vs.di<span class="sc">$</span>Ensembl[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>], </span>
+<span id="cb64-9"><a href="a2-annotation.html#cb64-9" aria-hidden="true" tabindex="-1"></a>                 <span class="at">mart =</span> ensembl)</span>
+<span id="cb64-10"><a href="a2-annotation.html#cb64-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-11"><a href="a2-annotation.html#cb64-11" aria-hidden="true" tabindex="-1"></a>results<span class="sc">$</span>gene_length <span class="ot">&lt;-</span> <span class="fu">abs</span>(results<span class="sc">$</span>end_position <span class="sc">-</span> results<span class="sc">$</span>start_position)</span></code></pre></div>
 <p>The <code>results</code> object is a <code>data.frame</code> with 5 columns that we can merge with our data set giving us the following annotation columns (combined from the <code>AnnotationDBI</code> and <code>biomaRt</code> libraries).</p>
 <table style="width:100%;">
 <colgroup>

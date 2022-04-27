@@ -15,13 +15,14 @@ fig:GEODataOverview
 fig:GEODataDownload
 tab:foo
 chapter-1
-course-changes-due-to-covid-restrictions
-theme-7---analysis-of-gene-expression-project
+capstone-project---analysis-of-gene-expression
 project-deliverables
 project-schedule
 grading
-project-proposal
 lab-journal
+article
+installing-the-article-template
+using-the-template
 chapter-2
 finding-public-data
 ncbi-geo
