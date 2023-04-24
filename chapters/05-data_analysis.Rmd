@@ -37,6 +37,7 @@ deseq.volcano <- function(res, datasetName) {
 deseq.volcano(res = res.ipsc.lfc, datasetName = "IPSC")
 deseq.volcano(res = res.neuron.lfc, datasetName = "Neuron")
 ```
+
 ```{r, eval=FALSE}
 # Note that the most simplest case is:
 EnhancedVolcano(res.ipsc, x = 'log2FoldChange', y = 'padj', lab = rownames(res.ipsc))
