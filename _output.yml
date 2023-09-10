@@ -4,7 +4,7 @@ bookdown::gitbook:
   config:
     toc:
       before: |
-        <li><a href="./">Analysis of Gene Expression</a></li>
+        <li><a href="./">2.1.2 Genomics & Transcriptomics</a></li>
 
 bookdown::pdf_book:
   includes:

@@ -1,5 +1,5 @@
 ---
-title: "Analysis of Gene Expression"
+title: "2.1.2 Genomics & Transcriptomics"
 author: "Marcel Kempenaar"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
@@ -10,18 +10,236 @@ bibliography: [book.bib, packages.bib]
 biblio-style: apalike
 link-citations: yes
 github-repo: mkempenaar/gene_expression_analysis
-description: "Course Syllabus for BFV: Theme 07 course"
+description: "Course Syllabus for course 2.1.2"
 ---
 
-# Preface {-}
+# Introduction {#chapter-1}
 
-## Analysis of Gene Expression Project {-}
+Course 2.1.2 involves two separate projects performed on a single, published, data set. First, we start by performing a *Genomics* analysis similar to the case study from module 2.1.1. Then, we take the result of the mapping step, process this into read counts and perform a subsequent *Transcriptomics* analysis. 
 
-This project aims to teach the whole process of analysing a dataset containing gene expression data measured with the RNA-sequencing technique. The tools we will use to perform the analysis will be the statistical programming language `R` with its many libraries and the software package [RStudio](https://www.rstudio.com) to interact with R. Rstudio is a so called Integrated Development Environment (IDE) which makes programming in R much easier.
+## 2.1.2 Genomics
 
-This course is organized in a number of chapters, each with the goal of understanding and performing one of the analysis steps to gain knowledge about both the biology of gene activity and the bioinformatics approach to answering a biological question given a data set. Demonstrating the understanding of these concepts is done through completing a number of assignments and constant reflecting on results from the various analysis steps.
+Tijdens het genomics project ga je op zoek naar variaties tussen de gevonden data set en een referentie genoom. Een belangrijk aspect hierbij is het beoordelen van de kwaliteit van de data (de ‘ruwe-reads’) alvorens een analyse pipeline op te zetten in een workflow-manager. Gevonden varianten annoteer en interpreteer je op biologisch effect. 
 
-```{r bib_footer, include=FALSE}
-# automatically create a bib database for R packages
-knitr::write_bib(c(.packages(all.available = T, lib.loc = "packrat/lib/x86_64-apple-darwin17.3.0/3.4.3/"), 'bookdown', 'knitr', 'rmarkdown'), 'packages.bib')
+For this Genomics analysis we are going to look at variants between the chosen data and a reference genome. One important aspect during the analysis is often assessing the quality, both from the input data set as well as the output of certain steps. Once a set of variants have been determined they can be annotated and finally linked to the biology underlying the original experiment, either reproducing their findings or aiming for novel ideas.
+
+### Project Deliverables
+
+* **Genomics pipeline**: The genomics analysis pipeline is well documented and contains the correct tools based on the research question and data set.
+* **Presentation**: The research results will be presented in an attractive method and proper level given the target audience.
+
+## 2.1.2 Transcriptomics
+
+The use of RNA-Sequencing techniques for measuring gene expression is relatively new and replaces *microarrays*, though in some cases microarrays are still used. Gene expression data gives valuable insights into the workings of cells in certain conditions. Especially when comparing for instance healthy and diseased samples it can become clear which genes are causal or under influence of a specific condition. Finding the genes of interest (genes showing differing expression accross conditions, called the Differentially Expressed Genes (DEGs)) is the goal of this project.
+
+While there is no golden standard for analyzing RNA-sequencing data sets as there are many tools (all manufacturers of sequencing equipment also deliver software packages) we will use proven R libraries for processing, visualizing and analyzing publicly available data sets. This manual describes the steps often performed in a transcriptomics experiment. Use this as a very general guideline to process data accompanying the chosen published research. Note that this manual was originally written for processing *count* data and therefore does not describe the processing of NGS read files up to the count data as part of the *Genomics* analysis performed in this course. RNA-Seq counts describe the number of reads mapped to a gene which corresponds to the relative number of transcripts (mRNA sequences) of that gene present in the cell at the time of sampling.
+
+### Project Deliverables
+
+* **Lab Journal**: The lab journal is readable, complete and aimed at the reproducability of the research. Relevant visualisations are include and statistical methods performed to support the biological interpretation of the results.
+
+## *Lab Journal*
+
+As you may know from previous projects, it is essential to keep a proper journal detailing every step you have done during the analysis. This journal is to be kept in an R markdown file, showing which steps have been taken in the analysis of the data set. This markdown should be *knitted* into a single PDF-file once the project is completed thus containing text detailing the steps and any decisions you've made, R-code (always visible!) and their resulting output/ images. 
+
+```{block, type='rmdtip'}
+**Notes**:
+As a general advice; do not wait with knitting this whole document until the project is done as knitting is very prone to errors and trying to fix these in a large document is not easy. Give each code chunk the proper attributes, including a name at the minimum. This helps spot errors during knitting as that process mentiones which chunk has been processed. Note that chunk-names *must* be unique. And try to make proper use of chapters and sections and include an (optional) table of contents.
 ```
+
+## Schedule
+
+The Genomics and Transcriptomics parts both have their own schedule as listed below
+
+### Genomics
+
+<style type="text/css">
+.tg  {border-collapse:collapse;border-color:#ccc;border-spacing:0;}
+.tg td{background-color:#fff;border-color:#ccc;border-style:solid;border-width:1px;color:#333;
+  font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg th{background-color:#f0f0f0;border-color:#ccc;border-style:solid;border-width:1px;color:#333;
+  font-family:Arial, sans-serif;font-size:14px;font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg .tg-baqh{text-align:center;vertical-align:top}
+.tg .tg-c3ow{border-color:inherit;text-align:center;vertical-align:top}
+.tg .tg-0pky{border-color:inherit;text-align:left;vertical-align:top}
+</style>
+<table class="tg">
+<thead>
+  <tr>
+    <th class="tg-baqh">Week</th>
+    <th class="tg-baqh">Lesson</th>
+    <th class="tg-baqh">Subject</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td class="tg-0pky" rowspan="3">1</td>
+    <td class="tg-c3ow">1</td>
+    <td class="tg-0pky">Finding a suitable experiment</td>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">2</td>
+    <td class="tg-0pky">Statistics - recap and experimental setup</td>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">3</td>
+    <td class="tg-0pky">Writing a Project Proposal</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky" rowspan="3">2</td>
+    <td class="tg-c3ow">1</td>
+    <td class="tg-0pky">Presenting Project Proposal/ NGS Quality Control</td>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">2</td>
+    <td class="tg-0pky"></td>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">3</td>
+    <td class="tg-0pky"></td>
+  </tr>
+  <tr>
+    <td class="tg-0pky" rowspan="3">3</td>
+    <td class="tg-c3ow">1</td>
+    <td class="tg-0pky">Read Mapping and QC</td>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">2</td>
+    <td class="tg-0pky">Variant Calling</td>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">3</td>
+    <td class="tg-0pky"></td>
+  </tr>
+  <tr>
+    <td class="tg-0pky" rowspan="4">4</td>
+    <td class="tg-c3ow">1</td>
+    <td class="tg-0pky">Annotation</td>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">2</td>
+    <td class="tg-0pky"></td>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">3</td>
+    <td class="tg-0pky"></td>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">4</td>
+    <td class="tg-0pky"></td>
+  </tr>
+  <tr>
+    <td class="tg-0pky" rowspan="2">5</td>
+    <td class="tg-c3ow">1</td>
+    <td class="tg-0pky"></td>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">2</td>
+    <td class="tg-0pky"></td>
+  </tr>
+</tbody>
+</table>
+
+### Transcriptomics
+
+<style type="text/css">
+.tg  {border-collapse:collapse;border-color:#ccc;border-spacing:0;}
+.tg td{background-color:#fff;border-color:#ccc;border-style:solid;border-width:1px;color:#333;
+  font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg th{background-color:#f0f0f0;border-color:#ccc;border-style:solid;border-width:1px;color:#333;
+  font-family:Arial, sans-serif;font-size:14px;font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg .tg-baqh{text-align:center;vertical-align:top}
+.tg .tg-0lax{text-align:left;vertical-align:top}
+</style>
+<table class="tg">
+<thead>
+  <tr>
+    <th class="tg-baqh">Week</th>
+    <th class="tg-baqh">Lesson</th>
+    <th class="tg-baqh">Subject</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td class="tg-0lax" rowspan="2">5</td>
+    <td class="tg-baqh">1</td>
+    <td class="tg-0lax">Writing a Project Proposal</td>
+  </tr>
+  <tr>
+    <td class="tg-baqh">2</td>
+    <td class="tg-0lax"></td>
+  </tr>
+  <tr>
+    <td class="tg-0lax" rowspan="4">6</td>
+    <td class="tg-baqh">1</td>
+    <td class="tg-0lax">Presenting Project Proposal</td>
+  </tr>
+  <tr>
+    <td class="tg-baqh">2</td>
+    <td class="tg-0lax">Read Mapping and Quantification</td>
+  </tr>
+  <tr>
+    <td class="tg-baqh">3</td>
+    <td class="tg-0lax"></td>
+  </tr>
+  <tr>
+    <td class="tg-baqh">4</td>
+    <td class="tg-0lax">Statistics (distributions, normalization, PCA)</td>
+  </tr>
+  <tr>
+    <td class="tg-0lax" rowspan="5">7</td>
+    <td class="tg-baqh">1</td>
+    <td class="tg-0lax">Exploratory Data Analysis (<a href="#chapter-3">chapter 2</a>)</td>
+  </tr>
+  <tr>
+    <td class="tg-baqh">2</td>
+    <td class="tg-0lax"></td>
+  </tr>
+  <tr>
+    <td class="tg-baqh">3</td>
+    <td class="tg-0lax">Statistics (batch effects, regression, linear models)</td>
+  </tr>
+  <tr>
+    <td class="tg-baqh">4</td>
+    <td class="tg-0lax">Finding Differentially Expressed Genes (<a href="#chapter-4">chapter 3</a>)</td>
+  </tr>
+  <tr>
+    <td class="tg-baqh">5</td>
+    <td class="tg-0lax">Statistics (Enrichment analysis)</td>
+  </tr>
+  <tr>
+    <td class="tg-0lax" rowspan="6">8</td>
+    <td class="tg-baqh">1</td>
+    <td class="tg-0lax">Data Analysis and Visualization (<a href="#chapter-5">chapter 3</a>)</td>
+  </tr>
+  <tr>
+    <td class="tg-baqh">2</td>
+    <td class="tg-0lax"></td>
+  </tr>
+  <tr>
+    <td class="tg-baqh">3</td>
+    <td class="tg-0lax"></td>
+  </tr>
+  <tr>
+    <td class="tg-baqh">4</td>
+    <td class="tg-0lax"></td>
+  </tr>
+  <tr>
+    <td class="tg-baqh">5</td>
+    <td class="tg-0lax"></td>
+  </tr>
+  <tr>
+    <td class="tg-baqh">6</td>
+    <td class="tg-0lax">Hand in Lab Journal</td>
+  </tr>
+</tbody>
+</table>
+
+## Literature
+
+The following (online) documents can be used throughout this course:
+
+* Gene Set Enrichment Analysis – Theory. Available from: <a href="https://www.pathwaycommons.org/guide/primers/data_analysis/gsea/">https://www.pathwaycommons.org/guide/primers/data_analysis/gsea/</a>
+* Li D. Statistical Methods for RNA Sequencing Data Analysis. In: Husi H, editor. Computational Biology [Internet]. Brisbane (AU): Codon Publications; 2019 Nov 21. Chapter 6. Available from: <a href="https://www.ncbi.nlm.nih.gov/books/NBK550334/">https://www.ncbi.nlm.nih.gov/books/NBK550334/</a>
+* Yu, L., Fernandez, S. & Brock, G. Power analysis for RNA-Seq differential expression studies. BMC Bioinformatics 18, 234 (2017). <a href="https://doi.org/10.1186/s12859-017-1648-2">https://doi.org/10.1186/s12859-017-1648-2</a>
+* Sun, S., Hood, M., Scott, L., Peng, Q., Mukherjee, S., Tung, J., & Zhou, X. (2017). Differential expression analysis for RNAseq using Poisson mixed models. Nucleic acids research, 45(11), e106. <a href="https://doi.org/10.1093/nar/gkx204">https://doi.org/10.1093/nar/gkx204</a>

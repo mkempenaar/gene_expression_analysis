@@ -19,8 +19,6 @@ We start with performing some exploratory data analysis steps with the goal of g
 
 ## Loading data into R {#loading-data}
 
-Download the project data from the GEO website, see the [Appendix A: *Loading Expression Data*](#a1-data_loading) for a description of available file formats and expected contents. R works best with data in simple text formats. If your project data is offered as an Excel file it is therefore advised to open it in Excel (or OpenOffice Calc) and save/ export the file as a *tab-separated* text file, alternatively you can search for how to import an Excel file into R.
-
 Once you have one or more column based text files they can be read into R simply by using the `read.table()` function.
 
 Follow the following steps to read in the data and start the exploratory data analysis. The resulting document should be treated as a lab journal where you log the process from loading the data to the final analysis steps.
@@ -28,7 +26,7 @@ Follow the following steps to read in the data and start the exploratory data an
 * Open RStudio
 * Create a new R Markdown document
     + Give it a proper title and select the **PDF** format
-* Give the document some structure; e.g. create a segment (using single hash `#`) called *Exploratory Data Analysis* for this week's work.
+* Give the document some structure; e.g. create a segment (using single hash `#`) called *Exploratory Data Analysis*.
 * Whenever you add code to your document make sure that it is both readable (keep the maximum line length < 100 if possible) and there is sufficient documentation either by text **around** the code 'chunks' (preferred) or by using comments **within** the code chunk. 
 * Read in the data file(s)
     + Preferably use the `read.table` function and carefully set its arguments. Open the file in a text editor first to check its contents; does it have a header? can we set the `row.names`? Are all columns needed? etc.
@@ -43,7 +41,7 @@ Follow the following steps to read in the data and start the exploratory data an
     + These variables allows us to repeatedly access the same data during the rest of this course, i.e. the code `boxplot(counts[case])` immediately shows that we are plotting the `case` samples from the `counts` data which is more clear than reading `boxplot(counts[c(5:8)])` as that gives no reference to what these indices mean and can lead to typing mistakes.
     
 ```{block, type='rmdtip'}
-For some data sets the order in which the samples are listed in your loaded data set is different from the order that is shown on the GEO website. Most often, the names are different too or they are lacking any description and all you have are the `GSM` IDs. When creating these variables such as `control` that need to point to all control samples, you need to make sure that you have the right columns from your data frame. Go to Appendix [A2; annotation](#download-geo) if the order is unclear or you just have a large number of samples as there might be supporting data available that can help make sense of your sample layout.
+For some data sets the order in which the samples are listed in your loaded data set is different from the order that is shown on the GEO website. Most often, the names are different too or they are lacking any description and all you have are non descriptive IDs. When creating these variables such as `control` that need to point to all control samples, you need to make sure that you have the right columns from your data frame. Go to Appendix [A2; annotation](#download-geo) if the order is unclear or you just have a large number of samples as there might be supporting data available that can help make sense of your sample layout.
 ```
 
 If you want to include external images to your log and to better control properties such as *height* and *width* for individual images you can use the following code. Note: the code below is an *example* and you need to replace the `img_to_include.png` file path to an actual image.):
