@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>2.1.2 Genomics &amp; Transcriptomics</title>
+  <title>C Discovering Data Sets | 2.1.2 Genomics &amp; Transcriptomics</title>
   <meta name="description" content="Course Syllabus for course 2.1.2" />
   <meta name="generator" content="bookdown 0.32 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="2.1.2 Genomics &amp; Transcriptomics" />
+  <meta property="og:title" content="C Discovering Data Sets | 2.1.2 Genomics &amp; Transcriptomics" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="Course Syllabus for course 2.1.2" />
   <meta name="github-repo" content="mkempenaar/gene_expression_analysis" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="2.1.2 Genomics &amp; Transcriptomics" />
+  <meta name="twitter:title" content="C Discovering Data Sets | 2.1.2 Genomics &amp; Transcriptomics" />
   
   <meta name="twitter:description" content="Course Syllabus for course 2.1.2" />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
+<link rel="prev" href="a2-annotation.html"/>
 
-<link rel="next" href="chapter-3.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -261,394 +261,87 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">2.1.2 Genomics &amp; Transcriptomics</h1>
-<p class="author"><em>Marcel Kempenaar</em></p>
-<p class="date"><em>2023-09-10</em></p>
-</div>
-<div id="chapter-1" class="section level1 hasAnchor" number="1">
-<h1><span class="header-section-number"></span> Introduction<a href="index.html#chapter-1" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>Course 2.1.2 involves two separate projects performed on a single, published, data set. First, we start by performing a <em>Genomics</em> analysis similar to the case study from module 2.1.1. Then, we take the result of the mapping step, process this into read counts and perform a subsequent <em>Transcriptomics</em> analysis.</p>
-<div id="genomics" class="section level2 hasAnchor" number="1.1">
-<h2><span class="header-section-number">1.1</span> 2.1.2 Genomics<a href="index.html#genomics" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Tijdens het genomics project ga je op zoek naar variaties tussen de gevonden data set en een referentie genoom. Een belangrijk aspect hierbij is het beoordelen van de kwaliteit van de data (de ‘ruwe-reads’) alvorens een analyse pipeline op te zetten in een workflow-manager. Gevonden varianten annoteer en interpreteer je op biologisch effect.</p>
-<p>For this Genomics analysis we are going to look at variants between the chosen data and a reference genome. One important aspect during the analysis is often assessing the quality, both from the input data set as well as the output of certain steps. Once a set of variants have been determined they can be annotated and finally linked to the biology underlying the original experiment, either reproducing their findings or aiming for novel ideas.</p>
-<div id="project-deliverables" class="section level3 hasAnchor" number="1.1.1">
-<h3><span class="header-section-number">1.1.1</span> Project Deliverables<a href="index.html#project-deliverables" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="a3-annotation" class="section level1 hasAnchor" number="7">
+<h1><span class="header-section-number">C</span> Discovering Data Sets<a href="a3-annotation.html#a3-annotation" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="finding-public-data" class="section level2 hasAnchor" number="7.1">
+<h2><span class="header-section-number">C.1</span> Finding Public Data Sets of Interest<a href="a3-annotation.html#finding-public-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>This chapter describes a method of finding public data sets of interest. A <em>data set</em> in the context of this course refers to all data belonging to a certain gene-expression experiment, usually consisting of a number of sequencing-samples combined with <em>meta-data</em> describing the experiment.</p>
+<p>There are a number of very large databases online that offer access to thousands of - published - experiments and here we will focus on searching and downloading gene expression data from high-throughput (<code>NGS</code>) sequencing techniques (<code>RNA-Seq</code>).</p>
+<p>With thousands of freely available data sets it is possible to start performing research without the need of actually performing your own lab-experiment. For all common conditions, organisms and tissues you can download samples and compare them over multiple studies to find novel relations between genes and conditions or to verify experiments performed in your laboratory. For instance, the power of public data sets was demonstrated jointly by three of our alumni in an article called <em>Calling genotypes from public RNA-sequencing data enables identification of genetic variants that affect gene-expression levels.</em><span class="citation">(<a href="#ref-deelen15">al. 2015</a>)</span>.</p>
+<p>It’s method section begins with the sentence “<em>We downloaded the raw reads for all available human RNA-seq data sets …</em>” of which the amount of data and work will become clear later on. If you are interested in <em>expression Quantitative Trait Loci</em> (<code>eQTLs</code>) or <em>Allele-Specific Expression</em> (<code>ASE</code>) analysis, please read this very interesting paper.</p>
+<p>But before we start diving into large and complex databases potentially containing thousands of experiments with millions of samples and terabytes of data, we need to get a rough idea on what we would like to do once we have found something of interest in order to know what we are looking for in the first place. While there is no definitive guide or protocol that can be followed for processing and analyzing a gene-expression data set, the following goals can be considered:</p>
+<ol style="list-style-type: decimal">
+<li>Re-do (part of) the analysis described in the accompanying publication.
 <ul>
-<li><strong>Genomics pipeline</strong>: The genomics analysis pipeline is well documented and contains the correct tools based on the research question and data set.</li>
-<li><strong>Presentation</strong>: The research results will be presented in an attractive method and proper level given the target audience.</li>
-</ul>
-</div>
-</div>
-<div id="transcriptomics" class="section level2 hasAnchor" number="1.2">
-<h2><span class="header-section-number">1.2</span> 2.1.2 Transcriptomics<a href="index.html#transcriptomics" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>The use of RNA-Sequencing techniques for measuring gene expression is relatively new and replaces <em>microarrays</em>, though in some cases microarrays are still used. Gene expression data gives valuable insights into the workings of cells in certain conditions. Especially when comparing for instance healthy and diseased samples it can become clear which genes are causal or under influence of a specific condition. Finding the genes of interest (genes showing differing expression accross conditions, called the Differentially Expressed Genes (DEGs)) is the goal of this project.</p>
-<p>While there is no golden standard for analyzing RNA-sequencing data sets as there are many tools (all manufacturers of sequencing equipment also deliver software packages) we will use proven R libraries for processing, visualizing and analyzing publicly available data sets. This manual describes the steps often performed in a transcriptomics experiment. Use this as a very general guideline to process data accompanying the chosen published research. Note that this manual was originally written for processing <em>count</em> data and therefore does not describe the processing of NGS read files up to the count data as part of the <em>Genomics</em> analysis performed in this course. RNA-Seq counts describe the number of reads mapped to a gene which corresponds to the relative number of transcripts (mRNA sequences) of that gene present in the cell at the time of sampling.</p>
-<div id="project-deliverables-1" class="section level3 hasAnchor" number="1.2.1">
-<h3><span class="header-section-number">1.2.1</span> Project Deliverables<a href="index.html#project-deliverables-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<li>As all data sets - except for the ones that were added very recently - are accompanied by a publication, you can gather a lot of information regarding experimental design and results from just this paper. Most often, the researchers already performed the most interesting research on this data set and it is therefore a good exercise to try and reproduce their results. Challenges here are getting a proper understanding of the techniques used by the researchers (from the article) and translating these to your own analysis steps. Often though, not all details are clear from the article which requires your own interpretation of their results and performing analysis steps to arrive at the same conclusion.</li>
+</ul></li>
+<li>Alternatively you can come up with your own ideas and (biological) question(s) that you could try and answer given a data set instead of redoing the published work.
 <ul>
-<li><strong>Lab Journal</strong>: The lab journal is readable, complete and aimed at the reproducability of the research. Relevant visualisations are include and statistical methods performed to support the biological interpretation of the results.</li>
-</ul>
-</div>
-</div>
-<div id="lab-journal" class="section level2 hasAnchor" number="1.3">
-<h2><span class="header-section-number">1.3</span> <em>Lab Journal</em><a href="index.html#lab-journal" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>As you may know from previous projects, it is essential to keep a proper journal detailing every step you have done during the analysis. This journal is to be kept in an R markdown file, showing which steps have been taken in the analysis of the data set. This markdown should be <em>knitted</em> into a single PDF-file once the project is completed thus containing text detailing the steps and any decisions you’ve made, R-code (always visible!) and their resulting output/ images.</p>
-<div class="rmdtip">
-<p>
-<strong>Notes</strong>: As a general advice; do not wait with
-knitting this whole document until the project is done as knitting is
-very prone to errors and trying to fix these in a large document is not
-easy. Give each code chunk the proper attributes, including a name at
-the minimum. This helps spot errors during knitting as that process
-mentiones which chunk has been processed. Note that chunk-names
-<em>must</em> be unique. And try to make proper use of chapters and
-sections and include an (optional) table of contents.
-</p>
-</div>
-</div>
-<div id="schedule" class="section level2 hasAnchor" number="1.4">
-<h2><span class="header-section-number">1.4</span> Schedule<a href="index.html#schedule" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>The Genomics and Transcriptomics parts both have their own schedule as listed below</p>
-<div id="genomics-1" class="section level3 hasAnchor" number="1.4.1">
-<h3><span class="header-section-number">1.4.1</span> Genomics<a href="index.html#genomics-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<style type="text/css">
-.tg  {border-collapse:collapse;border-color:#ccc;border-spacing:0;}
-.tg td{background-color:#fff;border-color:#ccc;border-style:solid;border-width:1px;color:#333;
-  font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;word-break:normal;}
-.tg th{background-color:#f0f0f0;border-color:#ccc;border-style:solid;border-width:1px;color:#333;
-  font-family:Arial, sans-serif;font-size:14px;font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
-.tg .tg-baqh{text-align:center;vertical-align:top}
-.tg .tg-c3ow{border-color:inherit;text-align:center;vertical-align:top}
-.tg .tg-0pky{border-color:inherit;text-align:left;vertical-align:top}
-</style>
-<table class="tg">
-<thead>
-<tr>
-<th class="tg-baqh">
-Week
-</th>
-<th class="tg-baqh">
-Lesson
-</th>
-<th class="tg-baqh">
-Subject
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tg-0pky" rowspan="3">
-1
-</td>
-<td class="tg-c3ow">
-1
-</td>
-<td class="tg-0pky">
-Finding a suitable experiment
-</td>
-</tr>
-<tr>
-<td class="tg-c3ow">
-2
-</td>
-<td class="tg-0pky">
-Statistics - recap and experimental setup
-</td>
-</tr>
-<tr>
-<td class="tg-c3ow">
-3
-</td>
-<td class="tg-0pky">
-Writing a Project Proposal
-</td>
-</tr>
-<tr>
-<td class="tg-0pky" rowspan="3">
-2
-</td>
-<td class="tg-c3ow">
-1
-</td>
-<td class="tg-0pky">
-Presenting Project Proposal/ NGS Quality Control
-</td>
-</tr>
-<tr>
-<td class="tg-c3ow">
-2
-</td>
-<td class="tg-0pky">
-</td>
-</tr>
-<tr>
-<td class="tg-c3ow">
-3
-</td>
-<td class="tg-0pky">
-</td>
-</tr>
-<tr>
-<td class="tg-0pky" rowspan="3">
-3
-</td>
-<td class="tg-c3ow">
-1
-</td>
-<td class="tg-0pky">
-Read Mapping and QC
-</td>
-</tr>
-<tr>
-<td class="tg-c3ow">
-2
-</td>
-<td class="tg-0pky">
-Variant Calling
-</td>
-</tr>
-<tr>
-<td class="tg-c3ow">
-3
-</td>
-<td class="tg-0pky">
-</td>
-</tr>
-<tr>
-<td class="tg-0pky" rowspan="4">
-4
-</td>
-<td class="tg-c3ow">
-1
-</td>
-<td class="tg-0pky">
-Annotation
-</td>
-</tr>
-<tr>
-<td class="tg-c3ow">
-2
-</td>
-<td class="tg-0pky">
-</td>
-</tr>
-<tr>
-<td class="tg-c3ow">
-3
-</td>
-<td class="tg-0pky">
-</td>
-</tr>
-<tr>
-<td class="tg-c3ow">
-4
-</td>
-<td class="tg-0pky">
-</td>
-</tr>
-<tr>
-<td class="tg-0pky" rowspan="2">
-5
-</td>
-<td class="tg-c3ow">
-1
-</td>
-<td class="tg-0pky">
-</td>
-</tr>
-<tr>
-<td class="tg-c3ow">
-2
-</td>
-<td class="tg-0pky">
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div id="transcriptomics-1" class="section level3 hasAnchor" number="1.4.2">
-<h3><span class="header-section-number">1.4.2</span> Transcriptomics<a href="index.html#transcriptomics-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<style type="text/css">
-.tg  {border-collapse:collapse;border-color:#ccc;border-spacing:0;}
-.tg td{background-color:#fff;border-color:#ccc;border-style:solid;border-width:1px;color:#333;
-  font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;word-break:normal;}
-.tg th{background-color:#f0f0f0;border-color:#ccc;border-style:solid;border-width:1px;color:#333;
-  font-family:Arial, sans-serif;font-size:14px;font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
-.tg .tg-baqh{text-align:center;vertical-align:top}
-.tg .tg-0lax{text-align:left;vertical-align:top}
-</style>
-<table class="tg">
-<thead>
-<tr>
-<th class="tg-baqh">
-Week
-</th>
-<th class="tg-baqh">
-Lesson
-</th>
-<th class="tg-baqh">
-Subject
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tg-0lax" rowspan="2">
-5
-</td>
-<td class="tg-baqh">
-1
-</td>
-<td class="tg-0lax">
-Writing a Project Proposal
-</td>
-</tr>
-<tr>
-<td class="tg-baqh">
-2
-</td>
-<td class="tg-0lax">
-</td>
-</tr>
-<tr>
-<td class="tg-0lax" rowspan="4">
-6
-</td>
-<td class="tg-baqh">
-1
-</td>
-<td class="tg-0lax">
-Presenting Project Proposal
-</td>
-</tr>
-<tr>
-<td class="tg-baqh">
-2
-</td>
-<td class="tg-0lax">
-Read Mapping and Quantification
-</td>
-</tr>
-<tr>
-<td class="tg-baqh">
-3
-</td>
-<td class="tg-0lax">
-</td>
-</tr>
-<tr>
-<td class="tg-baqh">
-4
-</td>
-<td class="tg-0lax">
-Statistics (distributions, normalization, PCA)
-</td>
-</tr>
-<tr>
-<td class="tg-0lax" rowspan="5">
-7
-</td>
-<td class="tg-baqh">
-1
-</td>
-<td class="tg-0lax">
-Exploratory Data Analysis (<a href="chapter-3.html#chapter-3">chapter 2</a>)
-</td>
-</tr>
-<tr>
-<td class="tg-baqh">
-2
-</td>
-<td class="tg-0lax">
-</td>
-</tr>
-<tr>
-<td class="tg-baqh">
-3
-</td>
-<td class="tg-0lax">
-Statistics (batch effects, regression, linear models)
-</td>
-</tr>
-<tr>
-<td class="tg-baqh">
-4
-</td>
-<td class="tg-0lax">
-Finding Differentially Expressed Genes (<a href="chapter-4.html#chapter-4">chapter 3</a>)
-</td>
-</tr>
-<tr>
-<td class="tg-baqh">
-5
-</td>
-<td class="tg-0lax">
-Statistics (Enrichment analysis)
-</td>
-</tr>
-<tr>
-<td class="tg-0lax" rowspan="6">
-8
-</td>
-<td class="tg-baqh">
-1
-</td>
-<td class="tg-0lax">
-Data Analysis and Visualization (<a href="chapter-5.html#chapter-5">chapter 3</a>)
-</td>
-</tr>
-<tr>
-<td class="tg-baqh">
-2
-</td>
-<td class="tg-0lax">
-</td>
-</tr>
-<tr>
-<td class="tg-baqh">
-3
-</td>
-<td class="tg-0lax">
-</td>
-</tr>
-<tr>
-<td class="tg-baqh">
-4
-</td>
-<td class="tg-0lax">
-</td>
-</tr>
-<tr>
-<td class="tg-baqh">
-5
-</td>
-<td class="tg-0lax">
-</td>
-</tr>
-<tr>
-<td class="tg-baqh">
-6
-</td>
-<td class="tg-0lax">
-Hand in Lab Journal
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<div id="literature" class="section level2 hasAnchor" number="1.5">
-<h2><span class="header-section-number">1.5</span> Literature<a href="index.html#literature" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>The following (online) documents can be used throughout this course:</p>
+<li>This is of course more challenging and not suitable for all data sets.</li>
+<li>You might notice that some publications only focus on a small set of genes instead of the whole transcriptome. For instance, when you perform an experiment on yeast where you want to measure the activity of genes involved in alcohol fermentation, researchers might only look at genes from the Glycolysis pathway. This leaves the other 6000+ yeast genes for you to explore and possibly come up with novel relations of gene expression and experimental setup.</li>
+<li>If the analysis approach explained in the paper is not focusing on a pre-selected list of genes, depending on the experiment you might come up with comparisons not done in the original research. For instance, in an experiment where the maternal age (at birth) is correlated to autism in their offspring, the paternal age is also known but not addressed in the <a href="http://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE25507">publication</a>. This could be a subject of further research (spoiler alert; no clear conclusion can be drawn from including this extra factor…).</li>
+</ul></li>
+<li>Another type of project is to evaluate different methods of either normalization or statistical analysis to either confirm the published results or find novel genes involved in the experiment.
 <ul>
-<li>Gene Set Enrichment Analysis – Theory. Available from: <a href="https://www.pathwaycommons.org/guide/primers/data_analysis/gsea/">https://www.pathwaycommons.org/guide/primers/data_analysis/gsea/</a></li>
-<li>Li D. Statistical Methods for RNA Sequencing Data Analysis. In: Husi H, editor. Computational Biology [Internet]. Brisbane (AU): Codon Publications; 2019 Nov 21. Chapter 6. Available from: <a href="https://www.ncbi.nlm.nih.gov/books/NBK550334/">https://www.ncbi.nlm.nih.gov/books/NBK550334/</a></li>
-<li>Yu, L., Fernandez, S. &amp; Brock, G. Power analysis for RNA-Seq differential expression studies. BMC Bioinformatics 18, 234 (2017). <a href="https://doi.org/10.1186/s12859-017-1648-2">https://doi.org/10.1186/s12859-017-1648-2</a></li>
-<li>Sun, S., Hood, M., Scott, L., Peng, Q., Mukherjee, S., Tung, J., &amp; Zhou, X. (2017). Differential expression analysis for RNAseq using Poisson mixed models. Nucleic acids research, 45(11), e106. <a href="https://doi.org/10.1093/nar/gkx204">https://doi.org/10.1093/nar/gkx204</a></li>
+<li>This can be viewed more as a technical research subject which is ok to pursue, however the final report should mainly concern the biological impact of your findings.
+<ul>
+<li>This means that when the accompanying publication shows very conclusive results, it will probably come down to <em>acknowledging</em> their results (therefore, you extend on point 1 from this list). Because with a very conclusive result you hope to find the same results and if this is not the case it might become hard to formulate a good conclusion in the end.</li>
+<li>However, if the publication isn’t very specific and only states a conclusion such as ‘<em>Benzene exposure shows increased risk of leukemia</em>’ followed by a list of a few genes that <em>might</em> be involved, you could try to see if you can find other genes that <em>might</em> be involved by changing the analysis approach.</li>
+</ul></li>
+</ul></li>
+<li>Although this last project goal has many risks involved and will need a very sound project proposal, it might result in the most interesting project. As shown before with the linked article, it is possible to combine data from multiple experiments.
+<ul>
+<li>You could for instance find two very related experiments (i.e. researching the effect of a certain drug) both measuring expression in different tissue types (i.e. liver and brain tissue). After analyzing both experiments, you could present a set of genes that show an effect in both tissues and - more interestingly - genes showing an effect in only one tissue.</li>
+</ul></li>
+</ol>
+<p>The list above is a guideline to be kept in mind while browsing for suitable data sets and it will be extended in week three. Also, don’t worry if some of the terms above are unclear, getting a good understanding on the used terminology is part of these first few weeks</p>
+</div>
+<div id="ncbi-geo" class="section level2 hasAnchor" number="7.2">
+<h2><span class="header-section-number">C.2</span> The NCBI <em>Gene Expression Omnibus</em><a href="a3-annotation.html#ncbi-geo" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The easiest method of exploring and finding interesting data sets is by simply using your web-browser to access a data-repository. One such repository is the <a href="https://www.ncbi.nlm.nih.gov/geo/summary">NCBI Gene Expression Omnibus</a> (GEO). This <em>repository</em> was primarily used to store micro array data sets and describe those experiments, linking to raw data, processed data and an accompanying publication. There are however many more sources of data browsable in the GEO, and for this project we will limit our searches to experiments using the RNA-Seq technology for which over 60.000 experiments are listed. Following the “<em>Expression profiling by high throughput sequencing</em>” link in this summary table we get the complete listing in which you can find an interesting experiment. Besides finding an experiment that you are interested in, there are some further important requirements that you need to account for when browsing listed below. Note that at this point we do not need to download the data yet, this is described in chapter 3.</p>
+<ul>
+<li>The experiment <strong>must</strong> be published and the publication must be fully available, free or otherwise through the Hanze University library.</li>
+<li>For each <em>sample group</em>, a minimum of <strong>three</strong> replicates must be present. If one or more groups have less then three replicates, that group cannot be used (the rest of the data might still be usable if there are at minimum two groups that do have 3 replicates).
+<ul>
+<li>Replicates are often not very easy to spot. When lucky samples are named “WildType - rep 2” for instance but most often you need to read the “Overall design” part of the page or click on the samples (with the “GSM…” ID) to make sure.</li>
+</ul></li>
+<li>The available data <strong>must</strong> contain at least the <strong>count</strong> data.
+<ul>
+<li>Data is offered in multiple formats, always including the RAW data (the actual reads which we don’t use), but also in further processed data such as FPKM, RPKM and TPM (see this <a href="https://haroldpimentel.wordpress.com/2014/05/08/what-the-fpkm-a-review-rna-seq-expression-units/">interesting blog-post</a> discussing the use of these data). The tools and R analysis libraries that we will use for the downstream analysis rely on unnormalized and unprocessed data which is the <strong>count</strong> data. These counts simply represent the number of reads mapped to a transcript.</li>
+<li>This is often the hardest part to assess; sometimes it is not clear if the provided data are the actual raw count values. Usually, you can find some (sometimes rather cryptic) information by clicking on a sample ID under the ‘Data processing’ section. In this paragraph of text is often a mention of the ‘<em>Supplementary_files_format_and_content</em>’ that describes the actual content of the downloadable files. Following are a number of examples of valid and invalid data provided by the experiment. These are the single-sample pages where you can find such a description. Unfortunately, the authors of each experiment are free to explain their data as they please, so you will most likely not encounter the exact same descriptions:
+<ul>
+<li><span style="color: green;"><strong>Valid</strong></span>: <a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM3223408"><em>Global effects of SUPT4H1 RNAi on gene expression of HEK293 cells</em></a>; description: <em>Supplementary_files_format_and_content: tab-delimited, gzip-compressed text file with <strong>matrix of raw quantitation</strong> results for each sample.</em> Mentions of <em>raw</em>-anything are most likely valid.</li>
+<li><span style="color: green;"><strong>Valid</strong></span>: <a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM3014578"><em>Transcriptome profiling of normal and transformed mouse urothelial cells</em></a>; description: <em>Supplementary_files_format_and_content: raw_counts_unfiltered.txt.gz: Raw counts.</em>. Even though 4 different file types are available for download, one of these contains the actual raw count data.</li>
+<li><span style="color: green;"><strong>Valid</strong></span>: <a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM3021001"><em>Quantitative Analysis of PPARD RNA-Seq Transcriptomes of Mouse Gastric Corpus Epithenial Cells by Next Generation Sequencing (NGS)</em></a>; description: <em>Supplementary_files_format_and_content: <strong>raw counts</strong> of sequencing reads for the genes</em>. Single file download containing only the raw counts.</li>
+<li><span style="color: green;"><strong>Valid</strong></span>: <a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM3039677"><em>Impact of shRNA-mediated KLF4 down-modulation on the transcriptome profile of human keratinocyte precursor cells</em></a>; description: <em>Supplementary_files_format_and_content: <strong>raw</strong> and normalized counts</em>.</li>
+<li><span style="color: green;"><strong>Valid</strong></span>: <a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM3103304"><em>Role of TAF5L and TAF6L in controlling the mouse ESC state</em></a>; description: <em>Supplementary_files_format_and_content: Comma-separated text files containing <strong>raw counts</strong>, normalized counts, FPKM expression values and TPM expression values.</em>. Very common to include both normalized and raw values.</li>
+<li><span style="color: red;"><strong>Invalid</strong></span>: <a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM3318897"><em>Co-chaperone Mzb1 is a key effector of Blimp1 in plasma cell differentiation and b1 integrin function</em></a>; description: <em>Supplementary_files_format_and_content: The normalized gene expression values (FPKM) calculated by Cuffnorm (v2.2.1) is provided in TXT format</em>. This clearly states that there is only normalized data (FPKM values) available.</li>
+<li><span style="color: red;"><strong>Invalid</strong></span>: <a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM2909402"><em>EGFR-targeted therapy-induced resistance mechanism in glioblastoma</em></a>; description: <em>Supplementary_files_format_and_content: .txt file including gene name, RefSeq id, locus, RPKM value of each gene in each sample</em>. Only the RPKM values are available and these are normalized raw count values, not usable.</li>
+<li><span style="color: red;"><strong>Invalid</strong></span>: <a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM2643080"><em>RNA-seq of subcellular fractions from nESC and EpiLC</em></a>; description: <em>Supplementary_files_format_and_content: </em>_genes.fpkm_table.txt: Tab-delimited text files include FPKM values for each replicate.*. Only FPKM data available.</li>
+</ul></li>
+</ul></li>
 </ul>
 
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div class="csl-entry">
+al., Patrick Deelen et. 2015. <span>“Calling Genotypes from Public RNA-Sequencing Data Enables Identification of Genetic Variants That Affect Gene-Expression Levels.”</span> <em>Genome Medicine</em> 7 (30).
+</div>
+<div class="csl-entry">
+Chen, Yunshun, Aaron Lun, Davis McCarthy, Xiaobei Zhou, Mark Robinson, and Gordon Smyth. 2018. <em>edgeR: Empirical Analysis of Digital Gene Expression Data in r</em>. <a href="http://bioinf.wehi.edu.au/edgeR">http://bioinf.wehi.edu.au/edgeR</a>.
+</div>
+<div class="csl-entry">
+Daróczi, Gergely, and Roman Tsegelskyi. 2017. <em>Pander: An r ’Pandoc’ Writer</em>. <a href="https://CRAN.R-project.org/package=pander">https://CRAN.R-project.org/package=pander</a>.
+</div>
+<div class="csl-entry">
+Love, Michael, Simon Anders, and Wolfgang Huber. 2017. <em>DESeq2: Differential Gene Expression Analysis Based on the Negative Binomial Distribution</em>. <a href="https://github.com/mikelove/DESeq2">https://github.com/mikelove/DESeq2</a>.
+</div>
+</div>
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-deelen15" class="csl-entry">
+al., Patrick Deelen et. 2015. <span>“Calling Genotypes from Public RNA-Sequencing Data Enables Identification of Genetic Variants That Affect Gene-Expression Levels.”</span> <em>Genome Medicine</em> 7 (30).
 </div>
 </div>
             </section>
@@ -656,8 +349,8 @@ Hand in Lab Journal
           </div>
         </div>
       </div>
+<a href="a2-annotation.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 
-<a href="chapter-3.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
