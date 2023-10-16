@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title> Data Analysis and Visualization | 2.1.2 Genomics &amp; Transcriptomics</title>
   <meta name="description" content="Course Syllabus for course 2.1.2" />
-  <meta name="generator" content="bookdown 0.32 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
 
   <meta property="og:title" content=" Data Analysis and Visualization | 2.1.2 Genomics &amp; Transcriptomics" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Marcel Kempenaar" />
 
 
-<meta name="date" content="2023-09-10" />
+<meta name="date" content="2023-10-16" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -56,7 +56,7 @@
 
 <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -120,10 +120,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </style>
 
 <style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
 /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
+  margin-bottom: 0em;
 }
 .hanging div.csl-entry {
   margin-left:2em;
@@ -176,46 +181,62 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="1.5" data-path="index.html"><a href="index.html#literature"><i class="fa fa-check"></i><b>1.5</b> Literature</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="chapter-3.html"><a href="chapter-3.html"><i class="fa fa-check"></i><b>2</b> Exploratory Data Analysis</a>
+<li class="chapter" data-level="2" data-path="from-reads-to-counts.html"><a href="from-reads-to-counts.html"><i class="fa fa-check"></i><b>2</b> From Reads to Counts</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="chapter-3.html"><a href="chapter-3.html#loading-data"><i class="fa fa-check"></i><b>2.1</b> Loading data into R</a></li>
-<li class="chapter" data-level="2.2" data-path="chapter-3.html"><a href="chapter-3.html#ch3_example_data"><i class="fa fa-check"></i><b>2.2</b> Example Data</a></li>
-<li class="chapter" data-level="2.3" data-path="chapter-3.html"><a href="chapter-3.html#EDA_part1"><i class="fa fa-check"></i><b>2.3</b> Visualizing using <code>boxplot</code> and <code>density plot</code></a>
+<li class="chapter" data-level="2.1" data-path="from-reads-to-counts.html"><a href="from-reads-to-counts.html#downloading-and-extracting-fastq-files"><i class="fa fa-check"></i><b>2.1</b> Downloading and extracting FastQ files</a></li>
+<li class="chapter" data-level="2.2" data-path="from-reads-to-counts.html"><a href="from-reads-to-counts.html#optional-annotation"><i class="fa fa-check"></i><b>2.2</b> (Optional) Annotation</a></li>
+<li class="chapter" data-level="2.3" data-path="from-reads-to-counts.html"><a href="from-reads-to-counts.html#quality-control"><i class="fa fa-check"></i><b>2.3</b> Quality Control</a>
 <ul>
-<li class="chapter" data-level="2.3.1" data-path="chapter-3.html"><a href="chapter-3.html#eda_statistics"><i class="fa fa-check"></i><b>2.3.1</b> Statistics</a></li>
-<li class="chapter" data-level="2.3.2" data-path="chapter-3.html"><a href="chapter-3.html#eda_boxplots"><i class="fa fa-check"></i><b>2.3.2</b> Boxplots</a></li>
-<li class="chapter" data-level="2.3.3" data-path="chapter-3.html"><a href="chapter-3.html#eda_density_plot"><i class="fa fa-check"></i><b>2.3.3</b> Density Plots</a></li>
+<li class="chapter" data-level="2.3.1" data-path="from-reads-to-counts.html"><a href="from-reads-to-counts.html#fastqc"><i class="fa fa-check"></i><b>2.3.1</b> FastQC</a></li>
 </ul></li>
-<li class="chapter" data-level="2.4" data-path="chapter-3.html"><a href="chapter-3.html#EDA_part2"><i class="fa fa-check"></i><b>2.4</b> Visualizing using <code>heatmap</code> and <code>MDS</code></a>
+<li class="chapter" data-level="2.4" data-path="from-reads-to-counts.html"><a href="from-reads-to-counts.html#trimming"><i class="fa fa-check"></i><b>2.4</b> Trimming</a></li>
+<li class="chapter" data-level="2.5" data-path="from-reads-to-counts.html"><a href="from-reads-to-counts.html#mapping-with-star"><i class="fa fa-check"></i><b>2.5</b> Mapping with STAR</a>
 <ul>
-<li class="chapter" data-level="2.4.1" data-path="chapter-3.html"><a href="chapter-3.html#normalization"><i class="fa fa-check"></i><b>2.4.1</b> Normalization</a></li>
-<li class="chapter" data-level="2.4.2" data-path="chapter-3.html"><a href="chapter-3.html#eda_distance"><i class="fa fa-check"></i><b>2.4.2</b> Distance Calculation</a></li>
-<li class="chapter" data-level="2.4.3" data-path="chapter-3.html"><a href="chapter-3.html#eda_heatmap"><i class="fa fa-check"></i><b>2.4.3</b> Sample Distances using a Heatmap</a></li>
-<li class="chapter" data-level="2.4.4" data-path="chapter-3.html"><a href="chapter-3.html#eda_mds"><i class="fa fa-check"></i><b>2.4.4</b> Multi-Dimensional Scaling</a></li>
-</ul></li>
-<li class="chapter" data-level="2.5" data-path="chapter-3.html"><a href="chapter-3.html#cleaning-data"><i class="fa fa-check"></i><b>2.5</b> Cleaning Data</a></li>
-</ul></li>
-<li class="chapter" data-level="3" data-path="chapter-4.html"><a href="chapter-4.html"><i class="fa fa-check"></i><b>3</b> Discovering Differentialy Expressed Genes (DEGs)</a>
-<ul>
-<li class="chapter" data-level="3.1" data-path="chapter-4.html"><a href="chapter-4.html#deg-preprocessing"><i class="fa fa-check"></i><b>3.1</b> Pre-processing</a></li>
-<li class="chapter" data-level="3.2" data-path="chapter-4.html"><a href="chapter-4.html#deg-fc"><i class="fa fa-check"></i><b>3.2</b> The <em>Fold Change</em> Value</a></li>
-<li class="chapter" data-level="3.3" data-path="chapter-4.html"><a href="chapter-4.html#deg-bioconductor"><i class="fa fa-check"></i><b>3.3</b> Using Bioconductor Packages</a>
-<ul>
-<li class="chapter" data-level="3.3.1" data-path="chapter-4.html"><a href="chapter-4.html#deg-design"><i class="fa fa-check"></i><b>3.3.1</b> The <code>Design</code> (matrix)</a></li>
-<li class="chapter" data-level="3.3.2" data-path="chapter-4.html"><a href="chapter-4.html#deg-deseq2"><i class="fa fa-check"></i><b>3.3.2</b> <code>DESeq2</code></a></li>
-<li class="chapter" data-level="3.3.3" data-path="chapter-4.html"><a href="chapter-4.html#deg-edger"><i class="fa fa-check"></i><b>3.3.3</b> <code>edgeR</code></a></li>
+<li class="chapter" data-level="2.5.1" data-path="from-reads-to-counts.html"><a href="from-reads-to-counts.html#building-star-index"><i class="fa fa-check"></i><b>2.5.1</b> Building STAR index</a></li>
+<li class="chapter" data-level="2.5.2" data-path="from-reads-to-counts.html"><a href="from-reads-to-counts.html#read-mapping-and-transcript-counting"><i class="fa fa-check"></i><b>2.5.2</b> Read mapping and transcript counting</a></li>
+<li class="chapter" data-level="2.5.3" data-path="from-reads-to-counts.html"><a href="from-reads-to-counts.html#combining-star-count-files"><i class="fa fa-check"></i><b>2.5.3</b> Combining STAR Count Files</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="chapter-5.html"><a href="chapter-5.html"><i class="fa fa-check"></i><b>4</b> Data Analysis and Visualization</a>
+<li class="chapter" data-level="3" data-path="chapter-3.html"><a href="chapter-3.html"><i class="fa fa-check"></i><b>3</b> Exploratory Data Analysis</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="chapter-5.html"><a href="chapter-5.html#volcano"><i class="fa fa-check"></i><b>4.1</b> Volcano Plot</a></li>
-<li class="chapter" data-level="4.2" data-path="chapter-5.html"><a href="chapter-5.html#venn-diagram"><i class="fa fa-check"></i><b>4.2</b> Venn Diagram</a></li>
-<li class="chapter" data-level="4.3" data-path="chapter-5.html"><a href="chapter-5.html#clustering"><i class="fa fa-check"></i><b>4.3</b> Clustering</a></li>
-<li class="chapter" data-level="4.4" data-path="chapter-5.html"><a href="chapter-5.html#pathway-analysis"><i class="fa fa-check"></i><b>4.4</b> Pathway Analysis</a>
+<li class="chapter" data-level="3.1" data-path="chapter-3.html"><a href="chapter-3.html#loading-data"><i class="fa fa-check"></i><b>3.1</b> Loading data into R</a></li>
+<li class="chapter" data-level="3.2" data-path="chapter-3.html"><a href="chapter-3.html#ch3_example_data"><i class="fa fa-check"></i><b>3.2</b> Example Data</a></li>
+<li class="chapter" data-level="3.3" data-path="chapter-3.html"><a href="chapter-3.html#EDA_part1"><i class="fa fa-check"></i><b>3.3</b> Visualizing using <code>boxplot</code> and <code>density plot</code></a>
 <ul>
-<li class="chapter" data-level="4.4.1" data-path="chapter-5.html"><a href="chapter-5.html#gene-functional-classification-using-david-100-degs"><i class="fa fa-check"></i><b>4.4.1</b> Gene Functional Classification using DAVID (&gt;100 DEGs)</a></li>
-<li class="chapter" data-level="4.4.2" data-path="chapter-5.html"><a href="chapter-5.html#kegg-pathway-visualization-10-degs"><i class="fa fa-check"></i><b>4.4.2</b> KEGG-pathway Visualization (&gt;10 DEGs)</a></li>
-<li class="chapter" data-level="4.4.3" data-path="chapter-5.html"><a href="chapter-5.html#spia"><i class="fa fa-check"></i><b>4.4.3</b> Signaling Pathway Impact Analysis (&gt;20 DEGs)</a></li>
+<li class="chapter" data-level="3.3.1" data-path="chapter-3.html"><a href="chapter-3.html#eda_statistics"><i class="fa fa-check"></i><b>3.3.1</b> Statistics</a></li>
+<li class="chapter" data-level="3.3.2" data-path="chapter-3.html"><a href="chapter-3.html#eda_boxplots"><i class="fa fa-check"></i><b>3.3.2</b> Boxplots</a></li>
+<li class="chapter" data-level="3.3.3" data-path="chapter-3.html"><a href="chapter-3.html#eda_density_plot"><i class="fa fa-check"></i><b>3.3.3</b> Density Plots</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="chapter-3.html"><a href="chapter-3.html#EDA_part2"><i class="fa fa-check"></i><b>3.4</b> Visualizing using <code>heatmap</code> and <code>MDS</code></a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="chapter-3.html"><a href="chapter-3.html#normalization"><i class="fa fa-check"></i><b>3.4.1</b> Normalization</a></li>
+<li class="chapter" data-level="3.4.2" data-path="chapter-3.html"><a href="chapter-3.html#eda_distance"><i class="fa fa-check"></i><b>3.4.2</b> Distance Calculation</a></li>
+<li class="chapter" data-level="3.4.3" data-path="chapter-3.html"><a href="chapter-3.html#eda_heatmap"><i class="fa fa-check"></i><b>3.4.3</b> Sample Distances using a Heatmap</a></li>
+<li class="chapter" data-level="3.4.4" data-path="chapter-3.html"><a href="chapter-3.html#eda_mds"><i class="fa fa-check"></i><b>3.4.4</b> Multi-Dimensional Scaling</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="chapter-3.html"><a href="chapter-3.html#cleaning-data"><i class="fa fa-check"></i><b>3.5</b> Cleaning Data</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="chapter-4.html"><a href="chapter-4.html"><i class="fa fa-check"></i><b>4</b> Discovering Differentialy Expressed Genes (DEGs)</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="chapter-4.html"><a href="chapter-4.html#deg-preprocessing"><i class="fa fa-check"></i><b>4.1</b> Pre-processing</a></li>
+<li class="chapter" data-level="4.2" data-path="chapter-4.html"><a href="chapter-4.html#deg-fc"><i class="fa fa-check"></i><b>4.2</b> The <em>Fold Change</em> Value</a></li>
+<li class="chapter" data-level="4.3" data-path="chapter-4.html"><a href="chapter-4.html#deg-bioconductor"><i class="fa fa-check"></i><b>4.3</b> Using Bioconductor Packages</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="chapter-4.html"><a href="chapter-4.html#deg-design"><i class="fa fa-check"></i><b>4.3.1</b> The <code>Design</code> (matrix)</a></li>
+<li class="chapter" data-level="4.3.2" data-path="chapter-4.html"><a href="chapter-4.html#deg-deseq2"><i class="fa fa-check"></i><b>4.3.2</b> <code>DESeq2</code></a></li>
+<li class="chapter" data-level="4.3.3" data-path="chapter-4.html"><a href="chapter-4.html#deg-edger"><i class="fa fa-check"></i><b>4.3.3</b> <code>edgeR</code></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="chapter-5.html"><a href="chapter-5.html"><i class="fa fa-check"></i><b>5</b> Data Analysis and Visualization</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="chapter-5.html"><a href="chapter-5.html#volcano"><i class="fa fa-check"></i><b>5.1</b> Volcano Plot</a></li>
+<li class="chapter" data-level="5.2" data-path="chapter-5.html"><a href="chapter-5.html#venn-diagram"><i class="fa fa-check"></i><b>5.2</b> Venn Diagram</a></li>
+<li class="chapter" data-level="5.3" data-path="chapter-5.html"><a href="chapter-5.html#clustering"><i class="fa fa-check"></i><b>5.3</b> Clustering</a></li>
+<li class="chapter" data-level="5.4" data-path="chapter-5.html"><a href="chapter-5.html#pathway-analysis"><i class="fa fa-check"></i><b>5.4</b> Pathway Analysis</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="chapter-5.html"><a href="chapter-5.html#gene-functional-classification-using-david-100-degs"><i class="fa fa-check"></i><b>5.4.1</b> Gene Functional Classification using DAVID (&gt;100 DEGs)</a></li>
+<li class="chapter" data-level="5.4.2" data-path="chapter-5.html"><a href="chapter-5.html#kegg-pathway-visualization-10-degs"><i class="fa fa-check"></i><b>5.4.2</b> KEGG-pathway Visualization (&gt;10 DEGs)</a></li>
+<li class="chapter" data-level="5.4.3" data-path="chapter-5.html"><a href="chapter-5.html#spia"><i class="fa fa-check"></i><b>5.4.3</b> Signaling Pathway Impact Analysis (&gt;20 DEGs)</a></li>
 </ul></li>
 </ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
@@ -261,11 +282,11 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="chapter-5" class="section level1 hasAnchor" number="4">
+<div id="chapter-5" class="section level1 hasAnchor" number="5">
 <h1><span class="header-section-number"></span> Data Analysis and Visualization<a href="chapter-5.html#chapter-5" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>At this point we have one or more sets of DEGs from our experiment. It might be just one set or it might be a large number of comparisons made with a set of DEGs per comparison and/ or results from multiple approaches (manual, packages). This chapter offers some guidance to visualize, summarize and - finally - connect some biological relevance to the results. <strong>Browse this chapter first</strong> before choosing the visualization(s) to make for your data! If your article contains relevant figures that you would like to try and reproduce (given that enough data is available) that can be done as well instead of the visualizations shown here. Note however that the Volcano plot described below <strong>is</strong> required.</p>
-<div id="volcano" class="section level2 hasAnchor" number="4.1">
-<h2><span class="header-section-number">4.1</span> Volcano Plot<a href="chapter-5.html#volcano" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="volcano" class="section level2 hasAnchor" number="5.1">
+<h2><span class="header-section-number">5.1</span> Volcano Plot<a href="chapter-5.html#volcano" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>A volcano plot is often the first visualization of the data once the statistical tests are completed. This plot shows data for <em>all</em> genes and we highlight those genes that are considered DEG by using thresholds for both the (adjusted) p-value and a fold-change. Many articles describe values used for these thresholds in their methods section, otherwise a good default is 0.05 for the adjusted p-value and around 1.0 for the log-FC.</p>
 <p>Here we use the <code>EnhancedVolcano</code> library that creates a <code>ggplot2</code> volcano plot as shown below. This is packaged in a function <code>deseq.volcano</code> just because we create two figures and only need to change the input data set and plot title. The resulting scatterplot places the <code>-log10(pvalue)</code> values on the y-axis and the log-FC on the x-axis. This often results in a plot representing a volcanic ‘eruption’ where the fold-change influences the spread and the significance the height. Coloring is done based on the thresholds (-log10(0.05) for the adjusted and log2(2) for the log-FC) as follows:</p>
 <ul>
@@ -275,30 +296,30 @@ div.csl-indent {
 <li>red: significant DEG</li>
 </ul>
 <p>You can adjust the <code>pCutoff</code> and <code>FCcutoff</code> values depending on your own requirements, see the elaborate <a href="https://github.com/kevinblighe/EnhancedVolcano">documentation and examples</a> on GitHub.</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="chapter-5.html#cb23-1" tabindex="-1"></a><span class="fu">library</span>(EnhancedVolcano)</span>
-<span id="cb23-2"><a href="chapter-5.html#cb23-2" tabindex="-1"></a></span>
-<span id="cb23-3"><a href="chapter-5.html#cb23-3" tabindex="-1"></a><span class="do">## Simple function for plotting a Volcano plot, returns a ggplot object</span></span>
-<span id="cb23-4"><a href="chapter-5.html#cb23-4" tabindex="-1"></a>deseq.volcano <span class="ot">&lt;-</span> <span class="cf">function</span>(res, datasetName) {</span>
-<span id="cb23-5"><a href="chapter-5.html#cb23-5" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">EnhancedVolcano</span>(res, <span class="at">x =</span> <span class="st">&#39;log2FoldChange&#39;</span>, <span class="at">y =</span> <span class="st">&#39;padj&#39;</span>,</span>
-<span id="cb23-6"><a href="chapter-5.html#cb23-6" tabindex="-1"></a>                         <span class="at">lab=</span><span class="fu">rownames</span>(res),</span>
-<span id="cb23-7"><a href="chapter-5.html#cb23-7" tabindex="-1"></a>                         <span class="at">title =</span> <span class="fu">paste</span>(datasetName, <span class="st">&quot;trisomic vs disomic&quot;</span>),</span>
-<span id="cb23-8"><a href="chapter-5.html#cb23-8" tabindex="-1"></a>                         <span class="at">subtitle =</span> <span class="fu">bquote</span>(<span class="fu">italic</span>(<span class="st">&#39;FDR &lt;= 0.05 and absolute FC &gt;= 2&#39;</span>)),</span>
-<span id="cb23-9"><a href="chapter-5.html#cb23-9" tabindex="-1"></a>                         <span class="co"># Change text and icon sizes</span></span>
-<span id="cb23-10"><a href="chapter-5.html#cb23-10" tabindex="-1"></a>                         <span class="at">labSize =</span> <span class="dv">3</span>, <span class="at">pointSize =</span> <span class="fl">1.5</span>, <span class="at">axisLabSize=</span><span class="dv">10</span>, <span class="at">titleLabSize=</span><span class="dv">12</span>,</span>
-<span id="cb23-11"><a href="chapter-5.html#cb23-11" tabindex="-1"></a>                         <span class="at">subtitleLabSize=</span><span class="dv">8</span>, <span class="at">captionLabSize=</span><span class="dv">10</span>,</span>
-<span id="cb23-12"><a href="chapter-5.html#cb23-12" tabindex="-1"></a>                         <span class="co"># Disable legend</span></span>
-<span id="cb23-13"><a href="chapter-5.html#cb23-13" tabindex="-1"></a>                         <span class="at">legendPosition =</span> <span class="st">&quot;none&quot;</span>,</span>
-<span id="cb23-14"><a href="chapter-5.html#cb23-14" tabindex="-1"></a>                         <span class="co"># Set cutoffs</span></span>
-<span id="cb23-15"><a href="chapter-5.html#cb23-15" tabindex="-1"></a>                         <span class="at">pCutoff =</span> <span class="fl">0.05</span>, <span class="at">FCcutoff =</span> <span class="dv">2</span>))</span>
-<span id="cb23-16"><a href="chapter-5.html#cb23-16" tabindex="-1"></a>}</span>
-<span id="cb23-17"><a href="chapter-5.html#cb23-17" tabindex="-1"></a></span>
-<span id="cb23-18"><a href="chapter-5.html#cb23-18" tabindex="-1"></a><span class="do">## Note: input data is the corrected DESeq2 output using the &#39;lfcShrink&#39; function (see chapter 4)</span></span>
-<span id="cb23-19"><a href="chapter-5.html#cb23-19" tabindex="-1"></a><span class="fu">deseq.volcano</span>(<span class="at">res =</span> res.ipsc.lfc, <span class="at">datasetName =</span> <span class="st">&quot;IPSC&quot;</span>)</span></code></pre></div>
-<p><img src="gene_expression_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="chapter-5.html#cb24-1" tabindex="-1"></a><span class="fu">deseq.volcano</span>(<span class="at">res =</span> res.neuron.lfc, <span class="at">datasetName =</span> <span class="st">&quot;Neuron&quot;</span>)</span></code></pre></div>
-<p><img src="gene_expression_files/figure-html/unnamed-chunk-7-2.png" width="672" /></p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="chapter-5.html#cb25-1" tabindex="-1"></a><span class="co"># Note that the most simplest case is:</span></span>
-<span id="cb25-2"><a href="chapter-5.html#cb25-2" tabindex="-1"></a><span class="fu">EnhancedVolcano</span>(res.ipsc, <span class="at">x =</span> <span class="st">&#39;log2FoldChange&#39;</span>, <span class="at">y =</span> <span class="st">&#39;padj&#39;</span>, <span class="at">lab =</span> <span class="fu">rownames</span>(res.ipsc))</span></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="chapter-5.html#cb37-1" tabindex="-1"></a><span class="fu">library</span>(EnhancedVolcano)</span>
+<span id="cb37-2"><a href="chapter-5.html#cb37-2" tabindex="-1"></a></span>
+<span id="cb37-3"><a href="chapter-5.html#cb37-3" tabindex="-1"></a><span class="do">## Simple function for plotting a Volcano plot, returns a ggplot object</span></span>
+<span id="cb37-4"><a href="chapter-5.html#cb37-4" tabindex="-1"></a>deseq.volcano <span class="ot">&lt;-</span> <span class="cf">function</span>(res, datasetName) {</span>
+<span id="cb37-5"><a href="chapter-5.html#cb37-5" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">EnhancedVolcano</span>(res, <span class="at">x =</span> <span class="st">&#39;log2FoldChange&#39;</span>, <span class="at">y =</span> <span class="st">&#39;padj&#39;</span>,</span>
+<span id="cb37-6"><a href="chapter-5.html#cb37-6" tabindex="-1"></a>                         <span class="at">lab=</span><span class="fu">rownames</span>(res),</span>
+<span id="cb37-7"><a href="chapter-5.html#cb37-7" tabindex="-1"></a>                         <span class="at">title =</span> <span class="fu">paste</span>(datasetName, <span class="st">&quot;trisomic vs disomic&quot;</span>),</span>
+<span id="cb37-8"><a href="chapter-5.html#cb37-8" tabindex="-1"></a>                         <span class="at">subtitle =</span> <span class="fu">bquote</span>(<span class="fu">italic</span>(<span class="st">&#39;FDR &lt;= 0.05 and absolute FC &gt;= 2&#39;</span>)),</span>
+<span id="cb37-9"><a href="chapter-5.html#cb37-9" tabindex="-1"></a>                         <span class="co"># Change text and icon sizes</span></span>
+<span id="cb37-10"><a href="chapter-5.html#cb37-10" tabindex="-1"></a>                         <span class="at">labSize =</span> <span class="dv">3</span>, <span class="at">pointSize =</span> <span class="fl">1.5</span>, <span class="at">axisLabSize=</span><span class="dv">10</span>, <span class="at">titleLabSize=</span><span class="dv">12</span>,</span>
+<span id="cb37-11"><a href="chapter-5.html#cb37-11" tabindex="-1"></a>                         <span class="at">subtitleLabSize=</span><span class="dv">8</span>, <span class="at">captionLabSize=</span><span class="dv">10</span>,</span>
+<span id="cb37-12"><a href="chapter-5.html#cb37-12" tabindex="-1"></a>                         <span class="co"># Disable legend</span></span>
+<span id="cb37-13"><a href="chapter-5.html#cb37-13" tabindex="-1"></a>                         <span class="at">legendPosition =</span> <span class="st">&quot;none&quot;</span>,</span>
+<span id="cb37-14"><a href="chapter-5.html#cb37-14" tabindex="-1"></a>                         <span class="co"># Set cutoffs</span></span>
+<span id="cb37-15"><a href="chapter-5.html#cb37-15" tabindex="-1"></a>                         <span class="at">pCutoff =</span> <span class="fl">0.05</span>, <span class="at">FCcutoff =</span> <span class="dv">2</span>))</span>
+<span id="cb37-16"><a href="chapter-5.html#cb37-16" tabindex="-1"></a>}</span>
+<span id="cb37-17"><a href="chapter-5.html#cb37-17" tabindex="-1"></a></span>
+<span id="cb37-18"><a href="chapter-5.html#cb37-18" tabindex="-1"></a><span class="do">## Note: input data is the corrected DESeq2 output using the &#39;lfcShrink&#39; function (see chapter 4)</span></span>
+<span id="cb37-19"><a href="chapter-5.html#cb37-19" tabindex="-1"></a><span class="fu">deseq.volcano</span>(<span class="at">res =</span> res.ipsc.lfc, <span class="at">datasetName =</span> <span class="st">&quot;IPSC&quot;</span>)</span></code></pre></div>
+<p><img src="gene_expression_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="chapter-5.html#cb38-1" tabindex="-1"></a><span class="fu">deseq.volcano</span>(<span class="at">res =</span> res.neuron.lfc, <span class="at">datasetName =</span> <span class="st">&quot;Neuron&quot;</span>)</span></code></pre></div>
+<p><img src="gene_expression_files/figure-html/unnamed-chunk-9-2.png" width="672" /></p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="chapter-5.html#cb39-1" tabindex="-1"></a><span class="co"># Note that the most simplest case is:</span></span>
+<span id="cb39-2"><a href="chapter-5.html#cb39-2" tabindex="-1"></a><span class="fu">EnhancedVolcano</span>(res.ipsc, <span class="at">x =</span> <span class="st">&#39;log2FoldChange&#39;</span>, <span class="at">y =</span> <span class="st">&#39;padj&#39;</span>, <span class="at">lab =</span> <span class="fu">rownames</span>(res.ipsc))</span></code></pre></div>
 <p><strong>Notes</strong>:</p>
 <ul>
 <li>When you have used edgeR instead you need to change the names of the columns (i.e. <code>log2FoldChange</code> == <code>logFC</code> and <code>padj</code> == <code>FDR</code>) used in this example.</li>
@@ -306,8 +327,8 @@ div.csl-indent {
 <li>This section has been rewritten to use the <code>EnhancedVolcano</code> function instead of creating a manual ggplot2 plot as can be seen <a href="https://bioinf.nl/~marcelk/theme07/chapter-5.html#volcano">in the old version</a> of the course manual.</li>
 </ul>
 </div>
-<div id="venn-diagram" class="section level2 hasAnchor" number="4.2">
-<h2><span class="header-section-number">4.2</span> Venn Diagram<a href="chapter-5.html#venn-diagram" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="venn-diagram" class="section level2 hasAnchor" number="5.2">
+<h2><span class="header-section-number">5.2</span> Venn Diagram<a href="chapter-5.html#venn-diagram" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Another common visualization is a Venn-diagram. With our data set we’ve shown two comparisons; trisomic vs disomic in two cell types. Using a Venn-diagram we can show both the <em>shared</em> and <em>unique</em> DEGS for the <em>IPSC trisomic vs IPSC disomic</em> and <em>NEUR trisomic vs NEUR disomic</em> comparisons.</p>
 <p>Creating a Venn-diagram can be a good method for selecting a (sub)set of DEGs, for instance by selecting the set of DEGs that are shared between groups (the <em>Intersection</em>, see the <a href="https://en.wikipedia.org/wiki/Set_theory">Wikipedia page on Set Theory</a> or the other way around, only the DEGs that are unique for a group (the <em>Difference</em>). Keep this in mind when continuing on to the <a href="chapter-5.html#clustering">clustering</a> section below where it is most likely not useful to cluster all combinations you might have.</p>
 <p>Code examples:</p>
@@ -320,47 +341,47 @@ div.csl-indent {
 <li>Using the <code>gplots</code> library (third code-chunk): Easier to use and support for complex Venn diagrams, but not good for adjusting appearance.</li>
 </ul>
 <p>See the blog post “<a href="https://www.datanovia.com/en/blog/venn-diagram-with-r-or-rstudio-a-million-ways/">VENN DIAGRAM WITH R OR RSTUDIO: A MILLION WAYS</a>” for more methods of creating Venn diagrams.</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="chapter-5.html#cb26-1" tabindex="-1"></a><span class="do">## Data preparation</span></span>
-<span id="cb26-2"><a href="chapter-5.html#cb26-2" tabindex="-1"></a>pval_threshold <span class="ot">&lt;-</span> <span class="fl">0.05</span></span>
-<span id="cb26-3"><a href="chapter-5.html#cb26-3" tabindex="-1"></a>ipsc.degs <span class="ot">&lt;-</span> <span class="fu">row.names</span>(res.ipsc.lfc[<span class="fu">which</span>(res.ipsc.lfc<span class="sc">$</span>padj <span class="sc">&lt;=</span> pval_threshold), ])</span>
-<span id="cb26-4"><a href="chapter-5.html#cb26-4" tabindex="-1"></a>neur.degs <span class="ot">&lt;-</span> <span class="fu">row.names</span>(res.neuron.lfc[<span class="fu">which</span>(res.neuron.lfc<span class="sc">$</span>padj <span class="sc">&lt;=</span> pval_threshold), ])</span></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="chapter-5.html#cb40-1" tabindex="-1"></a><span class="do">## Data preparation</span></span>
+<span id="cb40-2"><a href="chapter-5.html#cb40-2" tabindex="-1"></a>pval_threshold <span class="ot">&lt;-</span> <span class="fl">0.05</span></span>
+<span id="cb40-3"><a href="chapter-5.html#cb40-3" tabindex="-1"></a>ipsc.degs <span class="ot">&lt;-</span> <span class="fu">row.names</span>(res.ipsc.lfc[<span class="fu">which</span>(res.ipsc.lfc<span class="sc">$</span>padj <span class="sc">&lt;=</span> pval_threshold), ])</span>
+<span id="cb40-4"><a href="chapter-5.html#cb40-4" tabindex="-1"></a>neur.degs <span class="ot">&lt;-</span> <span class="fu">row.names</span>(res.neuron.lfc[<span class="fu">which</span>(res.neuron.lfc<span class="sc">$</span>padj <span class="sc">&lt;=</span> pval_threshold), ])</span></code></pre></div>
 <p>The two created vectors of gene names can be used by either taking their lengths (for the <code>VennDiagram</code> library) or just their names (for the <code>gplots</code> library).</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="chapter-5.html#cb27-1" tabindex="-1"></a><span class="do">## Venn-diagram using the `VennDiagram` library (see below for alternative method)</span></span>
-<span id="cb27-2"><a href="chapter-5.html#cb27-2" tabindex="-1"></a><span class="fu">library</span>(VennDiagram)</span>
-<span id="cb27-3"><a href="chapter-5.html#cb27-3" tabindex="-1"></a><span class="co"># Arguments for a pairwise (two-sets) venn-diagram are sizes for set1, set2 and overlap (intersect)</span></span>
-<span id="cb27-4"><a href="chapter-5.html#cb27-4" tabindex="-1"></a><span class="co"># Many more functions are available for triple, quad and quantuple diagrams (starting with &#39;draw.***&#39;)</span></span>
-<span id="cb27-5"><a href="chapter-5.html#cb27-5" tabindex="-1"></a>venn.plot <span class="ot">&lt;-</span> <span class="fu">draw.pairwise.venn</span>(<span class="fu">length</span>(ipsc.degs),</span>
-<span id="cb27-6"><a href="chapter-5.html#cb27-6" tabindex="-1"></a>                                <span class="fu">length</span>(neur.degs),</span>
-<span id="cb27-7"><a href="chapter-5.html#cb27-7" tabindex="-1"></a>                                <span class="co"># Calculate the intersection of the two sets</span></span>
-<span id="cb27-8"><a href="chapter-5.html#cb27-8" tabindex="-1"></a>                                <span class="fu">length</span>( <span class="fu">intersect</span>(ipsc.degs, neur.degs) ),</span>
-<span id="cb27-9"><a href="chapter-5.html#cb27-9" tabindex="-1"></a>                                <span class="at">category =</span> <span class="fu">c</span>(<span class="st">&quot;IPSC Trisomic vs Disomic&quot;</span>, <span class="st">&quot;NEURON Trisomic vs Disomic&quot;</span>), <span class="at">scaled =</span> F,</span>
-<span id="cb27-10"><a href="chapter-5.html#cb27-10" tabindex="-1"></a>                                <span class="at">fill =</span> <span class="fu">c</span>(<span class="st">&quot;light blue&quot;</span>, <span class="st">&quot;pink&quot;</span>), <span class="at">alpha =</span> <span class="fu">rep</span>(<span class="fl">0.5</span>, <span class="dv">2</span>),</span>
-<span id="cb27-11"><a href="chapter-5.html#cb27-11" tabindex="-1"></a>                                <span class="at">cat.pos =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>))</span>
-<span id="cb27-12"><a href="chapter-5.html#cb27-12" tabindex="-1"></a></span>
-<span id="cb27-13"><a href="chapter-5.html#cb27-13" tabindex="-1"></a><span class="co"># Actually plot the plot</span></span>
-<span id="cb27-14"><a href="chapter-5.html#cb27-14" tabindex="-1"></a><span class="fu">grid.draw</span>(venn.plot)</span></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="chapter-5.html#cb41-1" tabindex="-1"></a><span class="do">## Venn-diagram using the `VennDiagram` library (see below for alternative method)</span></span>
+<span id="cb41-2"><a href="chapter-5.html#cb41-2" tabindex="-1"></a><span class="fu">library</span>(VennDiagram)</span>
+<span id="cb41-3"><a href="chapter-5.html#cb41-3" tabindex="-1"></a><span class="co"># Arguments for a pairwise (two-sets) venn-diagram are sizes for set1, set2 and overlap (intersect)</span></span>
+<span id="cb41-4"><a href="chapter-5.html#cb41-4" tabindex="-1"></a><span class="co"># Many more functions are available for triple, quad and quantuple diagrams (starting with &#39;draw.***&#39;)</span></span>
+<span id="cb41-5"><a href="chapter-5.html#cb41-5" tabindex="-1"></a>venn.plot <span class="ot">&lt;-</span> <span class="fu">draw.pairwise.venn</span>(<span class="fu">length</span>(ipsc.degs),</span>
+<span id="cb41-6"><a href="chapter-5.html#cb41-6" tabindex="-1"></a>                                <span class="fu">length</span>(neur.degs),</span>
+<span id="cb41-7"><a href="chapter-5.html#cb41-7" tabindex="-1"></a>                                <span class="co"># Calculate the intersection of the two sets</span></span>
+<span id="cb41-8"><a href="chapter-5.html#cb41-8" tabindex="-1"></a>                                <span class="fu">length</span>( <span class="fu">intersect</span>(ipsc.degs, neur.degs) ),</span>
+<span id="cb41-9"><a href="chapter-5.html#cb41-9" tabindex="-1"></a>                                <span class="at">category =</span> <span class="fu">c</span>(<span class="st">&quot;IPSC Trisomic vs Disomic&quot;</span>, <span class="st">&quot;NEURON Trisomic vs Disomic&quot;</span>), <span class="at">scaled =</span> F,</span>
+<span id="cb41-10"><a href="chapter-5.html#cb41-10" tabindex="-1"></a>                                <span class="at">fill =</span> <span class="fu">c</span>(<span class="st">&quot;light blue&quot;</span>, <span class="st">&quot;pink&quot;</span>), <span class="at">alpha =</span> <span class="fu">rep</span>(<span class="fl">0.5</span>, <span class="dv">2</span>),</span>
+<span id="cb41-11"><a href="chapter-5.html#cb41-11" tabindex="-1"></a>                                <span class="at">cat.pos =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>))</span>
+<span id="cb41-12"><a href="chapter-5.html#cb41-12" tabindex="-1"></a></span>
+<span id="cb41-13"><a href="chapter-5.html#cb41-13" tabindex="-1"></a><span class="co"># Actually plot the plot</span></span>
+<span id="cb41-14"><a href="chapter-5.html#cb41-14" tabindex="-1"></a><span class="fu">grid.draw</span>(venn.plot)</span></code></pre></div>
 <div class="figure"><span style="display:block;" id="fig:vennDiagram"></span>
 <img src="gene_expression_files/figure-html/vennDiagram-1.png" alt="Venn diagram comparing edgeR and DESeq2 DEGs using 'VennDiagram'" width="672" />
 <p class="caption">
-Figure 4.1: Venn diagram comparing edgeR and DESeq2 DEGs using ‘VennDiagram’
+Figure 5.1: Venn diagram comparing edgeR and DESeq2 DEGs using ‘VennDiagram’
 </p>
 </div>
 <p>As mentioned, following is an easier alternative (especially when you have &gt; 2 groups) with the <code>venn</code> function from the <code>gplots</code> library. This only needs a list containing either the row-numbers or the gene-names of the DEGs which is easier (but offers less adjustability to make it prettier).</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="chapter-5.html#cb28-1" tabindex="-1"></a><span class="do">## Alternative method using the `gplots` library</span></span>
-<span id="cb28-2"><a href="chapter-5.html#cb28-2" tabindex="-1"></a><span class="fu">library</span>(gplots)</span>
-<span id="cb28-3"><a href="chapter-5.html#cb28-3" tabindex="-1"></a><span class="co"># Create a Venn-diagram given just the list of gene-names for both sets</span></span>
-<span id="cb28-4"><a href="chapter-5.html#cb28-4" tabindex="-1"></a><span class="fu">venn</span>(<span class="fu">list</span>(<span class="st">&quot;IPSC Trisomic vs Disomic&quot;</span> <span class="ot">=</span> ipsc.degs,</span>
-<span id="cb28-5"><a href="chapter-5.html#cb28-5" tabindex="-1"></a>          <span class="st">&quot;NEURON Trisomic vs Disomic&quot;</span> <span class="ot">=</span> neur.degs), )</span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="chapter-5.html#cb42-1" tabindex="-1"></a><span class="do">## Alternative method using the `gplots` library</span></span>
+<span id="cb42-2"><a href="chapter-5.html#cb42-2" tabindex="-1"></a><span class="fu">library</span>(gplots)</span>
+<span id="cb42-3"><a href="chapter-5.html#cb42-3" tabindex="-1"></a><span class="co"># Create a Venn-diagram given just the list of gene-names for both sets</span></span>
+<span id="cb42-4"><a href="chapter-5.html#cb42-4" tabindex="-1"></a><span class="fu">venn</span>(<span class="fu">list</span>(<span class="st">&quot;IPSC Trisomic vs Disomic&quot;</span> <span class="ot">=</span> ipsc.degs,</span>
+<span id="cb42-5"><a href="chapter-5.html#cb42-5" tabindex="-1"></a>          <span class="st">&quot;NEURON Trisomic vs Disomic&quot;</span> <span class="ot">=</span> neur.degs), )</span></code></pre></div>
 <div class="figure"><span style="display:block;" id="fig:alternativeVenn"></span>
 <img src="gene_expression_files/figure-html/alternativeVenn-1.png" alt="Venn diagram comparing edgeR and DESeq2 DEGs using 'gplots'" width="672" />
 <p class="caption">
-Figure 4.2: Venn diagram comparing edgeR and DESeq2 DEGs using ‘gplots’
+Figure 5.2: Venn diagram comparing edgeR and DESeq2 DEGs using ‘gplots’
 </p>
 </div>
 <p>While both analysis result in a similar amount of DEGS (849 for the IPSC and 769 for the Neuron cell types) only 96 DEGs are shared between both cell types and most are thus unique.</p>
 </div>
-<div id="clustering" class="section level2 hasAnchor" number="4.3">
-<h2><span class="header-section-number">4.3</span> Clustering<a href="chapter-5.html#clustering" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="clustering" class="section level2 hasAnchor" number="5.3">
+<h2><span class="header-section-number">5.3</span> Clustering<a href="chapter-5.html#clustering" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Here, we can create a heatmap of the found DEGs for all samples where the colors show the fold-change value. Usually this heatmap is shown with a two color gradient; from red (downregulated) to green (upregulated). This is however optional and using the default colors from <code>pheatmap</code> for example is perfectly fine as long as a proper legend is present.</p>
 <p>There are multiple methods of creating a heatmap (one of which you’ve already used) and most of these directly apply clustering in the visualization. This clustering can be applied to the expression pattern of a gene (row-clustering), the expression pattern of a sample (column-clustering) or both (default for <code>pheatmap</code>).</p>
 <p>The following example is commonly found in publications as shows the log2 Fold Change values for the comparison that was done. The first and fifth columns show the log2(FC) as calculated by DESeq2 for the two trisomic vs disomic comparisons. The remaining columns are the log fold changes of the <em>separate</em> trisomic replicates vs the <em>average</em> disomic expression (manually calculating the Log(FC) as done in <a href="chapter-4.html#deg-fc">section 4.1</a> using the DESeq2 normalized count data from the <code>rld.dds</code> object). The DESeq2 calculated FC values show greater changes compared to the manually calculated FC values. The value in showing the manually calculated values too is to see if all replicates show the same patterns within groups. They are however optional <em>unless</em> you only have one comparison as you cannot create a heatmap with a single column.</p>
@@ -368,18 +389,18 @@ Figure 4.2: Venn diagram comparing edgeR and DESeq2 DEGs using ‘gplots’
 <div class="figure"><span style="display:block;" id="fig:expressionHeatmap"></span>
 <img src="gene_expression_files/figure-html/expressionHeatmap-1.png" alt="Heatmap showing the fold changes of the Trisomic vs Disomic comparisons for both cell types. The shown genes are all shared DEGS (the 96 shown in the Venn-diagrams) but also filtered for an absolute log2(FC) value of &gt;2." width="672" />
 <p class="caption">
-Figure 4.3: Heatmap showing the fold changes of the Trisomic vs Disomic comparisons for both cell types. The shown genes are all shared DEGS (the 96 shown in the Venn-diagrams) but also filtered for an absolute log2(FC) value of &gt;2.
+Figure 5.3: Heatmap showing the fold changes of the Trisomic vs Disomic comparisons for both cell types. The shown genes are all shared DEGS (the 96 shown in the Venn-diagrams) but also filtered for an absolute log2(FC) value of &gt;2.
 </p>
 </div>
 <p>A limitation of a heatmap will show itself when more then 100 DEGs are found; this just doesn’t fit well in a single figure and causes the clustering and especially the gene names/ labels to be unreadable. It is therefore always adviced to not only filter on the adjusted p-value, but also on the log-FC value to reduce the number of genes shown. Alternatively if the data is properly annotated, instead of showing gene names for each row, showing a GO-term clustering might reveal expression patterns for certain gene groups.</p>
 </div>
-<div id="pathway-analysis" class="section level2 hasAnchor" number="4.4">
-<h2><span class="header-section-number">4.4</span> Pathway Analysis<a href="chapter-5.html#pathway-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="pathway-analysis" class="section level2 hasAnchor" number="5.4">
+<h2><span class="header-section-number">5.4</span> Pathway Analysis<a href="chapter-5.html#pathway-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>In some cases you’ll see hundreds or even thousands of DEGs as a result of an analysis. These large amounts of DEGs are too much for most visualization approaches or to easily say something about the biological context for that many genes.</p>
 <p>One approach for tackling such a large set of DEGs is <em>pathway analysis</em> where through different methods genes are grouped by pathway to get an overview of affected pathways in the experiment.</p>
 <p>This section will demonstrate two methods for this analysis, one using an online platform for <em>gene-annotation enrichment</em> analysis and an R-method for <em>signaling pathway impact analysis</em>.</p>
-<div id="gene-functional-classification-using-david-100-degs" class="section level3 hasAnchor" number="4.4.1">
-<h3><span class="header-section-number">4.4.1</span> Gene Functional Classification using DAVID (&gt;100 DEGs)<a href="chapter-5.html#gene-functional-classification-using-david-100-degs" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="gene-functional-classification-using-david-100-degs" class="section level3 hasAnchor" number="5.4.1">
+<h3><span class="header-section-number">5.4.1</span> Gene Functional Classification using DAVID (&gt;100 DEGs)<a href="chapter-5.html#gene-functional-classification-using-david-100-degs" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The online <em>Database for Annotation, Visualization and Integrated Discovery</em> <a href="https://david.ncifcrf.gov/home.jsp">DAVID</a> tool suite allows for multiple - functional - annotation methods, one of these can be used for enrichment analysis based on gene annotation. To use the DAVID tools we need to have the list of gene names, ID’s or other identifyable information (no need for p-values or fold-changes). The basics of this method consist of grouping genes in pathways, count how many genes are in each pathway and compare this with what you would expect if you take a <em>random</em> sample from the genome with the same size as the number of your DEGs.</p>
 <p>For example, if the <strong>RNA transport</strong> pathway contains a total of 50 genes out of the total of 25.000 for the whole mouse genome. This means <strong>0.2%</strong> of <strong>all</strong> mouse genes have a role in this pathway.</p>
 <p>If you uploaded a total of 1000 DEGs for analysis, you expect 0.2% = <strong>2</strong> genes from your DEG list to be placed in this pathway. But, it seems that there are <strong>10</strong> genes from the <strong>RNA transport</strong> pathway in the set of 1000 genes, which is <strong>5</strong> times as much as expected. This difference between expected and observed gene counts per pathway allows to say if a particular pathway is <em>enriched</em>.</p>
@@ -389,11 +410,11 @@ Figure 4.3: Heatmap showing the fold changes of the Trisomic vs Disomic comparis
 <div class="figcaption"><em>DAVID functional annotation methods</em></div>
 </div>
 <p>The following example code writes the gene <em>symbols</em> for both analysis approaches to a file for upload on DAVID.</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="chapter-5.html#cb29-1" tabindex="-1"></a><span class="co"># Write gene names to a file</span></span>
-<span id="cb29-2"><a href="chapter-5.html#cb29-2" tabindex="-1"></a><span class="fu">write.table</span>(edgeR.degs, <span class="at">file =</span> <span class="st">&quot;../data/edger-deg-names.txt&quot;</span>,</span>
-<span id="cb29-3"><a href="chapter-5.html#cb29-3" tabindex="-1"></a>            <span class="at">row.names =</span> <span class="cn">FALSE</span>, <span class="at">quote =</span> <span class="cn">FALSE</span>, <span class="at">col.names =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb29-4"><a href="chapter-5.html#cb29-4" tabindex="-1"></a><span class="fu">write.table</span>(DESeq.degs, <span class="at">file =</span> <span class="st">&quot;../data/deseq-deg-names.txt&quot;</span>,</span>
-<span id="cb29-5"><a href="chapter-5.html#cb29-5" tabindex="-1"></a>            <span class="at">row.names =</span> <span class="cn">FALSE</span>, <span class="at">quote =</span> <span class="cn">FALSE</span>, <span class="at">col.names =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="chapter-5.html#cb43-1" tabindex="-1"></a><span class="co"># Write gene names to a file</span></span>
+<span id="cb43-2"><a href="chapter-5.html#cb43-2" tabindex="-1"></a><span class="fu">write.table</span>(edgeR.degs, <span class="at">file =</span> <span class="st">&quot;../data/edger-deg-names.txt&quot;</span>,</span>
+<span id="cb43-3"><a href="chapter-5.html#cb43-3" tabindex="-1"></a>            <span class="at">row.names =</span> <span class="cn">FALSE</span>, <span class="at">quote =</span> <span class="cn">FALSE</span>, <span class="at">col.names =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb43-4"><a href="chapter-5.html#cb43-4" tabindex="-1"></a><span class="fu">write.table</span>(DESeq.degs, <span class="at">file =</span> <span class="st">&quot;../data/deseq-deg-names.txt&quot;</span>,</span>
+<span id="cb43-5"><a href="chapter-5.html#cb43-5" tabindex="-1"></a>            <span class="at">row.names =</span> <span class="cn">FALSE</span>, <span class="at">quote =</span> <span class="cn">FALSE</span>, <span class="at">col.names =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <p><strong>Upload data</strong></p>
 <p>Click on the <em>Start Analysis</em> button at the top of the DAVID website. Then, copy the genes (<strong>A</strong>) or upload the file (<strong>B</strong>) and select the proper identifier type (<em>OFFICIAL_GENE_SYMBOL</em> in this example). Select the <em>Gene List</em> option in <em>Step 3</em> and click on the <em>Submit List</em> button in <em>Step 4</em>.</p>
 <div class="float">
@@ -431,19 +452,19 @@ Figure 4.3: Heatmap showing the fold changes of the Trisomic vs Disomic comparis
 <div class="figcaption"><em>KEGG TCA-pathway, highlighting DEGs (red stars)</em></div>
 </div>
 </div>
-<div id="kegg-pathway-visualization-10-degs" class="section level3 hasAnchor" number="4.4.2">
-<h3><span class="header-section-number">4.4.2</span> KEGG-pathway Visualization (&gt;10 DEGs)<a href="chapter-5.html#kegg-pathway-visualization-10-degs" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="kegg-pathway-visualization-10-degs" class="section level3 hasAnchor" number="5.4.2">
+<h3><span class="header-section-number">5.4.2</span> KEGG-pathway Visualization (&gt;10 DEGs)<a href="chapter-5.html#kegg-pathway-visualization-10-degs" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Knowing the interesting KEGG-pathway(s) upfront (i.e. it is listed in the article) allows for visualizations applied to that selected pathway. For this we can use the <code>pathview</code> <a href="https://pathview.uncc.edu">website</a> or Bioconductor <a href="https://bioconductor.org/packages/release/bioc/html/pathview.html">library</a>:</p>
 <blockquote>
 <p>“… It maps and renders a wide variety of biological data on relevant pathway graphs. All users need is to supply their data and specify the target pathway. Pathview automatically downloads the pathway graph data, parses the data file, maps user data to the pathway, and render pathway graph with the mapped data.”</p>
 </blockquote>
 <p>This section demonstrates only the use of the bioconductor package for visualizing not only the DEGs onto pathways, but also the change in expression for each gene.</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="chapter-5.html#cb30-1" tabindex="-1"></a><span class="do">## Bioconductor library (install with bioclite() if missing)</span></span>
-<span id="cb30-2"><a href="chapter-5.html#cb30-2" tabindex="-1"></a><span class="fu">library</span>(pathview)</span>
-<span id="cb30-3"><a href="chapter-5.html#cb30-3" tabindex="-1"></a></span>
-<span id="cb30-4"><a href="chapter-5.html#cb30-4" tabindex="-1"></a><span class="do">## Example pathway IDs (for human, change organism key for other organisms)</span></span>
-<span id="cb30-5"><a href="chapter-5.html#cb30-5" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;paths.hsa&quot;</span>)</span>
-<span id="cb30-6"><a href="chapter-5.html#cb30-6" tabindex="-1"></a><span class="fu">pander</span>(<span class="fu">head</span>(paths.hsa, <span class="at">n=</span><span class="dv">5</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="chapter-5.html#cb44-1" tabindex="-1"></a><span class="do">## Bioconductor library (install with bioclite() if missing)</span></span>
+<span id="cb44-2"><a href="chapter-5.html#cb44-2" tabindex="-1"></a><span class="fu">library</span>(pathview)</span>
+<span id="cb44-3"><a href="chapter-5.html#cb44-3" tabindex="-1"></a></span>
+<span id="cb44-4"><a href="chapter-5.html#cb44-4" tabindex="-1"></a><span class="do">## Example pathway IDs (for human, change organism key for other organisms)</span></span>
+<span id="cb44-5"><a href="chapter-5.html#cb44-5" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;paths.hsa&quot;</span>)</span>
+<span id="cb44-6"><a href="chapter-5.html#cb44-6" tabindex="-1"></a><span class="fu">pander</span>(<span class="fu">head</span>(paths.hsa, <span class="at">n=</span><span class="dv">5</span>))</span></code></pre></div>
 <table style="width:82%;">
 <colgroup>
 <col width="43%" />
@@ -486,14 +507,14 @@ metabolism</td>
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="chapter-5.html#cb31-1" tabindex="-1"></a><span class="do">## Check &#39;gene.idtype&#39; argument possibilities</span></span>
-<span id="cb31-2"><a href="chapter-5.html#cb31-2" tabindex="-1"></a><span class="fu">data</span>(gene.idtype.list); </span>
-<span id="cb31-3"><a href="chapter-5.html#cb31-3" tabindex="-1"></a><span class="fu">pander</span>(gene.idtype.list)</span></code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="chapter-5.html#cb45-1" tabindex="-1"></a><span class="do">## Check &#39;gene.idtype&#39; argument possibilities</span></span>
+<span id="cb45-2"><a href="chapter-5.html#cb45-2" tabindex="-1"></a><span class="fu">data</span>(gene.idtype.list); </span>
+<span id="cb45-3"><a href="chapter-5.html#cb45-3" tabindex="-1"></a><span class="fu">pander</span>(gene.idtype.list)</span></code></pre></div>
 <p><em>SYMBOL</em>, <em>GENENAME</em>, <em>ENSEMBL</em>, <em>ENSEMBLPROT</em>, <em>UNIGENE</em>, <em>UNIPROT</em>, <em>ACCNUM</em>, <em>ENSEMBLTRANS</em>, <em>REFSEQ</em>, <em>ENZYME</em>, <em>TAIR</em>, <em>PROSITE</em> and <em>ORF</em></p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="chapter-5.html#cb32-1" tabindex="-1"></a><span class="do">## Prepare data for visualization</span></span>
-<span id="cb32-2"><a href="chapter-5.html#cb32-2" tabindex="-1"></a>deseq.degs.logfc <span class="ot">&lt;-</span> <span class="fu">subset</span>(deseq.results, padj <span class="sc">&lt;</span> pval_threshold, <span class="at">select =</span> log2FoldChange)</span>
-<span id="cb32-3"><a href="chapter-5.html#cb32-3" tabindex="-1"></a></span>
-<span id="cb32-4"><a href="chapter-5.html#cb32-4" tabindex="-1"></a><span class="fu">pander</span>(<span class="fu">head</span>(deseq.degs.logfc))</span></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="chapter-5.html#cb46-1" tabindex="-1"></a><span class="do">## Prepare data for visualization</span></span>
+<span id="cb46-2"><a href="chapter-5.html#cb46-2" tabindex="-1"></a>deseq.degs.logfc <span class="ot">&lt;-</span> <span class="fu">subset</span>(deseq.results, padj <span class="sc">&lt;</span> pval_threshold, <span class="at">select =</span> log2FoldChange)</span>
+<span id="cb46-3"><a href="chapter-5.html#cb46-3" tabindex="-1"></a></span>
+<span id="cb46-4"><a href="chapter-5.html#cb46-4" tabindex="-1"></a><span class="fu">pander</span>(<span class="fu">head</span>(deseq.degs.logfc))</span></code></pre></div>
 <table style="width:47%;">
 <colgroup>
 <col width="23%" />
@@ -532,28 +553,28 @@ metabolism</td>
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="chapter-5.html#cb33-1" tabindex="-1"></a><span class="fu">pathview</span>(<span class="at">gene.data=</span>deseq.degs.logfc,</span>
-<span id="cb33-2"><a href="chapter-5.html#cb33-2" tabindex="-1"></a>         <span class="at">pathway.id=</span><span class="st">&quot;00020&quot;</span>, <span class="co"># TCA-cycle</span></span>
-<span id="cb33-3"><a href="chapter-5.html#cb33-3" tabindex="-1"></a>         <span class="at">species=</span><span class="st">&quot;hsa&quot;</span>     <span class="co"># Organism key</span></span>
-<span id="cb33-4"><a href="chapter-5.html#cb33-4" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="chapter-5.html#cb47-1" tabindex="-1"></a><span class="fu">pathview</span>(<span class="at">gene.data=</span>deseq.degs.logfc,</span>
+<span id="cb47-2"><a href="chapter-5.html#cb47-2" tabindex="-1"></a>         <span class="at">pathway.id=</span><span class="st">&quot;00020&quot;</span>, <span class="co"># TCA-cycle</span></span>
+<span id="cb47-3"><a href="chapter-5.html#cb47-3" tabindex="-1"></a>         <span class="at">species=</span><span class="st">&quot;hsa&quot;</span>     <span class="co"># Organism key</span></span>
+<span id="cb47-4"><a href="chapter-5.html#cb47-4" tabindex="-1"></a>)</span></code></pre></div>
 <p>It is fine to use the webtool too for this purpose however it is not notacibly easier to use than the R package.</p>
 </div>
-<div id="spia" class="section level3 hasAnchor" number="4.4.3">
-<h3><span class="header-section-number">4.4.3</span> Signaling Pathway Impact Analysis (&gt;20 DEGs)<a href="chapter-5.html#spia" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="spia" class="section level3 hasAnchor" number="5.4.3">
+<h3><span class="header-section-number">5.4.3</span> Signaling Pathway Impact Analysis (&gt;20 DEGs)<a href="chapter-5.html#spia" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>To also look at the <em>topology</em> of <em>how</em> genes interact with each other, we can use the <a href="http://bioconductor.org/packages/release/bioc/html/SPIA.html">SPIA</a> Bioconductor package. This package takes a list of Entrez gene IDs for all DEGs and the complete list of Entrez IDs for all present genes and evaluates - per pathway - if genes are involved and if the pathway is either inhibited or activated.</p>
 <p>The code below uses data objects that were not always shown before, see the tables below for their contents.</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="chapter-5.html#cb34-1" tabindex="-1"></a><span class="co"># Bioconductor package for &quot;Signaling Pathway Impact Analysis&quot;</span></span>
-<span id="cb34-2"><a href="chapter-5.html#cb34-2" tabindex="-1"></a><span class="co"># (install with biocLite(&quot;SPIA&quot;) if it is not installed)</span></span>
-<span id="cb34-3"><a href="chapter-5.html#cb34-3" tabindex="-1"></a><span class="fu">library</span>(SPIA)</span>
-<span id="cb34-4"><a href="chapter-5.html#cb34-4" tabindex="-1"></a><span class="co"># Only used for the `subset` function</span></span>
-<span id="cb34-5"><a href="chapter-5.html#cb34-5" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb34-6"><a href="chapter-5.html#cb34-6" tabindex="-1"></a></span>
-<span id="cb34-7"><a href="chapter-5.html#cb34-7" tabindex="-1"></a><span class="co"># Get a vector of log(FC) values for all significant genes</span></span>
-<span id="cb34-8"><a href="chapter-5.html#cb34-8" tabindex="-1"></a>sig_genes <span class="ot">&lt;-</span> <span class="fu">subset</span>(deseq.results, padj <span class="sc">&lt;</span> pval_threshold, <span class="at">select =</span> log2FoldChange)[[<span class="dv">1</span>]]</span>
-<span id="cb34-9"><a href="chapter-5.html#cb34-9" tabindex="-1"></a><span class="co"># Make it a named vector by assigning the Entrez ID&#39;s to each log(FC) value</span></span>
-<span id="cb34-10"><a href="chapter-5.html#cb34-10" tabindex="-1"></a><span class="fu">names</span>(sig_genes) <span class="ot">&lt;-</span> <span class="fu">subset</span>(deseq.results, padj <span class="sc">&lt;</span> pval_threshold, <span class="at">select =</span> EntrezID)[[<span class="dv">1</span>]]</span>
-<span id="cb34-11"><a href="chapter-5.html#cb34-11" tabindex="-1"></a><span class="co"># A complete list of Entrez IDs for all genes in this experiment</span></span>
-<span id="cb34-12"><a href="chapter-5.html#cb34-12" tabindex="-1"></a>all_genes <span class="ot">&lt;-</span> deseq.results<span class="sc">$</span>EntrezID</span></code></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="chapter-5.html#cb48-1" tabindex="-1"></a><span class="co"># Bioconductor package for &quot;Signaling Pathway Impact Analysis&quot;</span></span>
+<span id="cb48-2"><a href="chapter-5.html#cb48-2" tabindex="-1"></a><span class="co"># (install with biocLite(&quot;SPIA&quot;) if it is not installed)</span></span>
+<span id="cb48-3"><a href="chapter-5.html#cb48-3" tabindex="-1"></a><span class="fu">library</span>(SPIA)</span>
+<span id="cb48-4"><a href="chapter-5.html#cb48-4" tabindex="-1"></a><span class="co"># Only used for the `subset` function</span></span>
+<span id="cb48-5"><a href="chapter-5.html#cb48-5" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb48-6"><a href="chapter-5.html#cb48-6" tabindex="-1"></a></span>
+<span id="cb48-7"><a href="chapter-5.html#cb48-7" tabindex="-1"></a><span class="co"># Get a vector of log(FC) values for all significant genes</span></span>
+<span id="cb48-8"><a href="chapter-5.html#cb48-8" tabindex="-1"></a>sig_genes <span class="ot">&lt;-</span> <span class="fu">subset</span>(deseq.results, padj <span class="sc">&lt;</span> pval_threshold, <span class="at">select =</span> log2FoldChange)[[<span class="dv">1</span>]]</span>
+<span id="cb48-9"><a href="chapter-5.html#cb48-9" tabindex="-1"></a><span class="co"># Make it a named vector by assigning the Entrez ID&#39;s to each log(FC) value</span></span>
+<span id="cb48-10"><a href="chapter-5.html#cb48-10" tabindex="-1"></a><span class="fu">names</span>(sig_genes) <span class="ot">&lt;-</span> <span class="fu">subset</span>(deseq.results, padj <span class="sc">&lt;</span> pval_threshold, <span class="at">select =</span> EntrezID)[[<span class="dv">1</span>]]</span>
+<span id="cb48-11"><a href="chapter-5.html#cb48-11" tabindex="-1"></a><span class="co"># A complete list of Entrez IDs for all genes in this experiment</span></span>
+<span id="cb48-12"><a href="chapter-5.html#cb48-12" tabindex="-1"></a>all_genes <span class="ot">&lt;-</span> deseq.results<span class="sc">$</span>EntrezID</span></code></pre></div>
 <p>The input <code>sig_genes</code> named vector contents:</p>
 <table style="width:31%;">
 <colgroup>
@@ -611,11 +632,11 @@ metabolism</td>
 </table>
 <p>(subset) of DESeq2 DEGs with their Entrez ID and log2(FC) value</p>
 <p>And the <code>all_genes</code> vector or Entrez IDs input (note that this does not contain any expression information, just IDs):</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="chapter-5.html#cb35-1" tabindex="-1"></a><span class="fu">pander</span>(all_genes[<span class="fu">which</span>(idx)[<span class="dv">100</span><span class="sc">:</span><span class="dv">110</span>]])</span></code></pre></div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="chapter-5.html#cb49-1" tabindex="-1"></a><span class="fu">pander</span>(all_genes[<span class="fu">which</span>(idx)[<span class="dv">100</span><span class="sc">:</span><span class="dv">110</span>]])</span></code></pre></div>
 <p><em>55584</em>, <em>5010</em>, <em>6320</em>, <em>387836</em>, <em>154790</em>, <em>7461</em>, <em>79935</em>, <em>26047</em>, <em>85445</em>, <em>78989</em> and <em>57699</em></p>
 <p>To start processing all pathways looking for influenced signal pathway, execute the <code>spia</code> function for the proper organism (Mus Musculus, or <code>mmu</code> in this case):</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="chapter-5.html#cb36-1" tabindex="-1"></a><span class="co"># Process all signaling pathways to see if they are inhibited or activated</span></span>
-<span id="cb36-2"><a href="chapter-5.html#cb36-2" tabindex="-1"></a>spia_result <span class="ot">&lt;-</span> <span class="fu">spia</span>(<span class="at">de=</span>sig_genes, <span class="at">all=</span>all_genes, <span class="at">organism=</span><span class="st">&quot;hsa&quot;</span>, <span class="at">plots=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="chapter-5.html#cb50-1" tabindex="-1"></a><span class="co"># Process all signaling pathways to see if they are inhibited or activated</span></span>
+<span id="cb50-2"><a href="chapter-5.html#cb50-2" tabindex="-1"></a>spia_result <span class="ot">&lt;-</span> <span class="fu">spia</span>(<span class="at">de=</span>sig_genes, <span class="at">all=</span>all_genes, <span class="at">organism=</span><span class="st">&quot;hsa&quot;</span>, <span class="at">plots=</span><span class="cn">TRUE</span>)</span></code></pre></div>
 <p>Running this function will print a list of (&gt; 100) pathways it will analyze, so this will take a while:</p>
 <pre><code>Done pathway 1 : RNA transport..
 Done pathway 2 : RNA degradation..
@@ -755,11 +776,11 @@ Done pathway 135 : Viral myocarditis..</code></pre>
 </tbody>
 </table>
 <p>To get an overal picture we can create a plot where each pathway is a point which is placed according to the <code>spia</code> calculated over-representation p-value and pNDE (which is the probability to observe at least nDE genes on the pathway). In this case it is obvious that Alzheimer’s and Parkinson’s pathways with ID’s 05010 and 05012 respectively are the most influenced by this experiment, according to this method.</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="chapter-5.html#cb38-1" tabindex="-1"></a><span class="fu">plotP</span>(spia_result)</span></code></pre></div>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="chapter-5.html#cb52-1" tabindex="-1"></a><span class="fu">plotP</span>(spia_result)</span></code></pre></div>
 <div class="figure"><span style="display:block;" id="fig:spiaResultPlotP"></span>
 <img src="gene_expression_files/figure-html/spiaResultPlotP-1.png" alt="SPIA two-way evidence plot showing the most influenced pathways" width="672" />
 <p class="caption">
-Figure 4.4: SPIA two-way evidence plot showing the most influenced pathways
+Figure 5.4: SPIA two-way evidence plot showing the most influenced pathways
 </p>
 </div>
 

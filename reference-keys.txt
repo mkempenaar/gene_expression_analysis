@@ -24,6 +24,16 @@ schedule
 genomics-1
 transcriptomics-1
 literature
+from-reads-to-counts
+downloading-and-extracting-fastq-files
+optional-annotation
+quality-control
+fastqc
+trimming
+mapping-with-star
+building-star-index
+read-mapping-and-transcript-counting
+combining-star-count-files
 chapter-3
 loading-data
 ch3_example_data

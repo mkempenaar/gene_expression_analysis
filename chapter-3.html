@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title> Exploratory Data Analysis | 2.1.2 Genomics &amp; Transcriptomics</title>
   <meta name="description" content="Course Syllabus for course 2.1.2" />
-  <meta name="generator" content="bookdown 0.32 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
 
   <meta property="og:title" content=" Exploratory Data Analysis | 2.1.2 Genomics &amp; Transcriptomics" />
   <meta property="og:type" content="book" />
@@ -23,14 +23,14 @@
 <meta name="author" content="Marcel Kempenaar" />
 
 
-<meta name="date" content="2023-09-10" />
+<meta name="date" content="2023-10-16" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="index.html"/>
+<link rel="prev" href="from-reads-to-counts.html"/>
 <link rel="next" href="chapter-4.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -56,7 +56,7 @@
 
 <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -120,10 +120,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </style>
 
 <style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
 /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
+  margin-bottom: 0em;
 }
 .hanging div.csl-entry {
   margin-left:2em;
@@ -176,46 +181,62 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="1.5" data-path="index.html"><a href="index.html#literature"><i class="fa fa-check"></i><b>1.5</b> Literature</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="chapter-3.html"><a href="chapter-3.html"><i class="fa fa-check"></i><b>2</b> Exploratory Data Analysis</a>
+<li class="chapter" data-level="2" data-path="from-reads-to-counts.html"><a href="from-reads-to-counts.html"><i class="fa fa-check"></i><b>2</b> From Reads to Counts</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="chapter-3.html"><a href="chapter-3.html#loading-data"><i class="fa fa-check"></i><b>2.1</b> Loading data into R</a></li>
-<li class="chapter" data-level="2.2" data-path="chapter-3.html"><a href="chapter-3.html#ch3_example_data"><i class="fa fa-check"></i><b>2.2</b> Example Data</a></li>
-<li class="chapter" data-level="2.3" data-path="chapter-3.html"><a href="chapter-3.html#EDA_part1"><i class="fa fa-check"></i><b>2.3</b> Visualizing using <code>boxplot</code> and <code>density plot</code></a>
+<li class="chapter" data-level="2.1" data-path="from-reads-to-counts.html"><a href="from-reads-to-counts.html#downloading-and-extracting-fastq-files"><i class="fa fa-check"></i><b>2.1</b> Downloading and extracting FastQ files</a></li>
+<li class="chapter" data-level="2.2" data-path="from-reads-to-counts.html"><a href="from-reads-to-counts.html#optional-annotation"><i class="fa fa-check"></i><b>2.2</b> (Optional) Annotation</a></li>
+<li class="chapter" data-level="2.3" data-path="from-reads-to-counts.html"><a href="from-reads-to-counts.html#quality-control"><i class="fa fa-check"></i><b>2.3</b> Quality Control</a>
 <ul>
-<li class="chapter" data-level="2.3.1" data-path="chapter-3.html"><a href="chapter-3.html#eda_statistics"><i class="fa fa-check"></i><b>2.3.1</b> Statistics</a></li>
-<li class="chapter" data-level="2.3.2" data-path="chapter-3.html"><a href="chapter-3.html#eda_boxplots"><i class="fa fa-check"></i><b>2.3.2</b> Boxplots</a></li>
-<li class="chapter" data-level="2.3.3" data-path="chapter-3.html"><a href="chapter-3.html#eda_density_plot"><i class="fa fa-check"></i><b>2.3.3</b> Density Plots</a></li>
+<li class="chapter" data-level="2.3.1" data-path="from-reads-to-counts.html"><a href="from-reads-to-counts.html#fastqc"><i class="fa fa-check"></i><b>2.3.1</b> FastQC</a></li>
 </ul></li>
-<li class="chapter" data-level="2.4" data-path="chapter-3.html"><a href="chapter-3.html#EDA_part2"><i class="fa fa-check"></i><b>2.4</b> Visualizing using <code>heatmap</code> and <code>MDS</code></a>
+<li class="chapter" data-level="2.4" data-path="from-reads-to-counts.html"><a href="from-reads-to-counts.html#trimming"><i class="fa fa-check"></i><b>2.4</b> Trimming</a></li>
+<li class="chapter" data-level="2.5" data-path="from-reads-to-counts.html"><a href="from-reads-to-counts.html#mapping-with-star"><i class="fa fa-check"></i><b>2.5</b> Mapping with STAR</a>
 <ul>
-<li class="chapter" data-level="2.4.1" data-path="chapter-3.html"><a href="chapter-3.html#normalization"><i class="fa fa-check"></i><b>2.4.1</b> Normalization</a></li>
-<li class="chapter" data-level="2.4.2" data-path="chapter-3.html"><a href="chapter-3.html#eda_distance"><i class="fa fa-check"></i><b>2.4.2</b> Distance Calculation</a></li>
-<li class="chapter" data-level="2.4.3" data-path="chapter-3.html"><a href="chapter-3.html#eda_heatmap"><i class="fa fa-check"></i><b>2.4.3</b> Sample Distances using a Heatmap</a></li>
-<li class="chapter" data-level="2.4.4" data-path="chapter-3.html"><a href="chapter-3.html#eda_mds"><i class="fa fa-check"></i><b>2.4.4</b> Multi-Dimensional Scaling</a></li>
-</ul></li>
-<li class="chapter" data-level="2.5" data-path="chapter-3.html"><a href="chapter-3.html#cleaning-data"><i class="fa fa-check"></i><b>2.5</b> Cleaning Data</a></li>
-</ul></li>
-<li class="chapter" data-level="3" data-path="chapter-4.html"><a href="chapter-4.html"><i class="fa fa-check"></i><b>3</b> Discovering Differentialy Expressed Genes (DEGs)</a>
-<ul>
-<li class="chapter" data-level="3.1" data-path="chapter-4.html"><a href="chapter-4.html#deg-preprocessing"><i class="fa fa-check"></i><b>3.1</b> Pre-processing</a></li>
-<li class="chapter" data-level="3.2" data-path="chapter-4.html"><a href="chapter-4.html#deg-fc"><i class="fa fa-check"></i><b>3.2</b> The <em>Fold Change</em> Value</a></li>
-<li class="chapter" data-level="3.3" data-path="chapter-4.html"><a href="chapter-4.html#deg-bioconductor"><i class="fa fa-check"></i><b>3.3</b> Using Bioconductor Packages</a>
-<ul>
-<li class="chapter" data-level="3.3.1" data-path="chapter-4.html"><a href="chapter-4.html#deg-design"><i class="fa fa-check"></i><b>3.3.1</b> The <code>Design</code> (matrix)</a></li>
-<li class="chapter" data-level="3.3.2" data-path="chapter-4.html"><a href="chapter-4.html#deg-deseq2"><i class="fa fa-check"></i><b>3.3.2</b> <code>DESeq2</code></a></li>
-<li class="chapter" data-level="3.3.3" data-path="chapter-4.html"><a href="chapter-4.html#deg-edger"><i class="fa fa-check"></i><b>3.3.3</b> <code>edgeR</code></a></li>
+<li class="chapter" data-level="2.5.1" data-path="from-reads-to-counts.html"><a href="from-reads-to-counts.html#building-star-index"><i class="fa fa-check"></i><b>2.5.1</b> Building STAR index</a></li>
+<li class="chapter" data-level="2.5.2" data-path="from-reads-to-counts.html"><a href="from-reads-to-counts.html#read-mapping-and-transcript-counting"><i class="fa fa-check"></i><b>2.5.2</b> Read mapping and transcript counting</a></li>
+<li class="chapter" data-level="2.5.3" data-path="from-reads-to-counts.html"><a href="from-reads-to-counts.html#combining-star-count-files"><i class="fa fa-check"></i><b>2.5.3</b> Combining STAR Count Files</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="chapter-5.html"><a href="chapter-5.html"><i class="fa fa-check"></i><b>4</b> Data Analysis and Visualization</a>
+<li class="chapter" data-level="3" data-path="chapter-3.html"><a href="chapter-3.html"><i class="fa fa-check"></i><b>3</b> Exploratory Data Analysis</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="chapter-5.html"><a href="chapter-5.html#volcano"><i class="fa fa-check"></i><b>4.1</b> Volcano Plot</a></li>
-<li class="chapter" data-level="4.2" data-path="chapter-5.html"><a href="chapter-5.html#venn-diagram"><i class="fa fa-check"></i><b>4.2</b> Venn Diagram</a></li>
-<li class="chapter" data-level="4.3" data-path="chapter-5.html"><a href="chapter-5.html#clustering"><i class="fa fa-check"></i><b>4.3</b> Clustering</a></li>
-<li class="chapter" data-level="4.4" data-path="chapter-5.html"><a href="chapter-5.html#pathway-analysis"><i class="fa fa-check"></i><b>4.4</b> Pathway Analysis</a>
+<li class="chapter" data-level="3.1" data-path="chapter-3.html"><a href="chapter-3.html#loading-data"><i class="fa fa-check"></i><b>3.1</b> Loading data into R</a></li>
+<li class="chapter" data-level="3.2" data-path="chapter-3.html"><a href="chapter-3.html#ch3_example_data"><i class="fa fa-check"></i><b>3.2</b> Example Data</a></li>
+<li class="chapter" data-level="3.3" data-path="chapter-3.html"><a href="chapter-3.html#EDA_part1"><i class="fa fa-check"></i><b>3.3</b> Visualizing using <code>boxplot</code> and <code>density plot</code></a>
 <ul>
-<li class="chapter" data-level="4.4.1" data-path="chapter-5.html"><a href="chapter-5.html#gene-functional-classification-using-david-100-degs"><i class="fa fa-check"></i><b>4.4.1</b> Gene Functional Classification using DAVID (&gt;100 DEGs)</a></li>
-<li class="chapter" data-level="4.4.2" data-path="chapter-5.html"><a href="chapter-5.html#kegg-pathway-visualization-10-degs"><i class="fa fa-check"></i><b>4.4.2</b> KEGG-pathway Visualization (&gt;10 DEGs)</a></li>
-<li class="chapter" data-level="4.4.3" data-path="chapter-5.html"><a href="chapter-5.html#spia"><i class="fa fa-check"></i><b>4.4.3</b> Signaling Pathway Impact Analysis (&gt;20 DEGs)</a></li>
+<li class="chapter" data-level="3.3.1" data-path="chapter-3.html"><a href="chapter-3.html#eda_statistics"><i class="fa fa-check"></i><b>3.3.1</b> Statistics</a></li>
+<li class="chapter" data-level="3.3.2" data-path="chapter-3.html"><a href="chapter-3.html#eda_boxplots"><i class="fa fa-check"></i><b>3.3.2</b> Boxplots</a></li>
+<li class="chapter" data-level="3.3.3" data-path="chapter-3.html"><a href="chapter-3.html#eda_density_plot"><i class="fa fa-check"></i><b>3.3.3</b> Density Plots</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="chapter-3.html"><a href="chapter-3.html#EDA_part2"><i class="fa fa-check"></i><b>3.4</b> Visualizing using <code>heatmap</code> and <code>MDS</code></a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="chapter-3.html"><a href="chapter-3.html#normalization"><i class="fa fa-check"></i><b>3.4.1</b> Normalization</a></li>
+<li class="chapter" data-level="3.4.2" data-path="chapter-3.html"><a href="chapter-3.html#eda_distance"><i class="fa fa-check"></i><b>3.4.2</b> Distance Calculation</a></li>
+<li class="chapter" data-level="3.4.3" data-path="chapter-3.html"><a href="chapter-3.html#eda_heatmap"><i class="fa fa-check"></i><b>3.4.3</b> Sample Distances using a Heatmap</a></li>
+<li class="chapter" data-level="3.4.4" data-path="chapter-3.html"><a href="chapter-3.html#eda_mds"><i class="fa fa-check"></i><b>3.4.4</b> Multi-Dimensional Scaling</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="chapter-3.html"><a href="chapter-3.html#cleaning-data"><i class="fa fa-check"></i><b>3.5</b> Cleaning Data</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="chapter-4.html"><a href="chapter-4.html"><i class="fa fa-check"></i><b>4</b> Discovering Differentialy Expressed Genes (DEGs)</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="chapter-4.html"><a href="chapter-4.html#deg-preprocessing"><i class="fa fa-check"></i><b>4.1</b> Pre-processing</a></li>
+<li class="chapter" data-level="4.2" data-path="chapter-4.html"><a href="chapter-4.html#deg-fc"><i class="fa fa-check"></i><b>4.2</b> The <em>Fold Change</em> Value</a></li>
+<li class="chapter" data-level="4.3" data-path="chapter-4.html"><a href="chapter-4.html#deg-bioconductor"><i class="fa fa-check"></i><b>4.3</b> Using Bioconductor Packages</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="chapter-4.html"><a href="chapter-4.html#deg-design"><i class="fa fa-check"></i><b>4.3.1</b> The <code>Design</code> (matrix)</a></li>
+<li class="chapter" data-level="4.3.2" data-path="chapter-4.html"><a href="chapter-4.html#deg-deseq2"><i class="fa fa-check"></i><b>4.3.2</b> <code>DESeq2</code></a></li>
+<li class="chapter" data-level="4.3.3" data-path="chapter-4.html"><a href="chapter-4.html#deg-edger"><i class="fa fa-check"></i><b>4.3.3</b> <code>edgeR</code></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="chapter-5.html"><a href="chapter-5.html"><i class="fa fa-check"></i><b>5</b> Data Analysis and Visualization</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="chapter-5.html"><a href="chapter-5.html#volcano"><i class="fa fa-check"></i><b>5.1</b> Volcano Plot</a></li>
+<li class="chapter" data-level="5.2" data-path="chapter-5.html"><a href="chapter-5.html#venn-diagram"><i class="fa fa-check"></i><b>5.2</b> Venn Diagram</a></li>
+<li class="chapter" data-level="5.3" data-path="chapter-5.html"><a href="chapter-5.html#clustering"><i class="fa fa-check"></i><b>5.3</b> Clustering</a></li>
+<li class="chapter" data-level="5.4" data-path="chapter-5.html"><a href="chapter-5.html#pathway-analysis"><i class="fa fa-check"></i><b>5.4</b> Pathway Analysis</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="chapter-5.html"><a href="chapter-5.html#gene-functional-classification-using-david-100-degs"><i class="fa fa-check"></i><b>5.4.1</b> Gene Functional Classification using DAVID (&gt;100 DEGs)</a></li>
+<li class="chapter" data-level="5.4.2" data-path="chapter-5.html"><a href="chapter-5.html#kegg-pathway-visualization-10-degs"><i class="fa fa-check"></i><b>5.4.2</b> KEGG-pathway Visualization (&gt;10 DEGs)</a></li>
+<li class="chapter" data-level="5.4.3" data-path="chapter-5.html"><a href="chapter-5.html#spia"><i class="fa fa-check"></i><b>5.4.3</b> Signaling Pathway Impact Analysis (&gt;20 DEGs)</a></li>
 </ul></li>
 </ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
@@ -261,11 +282,11 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="chapter-3" class="section level1 hasAnchor" number="2">
+<div id="chapter-3" class="section level1 hasAnchor" number="3">
 <h1><span class="header-section-number"></span> Exploratory Data Analysis<a href="chapter-3.html#chapter-3" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>We start with performing some exploratory data analysis steps with the goal of getting to grips with your chosen data set to properly identify a strategy for the actual analysis steps. During this exploration we will also keep an eye on the quality of the data. Even though the downloadable data is ‘processed’, there might be samples present that deviate too much from the other group of samples (a so called <em>outlier</em>). Creating basic visualizations of the data will give the necessary insight before we continue.</p>
-<div id="loading-data" class="section level2 hasAnchor" number="2.1">
-<h2><span class="header-section-number">2.1</span> Loading data into R<a href="chapter-3.html#loading-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="loading-data" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> Loading data into R<a href="chapter-3.html#loading-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Once you have one or more column based text files they can be read into R simply by using the <code>read.table()</code> function.</p>
 <p>Follow the following steps to read in the data and start the exploratory data analysis. The resulting document should be treated as a lab journal where you log the process from loading the data to the final analysis steps.</p>
 <ul>
@@ -309,14 +330,14 @@ make sense of your sample layout.
 </p>
 </div>
 <p>If you want to include external images to your log and to better control properties such as <em>height</em> and <em>width</em> for individual images you can use the following code. Note: the code below is an <em>example</em> and you need to replace the <code>img_to_include.png</code> file path to an actual image.):</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="chapter-3.html#cb1-1" tabindex="-1"></a><span class="co"># Add the following to the code chunk header to control figure height, width and add a caption:</span></span>
-<span id="cb1-2"><a href="chapter-3.html#cb1-2" tabindex="-1"></a><span class="co">#    {r, fig.height=5, fig.width=8, echo=FALSE, fig.cap=&quot;Image description&quot;}</span></span>
-<span id="cb1-3"><a href="chapter-3.html#cb1-3" tabindex="-1"></a><span class="co"># The `dpi` argument is to remove any scaling</span></span>
-<span id="cb1-4"><a href="chapter-3.html#cb1-4" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_graphics</span>(<span class="st">&quot;figures/img_to_include.png&quot;</span>, <span class="at">dpi =</span> <span class="cn">NA</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="chapter-3.html#cb15-1" tabindex="-1"></a><span class="co"># Add the following to the code chunk header to control figure height, width and add a caption:</span></span>
+<span id="cb15-2"><a href="chapter-3.html#cb15-2" tabindex="-1"></a><span class="co">#    {r, fig.height=5, fig.width=8, echo=FALSE, fig.cap=&quot;Image description&quot;}</span></span>
+<span id="cb15-3"><a href="chapter-3.html#cb15-3" tabindex="-1"></a><span class="co"># The `dpi` argument is to remove any scaling</span></span>
+<span id="cb15-4"><a href="chapter-3.html#cb15-4" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_graphics</span>(<span class="st">&quot;figures/img_to_include.png&quot;</span>, <span class="at">dpi =</span> <span class="cn">NA</span>)</span></code></pre></div>
 <p>See the <a href="https://yihui.org/knitr/options/">Knitr chunk options</a> page for a full listing of all chunk options.</p>
 </div>
-<div id="ch3_example_data" class="section level2 hasAnchor" number="2.2">
-<h2><span class="header-section-number">2.2</span> Example Data<a href="chapter-3.html#ch3_example_data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="ch3_example_data" class="section level2 hasAnchor" number="3.2">
+<h2><span class="header-section-number">3.2</span> Example Data<a href="chapter-3.html#ch3_example_data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>This section lists all (publically available) data set(s) used in this chapter. Each chapter contains this section <em>if</em> new data sets are used there. Note that for <em>all</em> examples, your data <strong>will be different</strong> from the examples and one of the challenges during this course will be translating the examples to your own data. Keep in mind that simple copy-pasting of most code will fail for that reason. Most examples therefore will <em>print</em> the input data for comparison to your own data.</p>
 <p>From the section <a href="chapter-3.html#normalization">Normalization</a> onwards, the experiment with identifier <a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE101942">GSE101942</a> is used for visualizing the normalized raw count values (the earlier sections explore the unnormalized data). This experiment is titled <em>“Transcriptome analysis of genetically matched human induced pluripotent stem cells disomic or trisomic for chromosome 21”</em> and the experimental setup is described as follows:</p>
 <blockquote>
@@ -327,57 +348,64 @@ make sense of your sample layout.
 <li><strong><code>GSE101942_IPSC_rawCounts.txt</code></strong>: raw count data for the induced pluripotent stem cells (iPSCs), both <em>trisomic</em> and <em>disomic</em></li>
 <li><strong><code>GSE101942_Neuron_rawCounts.txt</code></strong>: raw count data for the IPSC-derived Neurons, both <em>trisomic</em> and <em>disomic</em>. These cells were treated to remove chromosome 21 from the iPSCs, as described by the treatment protocol as: “Targeted removal of CHR 21 in IPSC using TKNEO transgene”.</li>
 </ul>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="chapter-3.html#cb2-1" tabindex="-1"></a><span class="co"># Load the two sets of 6 samples</span></span>
-<span id="cb2-2"><a href="chapter-3.html#cb2-2" tabindex="-1"></a>ipsc.data <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">&#39;./data/gse101942/GSE101942_IPSC_rawCounts.txt&#39;</span>,</span>
-<span id="cb2-3"><a href="chapter-3.html#cb2-3" tabindex="-1"></a>                        <span class="at">header =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb2-4"><a href="chapter-3.html#cb2-4" tabindex="-1"></a>neuron.data <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">&#39;./data/gse101942/GSE101942_Neuron_rawCounts.txt&#39;</span>,</span>
-<span id="cb2-5"><a href="chapter-3.html#cb2-5" tabindex="-1"></a>                          <span class="at">header=</span><span class="cn">TRUE</span>)</span>
-<span id="cb2-6"><a href="chapter-3.html#cb2-6" tabindex="-1"></a><span class="co"># Merge by rowname (by = 0, see the help of &#39;merge&#39;)</span></span>
-<span id="cb2-7"><a href="chapter-3.html#cb2-7" tabindex="-1"></a>counts <span class="ot">&lt;-</span> <span class="fu">merge</span>(ipsc.data, neuron.data, <span class="at">by =</span> <span class="dv">0</span>, <span class="at">all.x =</span> <span class="cn">TRUE</span>, <span class="at">all.y =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb2-8"><a href="chapter-3.html#cb2-8" tabindex="-1"></a>                <span class="at">sort =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb2-9"><a href="chapter-3.html#cb2-9" tabindex="-1"></a><span class="co"># Change all NA&#39;s introduced by the merge to zeros</span></span>
-<span id="cb2-10"><a href="chapter-3.html#cb2-10" tabindex="-1"></a>counts[<span class="fu">is.na</span>(counts)] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb2-11"><a href="chapter-3.html#cb2-11" tabindex="-1"></a><span class="co"># Show column names coming from the input files</span></span>
-<span id="cb2-12"><a href="chapter-3.html#cb2-12" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">names</span>(counts))</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="chapter-3.html#cb16-1" tabindex="-1"></a><span class="co"># Load the two sets of 6 samples</span></span>
+<span id="cb16-2"><a href="chapter-3.html#cb16-2" tabindex="-1"></a>ipsc.data <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">&#39;./data/gse101942/GSE101942_IPSC_rawCounts.txt&#39;</span>,</span>
+<span id="cb16-3"><a href="chapter-3.html#cb16-3" tabindex="-1"></a>                        <span class="at">header =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb16-4"><a href="chapter-3.html#cb16-4" tabindex="-1"></a>neuron.data <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">&#39;./data/gse101942/GSE101942_Neuron_rawCounts.txt&#39;</span>,</span>
+<span id="cb16-5"><a href="chapter-3.html#cb16-5" tabindex="-1"></a>                          <span class="at">header=</span><span class="cn">TRUE</span>)</span>
+<span id="cb16-6"><a href="chapter-3.html#cb16-6" tabindex="-1"></a><span class="co"># Merge by rowname (by = 0, see the help of &#39;merge&#39;)</span></span>
+<span id="cb16-7"><a href="chapter-3.html#cb16-7" tabindex="-1"></a>counts <span class="ot">&lt;-</span> <span class="fu">merge</span>(ipsc.data, neuron.data, <span class="at">by =</span> <span class="dv">0</span>, <span class="at">all.x =</span> <span class="cn">TRUE</span>, <span class="at">all.y =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb16-8"><a href="chapter-3.html#cb16-8" tabindex="-1"></a>                <span class="at">sort =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb16-9"><a href="chapter-3.html#cb16-9" tabindex="-1"></a><span class="co"># Change all NA&#39;s introduced by the merge to zeros</span></span>
+<span id="cb16-10"><a href="chapter-3.html#cb16-10" tabindex="-1"></a>counts[<span class="fu">is.na</span>(counts)] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb16-11"><a href="chapter-3.html#cb16-11" tabindex="-1"></a><span class="co"># Show column names coming from the input files</span></span>
+<span id="cb16-12"><a href="chapter-3.html#cb16-12" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">names</span>(counts))</span></code></pre></div>
 <pre><code>##  [1] &quot;Row.names&quot; &quot;c244A&quot;     &quot;c244B&quot;     &quot;c243&quot;      &quot;c2A&quot;       &quot;c2B&quot;      
 ##  [7] &quot;c2C&quot;       &quot;C3_1&quot;      &quot;C3_2&quot;      &quot;C3_4&quot;      &quot;C2_2_1&quot;    &quot;C2_2_2&quot;   
 ## [13] &quot;C2_2_3&quot;</code></pre>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="chapter-3.html#cb4-1" tabindex="-1"></a><span class="co"># Set the row names to the gene IDs stored in the &#39;Row.names&#39; column</span></span>
-<span id="cb4-2"><a href="chapter-3.html#cb4-2" tabindex="-1"></a><span class="fu">row.names</span>(counts) <span class="ot">&lt;-</span> counts<span class="sc">$</span>Row.names</span>
-<span id="cb4-3"><a href="chapter-3.html#cb4-3" tabindex="-1"></a><span class="co"># Remove the gene ID column</span></span>
-<span id="cb4-4"><a href="chapter-3.html#cb4-4" tabindex="-1"></a>counts <span class="ot">&lt;-</span> counts[<span class="sc">-</span><span class="dv">1</span>]</span>
-<span id="cb4-5"><a href="chapter-3.html#cb4-5" tabindex="-1"></a><span class="co"># Rename samples to include their group name</span></span>
-<span id="cb4-6"><a href="chapter-3.html#cb4-6" tabindex="-1"></a><span class="fu">names</span>(counts) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">paste0</span>(<span class="st">&#39;di_IPSC_r&#39;</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>),  <span class="co"># Disomic IPSC, replicates 1-3</span></span>
-<span id="cb4-7"><a href="chapter-3.html#cb4-7" tabindex="-1"></a>                   <span class="fu">paste0</span>(<span class="st">&#39;tri_IPSC_r&#39;</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>), <span class="co"># Trisomic IPSC, replicates 1-3</span></span>
-<span id="cb4-8"><a href="chapter-3.html#cb4-8" tabindex="-1"></a>                   <span class="fu">paste0</span>(<span class="st">&#39;di_NEUR_r&#39;</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>),  <span class="co"># Disomic Neuron, replicates 1-3</span></span>
-<span id="cb4-9"><a href="chapter-3.html#cb4-9" tabindex="-1"></a>                   <span class="fu">paste0</span>(<span class="st">&#39;tri_NEUR_r&#39;</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>)) <span class="co"># Trisomic Neuron, replicates 1-3</span></span>
-<span id="cb4-10"><a href="chapter-3.html#cb4-10" tabindex="-1"></a><span class="co"># Show results of renaming the samples</span></span>
-<span id="cb4-11"><a href="chapter-3.html#cb4-11" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">names</span>(counts))</span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="chapter-3.html#cb18-1" tabindex="-1"></a><span class="co"># Set the row names to the gene IDs stored in the &#39;Row.names&#39; column</span></span>
+<span id="cb18-2"><a href="chapter-3.html#cb18-2" tabindex="-1"></a><span class="fu">row.names</span>(counts) <span class="ot">&lt;-</span> counts<span class="sc">$</span>Row.names</span>
+<span id="cb18-3"><a href="chapter-3.html#cb18-3" tabindex="-1"></a><span class="co"># Remove the gene ID column</span></span>
+<span id="cb18-4"><a href="chapter-3.html#cb18-4" tabindex="-1"></a>counts <span class="ot">&lt;-</span> counts[<span class="sc">-</span><span class="dv">1</span>]</span>
+<span id="cb18-5"><a href="chapter-3.html#cb18-5" tabindex="-1"></a><span class="co"># Rename samples to include their group name</span></span>
+<span id="cb18-6"><a href="chapter-3.html#cb18-6" tabindex="-1"></a><span class="fu">names</span>(counts) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">paste0</span>(<span class="st">&#39;di_IPSC_r&#39;</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>),  <span class="co"># Disomic IPSC, replicates 1-3</span></span>
+<span id="cb18-7"><a href="chapter-3.html#cb18-7" tabindex="-1"></a>                   <span class="fu">paste0</span>(<span class="st">&#39;tri_IPSC_r&#39;</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>), <span class="co"># Trisomic IPSC, replicates 1-3</span></span>
+<span id="cb18-8"><a href="chapter-3.html#cb18-8" tabindex="-1"></a>                   <span class="fu">paste0</span>(<span class="st">&#39;di_NEUR_r&#39;</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>),  <span class="co"># Disomic Neuron, replicates 1-3</span></span>
+<span id="cb18-9"><a href="chapter-3.html#cb18-9" tabindex="-1"></a>                   <span class="fu">paste0</span>(<span class="st">&#39;tri_NEUR_r&#39;</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>)) <span class="co"># Trisomic Neuron, replicates 1-3</span></span>
+<span id="cb18-10"><a href="chapter-3.html#cb18-10" tabindex="-1"></a><span class="co"># Show results of renaming the samples</span></span>
+<span id="cb18-11"><a href="chapter-3.html#cb18-11" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">names</span>(counts))</span></code></pre></div>
 <pre><code>##  [1] &quot;di_IPSC_r1&quot;  &quot;di_IPSC_r2&quot;  &quot;di_IPSC_r3&quot;  &quot;tri_IPSC_r1&quot; &quot;tri_IPSC_r2&quot;
 ##  [6] &quot;tri_IPSC_r3&quot; &quot;di_NEUR_r1&quot;  &quot;di_NEUR_r2&quot;  &quot;di_NEUR_r3&quot;  &quot;tri_NEUR_r1&quot;
 ## [11] &quot;tri_NEUR_r2&quot; &quot;tri_NEUR_r3&quot;</code></pre>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="chapter-3.html#cb6-1" tabindex="-1"></a><span class="co"># Assign column -indices- to variables for later use (i.e. counts[di_NEUR] selects the relevant columns)</span></span>
-<span id="cb6-2"><a href="chapter-3.html#cb6-2" tabindex="-1"></a>di_IPSC <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span></span>
-<span id="cb6-3"><a href="chapter-3.html#cb6-3" tabindex="-1"></a>tri_IPSC <span class="ot">&lt;-</span> <span class="dv">4</span><span class="sc">:</span><span class="dv">6</span></span>
-<span id="cb6-4"><a href="chapter-3.html#cb6-4" tabindex="-1"></a>di_NEUR <span class="ot">&lt;-</span> <span class="dv">7</span><span class="sc">:</span><span class="dv">9</span></span>
-<span id="cb6-5"><a href="chapter-3.html#cb6-5" tabindex="-1"></a>tri_NEUR <span class="ot">&lt;-</span> <span class="dv">10</span><span class="sc">:</span><span class="dv">12</span></span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="chapter-3.html#cb20-1" tabindex="-1"></a><span class="co"># Assign column -indices- to variables for later use (i.e. counts[di_NEUR] selects the relevant columns)</span></span>
+<span id="cb20-2"><a href="chapter-3.html#cb20-2" tabindex="-1"></a>di_IPSC <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span></span>
+<span id="cb20-3"><a href="chapter-3.html#cb20-3" tabindex="-1"></a>tri_IPSC <span class="ot">&lt;-</span> <span class="dv">4</span><span class="sc">:</span><span class="dv">6</span></span>
+<span id="cb20-4"><a href="chapter-3.html#cb20-4" tabindex="-1"></a>di_NEUR <span class="ot">&lt;-</span> <span class="dv">7</span><span class="sc">:</span><span class="dv">9</span></span>
+<span id="cb20-5"><a href="chapter-3.html#cb20-5" tabindex="-1"></a>tri_NEUR <span class="ot">&lt;-</span> <span class="dv">10</span><span class="sc">:</span><span class="dv">12</span></span></code></pre></div>
 <p>See <em>Table 1</em> in the <a href="chapter-3.html#normalization">Normalization</a> section for the resulting contents in the <code>counts</code> dataframe.</p>
 </div>
-<div id="EDA_part1" class="section level2 hasAnchor" number="2.3">
-<h2><span class="header-section-number">2.3</span> Visualizing using <code>boxplot</code> and <code>density plot</code><a href="chapter-3.html#EDA_part1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="EDA_part1" class="section level2 hasAnchor" number="3.3">
+<h2><span class="header-section-number">3.3</span> Visualizing using <code>boxplot</code> and <code>density plot</code><a href="chapter-3.html#EDA_part1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>This segment describes some of the basic steps and a visualization that can be performed during Exploratory Data Analysis. We start by inspecting the unnormalized count data. For the next steps normalization is applied as shown in the <a href="chapter-3.html#normalization">Normalization</a> section below. As mentioned above, the focus of EDA is to get an overview/ perform a bit of Quality Control of the data set and while this often requires visualizing the data, these figures do not need to be very pretty. Simple figures are perfectly fine in this stage. Try to create these figures for your own data (and keep them in your log) <strong>and</strong> add a small description for each figure pointing out anything that is different from what you expect.</p>
 <p>Also note that these steps are just a selection. Furthermore, make sure that for every visualization you make, add proper axis-labels containing the measurement units (important!). As you might be able to see, all values are <em>log-transformed</em> using the <code>log2</code> function because very often the numerical values have a very high range which will ‘hide’ the details on the plots. See the section about the <a href="chapter-4.html#deg-fc">Fold Change value</a> in chapter 4 for further details. It is fine to use non-log-transformed (simply the raw-)data, otherwise use for instance <code>boxplot(log2(dataset))</code> for plotting.</p>
 <div class="rmdtip">
 <p>
-Instead of using the basic R-plotting library (i.e. <code>plot</code>, <code>boxplot</code>, <code>hist</code>, etc.) you can also opt for using the (challenging) <a href="http://ggplot2.tidyverse.org/index.html"><code>ggplot2</code></a> library that is also used for the boxplot in the following section. While constructing a <code>ggplot2</code> plot feels like learning yet another language, there are many resources available online that you can follow.
+Instead of using the basic R-plotting library
+(i.e. <code>plot</code>, <code>boxplot</code>, <code>hist</code>, etc.)
+you can also opt for using the (challenging) <a
+href="http://ggplot2.tidyverse.org/index.html"><code>ggplot2</code></a>
+library that is also used for the boxplot in the following section.
+While constructing a <code>ggplot2</code> plot feels like learning yet
+another language, there are many resources available online that you can
+follow.
 </p>
 </div>
-<div id="eda_statistics" class="section level3 hasAnchor" number="2.3.1">
-<h3><span class="header-section-number">2.3.1</span> Statistics<a href="chapter-3.html#eda_statistics" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="eda_statistics" class="section level3 hasAnchor" number="3.3.1">
+<h3><span class="header-section-number">3.3.1</span> Statistics<a href="chapter-3.html#eda_statistics" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Even the most basic statistics can give some insight into the data such as performing a 6-number-statistic on the data <strong>columns</strong> using the <code>summary()</code> function. Note: you can also use the <code>pander</code> function to <em>pretty-print</em> a summary in the knitted output. What do you notice if you look at the numbers produced by executing this function on the complete data set?</p>
 </div>
-<div id="eda_boxplots" class="section level3 hasAnchor" number="2.3.2">
-<h3><span class="header-section-number">2.3.2</span> Boxplots<a href="chapter-3.html#eda_boxplots" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="eda_boxplots" class="section level3 hasAnchor" number="3.3.2">
+<h3><span class="header-section-number">3.3.2</span> Boxplots<a href="chapter-3.html#eda_boxplots" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>A visual representation of these values can be shown using a boxplot. Boxplots are very easy to create from an R data frame object by just passing in the data columns. The following boxplot shows the data for an experiment with a separate boxplot for each sample. This allows a quick overview for spotting irregularities (i.e. checking if the replicates within a sample-group show similar expression profiles). Of course, if we consider the amount of data in this single plot, it can only hint at any problems, we need to look in much more detail when doing any form of quality control. Creating a boxplot from a <code>dataframe</code> is easy, but as we saw with using the <code>summary</code> function; the data has a large range with the maximum and average values being very far apart. This will create a lot of <em>outliers</em> in the plot which will be interesting later on, but for the boxplot we can either:</p>
 <ul>
 <li>hide them completely using the <code>outline = FALSE</code> argument to <code>boxplot()</code> (do say so in the figure description!), or</li>
@@ -385,52 +413,74 @@ Instead of using the basic R-plotting library (i.e. <code>plot</code>, <code>bo
 </ul>
 <div class="rmdtip">
 <p>
-When creating plots of expression data without performing log-transformations we see that (for instance with the boxplot) the range of data is very large (from 0 up to 1.000.000) with a <em>lot</em> of outliers in the upper range. This makes for not very informative figures, so placing a simple <code>log2()</code> function call around the data <em>almost</em> resolves this issue.
+When creating plots of expression data without performing
+log-transformations we see that (for instance with the boxplot) the
+range of data is very large (from 0 up to 1.000.000) with a <em>lot</em>
+of outliers in the upper range. This makes for not very informative
+figures, so placing a simple <code>log2()</code> function call around
+the data <em>almost</em> resolves this issue.
 </p>
 <p>
-However, this might introduce another problem (taking the boxplot as an example) because this log-transformation results in data that contains <em>negative infinity</em> (<code>-Inf</code>) values. These are caused by all the 0-values in the data since <code>log2(0) == -Inf</code>. To circumvent this issue, we can add a <em>pseudo count</em> to the data by simply adding the value <code>1</code> to all count values since the <code>log2(1) == 0</code>; <code>log2(counts + 1)</code>.
+However, this might introduce another problem (taking the boxplot as
+an example) because this log-transformation results in data that
+contains <em>negative infinity</em> (<code>-Inf</code>) values. These
+are caused by all the 0-values in the data since
+<code>log2(0) == -Inf</code>. To circumvent this issue, we can add a
+<em>pseudo count</em> to the data by simply adding the value
+<code>1</code> to all count values since the <code>log2(1) == 0</code>;
+<code>log2(counts + 1)</code>.
 </p>
 <p>
-There are more situations other than the boxplot where adding a pseudo count value to the complete dataset can be useful. Always add a pseudocount <em>in-place</em>, meaning within the plotting code instead of overwriting your original data set with a pseudo count added as not all steps require this. In some cases (see the <a href="chapter-3.html#eda_density_plot">density plot</a> below) it can be useful to clearly separate the 0-values from the rest in which case a <code>0 &lt; pseudo count &lt; 1</code> value, such as <code>0.1</code> can be used as this generates a negative value (<code>-3.3</code>) that is far away from the rest of the data. All other count values are always &gt;0 which result in a positive log2 value.
+There are more situations other than the boxplot where adding a
+pseudo count value to the complete dataset can be useful. Always add a
+pseudocount <em>in-place</em>, meaning within the plotting code instead
+of overwriting your original data set with a pseudo count added as not
+all steps require this. In some cases (see the <a
+href="#eda_density_plot">density plot</a> below) it can be useful to
+clearly separate the 0-values from the rest in which case a
+<code>0 &lt; pseudo count &lt; 1</code> value, such as <code>0.1</code>
+can be used as this generates a negative value (<code>-3.3</code>) that
+is far away from the rest of the data. All other count values are always
+&gt;0 which result in a positive log2 value.
 </p>
 </div>
 <div class="figure"><span style="display:block;" id="fig:edaBoxplot"></span>
 <img src="chapters/images/RNAboxplot_ggplot2.png" alt="Boxplot comparing basic statistics for all genes across multiple samples"  />
 <p class="caption">
-Figure 2.1: Boxplot comparing basic statistics for all genes across multiple samples
+Figure 3.1: Boxplot comparing basic statistics for all genes across multiple samples
 </p>
 </div>
 </div>
-<div id="eda_density_plot" class="section level3 hasAnchor" number="2.3.3">
-<h3><span class="header-section-number">2.3.3</span> Density Plots<a href="chapter-3.html#eda_density_plot" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="eda_density_plot" class="section level3 hasAnchor" number="3.3.3">
+<h3><span class="header-section-number">3.3.3</span> Density Plots<a href="chapter-3.html#eda_density_plot" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Another form of visualizing the same data is using a density plot. This method shows a distribution of the (log2-transformed) count data for all samples and allows for easy spotting of problems. While this plot is more commonly used in analysing microarrays, it is still useful for comparing the complete dataset. The code and figure below show an example distribution for 12 samples. A few things to note about this figure is that there is a huge peak at exactly <code>-3.321928</code> which can be ignored because this is value is calculated from <code>log2(0.1)</code> explained in the box above. This peak consists of all 0-values (inactive genes) which isn’t very important to us now. Therefore, we added a vertical line to indicate the left-part is of little interest. Note: a lot of the code below is extra, for a simple inspection using <em>only</em> the line <code>plotDensity(log2(counts + 0.1))</code> is enough, the rest is extra example code.</p>
 <p>To assess the quality of the data we look at the peaks in the plot. The heigth of the peak doesn’t matter much, shifted peaks do however as those indicate either a lower or higher amount of reads sequenced for that sample. This can be confirmed with the first plot demonstrated below in the next section where the <em>library-sizes</em> are visualized.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="chapter-3.html#cb7-1" tabindex="-1"></a><span class="do">## The affy library has a density plotting function</span></span>
-<span id="cb7-2"><a href="chapter-3.html#cb7-2" tabindex="-1"></a><span class="fu">library</span>(affy)</span>
-<span id="cb7-3"><a href="chapter-3.html#cb7-3" tabindex="-1"></a></span>
-<span id="cb7-4"><a href="chapter-3.html#cb7-4" tabindex="-1"></a><span class="do">## Create a list of 4 colors to use which are the same used throughout this chapter </span></span>
-<span id="cb7-5"><a href="chapter-3.html#cb7-5" tabindex="-1"></a><span class="fu">library</span>(scales)</span>
-<span id="cb7-6"><a href="chapter-3.html#cb7-6" tabindex="-1"></a>myColors <span class="ot">&lt;-</span> <span class="fu">hue_pal</span>()(<span class="dv">4</span>)</span>
-<span id="cb7-7"><a href="chapter-3.html#cb7-7" tabindex="-1"></a></span>
-<span id="cb7-8"><a href="chapter-3.html#cb7-8" tabindex="-1"></a><span class="do">## Plot the log2-transformed data with a 0.1 pseudocount</span></span>
-<span id="cb7-9"><a href="chapter-3.html#cb7-9" tabindex="-1"></a><span class="fu">plotDensity</span>(<span class="fu">log2</span>(counts <span class="sc">+</span> <span class="fl">0.1</span>), <span class="at">col=</span><span class="fu">rep</span>(myColors, <span class="at">each=</span><span class="dv">3</span>),</span>
-<span id="cb7-10"><a href="chapter-3.html#cb7-10" tabindex="-1"></a>            <span class="at">lty=</span><span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">ncol</span>(counts)), <span class="at">xlab=</span><span class="st">&#39;Log2(count)&#39;</span>,</span>
-<span id="cb7-11"><a href="chapter-3.html#cb7-11" tabindex="-1"></a>            <span class="at">main=</span><span class="st">&#39;Expression Distribution&#39;</span>)</span>
-<span id="cb7-12"><a href="chapter-3.html#cb7-12" tabindex="-1"></a></span>
-<span id="cb7-13"><a href="chapter-3.html#cb7-13" tabindex="-1"></a><span class="do">## Add a legend and vertical line</span></span>
-<span id="cb7-14"><a href="chapter-3.html#cb7-14" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&#39;topright&#39;</span>, <span class="fu">names</span>(counts), <span class="at">lty=</span><span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">ncol</span>(counts)),</span>
-<span id="cb7-15"><a href="chapter-3.html#cb7-15" tabindex="-1"></a>       <span class="at">col=</span><span class="fu">rep</span>(myColors, <span class="at">each=</span><span class="dv">3</span>))</span>
-<span id="cb7-16"><a href="chapter-3.html#cb7-16" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v=</span><span class="sc">-</span><span class="fl">1.5</span>, <span class="at">lwd=</span><span class="dv">1</span>, <span class="at">col=</span><span class="st">&#39;red&#39;</span>, <span class="at">lty=</span><span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="chapter-3.html#cb21-1" tabindex="-1"></a><span class="do">## The affy library has a density plotting function</span></span>
+<span id="cb21-2"><a href="chapter-3.html#cb21-2" tabindex="-1"></a><span class="fu">library</span>(affy)</span>
+<span id="cb21-3"><a href="chapter-3.html#cb21-3" tabindex="-1"></a></span>
+<span id="cb21-4"><a href="chapter-3.html#cb21-4" tabindex="-1"></a><span class="do">## Create a list of 4 colors to use which are the same used throughout this chapter </span></span>
+<span id="cb21-5"><a href="chapter-3.html#cb21-5" tabindex="-1"></a><span class="fu">library</span>(scales)</span>
+<span id="cb21-6"><a href="chapter-3.html#cb21-6" tabindex="-1"></a>myColors <span class="ot">&lt;-</span> <span class="fu">hue_pal</span>()(<span class="dv">4</span>)</span>
+<span id="cb21-7"><a href="chapter-3.html#cb21-7" tabindex="-1"></a></span>
+<span id="cb21-8"><a href="chapter-3.html#cb21-8" tabindex="-1"></a><span class="do">## Plot the log2-transformed data with a 0.1 pseudocount</span></span>
+<span id="cb21-9"><a href="chapter-3.html#cb21-9" tabindex="-1"></a><span class="fu">plotDensity</span>(<span class="fu">log2</span>(counts <span class="sc">+</span> <span class="fl">0.1</span>), <span class="at">col=</span><span class="fu">rep</span>(myColors, <span class="at">each=</span><span class="dv">3</span>),</span>
+<span id="cb21-10"><a href="chapter-3.html#cb21-10" tabindex="-1"></a>            <span class="at">lty=</span><span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">ncol</span>(counts)), <span class="at">xlab=</span><span class="st">&#39;Log2(count)&#39;</span>,</span>
+<span id="cb21-11"><a href="chapter-3.html#cb21-11" tabindex="-1"></a>            <span class="at">main=</span><span class="st">&#39;Expression Distribution&#39;</span>)</span>
+<span id="cb21-12"><a href="chapter-3.html#cb21-12" tabindex="-1"></a></span>
+<span id="cb21-13"><a href="chapter-3.html#cb21-13" tabindex="-1"></a><span class="do">## Add a legend and vertical line</span></span>
+<span id="cb21-14"><a href="chapter-3.html#cb21-14" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&#39;topright&#39;</span>, <span class="fu">names</span>(counts), <span class="at">lty=</span><span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">ncol</span>(counts)),</span>
+<span id="cb21-15"><a href="chapter-3.html#cb21-15" tabindex="-1"></a>       <span class="at">col=</span><span class="fu">rep</span>(myColors, <span class="at">each=</span><span class="dv">3</span>))</span>
+<span id="cb21-16"><a href="chapter-3.html#cb21-16" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v=</span><span class="sc">-</span><span class="fl">1.5</span>, <span class="at">lwd=</span><span class="dv">1</span>, <span class="at">col=</span><span class="st">&#39;red&#39;</span>, <span class="at">lty=</span><span class="dv">2</span>)</span></code></pre></div>
 <div class="figure"><span style="display:block;" id="fig:densityPlot"></span>
 <img src="chapters/images/RNAdensityplot.png" alt="Density plot comparing count distribution for 12 samples"  />
 <p class="caption">
-Figure 2.2: Density plot comparing count distribution for 12 samples
+Figure 3.2: Density plot comparing count distribution for 12 samples
 </p>
 </div>
 </div>
 </div>
-<div id="EDA_part2" class="section level2 hasAnchor" number="2.4">
-<h2><span class="header-section-number">2.4</span> Visualizing using <code>heatmap</code> and <code>MDS</code><a href="chapter-3.html#EDA_part2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="EDA_part2" class="section level2 hasAnchor" number="3.4">
+<h2><span class="header-section-number">3.4</span> Visualizing using <code>heatmap</code> and <code>MDS</code><a href="chapter-3.html#EDA_part2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>This section adds a few Exploratory Data Analysis techniques where we will measure and look at <em>distances</em> between samples based on <em>normalized</em> data. Measuring distances between two data objects (samples in our case) is a common task in cluster analysis to compare similarity (low distance indicates similar data). In this case we will calculate the distances between our samples and visualize them in a <code>heatmap</code> and using a <code>multidimensional scaling</code> (MDS) technique.</p>
 <p>In the previous section we used the raw count data. You might have one or more samples that have different values (i.e. shifted) compared to other samples. While we need the raw count data to use R packages such as <code>edgeR</code> <span class="citation">(<a href="#ref-R-edgeR">Chen et al. 2018</a>)</span> and <code>DESeq2</code> <span class="citation">(<a href="#ref-R-DESeq2">Love, Anders, and Huber 2017</a>)</span>, calculating sample distances (used in the visualizations in this section) should be done on some form of normalized data. This data can either be RPKM/FPKM/TPM/CPM or vst-transformed (raw-)read counts. A proper method of transforming raw read count data is using the <code>vst</code> method from the <code>DESeq2</code> R Bioconductor library which is shown below. This ‘<em>variance stabilizing transformation</em>’ normalized data will only be used in this chapter, in chapter 4 we will again normalize using a different technique.</p>
 <p>The following code examples shows how to use this library to normalize the count data from the <strong>GSE101942</strong> experiment to vst-normalized data before we calculate a distance metric.</p>
@@ -689,22 +739,22 @@ Figure 2.2: Density plot comparing count distribution for 12 samples
 <div class="figure"><span style="display:block;" id="fig:librarySizes"></span>
 <img src="gene_expression_files/figure-html/librarySizes-1.png" alt="Library sizes for all samples from GSE101942" width="672" />
 <p class="caption">
-Figure 2.3: Library sizes for all samples from GSE101942
+Figure 3.3: Library sizes for all samples from GSE101942
 </p>
 </div>
 <p>The numbers shown in <code>Table 2</code> and the barplot above immediately clarify that it is not just the experimental condition that might have caused this large difference between sample counts but the sequencing depth shows a substantial difference too. Both the minimum and maximum sequencing depth are within the trisomic neuron group (purple in the barplot). The average expression of the <code>A1BG</code> gene within this group is 820, but with a minimum of 461 and a maximum of 1010 there is a lot of variation. This is one more reason telling us that we will have to <strong>normalize</strong> the data. The following code chunks show how to do this with <code>DESeq2</code>’s <code>vst</code> method (<em>variance stabilizing transformation</em>). Check the <code>Packages</code> tab in Rstudio to see if you have the <code>DESeq2</code> package installed and load it with the <code>library</code> command.</p>
-<div id="normalization" class="section level3 hasAnchor" number="2.4.1">
-<h3><span class="header-section-number">2.4.1</span> Normalization<a href="chapter-3.html#normalization" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="normalization" class="section level3 hasAnchor" number="3.4.1">
+<h3><span class="header-section-number">3.4.1</span> Normalization<a href="chapter-3.html#normalization" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>To use the <code>vst</code> function from the <code>DESeq2</code> library we must construct a <code>DESeqDataSet</code>-object consisting of the count data combined with sample annotation. Since we only want to use it (for now) for performing a vst-transformation we use the most basic form with a very simple <code>design</code> and the sample names as annotation (the <code>colData</code> argument):</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="chapter-3.html#cb8-1" tabindex="-1"></a><span class="co"># Load the library</span></span>
-<span id="cb8-2"><a href="chapter-3.html#cb8-2" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&#39;DESeq2&#39;</span>)</span>
-<span id="cb8-3"><a href="chapter-3.html#cb8-3" tabindex="-1"></a></span>
-<span id="cb8-4"><a href="chapter-3.html#cb8-4" tabindex="-1"></a><span class="co"># DESeq2 will construct a SummarizedExperiment object and combine this </span></span>
-<span id="cb8-5"><a href="chapter-3.html#cb8-5" tabindex="-1"></a><span class="co"># into a &#39;DESeqDataSet&#39; object. The &#39;design&#39; argument usually indicates the </span></span>
-<span id="cb8-6"><a href="chapter-3.html#cb8-6" tabindex="-1"></a><span class="co"># experimental design using the condition(s) names as a &#39;factor&#39;, for now we use just &#39;~ 1&#39;</span></span>
-<span id="cb8-7"><a href="chapter-3.html#cb8-7" tabindex="-1"></a>(ddsMat <span class="ot">&lt;-</span> <span class="fu">DESeqDataSetFromMatrix</span>(<span class="at">countData =</span> counts,</span>
-<span id="cb8-8"><a href="chapter-3.html#cb8-8" tabindex="-1"></a>                                  <span class="at">colData =</span> <span class="fu">data.frame</span>(<span class="at">samples =</span> <span class="fu">names</span>(counts)),</span>
-<span id="cb8-9"><a href="chapter-3.html#cb8-9" tabindex="-1"></a>                                  <span class="at">design =</span> <span class="sc">~</span> <span class="dv">1</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="chapter-3.html#cb22-1" tabindex="-1"></a><span class="co"># Load the library</span></span>
+<span id="cb22-2"><a href="chapter-3.html#cb22-2" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&#39;DESeq2&#39;</span>)</span>
+<span id="cb22-3"><a href="chapter-3.html#cb22-3" tabindex="-1"></a></span>
+<span id="cb22-4"><a href="chapter-3.html#cb22-4" tabindex="-1"></a><span class="co"># DESeq2 will construct a SummarizedExperiment object and combine this </span></span>
+<span id="cb22-5"><a href="chapter-3.html#cb22-5" tabindex="-1"></a><span class="co"># into a &#39;DESeqDataSet&#39; object. The &#39;design&#39; argument usually indicates the </span></span>
+<span id="cb22-6"><a href="chapter-3.html#cb22-6" tabindex="-1"></a><span class="co"># experimental design using the condition(s) names as a &#39;factor&#39;, for now we use just &#39;~ 1&#39;</span></span>
+<span id="cb22-7"><a href="chapter-3.html#cb22-7" tabindex="-1"></a>(ddsMat <span class="ot">&lt;-</span> <span class="fu">DESeqDataSetFromMatrix</span>(<span class="at">countData =</span> counts,</span>
+<span id="cb22-8"><a href="chapter-3.html#cb22-8" tabindex="-1"></a>                                  <span class="at">colData =</span> <span class="fu">data.frame</span>(<span class="at">samples =</span> <span class="fu">names</span>(counts)),</span>
+<span id="cb22-9"><a href="chapter-3.html#cb22-9" tabindex="-1"></a>                                  <span class="at">design =</span> <span class="sc">~</span> <span class="dv">1</span>))</span></code></pre></div>
 <pre><code>## class: DESeqDataSet 
 ## dim: 56640 12 
 ## metadata(1): version
@@ -714,10 +764,10 @@ Figure 2.3: Library sizes for all samples from GSE101942
 ## colnames(12): di_IPSC_r1 di_IPSC_r2 ... tri_NEUR_r2 tri_NEUR_r3
 ## colData names(1): samples</code></pre>
 <p>We now have a proper <code>DESeqDataSet</code> object as you can see above, containing 56640 rows and 12 columns (genes and samples) with the gene symbols as row names. Usually this object would hold more data, but as this is only a requirement to perform the <code>vst</code> transformation it is good enough for now. Next step is performing this transformation (this can take a while depending on the size of the experiment and results in a <code>Large DESeqTransform</code> object) and retrieving the actual data from this with the <code>assay</code> function as this object too contains a lot of meta-data. The table below shows the updated values which are now comparable across genes whereas the raw count data was harder to compare.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="chapter-3.html#cb10-1" tabindex="-1"></a><span class="co"># Perform normalization</span></span>
-<span id="cb10-2"><a href="chapter-3.html#cb10-2" tabindex="-1"></a>rld.dds <span class="ot">&lt;-</span> <span class="fu">vst</span>(ddsMat)</span>
-<span id="cb10-3"><a href="chapter-3.html#cb10-3" tabindex="-1"></a><span class="co"># &#39;Extract&#39; normalized values</span></span>
-<span id="cb10-4"><a href="chapter-3.html#cb10-4" tabindex="-1"></a>rld <span class="ot">&lt;-</span> <span class="fu">assay</span>(rld.dds)</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="chapter-3.html#cb24-1" tabindex="-1"></a><span class="co"># Perform normalization</span></span>
+<span id="cb24-2"><a href="chapter-3.html#cb24-2" tabindex="-1"></a>rld.dds <span class="ot">&lt;-</span> <span class="fu">vst</span>(ddsMat)</span>
+<span id="cb24-3"><a href="chapter-3.html#cb24-3" tabindex="-1"></a><span class="co"># &#39;Extract&#39; normalized values</span></span>
+<span id="cb24-4"><a href="chapter-3.html#cb24-4" tabindex="-1"></a>rld <span class="ot">&lt;-</span> <span class="fu">assay</span>(rld.dds)</span></code></pre></div>
 <table style="width:75%;">
 <colgroup>
 <col width="20%" />
@@ -775,11 +825,11 @@ Figure 2.3: Library sizes for all samples from GSE101942
 <p>Table 2; VST transformed disomic IPSC count data</p>
 <p>Note that when again looking at the <code>A1BG</code> gene (the one displayed in figure 3.8), the normalized expression values show much less variation across the samples (not shown, but also within each sample group). Therefore, we assume that the large difference in expression we observed earlier might be non-existent (there might still be a significant difference though!).</p>
 </div>
-<div id="eda_distance" class="section level3 hasAnchor" number="2.4.2">
-<h3><span class="header-section-number">2.4.2</span> Distance Calculation<a href="chapter-3.html#eda_distance" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="eda_distance" class="section level3 hasAnchor" number="3.4.2">
+<h3><span class="header-section-number">3.4.2</span> Distance Calculation<a href="chapter-3.html#eda_distance" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>We now have normalized data that we can use for distance calculation. This is a standard procedure for many data analysis tasks as it calculates a distance metric for each combination of samples that we will use to check for variation <em>within</em> the sample groups. We first need to <a href="https://en.wikipedia.org/wiki/Transpose"><em>transpose</em></a> the matrix (<code>rld</code>) of normalized values using the <code>t</code>-function, because the <code>dist</code> function expects the different samples as rows and the genes as columns. Note that the output matrix is symmetric. Table 3 below shows the calculated distances within the disomic IPSC group where the distance between samples varies from 100 to 140. The maximum distance between any samples is 380 as will be demonstrated with the visualizations in the next sections.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="chapter-3.html#cb11-1" tabindex="-1"></a><span class="co"># Calculate basic distance metric (using euclidean distance, see &#39;?dist&#39;)</span></span>
-<span id="cb11-2"><a href="chapter-3.html#cb11-2" tabindex="-1"></a>sampledists <span class="ot">&lt;-</span> <span class="fu">dist</span>( <span class="fu">t</span>( rld ))</span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="chapter-3.html#cb25-1" tabindex="-1"></a><span class="co"># Calculate basic distance metric (using euclidean distance, see &#39;?dist&#39;)</span></span>
+<span id="cb25-2"><a href="chapter-3.html#cb25-2" tabindex="-1"></a>sampledists <span class="ot">&lt;-</span> <span class="fu">dist</span>( <span class="fu">t</span>( rld ))</span></code></pre></div>
 <table style="width:78%;">
 <colgroup>
 <col width="23%" />
@@ -818,63 +868,68 @@ Figure 2.3: Library sizes for all samples from GSE101942
 </table>
 <p>Table 3; Sample distances for the disomic IPSCs (Euclidean method)</p>
 </div>
-<div id="eda_heatmap" class="section level3 hasAnchor" number="2.4.3">
-<h3><span class="header-section-number">2.4.3</span> Sample Distances using a Heatmap<a href="chapter-3.html#eda_heatmap" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="eda_heatmap" class="section level3 hasAnchor" number="3.4.3">
+<h3><span class="header-section-number">3.4.3</span> Sample Distances using a Heatmap<a href="chapter-3.html#eda_heatmap" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>If you have both (raw-)count data <em>and</em> an other normalized format (TPM, RPKM, etc.), you can <em>optionally</em> follow the above procedure for your count data and create a heatmap for <strong>both</strong> formats to see if this makes any difference. The reason for this is that while the RNA-Seq method exists for over 10 years, there are still ongoing discussions on the subject of data processing, especially regarding subjects like which normalization technque to use for which data analysis.</p>
 <p>The following code block creates a heatmap using the <code>pheatmap</code> library which offers on of the many available heatmap functions. Using the <code>annotation</code> data frame (you can inspect the contents of it yourself) we identify the samples based on both the cell type and the ploidy. The clustering shown in the heatmap clearly separates the data based on the cell type and the differences between the ploidy seems to be minimal. Looking further still, the differences <em>within</em> a single group are minimal too meaning that we are not - yet - inclined to remove any outlier-samples. Since we have only have 3 samples per category, we would also lose statistical power if we eventually were to remove one or more samples (also, always check the article to see if they did remove any samples prior to the data analysis).</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="chapter-3.html#cb12-1" tabindex="-1"></a><span class="co"># We use the &#39;pheatmap&#39; library (install with install.packages(&#39;pheatmap&#39;))</span></span>
-<span id="cb12-2"><a href="chapter-3.html#cb12-2" tabindex="-1"></a><span class="fu">library</span>(pheatmap)</span>
-<span id="cb12-3"><a href="chapter-3.html#cb12-3" tabindex="-1"></a></span>
-<span id="cb12-4"><a href="chapter-3.html#cb12-4" tabindex="-1"></a><span class="co"># Convert the &#39;dist&#39; object into a matrix for creating a heatmap</span></span>
-<span id="cb12-5"><a href="chapter-3.html#cb12-5" tabindex="-1"></a>sampleDistMatrix <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(sampledists)</span>
-<span id="cb12-6"><a href="chapter-3.html#cb12-6" tabindex="-1"></a></span>
-<span id="cb12-7"><a href="chapter-3.html#cb12-7" tabindex="-1"></a><span class="co"># The annotation is an extra layer that will be plotted above the heatmap columns</span></span>
-<span id="cb12-8"><a href="chapter-3.html#cb12-8" tabindex="-1"></a><span class="co"># indicating the cell type</span></span>
-<span id="cb12-9"><a href="chapter-3.html#cb12-9" tabindex="-1"></a>annotation <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Cell =</span> <span class="fu">factor</span>(<span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, <span class="at">each =</span> <span class="dv">6</span>), </span>
-<span id="cb12-10"><a href="chapter-3.html#cb12-10" tabindex="-1"></a>                                          <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;IPSC&quot;</span>, <span class="st">&quot;Neuron&quot;</span>)),</span>
-<span id="cb12-11"><a href="chapter-3.html#cb12-11" tabindex="-1"></a>                         <span class="at">Ploidy =</span> <span class="fu">factor</span>(<span class="fu">rep</span>(<span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, <span class="at">each =</span> <span class="dv">3</span>), <span class="dv">2</span>),</span>
-<span id="cb12-12"><a href="chapter-3.html#cb12-12" tabindex="-1"></a>                                         <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;disomic&quot;</span>, <span class="st">&quot;trisomic&quot;</span>)))</span>
-<span id="cb12-13"><a href="chapter-3.html#cb12-13" tabindex="-1"></a>                         </span>
-<span id="cb12-14"><a href="chapter-3.html#cb12-14" tabindex="-1"></a><span class="co"># Set the rownames of the annotation dataframe to the sample names (required)</span></span>
-<span id="cb12-15"><a href="chapter-3.html#cb12-15" tabindex="-1"></a><span class="fu">rownames</span>(annotation) <span class="ot">&lt;-</span> <span class="fu">names</span>(counts)</span>
-<span id="cb12-16"><a href="chapter-3.html#cb12-16" tabindex="-1"></a></span>
-<span id="cb12-17"><a href="chapter-3.html#cb12-17" tabindex="-1"></a><span class="fu">pheatmap</span>(sampleDistMatrix, <span class="at">show_colnames =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb12-18"><a href="chapter-3.html#cb12-18" tabindex="-1"></a>         <span class="at">annotation_col =</span> annotation,</span>
-<span id="cb12-19"><a href="chapter-3.html#cb12-19" tabindex="-1"></a>         <span class="at">clustering_distance_rows =</span> sampledists,</span>
-<span id="cb12-20"><a href="chapter-3.html#cb12-20" tabindex="-1"></a>         <span class="at">clustering_distance_cols =</span> sampledists,</span>
-<span id="cb12-21"><a href="chapter-3.html#cb12-21" tabindex="-1"></a>         <span class="at">main =</span> <span class="st">&quot;Euclidean Sample Distances&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="chapter-3.html#cb26-1" tabindex="-1"></a><span class="co"># We use the &#39;pheatmap&#39; library (install with install.packages(&#39;pheatmap&#39;))</span></span>
+<span id="cb26-2"><a href="chapter-3.html#cb26-2" tabindex="-1"></a><span class="fu">library</span>(pheatmap)</span>
+<span id="cb26-3"><a href="chapter-3.html#cb26-3" tabindex="-1"></a></span>
+<span id="cb26-4"><a href="chapter-3.html#cb26-4" tabindex="-1"></a><span class="co"># Convert the &#39;dist&#39; object into a matrix for creating a heatmap</span></span>
+<span id="cb26-5"><a href="chapter-3.html#cb26-5" tabindex="-1"></a>sampleDistMatrix <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(sampledists)</span>
+<span id="cb26-6"><a href="chapter-3.html#cb26-6" tabindex="-1"></a></span>
+<span id="cb26-7"><a href="chapter-3.html#cb26-7" tabindex="-1"></a><span class="co"># The annotation is an extra layer that will be plotted above the heatmap columns</span></span>
+<span id="cb26-8"><a href="chapter-3.html#cb26-8" tabindex="-1"></a><span class="co"># indicating the cell type</span></span>
+<span id="cb26-9"><a href="chapter-3.html#cb26-9" tabindex="-1"></a>annotation <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Cell =</span> <span class="fu">factor</span>(<span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, <span class="at">each =</span> <span class="dv">6</span>), </span>
+<span id="cb26-10"><a href="chapter-3.html#cb26-10" tabindex="-1"></a>                                          <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;IPSC&quot;</span>, <span class="st">&quot;Neuron&quot;</span>)),</span>
+<span id="cb26-11"><a href="chapter-3.html#cb26-11" tabindex="-1"></a>                         <span class="at">Ploidy =</span> <span class="fu">factor</span>(<span class="fu">rep</span>(<span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, <span class="at">each =</span> <span class="dv">3</span>), <span class="dv">2</span>),</span>
+<span id="cb26-12"><a href="chapter-3.html#cb26-12" tabindex="-1"></a>                                         <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;disomic&quot;</span>, <span class="st">&quot;trisomic&quot;</span>)))</span>
+<span id="cb26-13"><a href="chapter-3.html#cb26-13" tabindex="-1"></a>                         </span>
+<span id="cb26-14"><a href="chapter-3.html#cb26-14" tabindex="-1"></a><span class="co"># Set the rownames of the annotation dataframe to the sample names (required)</span></span>
+<span id="cb26-15"><a href="chapter-3.html#cb26-15" tabindex="-1"></a><span class="fu">rownames</span>(annotation) <span class="ot">&lt;-</span> <span class="fu">names</span>(counts)</span>
+<span id="cb26-16"><a href="chapter-3.html#cb26-16" tabindex="-1"></a></span>
+<span id="cb26-17"><a href="chapter-3.html#cb26-17" tabindex="-1"></a><span class="fu">pheatmap</span>(sampleDistMatrix, <span class="at">show_colnames =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb26-18"><a href="chapter-3.html#cb26-18" tabindex="-1"></a>         <span class="at">annotation_col =</span> annotation,</span>
+<span id="cb26-19"><a href="chapter-3.html#cb26-19" tabindex="-1"></a>         <span class="at">clustering_distance_rows =</span> sampledists,</span>
+<span id="cb26-20"><a href="chapter-3.html#cb26-20" tabindex="-1"></a>         <span class="at">clustering_distance_cols =</span> sampledists,</span>
+<span id="cb26-21"><a href="chapter-3.html#cb26-21" tabindex="-1"></a>         <span class="at">main =</span> <span class="st">&quot;Euclidean Sample Distances&quot;</span>)</span></code></pre></div>
 <div class="figure"><span style="display:block;" id="fig:pheatmapDistances"></span>
 <img src="gene_expression_files/figure-html/pheatmapDistances-1.png" alt="Heatmap showing the Euclidean distances between all samples" width="672" />
 <p class="caption">
-Figure 2.4: Heatmap showing the Euclidean distances between all samples
+Figure 3.4: Heatmap showing the Euclidean distances between all samples
 </p>
 </div>
 <p>The resulting heatmap shows an interesting comparison across all samples where the order of samples is purely determined using the distance and is often different from the order in the data set. Ideally, we want the sample groups to be clustered together as we see with this data. This particular heatmap clearly shows a large difference in overal expression between the induced pluripotent stem cells (iPSCs) and their differentiated cortical neurons while the difference - within cell type - between disomic and trisomic is much lower.</p>
 </div>
-<div id="eda_mds" class="section level3 hasAnchor" number="2.4.4">
-<h3><span class="header-section-number">2.4.4</span> Multi-Dimensional Scaling<a href="chapter-3.html#eda_mds" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="eda_mds" class="section level3 hasAnchor" number="3.4.4">
+<h3><span class="header-section-number">3.4.4</span> Multi-Dimensional Scaling<a href="chapter-3.html#eda_mds" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The following code example shows how to perform Multi-Dimensional Scaling (MDS) that displays similarly calculated distances in a 2D-plot. With an experiment like this with two groups of samples, we hope to see two clearly separated clusters formed, however as we’ve seen in the heatmap, sample <code>KO1B</code> showed a large deviation which we will also see (confirm) using MDS.</p>
 <div class="rmdtip">
 <p>
-The figure below is plotted using <code>ggplot2</code>, a more advanced method of plotting in R. While these plots are preferred over base-R plotting, it is always sufficient to use just that as it can be very challenging to alter the example code shown in this section. The data object plotted is shown and in this case contains simple X- and Y-coordinates.
+The figure below is plotted using <code>ggplot2</code>, a more
+advanced method of plotting in R. While these plots are preferred over
+base-R plotting, it is always sufficient to use just that as it can be
+very challenging to alter the example code shown in this section. The
+data object plotted is shown and in this case contains simple X- and
+Y-coordinates.
 </p>
 </div>
 <p>For MDS we use a slightly different distance metric (Poisson instead of the default <code>euclidean</code> used in the <code>dist</code> function). The following code shows how to calculate a more fitting distance for sequencing data called the <em>Poisson Distance</em> with a number of optimizations available in the <code>PoiClaClu</code> library. This library was specifically designed to handle read count data and is less influenced by read-count differences across samples. Note that again, the code below is only usable for <strong>count</strong> data as this function requires:</p>
 <blockquote>
 <p>An n-by-p data matrix with observations on the rows, and p features on the columns. The (i,j) element of x is the <strong>number of reads</strong> in observation i that mapped to feature (e.g. gene or exon) j.</p>
 </blockquote>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="chapter-3.html#cb13-1" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&#39;PoiClaClu&#39;</span>)</span>
-<span id="cb13-2"><a href="chapter-3.html#cb13-2" tabindex="-1"></a><span class="co"># Note: uses the raw-count data, PoissonDistance performs normalization</span></span>
-<span id="cb13-3"><a href="chapter-3.html#cb13-3" tabindex="-1"></a><span class="co"># set by the &#39;type&#39; parameter (uses DESeq)</span></span>
-<span id="cb13-4"><a href="chapter-3.html#cb13-4" tabindex="-1"></a>dds <span class="ot">&lt;-</span> <span class="fu">assay</span>(ddsMat)</span>
-<span id="cb13-5"><a href="chapter-3.html#cb13-5" tabindex="-1"></a>poisd <span class="ot">&lt;-</span> <span class="fu">PoissonDistance</span>( <span class="fu">t</span>(dds), <span class="at">type =</span> <span class="st">&quot;deseq&quot;</span>)</span>
-<span id="cb13-6"><a href="chapter-3.html#cb13-6" tabindex="-1"></a><span class="co"># Extract the matrix with distances</span></span>
-<span id="cb13-7"><a href="chapter-3.html#cb13-7" tabindex="-1"></a>samplePoisDistMatrix <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(poisd<span class="sc">$</span>dd)</span>
-<span id="cb13-8"><a href="chapter-3.html#cb13-8" tabindex="-1"></a><span class="co"># Calculate the MDS and get the X- and Y-coordinates</span></span>
-<span id="cb13-9"><a href="chapter-3.html#cb13-9" tabindex="-1"></a>mdsPoisData <span class="ot">&lt;-</span> <span class="fu">data.frame</span>( <span class="fu">cmdscale</span>(samplePoisDistMatrix) )</span>
-<span id="cb13-10"><a href="chapter-3.html#cb13-10" tabindex="-1"></a></span>
-<span id="cb13-11"><a href="chapter-3.html#cb13-11" tabindex="-1"></a><span class="co"># And set some better readable names for the columns</span></span>
-<span id="cb13-12"><a href="chapter-3.html#cb13-12" tabindex="-1"></a><span class="fu">names</span>(mdsPoisData) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&#39;x_coord&#39;</span>, <span class="st">&#39;y_coord&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="chapter-3.html#cb27-1" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&#39;PoiClaClu&#39;</span>)</span>
+<span id="cb27-2"><a href="chapter-3.html#cb27-2" tabindex="-1"></a><span class="co"># Note: uses the raw-count data, PoissonDistance performs normalization</span></span>
+<span id="cb27-3"><a href="chapter-3.html#cb27-3" tabindex="-1"></a><span class="co"># set by the &#39;type&#39; parameter (uses DESeq)</span></span>
+<span id="cb27-4"><a href="chapter-3.html#cb27-4" tabindex="-1"></a>dds <span class="ot">&lt;-</span> <span class="fu">assay</span>(ddsMat)</span>
+<span id="cb27-5"><a href="chapter-3.html#cb27-5" tabindex="-1"></a>poisd <span class="ot">&lt;-</span> <span class="fu">PoissonDistance</span>( <span class="fu">t</span>(dds), <span class="at">type =</span> <span class="st">&quot;deseq&quot;</span>)</span>
+<span id="cb27-6"><a href="chapter-3.html#cb27-6" tabindex="-1"></a><span class="co"># Extract the matrix with distances</span></span>
+<span id="cb27-7"><a href="chapter-3.html#cb27-7" tabindex="-1"></a>samplePoisDistMatrix <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(poisd<span class="sc">$</span>dd)</span>
+<span id="cb27-8"><a href="chapter-3.html#cb27-8" tabindex="-1"></a><span class="co"># Calculate the MDS and get the X- and Y-coordinates</span></span>
+<span id="cb27-9"><a href="chapter-3.html#cb27-9" tabindex="-1"></a>mdsPoisData <span class="ot">&lt;-</span> <span class="fu">data.frame</span>( <span class="fu">cmdscale</span>(samplePoisDistMatrix) )</span>
+<span id="cb27-10"><a href="chapter-3.html#cb27-10" tabindex="-1"></a></span>
+<span id="cb27-11"><a href="chapter-3.html#cb27-11" tabindex="-1"></a><span class="co"># And set some better readable names for the columns</span></span>
+<span id="cb27-12"><a href="chapter-3.html#cb27-12" tabindex="-1"></a><span class="fu">names</span>(mdsPoisData) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&#39;x_coord&#39;</span>, <span class="st">&#39;y_coord&#39;</span>)</span></code></pre></div>
 <table style="width:28%;">
 <colgroup>
 <col width="13%" />
@@ -938,38 +993,38 @@ The figure below is plotted using <code>ggplot2</code>, a more advanced method o
 </tbody>
 </table>
 <p>Table 5: MDS coordinates used for plotting the distances using Poisson Distance</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="chapter-3.html#cb14-1" tabindex="-1"></a><span class="co"># Separate the annotation factor (as the variable name is used as label)</span></span>
-<span id="cb14-2"><a href="chapter-3.html#cb14-2" tabindex="-1"></a>groups <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="at">each=</span><span class="dv">3</span>), </span>
-<span id="cb14-3"><a href="chapter-3.html#cb14-3" tabindex="-1"></a>                 <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;di_IPSC&quot;</span>, <span class="st">&quot;tri_IPSC&quot;</span>, <span class="st">&quot;di_NEUR&quot;</span>, <span class="st">&quot;tri_NEUR&quot;</span>))</span>
-<span id="cb14-4"><a href="chapter-3.html#cb14-4" tabindex="-1"></a>coldata <span class="ot">&lt;-</span> <span class="fu">names</span>(counts)</span>
-<span id="cb14-5"><a href="chapter-3.html#cb14-5" tabindex="-1"></a></span>
-<span id="cb14-6"><a href="chapter-3.html#cb14-6" tabindex="-1"></a><span class="co"># Create the plot using ggplot</span></span>
-<span id="cb14-7"><a href="chapter-3.html#cb14-7" tabindex="-1"></a><span class="fu">ggplot</span>(mdsPoisData, <span class="fu">aes</span>(x_coord, y_coord, <span class="at">color =</span> groups, <span class="at">label =</span> coldata)) <span class="sc">+</span> </span>
-<span id="cb14-8"><a href="chapter-3.html#cb14-8" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">size =</span> <span class="dv">4</span>) <span class="sc">+</span></span>
-<span id="cb14-9"><a href="chapter-3.html#cb14-9" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&#39;Multi Dimensional Scaling&#39;</span>) <span class="sc">+</span></span>
-<span id="cb14-10"><a href="chapter-3.html#cb14-10" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Poisson Distance&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Poisson Distance&quot;</span>) <span class="sc">+</span></span>
-<span id="cb14-11"><a href="chapter-3.html#cb14-11" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="chapter-3.html#cb28-1" tabindex="-1"></a><span class="co"># Separate the annotation factor (as the variable name is used as label)</span></span>
+<span id="cb28-2"><a href="chapter-3.html#cb28-2" tabindex="-1"></a>groups <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="at">each=</span><span class="dv">3</span>), </span>
+<span id="cb28-3"><a href="chapter-3.html#cb28-3" tabindex="-1"></a>                 <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;di_IPSC&quot;</span>, <span class="st">&quot;tri_IPSC&quot;</span>, <span class="st">&quot;di_NEUR&quot;</span>, <span class="st">&quot;tri_NEUR&quot;</span>))</span>
+<span id="cb28-4"><a href="chapter-3.html#cb28-4" tabindex="-1"></a>coldata <span class="ot">&lt;-</span> <span class="fu">names</span>(counts)</span>
+<span id="cb28-5"><a href="chapter-3.html#cb28-5" tabindex="-1"></a></span>
+<span id="cb28-6"><a href="chapter-3.html#cb28-6" tabindex="-1"></a><span class="co"># Create the plot using ggplot</span></span>
+<span id="cb28-7"><a href="chapter-3.html#cb28-7" tabindex="-1"></a><span class="fu">ggplot</span>(mdsPoisData, <span class="fu">aes</span>(x_coord, y_coord, <span class="at">color =</span> groups, <span class="at">label =</span> coldata)) <span class="sc">+</span> </span>
+<span id="cb28-8"><a href="chapter-3.html#cb28-8" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">size =</span> <span class="dv">4</span>) <span class="sc">+</span></span>
+<span id="cb28-9"><a href="chapter-3.html#cb28-9" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&#39;Multi Dimensional Scaling&#39;</span>) <span class="sc">+</span></span>
+<span id="cb28-10"><a href="chapter-3.html#cb28-10" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Poisson Distance&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Poisson Distance&quot;</span>) <span class="sc">+</span></span>
+<span id="cb28-11"><a href="chapter-3.html#cb28-11" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div>
 <div class="figure"><span style="display:block;" id="fig:mdsPoissonPlot"></span>
 <img src="gene_expression_files/figure-html/mdsPoissonPlot-1.png" alt="Multi Dimensional Scaling - Poisson Distance for all samples" width="672" />
 <p class="caption">
-Figure 2.5: Multi Dimensional Scaling - Poisson Distance for all samples
+Figure 3.5: Multi Dimensional Scaling - Poisson Distance for all samples
 </p>
 </div>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="chapter-3.html#cb15-1" tabindex="-1"></a><span class="do">## Using base-R plot and legend functions:</span></span>
-<span id="cb15-2"><a href="chapter-3.html#cb15-2" tabindex="-1"></a><span class="co"># plot(mdsPoisData, col=rep(myColors, each=3), pch=20, lwd=2)</span></span>
-<span id="cb15-3"><a href="chapter-3.html#cb15-3" tabindex="-1"></a><span class="co"># legend(x=-20000, y=11000, legend = levels(groups), col=myColors, pch=20)</span></span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="chapter-3.html#cb29-1" tabindex="-1"></a><span class="do">## Using base-R plot and legend functions:</span></span>
+<span id="cb29-2"><a href="chapter-3.html#cb29-2" tabindex="-1"></a><span class="co"># plot(mdsPoisData, col=rep(myColors, each=3), pch=20, lwd=2)</span></span>
+<span id="cb29-3"><a href="chapter-3.html#cb29-3" tabindex="-1"></a><span class="co"># legend(x=-20000, y=11000, legend = levels(groups), col=myColors, pch=20)</span></span></code></pre></div>
 <p>We clearly see a separation on cell type and a less clear separation on ploidy. The spread within the disomic groups is much lower compared to the trisomic groups. Note that the y-axis range is about a 4th of the x-axis range. The sample <code>di_NEUR_r3</code> shows a large difference in the MDS plot. Once we have a set of genes identified as being differentially expressed we could repeat this step with the expectation of a more clear clustering.</p>
 </div>
 </div>
-<div id="cleaning-data" class="section level2 hasAnchor" number="2.5">
-<h2><span class="header-section-number">2.5</span> Cleaning Data<a href="chapter-3.html#cleaning-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="cleaning-data" class="section level2 hasAnchor" number="3.5">
+<h2><span class="header-section-number">3.5</span> Cleaning Data<a href="chapter-3.html#cleaning-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Conclude this chapter by <em>cleaning</em> your dataset if the visualizations show the necessity for this. Cleaning in this case means <em>removing</em> complete samples if they can be classified as an outlier <em>within</em> its group. As with most tasks during this course, there is no clear advice on when to decide to remove one or more samples. The only clear rule is that each group <em>must</em> retain at least three samples. If one of the three samples visibly deviates from the other replicates, even after normalization, it will stay in your data set and it should be mentioned in your analysis report/ final article that noise <em>may</em> be introduced by this sample.
 <strong>Note</strong>: Once you are satisfied with the data and reported on your findings, we do not return to any of these steps in the next chapters. If there are mentions of creating a heatmap for instance, this means a heatmap of <em>expression data</em> instead of the <em>sample distances</em> we’ve shown in this chapter.</p>
 
 </div>
 </div>
 <h3>References</h3>
-<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
 <div id="ref-R-edgeR" class="csl-entry">
 Chen, Yunshun, Aaron Lun, Davis McCarthy, Xiaobei Zhou, Mark Robinson, and Gordon Smyth. 2018. <em>edgeR: Empirical Analysis of Digital Gene Expression Data in r</em>. <a href="http://bioinf.wehi.edu.au/edgeR">http://bioinf.wehi.edu.au/edgeR</a>.
 </div>
@@ -985,7 +1040,7 @@ Love, Michael, Simon Anders, and Wolfgang Huber. 2017. <em>DESeq2: Differential 
           </div>
         </div>
       </div>
-<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="from-reads-to-counts.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 <a href="chapter-4.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
