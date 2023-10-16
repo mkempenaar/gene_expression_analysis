@@ -243,3 +243,217 @@ The following (online) documents can be used throughout this course:
 * Li D. Statistical Methods for RNA Sequencing Data Analysis. In: Husi H, editor. Computational Biology [Internet]. Brisbane (AU): Codon Publications; 2019 Nov 21. Chapter 6. Available from: <a href="https://www.ncbi.nlm.nih.gov/books/NBK550334/">https://www.ncbi.nlm.nih.gov/books/NBK550334/</a>
 * Yu, L., Fernandez, S. & Brock, G. Power analysis for RNA-Seq differential expression studies. BMC Bioinformatics 18, 234 (2017). <a href="https://doi.org/10.1186/s12859-017-1648-2">https://doi.org/10.1186/s12859-017-1648-2</a>
 * Sun, S., Hood, M., Scott, L., Peng, Q., Mukherjee, S., Tung, J., & Zhou, X. (2017). Differential expression analysis for RNAseq using Poisson mixed models. Nucleic acids research, 45(11), e106. <a href="https://doi.org/10.1093/nar/gkx204">https://doi.org/10.1093/nar/gkx204</a>
+
+# From Reads to Counts
+
+Step one in any RNA-Seq data analysis is generating the gene or transcript counts for each sample. This overlaps partly with steps taken in a genomics workflow:
+
+* (Download SRA files and extract FastQ files)
+* Perform quality control on raw reads (FastQC)
+* Perform trimming as needed (Trimmomatic)
+* Perform quality control post trimming (FastQC)
+* Perform mapping against reference genome (most often STAR)
+* Generate gene/ transcript counts (either STAR, HTseq or featurecounts)
+* *Downstream analysis* (chapter 3 of this document)
+
+This chapter shows these steps for an example data set (`GSE149995`)
+
+## Downloading and extracting FastQ files
+
+Given the SRA identifier for this project, select all samples and download as accession file (SRX identifiers). Using these identifiers as input for the `prefetch` system command (requires the NCBI SRA-Toolkit installed) downloads the SRA files and we convert them using the `fasterq-dump` command to fastq files.
+```{bash SRA_download, eval=FALSE}
+prefetch $(<GSE149995_SRA_ACC_RNA-Seq.csv) --output-directory \
+  /local-fs/staff/marcel/GSE149995/SRA
+```
+
+The `fasterq-dump` by default performs a `split 3` operation, see [the SRA toolkit manual](https://github.com/ncbi/sra-tools/wiki/HowTo:-fasterq-dump) for further details.
+
+```{bash extract_fastq, eval=FALSE}
+find /local-fs/staff/marcel/GSE149995/SRA/ -name "*.sra" | \
+  parallel 'fasterq-dump -O /local-fs/staff/marcel/GSE149995/fastq/ {}'
+```
+
+## (Optional) Annotation
+
+The NCBI GEO page lists 9 samples with 3 conditions (`WT`, `potent` and `arf7`). However, this experiment includes 18 sequence files. By downloading the 'series matrix file' from the GEO (using the `GEOquery` library) and combining this with the run info downloadable from the SRA, we can list the mapping of run to sample. 
+
+**Note**: This is an optional step for now and is only useful when there are doubts about the group/sample setup.
+
+```{r, echo=FALSE}
+library(tidyr)
+library(pander)
+```
+
+```{r sample_annotation, message=FALSE, warning=FALSE}
+library(GEOquery)
+gse <- getGEO(GEO = "GSE149995")
+# Combine the condition with a sample number and replicate number
+Condition = paste(rep(gse[[1]]@phenoData@data$`genotype/variation:ch1`, each = 2),
+                  rep(1:3, each = 2),
+                  paste0('r', rep(1:2, 9)), sep = '_')
+run_info <- read.csv(file = "data/GSE149995_Sra_RunInfo.csv")
+setup <- cbind(run_info %>% dplyr::select(Run, Experiment), Condition)
+pander(setup)
+```
+
+## Quality Control
+
+Here we perform the FastQC -> Trimmomatic -> FastQC steps
+
+### FastQC
+
+Running FastQC 
+```{r fastQC, eval=FALSE}
+fqdir <- "/local-fs/staff/marcel/GSE149995/fastq/"
+fastqc(fq.dir = "/local-fs/staff/marcel/GSE149995/fastq/",
+       qc.dir = "/local-fs/staff/marcel/GSE149995/fqc",
+       fastqc.path = "/usr/bin/fastqc",
+       threads = 32)
+```
+
+QC-report using `multiqc`
+
+```{bash MultiQC, eval=FALSE}
+multiqc \
+  --filename ~/Development/2.1.2-Transcriptomics/GSE149995_FQC_multiqc_report.html \
+  /local-fs/staff/marcel/GSE149995/fqc/ 
+```
+
+## Trimming
+
+Proper trimming requires experimentation and research regarding the used sequencing technology. The following command uses Trimmomatic (release 0.39, available on [Github](https://github.com/usadellab/Trimmomatic/releases)) to trim all fastq files. Note that this example is for *single-end* sequencing only, use the `TrimmomaticPE` command for paired-end data processing and the `TruSeq` FASTA file ending in `PE` instead.
+
+```{bash Trimmomatic, eval=FALSE}
+cat data/GSE149995_Sra_RunInfo.csv | \
+  parallel 'TrimmomaticSE -threads 4 ' \
+                  '/local-fs/staff/marcel/GSE149995/fastq/{}.fastq.gz ' \
+                  '/local-fs/staff/marcel/GSE149995/fastq-trimmed/{}.trimmed.fastq.gz ' \
+                  'ILLUMINACLIP:/homes/marcelk/Development/2.1.2-Transcriptomics/TruSeq3-SE.fa:2:30:10 ' \
+                  'MINLEN:40 ' \
+                  'SLIDINGWINDOW:4:20'
+```
+
+
+Re-running FastQC
+```{r fastQC-trimmed, eval=FALSE}
+fastqc(fq.dir = "/local-fs/staff/marcel/GSE149995/fastq-trimmed/",
+       qc.dir = "/local-fs/staff/marcel/GSE149995/fqc-trimmed",
+       fastqc.path = "/usr/bin/fastqc",
+       threads = 32)
+```
+
+```{bash multiqc-fastqc-trimmed, eval=FALSE}
+multiqc --filename \
+  ~/Development/2.1.2-Transcriptomics/GSE149995_FQC_Trimmed.html \
+  /local-fs/staff/marcel/GSE149995/fqc-trimmed/
+```
+
+## Mapping with STAR
+
+### Building STAR index
+
+Other than with `bwa`, STAR requires an extra annotation file (GFF or GTF format) describing features on the genome. This data set requires the FASTA of the Arabidopsis thaliana genome and its accompanying annotation file. The `genomeDir` specifies the output location for the index.
+```{bash star_index, eval=FALSE}
+cd /local-fs/staff/marcel/GSE149995/reference
+mkdir star; cd star
+STAR \
+  --runThreadN 12 \
+  --runMode genomeGenerate \
+  --genomeDir /local-fs/staff/marcel/GSE149995/reference/star \
+  --genomeFastaFiles /local-fs/staff/marcel/GSE149995/reference/TAIR10_chr_all.fas \
+  --sjdbGTFfile /local-fs/staff/marcel/GSE149995/reference/TAIR10_GTF_genes.gtf \
+  --genomeSAindexNbases 12 \
+  --sjdbOverhang 49
+```
+
+### Read mapping and transcript counting
+
+The following command performs mapping against the reference genome, saves this as a sorted BAM file and directly performs a read count for all transcripts (NOTE: requires the `--sjdbGTFfile` parameter during index building). For each input file, there is a `ReadsPerGenes.out.tab` file generated containing 4 columns:
+
+* column 1: gene ID
+* column 2: counts for unstranded RNA-seq
+* column 3: counts for the 1st read strand aligned with RNA (htseq-count option -s yes)
+* column 4: counts for the 2nd read strand aligned with RNA (htseq-count option -s reverse)
+
+See an interesting discussion on [BioStars](https://www.biostars.org/p/218995/) regarding which column to use.
+
+When planning to use a different tool for calculating gene counts, you can remove the `quantMode` argument which will only generate the sorted BAM files. Please read the manual of the tool of choice to see if an indexed BAM file as the BAM file does not have an index.
+```{bash star_mapping, eval=FALSE}
+find /local-fs/staff/marcel/GSE149995/fastq-trimmed/ -name "*.fastq.gz" -exec basename {} \; | \
+  sed 's/\.fastq.gz$//' | parallel 'STAR --runThreadN 6 ' \
+    '--genomeDir /local-fs/staff/marcel/GSE149995/reference/star ' \
+    '--readFilesIn /local-fs/staff/marcel/GSE149995/fastq-trimmed/{}.fastq ' \
+    '--outSAMtype BAM SortedByCoordinate ' \
+    '--quantMode GeneCounts ' \
+    '--outFileNamePrefix /local-fs/staff/marcel/GSE149995/mapping/star/{}_star_'
+```
+
+Generating MultiQC report for STAR mapping phase
+
+```{bash multiqc-star-mapping, eval=FALSE}
+~/miniconda3/bin/multiqc --filename \
+  ~/Development/2.1.2-Transcriptomics/STAR-mapping.html \
+  /local-fs/staff/marcel/GSE149995/mapping/star/
+```
+
+### Combining STAR Count Files
+
+STAR generates a `[sample]_star_ReadsPerGene.out.tab` file for each sample, containing the gene IDs and the count numbers. We can merge these files into a single data frame for further processing (see also [Appendix A1 in the manual](https://mkempenaar.github.io/gene_expression_analysis/a1-data_loading.html#a1-batch_data_loading)). This example takes the 2nd column for the count values. Make sure that you know which column to use based on the description above. The reason that we're merging the data is because it might not always be guaranteed that you get the exact same transcripts in each file.
+
+Note: if you use the `featurecounts` tool, you will already get a single file containing the count values for all samples.
+
+```{r merge_count_files_function, eval=FALSE}
+file.names <- list.files('/local-fs/staff/marcel/GSE149995/mapping/star/',
+                         pattern = '*_star_ReadsPerGene.out.tab')
+
+## Function for reading in files
+read_sample <- function(file.name) {
+  ## Extract the sample name for naming the column (retaining the 'SRR....' part)
+  sample.name <- strsplit(file.name, ".", fixed = TRUE)[[1]][1]
+  sample <- read.table(file.name, header = FALSE, sep="\t", 
+                       row.names = NULL, skip = 4)
+  ## Rename the count column
+  names(sample)[2] <- sample.name
+  ## Return a subset containing the transcript ID and sample name columns
+  return(sample[c(1, 2)])
+}
+```
+
+Now we read all count files and merge them into a single data frame.
+
+```{r merge_count_files, eval=FALSE}
+setwd('/local-fs/staff/marcel/GSE149995/mapping/star/')
+
+## Read the FIRST sample
+counts <- read_sample(file.names[1])
+
+## Read the remaining files and merge the contents
+for (file.name in file.names[2:length(file.names)]) {
+  sample <- read_sample(file.name)
+  counts <- merge(counts, sample, by = 1)
+}
+
+# Set the row names to the transcript IDs
+rownames(counts) <- counts$V1
+counts <- counts[-1]
+```
+
+We now have a single data frame with count values for all samples and transcripts. The names however are nondescriptive since they are just the `SRR` identifiers. Since we already did some annotation, we're going to rename the columns to something more meaningful:
+
+```{r rename_cols, eval=FALSE}
+# For each SRR id, find the corresponding column in counts and rename
+# using the name in the 'Condition' column
+for (i in 1:nrow(setup)) {
+  idx <- grep(setup$Run[i], names(counts))
+  names(counts)[idx] <- setup$Condition[i]
+}
+
+# Show first 6 columns and rows
+pander(counts[1:6, 1:6])
+```
+
+```{r, echo=FALSE}
+load("data/star_counts.RData")
+pander(counts[1:6, 1:6])
+```
+
