@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title> Exploratory Data Analysis | Capstone Project - Gene Expression Analysis</title>
+<meta name="author" content="Marcel Kempenaar">
+<meta name="description" content="We start with performing some exploratory data analysis steps with the goal of getting to grips with your chosen data set to properly identify a strategy for the actual analysis steps. During this...">
+<meta name="generator" content="bookdown 0.36 with bs4_book()">
+<meta property="og:title" content=" Exploratory Data Analysis | Capstone Project - Gene Expression Analysis">
+<meta property="og:type" content="book">
+<meta property="og:description" content="We start with performing some exploratory data analysis steps with the goal of getting to grips with your chosen data set to properly identify a strategy for the actual analysis steps. During this...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content=" Exploratory Data Analysis | Capstone Project - Gene Expression Analysis">
+<meta name="twitter:description" content="We start with performing some exploratory data analysis steps with the goal of getting to grips with your chosen data set to properly identify a strategy for the actual analysis steps. During this...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.5.1/transition.js"></script><script src="libs/bs3compat-0.5.1/tabs.js"></script><script src="libs/bs3compat-0.5.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<style type="text/css">
+    /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+        }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+  </style>
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Capstone Project - Gene Expression Analysis</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html"><span class="header-section-number">1</span> Introduction</a></li>
+<li><a class="" href="datasets.html"><span class="header-section-number">2</span> Discovering Data Sets</a></li>
+<li><a class="active" href="EDA.html"><span class="header-section-number">3</span> Exploratory Data Analysis</a></li>
+<li><a class="" href="chapter-4.html"><span class="header-section-number">4</span> Discovering Differentialy Expressed Genes (DEGs)</a></li>
+<li><a class="" href="chapter-5.html"><span class="header-section-number">5</span> Data Analysis and Visualization</a></li>
+<li class="book-part">Appendix</li>
+<li><a class="" href="a1-data_loading.html"><span class="header-section-number">A</span> Loading Expression Data in R</a></li>
+<li><a class="" href="a2-annotation.html"><span class="header-section-number">B</span> Annotating an RNA-Seq Experiment</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/rstudio/bookdown-demo">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="EDA" class="section level1" number="3">
+<h1>
+<span class="header-section-number"></span> Exploratory Data Analysis<a class="anchor" aria-label="anchor" href="#EDA"><i class="fas fa-link"></i></a>
+</h1>
+<p>We start with performing some exploratory data analysis steps with the goal of getting to grips with your chosen data set to properly identify a strategy for the actual analysis steps. During this exploration we will also keep an eye on the quality of the data. Even though the downloadable data is ‘processed’, there might be samples present that deviate too much from the other group of samples (a so called <em>outlier</em>). Creating basic visualizations of the data will give the necessary insight before we continue.</p>
+<div id="loading-data" class="section level2" number="3.1">
+<h2>
+<span class="header-section-number">3.1</span> Loading data into R<a class="anchor" aria-label="anchor" href="#loading-data"><i class="fas fa-link"></i></a>
+</h2>
+<p>Once you have one or more column based text files they can be read into R simply by using the <code><a href="https://rdrr.io/r/utils/read.table.html">read.table()</a></code> function.</p>
+<p>Follow the following steps to read in the data and start the exploratory data analysis. The resulting document should be treated as a lab journal where you log the process from loading the data to the final analysis steps.</p>
+<ul>
+<li>Open RStudio</li>
+<li>Create a new R Markdown document
+<ul>
+<li>Give it a proper title and select the <strong>PDF</strong> format</li>
+</ul>
+</li>
+<li>Give the document some structure; e.g. create a segment (using single hash <code>#</code>) called <em>Exploratory Data Analysis</em>.</li>
+<li>Whenever you add code to your document make sure that it is both readable (keep the maximum line length &lt; 100 if possible) and there is sufficient documentation either by text <strong>around</strong> the code ‘chunks’ (preferred) or by using comments <strong>within</strong> the code chunk.</li>
+<li>Read in the data file(s)
+<ul>
+<li>Preferably use the <code>read.table</code> function and carefully set its arguments. Open the file in a text editor first to check its contents; does it have a header? can we set the <code>row.names</code>? Are all columns needed? etc.</li>
+<li>
+<strong>Note</strong>: if the data set consists of separate files (i.e. one per sample) or for general tips on reading in data, see the <a href="a1-data_loading.html#a1-batch_data_loading">Appendix A: <em>Batch Loading Expression Data</em></a> chapter.</li>
+<li>For the remainder of the document, try to show either the contents, structure or - in this case - dimensions of relevant R objects
+<ul>
+<li>Show the first five lines of the loaded data set. Including tables in a markdown document can be done using the <code>pander</code> function from the <code>pander</code><span class="citation">(<a href="a2-annotation.html#ref-R-pander">Daróczi and Tsegelskyi 2017</a>)</span> R-library.</li>
+<li>Give the dimensions (with <code><a href="https://rdrr.io/r/base/dim.html">dim()</a></code> and the structure (with <code><a href="https://rdrr.io/r/utils/str.html">str()</a></code>) of the loaded data set.</li>
+<li>Check the output of the <code>str</code> function to see if all columns are of the expected R data type (e.g. <code>values</code>, <code>factors</code>, <code>character</code>, etc.)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Examine the samples included in the experiment and create as many R character objects as needed to store the classification.
+<ul>
+<li>
+<strong>Note</strong>: this is an important item and is often overlooked. See the <em>last 4 lines</em> in the code chunk in the section <a href="EDA.html#ch3_example_data">Example Data</a> below.</li>
+<li>For instance, if you have eight samples divided into case/ control columns you create a variable called <code>case</code> in which you store the column <strong>indices</strong> (<strong>only</strong> numbers!) of the respective columns in the data set and a variable called <code>control</code> with the remaining four data column <strong>indices</strong>. These are for later use.</li>
+<li>These variables allows us to repeatedly access the same data during the rest of this course, i.e. the code <code>boxplot(counts[case])</code> immediately shows that we are plotting the <code>case</code> samples from the <code>counts</code> data which is more clear than reading <code>boxplot(counts[c(5:8)])</code> as that gives no reference to what these indices mean and can lead to typing mistakes.</li>
+</ul>
+</li>
+</ul>
+<div class="rmdtip">
+<p>
+For some data sets the order in which the samples are listed in your
+loaded data set is different from the order that is shown on the GEO
+website. Most often, the names are different too or they are lacking any
+description and all you have are non descriptive IDs. When creating
+these variables such as <code>control</code> that need to point to all
+control samples, you need to make sure that you have the right columns
+from your data frame. Go to Appendix <a href="a2-annotation.html#download-geo">A2;
+annotation</a> if the order is unclear or you just have a large number
+of samples as there might be supporting data available that can help
+make sense of your sample layout.
+</p>
+</div>
+<p>If you want to include external images to your log and to better control properties such as <em>height</em> and <em>width</em> for individual images you can use the following code. Note: the code below is an <em>example</em> and you need to replace the <code>img_to_include.png</code> file path to an actual image.):</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Add the following to the code chunk header to control figure height, width and add a caption:</span></span>
+<span><span class="co">#    {r, fig.height=5, fig.width=8, echo=FALSE, fig.cap="Image description"}</span></span>
+<span><span class="co"># The `dpi` argument is to remove any scaling</span></span>
+<span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/include_graphics.html">include_graphics</a></span><span class="op">(</span><span class="st">"figures/img_to_include.png"</span>, dpi <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span></span></code></pre></div>
+<p>See the <a href="https://yihui.org/knitr/options/">Knitr chunk options</a> page for a full listing of all chunk options.</p>
+</div>
+<div id="ch3_example_data" class="section level2" number="3.2">
+<h2>
+<span class="header-section-number">3.2</span> Example Data<a class="anchor" aria-label="anchor" href="#ch3_example_data"><i class="fas fa-link"></i></a>
+</h2>
+<p>This section lists all (publically available) data set(s) used in this chapter. Each chapter contains this section <em>if</em> new data sets are used there. Note that for <em>all</em> examples, your data <strong>will be different</strong> from the examples and one of the challenges during this course will be translating the examples to your own data. Keep in mind that simple copy-pasting of most code will fail for that reason. Most examples therefore will <em>print</em> the input data for comparison to your own data.</p>
+<p>From the section <a href="EDA.html#normalization">Normalization</a> onwards, the experiment with identifier <a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE101942">GSE101942</a> is used for visualizing the normalized raw count values (the earlier sections explore the unnormalized data). This experiment is titled <em>“Transcriptome analysis of genetically matched human induced pluripotent stem cells disomic or trisomic for chromosome 21”</em> and the experimental setup is described as follows:</p>
+<blockquote>
+<p>“12 total polyA selected samples. 6 IPSC samples with 3 biological repeats for trisomic samples and 3 biological repeats for disomic samples. 6 IPSC derived neuronal samples with 3 biological repeats for trisomic samples and 3 biological repeats for disomic samples.”</p>
+</blockquote>
+<p>The following code shows how to load the two available files containing the raw-count data (one file per 6 samples), stored locally in the <code>data/gse101942/</code> folder. Some simple ‘cleanup’ steps are performed which aren’t required but helpful for demonstration purposes (i.e., renaming samples to identify groups).</p>
+<ul>
+<li>
+<strong><code>GSE101942_IPSC_rawCounts.txt</code></strong>: raw count data for the induced pluripotent stem cells (iPSCs), both <em>trisomic</em> and <em>disomic</em>
+</li>
+<li>
+<strong><code>GSE101942_Neuron_rawCounts.txt</code></strong>: raw count data for the IPSC-derived Neurons, both <em>trisomic</em> and <em>disomic</em>. These cells were treated to remove chromosome 21 from the iPSCs, as described by the treatment protocol as: “Targeted removal of CHR 21 in IPSC using TKNEO transgene”.</li>
+</ul>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Load the two sets of 6 samples</span></span>
+<span><span class="va">ipsc.data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.table</a></span><span class="op">(</span><span class="st">'./data/gse101942/GSE101942_IPSC_rawCounts.txt'</span>,</span>
+<span>                        header <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">neuron.data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.table</a></span><span class="op">(</span><span class="st">'./data/gse101942/GSE101942_Neuron_rawCounts.txt'</span>,</span>
+<span>                          header<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="co"># Merge by rowname (by = 0, see the help of 'merge')</span></span>
+<span><span class="va">counts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/merge.html">merge</a></span><span class="op">(</span><span class="va">ipsc.data</span>, <span class="va">neuron.data</span>, by <span class="op">=</span> <span class="fl">0</span>, all.x <span class="op">=</span> <span class="cn">TRUE</span>, all.y <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>                sort <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="co"># Change all NA's introduced by the merge to zeros</span></span>
+<span><span class="va">counts</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">counts</span><span class="op">)</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">0</span></span>
+<span><span class="co"># Show column names coming from the input files</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">counts</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<pre><code>##  [1] "Row.names" "c244A"     "c244B"     "c243"      "c2A"       "c2B"      
+##  [7] "c2C"       "C3_1"      "C3_2"      "C3_4"      "C2_2_1"    "C2_2_2"   
+## [13] "C2_2_3"</code></pre>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Set the row names to the gene IDs stored in the 'Row.names' column</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/row.names.html">row.names</a></span><span class="op">(</span><span class="va">counts</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">counts</span><span class="op">$</span><span class="va">Row.names</span></span>
+<span><span class="co"># Remove the gene ID column</span></span>
+<span><span class="va">counts</span> <span class="op">&lt;-</span> <span class="va">counts</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span><span class="op">]</span></span>
+<span><span class="co"># Rename samples to include their group name</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">counts</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">'di_IPSC_r'</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span>,  <span class="co"># Disomic IPSC, replicates 1-3</span></span>
+<span>                   <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">'tri_IPSC_r'</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span>, <span class="co"># Trisomic IPSC, replicates 1-3</span></span>
+<span>                   <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">'di_NEUR_r'</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span>,  <span class="co"># Disomic Neuron, replicates 1-3</span></span>
+<span>                   <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">'tri_NEUR_r'</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span><span class="op">)</span> <span class="co"># Trisomic Neuron, replicates 1-3</span></span>
+<span><span class="co"># Show results of renaming the samples</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">counts</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<pre><code>##  [1] "di_IPSC_r1"  "di_IPSC_r2"  "di_IPSC_r3"  "tri_IPSC_r1" "tri_IPSC_r2"
+##  [6] "tri_IPSC_r3" "di_NEUR_r1"  "di_NEUR_r2"  "di_NEUR_r3"  "tri_NEUR_r1"
+## [11] "tri_NEUR_r2" "tri_NEUR_r3"</code></pre>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Assign column -indices- to variables for later use (i.e. counts[di_NEUR] selects the relevant columns)</span></span>
+<span><span class="va">di_IPSC</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span></span>
+<span><span class="va">tri_IPSC</span> <span class="op">&lt;-</span> <span class="fl">4</span><span class="op">:</span><span class="fl">6</span></span>
+<span><span class="va">di_NEUR</span> <span class="op">&lt;-</span> <span class="fl">7</span><span class="op">:</span><span class="fl">9</span></span>
+<span><span class="va">tri_NEUR</span> <span class="op">&lt;-</span> <span class="fl">10</span><span class="op">:</span><span class="fl">12</span></span></code></pre></div>
+<p>See <em>Table 1</em> in the <a href="EDA.html#normalization">Normalization</a> section for the resulting contents in the <code>counts</code> dataframe.</p>
+</div>
+<div id="EDA_part1" class="section level2" number="3.3">
+<h2>
+<span class="header-section-number">3.3</span> Visualizing using <code>boxplot</code> and <code>density plot</code><a class="anchor" aria-label="anchor" href="#EDA_part1"><i class="fas fa-link"></i></a>
+</h2>
+<p>This segment describes some of the basic steps and a visualization that can be performed during Exploratory Data Analysis. We start by inspecting the unnormalized count data. For the next steps normalization is applied as shown in the <a href="EDA.html#normalization">Normalization</a> section below. As mentioned above, the focus of EDA is to get an overview/ perform a bit of Quality Control of the data set and while this often requires visualizing the data, these figures do not need to be very pretty. Simple figures are perfectly fine in this stage. Try to create these figures for your own data (and keep them in your log) <strong>and</strong> add a small description for each figure pointing out anything that is different from what you expect.</p>
+<p>Also note that these steps are just a selection. Furthermore, make sure that for every visualization you make, add proper axis-labels containing the measurement units (important!). As you might be able to see, all values are <em>log-transformed</em> using the <code>log2</code> function because very often the numerical values have a very high range which will ‘hide’ the details on the plots. See the section about the <a href="chapter-4.html#deg-fc">Fold Change value</a> in chapter 4 for further details. It is fine to use non-log-transformed (simply the raw-)data, otherwise use for instance <code>boxplot(log2(dataset))</code> for plotting.</p>
+<div class="rmdtip">
+<p>
+Instead of using the basic R-plotting library
+(i.e. <code>plot</code>, <code>boxplot</code>, <code>hist</code>, etc.)
+you can also opt for using the (challenging) <a href="http://ggplot2.tidyverse.org/index.html"><code>ggplot2</code></a>
+library that is also used for the boxplot in the following section.
+While constructing a <code>ggplot2</code> plot feels like learning yet
+another language, there are many resources available online that you can
+follow.
+</p>
+</div>
+<div id="eda_statistics" class="section level3" number="3.3.1">
+<h3>
+<span class="header-section-number">3.3.1</span> Statistics<a class="anchor" aria-label="anchor" href="#eda_statistics"><i class="fas fa-link"></i></a>
+</h3>
+<p>Even the most basic statistics can give some insight into the data such as performing a 6-number-statistic on the data <strong>columns</strong> using the <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code> function. Note: you can also use the <code>pander</code> function to <em>pretty-print</em> a summary in the knitted output. What do you notice if you look at the numbers produced by executing this function on the complete data set?</p>
+</div>
+<div id="eda_boxplots" class="section level3" number="3.3.2">
+<h3>
+<span class="header-section-number">3.3.2</span> Boxplots<a class="anchor" aria-label="anchor" href="#eda_boxplots"><i class="fas fa-link"></i></a>
+</h3>
+<p>A visual representation of these values can be shown using a boxplot. Boxplots are very easy to create from an R data frame object by just passing in the data columns. The following boxplot shows the data for an experiment with a separate boxplot for each sample. This allows a quick overview for spotting irregularities (i.e. checking if the replicates within a sample-group show similar expression profiles). Of course, if we consider the amount of data in this single plot, it can only hint at any problems, we need to look in much more detail when doing any form of quality control. Creating a boxplot from a <code>dataframe</code> is easy, but as we saw with using the <code>summary</code> function; the data has a large range with the maximum and average values being very far apart. This will create a lot of <em>outliers</em> in the plot which will be interesting later on, but for the boxplot we can either:</p>
+<ul>
+<li>hide them completely using the <code>outline = FALSE</code> argument to <code><a href="https://rdrr.io/r/graphics/boxplot.html">boxplot()</a></code> (do say so in the figure description!), or</li>
+<li>perform a <code><a href="https://rdrr.io/r/base/Log.html">log2()</a></code> transformation as you can see below.</li>
+</ul>
+<div class="rmdtip">
+<p>
+When creating plots of expression data without performing
+log-transformations we see that (for instance with the boxplot) the
+range of data is very large (from 0 up to 1.000.000) with a <em>lot</em>
+of outliers in the upper range. This makes for not very informative
+figures, so placing a simple <code><a href="https://rdrr.io/r/base/Log.html">log2()</a></code> function call around
+the data <em>almost</em> resolves this issue.
+</p>
+<p>
+However, this might introduce another problem (taking the boxplot as
+an example) because this log-transformation results in data that
+contains <em>negative infinity</em> (<code>-Inf</code>) values. These
+are caused by all the 0-values in the data since
+<code>log2(0) == -Inf</code>. To circumvent this issue, we can add a
+<em>pseudo count</em> to the data by simply adding the value
+<code>1</code> to all count values since the <code>log2(1) == 0</code>;
+<code>log2(counts + 1)</code>.
+</p>
+<p>
+There are more situations other than the boxplot where adding a
+pseudo count value to the complete dataset can be useful. Always add a
+pseudocount <em>in-place</em>, meaning within the plotting code instead
+of overwriting your original data set with a pseudo count added as not
+all steps require this. In some cases (see the <a href="#eda_density_plot">density plot</a> below) it can be useful to
+clearly separate the 0-values from the rest in which case a
+<code>0 &lt; pseudo count &lt; 1</code> value, such as <code>0.1</code>
+can be used as this generates a negative value (<code>-3.3</code>) that
+is far away from the rest of the data. All other count values are always
+&gt;0 which result in a positive log2 value.
+</p>
+</div>
+<div class="figure">
+<span style="display:block;" id="fig:edaBoxplot"></span>
+<img src="chapters/images/RNAboxplot_ggplot2.png" alt="Boxplot comparing basic statistics for all genes across multiple samples"><p class="caption">
+Figure 3.1: Boxplot comparing basic statistics for all genes across multiple samples
+</p>
+</div>
+</div>
+<div id="eda_density_plot" class="section level3" number="3.3.3">
+<h3>
+<span class="header-section-number">3.3.3</span> Density Plots<a class="anchor" aria-label="anchor" href="#eda_density_plot"><i class="fas fa-link"></i></a>
+</h3>
+<p>Another form of visualizing the same data is using a density plot. This method shows a distribution of the (log2-transformed) count data for all samples and allows for easy spotting of problems. While this plot is more commonly used in analysing microarrays, it is still useful for comparing the complete dataset. The code and figure below show an example distribution for 12 samples. A few things to note about this figure is that there is a huge peak at exactly <code>-3.321928</code> which can be ignored because this is value is calculated from <code>log2(0.1)</code> explained in the box above. This peak consists of all 0-values (inactive genes) which isn’t very important to us now. Therefore, we added a vertical line to indicate the left-part is of little interest. Note: a lot of the code below is extra, for a simple inspection using <em>only</em> the line <code>plotDensity(log2(counts + 0.1))</code> is enough, the rest is extra example code.</p>
+<p>To assess the quality of the data we look at the peaks in the plot. The heigth of the peak doesn’t matter much, shifted peaks do however as those indicate either a lower or higher amount of reads sequenced for that sample. This can be confirmed with the first plot demonstrated below in the next section where the <em>library-sizes</em> are visualized.</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">## The affy library has a density plotting function</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">affy</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">## Create a list of 4 colors to use which are the same used throughout this chapter </span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://scales.r-lib.org">scales</a></span><span class="op">)</span></span>
+<span><span class="va">myColors</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://scales.r-lib.org/reference/hue_pal.html">hue_pal</a></span><span class="op">(</span><span class="op">)</span><span class="op">(</span><span class="fl">4</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">## Plot the log2-transformed data with a 0.1 pseudocount</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/affy/man/plot.density.html">plotDensity</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">log2</a></span><span class="op">(</span><span class="va">counts</span> <span class="op">+</span> <span class="fl">0.1</span><span class="op">)</span>, col<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="va">myColors</span>, each<span class="op">=</span><span class="fl">3</span><span class="op">)</span>,</span>
+<span>            lty<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/nrow.html">ncol</a></span><span class="op">(</span><span class="va">counts</span><span class="op">)</span><span class="op">)</span>, xlab<span class="op">=</span><span class="st">'Log2(count)'</span>,</span>
+<span>            main<span class="op">=</span><span class="st">'Expression Distribution'</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">## Add a legend and vertical line</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/legend.html">legend</a></span><span class="op">(</span><span class="st">'topright'</span>, <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">counts</span><span class="op">)</span>, lty<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/nrow.html">ncol</a></span><span class="op">(</span><span class="va">counts</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>       col<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="va">myColors</span>, each<span class="op">=</span><span class="fl">3</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span><span class="op">(</span>v<span class="op">=</span><span class="op">-</span><span class="fl">1.5</span>, lwd<span class="op">=</span><span class="fl">1</span>, col<span class="op">=</span><span class="st">'red'</span>, lty<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></code></pre></div>
+<div class="figure">
+<span style="display:block;" id="fig:densityPlot"></span>
+<img src="chapters/images/RNAdensityplot.png" alt="Density plot comparing count distribution for 12 samples"><p class="caption">
+Figure 3.2: Density plot comparing count distribution for 12 samples
+</p>
+</div>
+</div>
+</div>
+<div id="EDA_part2" class="section level2" number="3.4">
+<h2>
+<span class="header-section-number">3.4</span> Visualizing using <code>heatmap</code> and <code>MDS</code><a class="anchor" aria-label="anchor" href="#EDA_part2"><i class="fas fa-link"></i></a>
+</h2>
+<p>This section adds a few Exploratory Data Analysis techniques where we will measure and look at <em>distances</em> between samples based on <em>normalized</em> data. Measuring distances between two data objects (samples in our case) is a common task in cluster analysis to compare similarity (low distance indicates similar data). In this case we will calculate the distances between our samples and visualize them in a <code>heatmap</code> and using a <code>multidimensional scaling</code> (MDS) technique.</p>
+<p>In the previous section we used the raw count data. You might have one or more samples that have different values (i.e. shifted) compared to other samples. While we need the raw count data to use R packages such as <code>edgeR</code> <span class="citation">(<a href="a2-annotation.html#ref-R-edgeR">Chen et al. 2018</a>)</span> and <code>DESeq2</code> <span class="citation">(<a href="a2-annotation.html#ref-R-DESeq2">Love, Anders, and Huber 2017</a>)</span>, calculating sample distances (used in the visualizations in this section) should be done on some form of normalized data. This data can either be RPKM/FPKM/TPM/CPM or vst-transformed (raw-)read counts. A proper method of transforming raw read count data is using the <code>vst</code> method from the <code>DESeq2</code> R Bioconductor library which is shown below. This ‘<em>variance stabilizing transformation</em>’ normalized data will only be used in this chapter, in chapter 4 we will again normalize using a different technique.</p>
+<p>The following code examples shows how to use this library to normalize the count data from the <strong>GSE101942</strong> experiment to vst-normalized data before we calculate a distance metric.</p>
+<ul>
+<li>new(“standardGeneric”, .Data = function (object, …)</li>
+<li>standardGeneric(“counts”), generic = structure(“counts”, package = “BiocGenerics”),</li>
+<li><pre><code>package = "BiocGenerics", group = list(), valueClass = character(0),</code></pre></li>
+<li><pre><code>signature = "object", default = NULL, skeleton = (function (object,</code></pre></li>
+<li><pre><code>    ...)</code></pre></li>
+<li><pre><code>stop(gettextf("invalid call in method dispatch to '%s' (no default method)",</code></pre></li>
+</ul>
+<!-- end of list --><p>If you look at <code>Table 1</code> you immediately see a huge difference between the groups for each of the genes. The gene (<code>A1BG</code>) shows <strong>&gt;100</strong> more expression in the <code>tri_NEUR</code> group compared to the <code>di_IPSC</code> group, but within most groups there is a very high variation too indicating that it might not be the actual expression that is different. One very simple and quick method of inspection is looking at the total number of mapped reads per sample (the sum of each sample/ column), as the <em>sequencing-depth</em> might vary across samples.</p>
+<p><strong>Hint</strong>:</p>
+<p>Simple version of this plot can be achieved with <code>barplot(colSums(counts) / 1e6)</code></p>
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="16%">
+<col width="16%">
+<col width="16%">
+<col width="17%">
+<col width="17%">
+<col width="17%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">di_IPSC_r1</th>
+<th align="center">di_IPSC_r2</th>
+<th align="center">di_IPSC_r3</th>
+<th align="center">tri_IPSC_r1</th>
+<th align="center">tri_IPSC_r2</th>
+<th align="center">tri_IPSC_r3</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="center">108</td>
+<td align="center">108</td>
+<td align="center">81</td>
+<td align="center">112</td>
+<td align="center">134</td>
+<td align="center">83</td>
+</tr></tbody>
+</table></div>
+<p>Table 2; Mapped reads per sample (millions) (continued below)</p>
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="16%">
+<col width="16%">
+<col width="16%">
+<col width="17%">
+<col width="17%">
+<col width="17%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">di_NEUR_r1</th>
+<th align="center">di_NEUR_r2</th>
+<th align="center">di_NEUR_r3</th>
+<th align="center">tri_NEUR_r1</th>
+<th align="center">tri_NEUR_r2</th>
+<th align="center">tri_NEUR_r3</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="center">70</td>
+<td align="center">94</td>
+<td align="center">114</td>
+<td align="center">108</td>
+<td align="center">48</td>
+<td align="center">140</td>
+</tr></tbody>
+</table></div>
+<div class="figure">
+<span style="display:block;" id="fig:librarySizes"></span>
+<img src="gene_expression_files/figure-html/librarySizes-1.png" alt="Library sizes for all samples from GSE101942" width="672"><p class="caption">
+Figure 3.3: Library sizes for all samples from GSE101942
+</p>
+</div>
+<p>The numbers shown in <code>Table 2</code> and the barplot above immediately clarify that it is not just the experimental condition that might have caused this large difference between sample counts but the sequencing depth shows a substantial difference too. Both the minimum and maximum sequencing depth are within the trisomic neuron group (purple in the barplot). The average expression of the <code>A1BG</code> gene within this group is 820, but with a minimum of 461 and a maximum of 1010 there is a lot of variation. This is one more reason telling us that we will have to <strong>normalize</strong> the data. The following code chunks show how to do this with <code>DESeq2</code>’s <code>vst</code> method (<em>variance stabilizing transformation</em>). Check the <code>Packages</code> tab in Rstudio to see if you have the <code>DESeq2</code> package installed and load it with the <code>library</code> command.</p>
+<div id="normalization" class="section level3" number="3.4.1">
+<h3>
+<span class="header-section-number">3.4.1</span> Normalization<a class="anchor" aria-label="anchor" href="#normalization"><i class="fas fa-link"></i></a>
+</h3>
+<p>To use the <code>vst</code> function from the <code>DESeq2</code> library we must construct a <code>DESeqDataSet</code>-object consisting of the count data combined with sample annotation. Since we only want to use it (for now) for performing a vst-transformation we use the most basic form with a very simple <code>design</code> and the sample names as annotation (the <code>colData</code> argument):</p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Load the library</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/mikelove/DESeq2">'DESeq2'</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># DESeq2 will construct a SummarizedExperiment object and combine this </span></span>
+<span><span class="co"># into a 'DESeqDataSet' object. The 'design' argument usually indicates the </span></span>
+<span><span class="co"># experimental design using the condition(s) names as a 'factor', for now we use just '~ 1'</span></span>
+<span><span class="op">(</span><span class="va">ddsMat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/DESeq2/man/DESeqDataSet.html">DESeqDataSetFromMatrix</a></span><span class="op">(</span>countData <span class="op">=</span> <span class="va">counts</span>,</span>
+<span>                                  colData <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>samples <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">counts</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>                                  design <span class="op">=</span> <span class="op">~</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## class: DESeqDataSet 
+## dim: 56640 12 
+## metadata(1): version
+## assays(1): counts
+## rownames(56640): 5S_rRNA 7SK ... C1orf220 C2orf15
+## rowData names(0):
+## colnames(12): di_IPSC_r1 di_IPSC_r2 ... tri_NEUR_r2 tri_NEUR_r3
+## colData names(1): samples</code></pre>
+<p>We now have a proper <code>DESeqDataSet</code> object as you can see above, containing 56640 rows and 12 columns (genes and samples) with the gene symbols as row names. Usually this object would hold more data, but as this is only a requirement to perform the <code>vst</code> transformation it is good enough for now. Next step is performing this transformation (this can take a while depending on the size of the experiment and results in a <code>Large DESeqTransform</code> object) and retrieving the actual data from this with the <code>assay</code> function as this object too contains a lot of meta-data. The table below shows the updated values which are now comparable across genes whereas the raw count data was harder to compare.</p>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Perform normalization</span></span>
+<span><span class="va">rld.dds</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/DESeq2/man/vst.html">vst</a></span><span class="op">(</span><span class="va">ddsMat</span><span class="op">)</span></span>
+<span><span class="co"># 'Extract' normalized values</span></span>
+<span><span class="va">rld</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html">assay</a></span><span class="op">(</span><span class="va">rld.dds</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-table"><table style="width:75%;" class="table table-sm">
+<colgroup>
+<col width="20%">
+<col width="18%">
+<col width="18%">
+<col width="18%">
+</colgroup>
+<thead><tr class="header">
+<th align="center"> </th>
+<th align="center">di_IPSC_r1</th>
+<th align="center">di_IPSC_r2</th>
+<th align="center">di_IPSC_r3</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="center"><strong>5S_rRNA</strong></td>
+<td align="center">3.704</td>
+<td align="center">4.015</td>
+<td align="center">3.876</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>7SK</strong></td>
+<td align="center">6.726</td>
+<td align="center">6.36</td>
+<td align="center">5.747</td>
+</tr>
+<tr class="odd">
+<td align="center"><strong>A1BG</strong></td>
+<td align="center">4.842</td>
+<td align="center">4.243</td>
+<td align="center">4.813</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>A1BG-AS1</strong></td>
+<td align="center">8.385</td>
+<td align="center">8.37</td>
+<td align="center">8.083</td>
+</tr>
+<tr class="odd">
+<td align="center"><strong>A1CF</strong></td>
+<td align="center">3.322</td>
+<td align="center">2.343</td>
+<td align="center">2.343</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>A2M</strong></td>
+<td align="center">4.397</td>
+<td align="center">4.243</td>
+<td align="center">4.312</td>
+</tr>
+</tbody>
+</table></div>
+<p>Table 2; VST transformed disomic IPSC count data</p>
+<p>Note that when again looking at the <code>A1BG</code> gene (the one displayed in figure 3.8), the normalized expression values show much less variation across the samples (not shown, but also within each sample group). Therefore, we assume that the large difference in expression we observed earlier might be non-existent (there might still be a significant difference though!).</p>
+</div>
+<div id="eda_distance" class="section level3" number="3.4.2">
+<h3>
+<span class="header-section-number">3.4.2</span> Distance Calculation<a class="anchor" aria-label="anchor" href="#eda_distance"><i class="fas fa-link"></i></a>
+</h3>
+<p>We now have normalized data that we can use for distance calculation. This is a standard procedure for many data analysis tasks as it calculates a distance metric for each combination of samples that we will use to check for variation <em>within</em> the sample groups. We first need to <a href="https://en.wikipedia.org/wiki/Transpose"><em>transpose</em></a> the matrix (<code>rld</code>) of normalized values using the <code>t</code>-function, because the <code>dist</code> function expects the different samples as rows and the genes as columns. Note that the output matrix is symmetric. Table 3 below shows the calculated distances within the disomic IPSC group where the distance between samples varies from 100 to 140. The maximum distance between any samples is 380 as will be demonstrated with the visualizations in the next sections.</p>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Calculate basic distance metric (using euclidean distance, see '?dist')</span></span>
+<span><span class="va">sampledists</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/dist.html">dist</a></span><span class="op">(</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/t.html">t</a></span><span class="op">(</span> <span class="va">rld</span> <span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-table"><table style="width:78%;" class="table table-sm">
+<colgroup>
+<col width="23%">
+<col width="18%">
+<col width="18%">
+<col width="18%">
+</colgroup>
+<thead><tr class="header">
+<th align="center"> </th>
+<th align="center">di_IPSC_r1</th>
+<th align="center">di_IPSC_r2</th>
+<th align="center">di_IPSC_r3</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="center"><strong>di_IPSC_r1</strong></td>
+<td align="center">0</td>
+<td align="center">107.6</td>
+<td align="center">147.7</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>di_IPSC_r2</strong></td>
+<td align="center">107.6</td>
+<td align="center">0</td>
+<td align="center">139.7</td>
+</tr>
+<tr class="odd">
+<td align="center"><strong>di_IPSC_r3</strong></td>
+<td align="center">147.7</td>
+<td align="center">139.7</td>
+<td align="center">0</td>
+</tr>
+</tbody>
+</table></div>
+<p>Table 3; Sample distances for the disomic IPSCs (Euclidean method)</p>
+</div>
+<div id="eda_heatmap" class="section level3" number="3.4.3">
+<h3>
+<span class="header-section-number">3.4.3</span> Sample Distances using a Heatmap<a class="anchor" aria-label="anchor" href="#eda_heatmap"><i class="fas fa-link"></i></a>
+</h3>
+<p>If you have both (raw-)count data <em>and</em> an other normalized format (TPM, RPKM, etc.), you can <em>optionally</em> follow the above procedure for your count data and create a heatmap for <strong>both</strong> formats to see if this makes any difference. The reason for this is that while the RNA-Seq method exists for over 10 years, there are still ongoing discussions on the subject of data processing, especially regarding subjects like which normalization technque to use for which data analysis.</p>
+<p>The following code block creates a heatmap using the <code>pheatmap</code> library which offers on of the many available heatmap functions. Using the <code>annotation</code> data frame (you can inspect the contents of it yourself) we identify the samples based on both the cell type and the ploidy. The clustering shown in the heatmap clearly separates the data based on the cell type and the differences between the ploidy seems to be minimal. Looking further still, the differences <em>within</em> a single group are minimal too meaning that we are not - yet - inclined to remove any outlier-samples. Since we have only have 3 samples per category, we would also lose statistical power if we eventually were to remove one or more samples (also, always check the article to see if they did remove any samples prior to the data analysis).</p>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># We use the 'pheatmap' library (install with install.packages('pheatmap'))</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">pheatmap</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Convert the 'dist' object into a matrix for creating a heatmap</span></span>
+<span><span class="va">sampleDistMatrix</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="va">sampledists</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># The annotation is an extra layer that will be plotted above the heatmap columns</span></span>
+<span><span class="co"># indicating the cell type</span></span>
+<span><span class="va">annotation</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>Cell <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, each <span class="op">=</span> <span class="fl">6</span><span class="op">)</span>, </span>
+<span>                                          labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"IPSC"</span>, <span class="st">"Neuron"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>                         Ploidy <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, each <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span>,</span>
+<span>                                         labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"disomic"</span>, <span class="st">"trisomic"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span>                         </span>
+<span><span class="co"># Set the rownames of the annotation dataframe to the sample names (required)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/row_colnames.html">rownames</a></span><span class="op">(</span><span class="va">annotation</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">counts</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/pheatmap/man/pheatmap.html">pheatmap</a></span><span class="op">(</span><span class="va">sampleDistMatrix</span>, show_colnames <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>         annotation_col <span class="op">=</span> <span class="va">annotation</span>,</span>
+<span>         clustering_distance_rows <span class="op">=</span> <span class="va">sampledists</span>,</span>
+<span>         clustering_distance_cols <span class="op">=</span> <span class="va">sampledists</span>,</span>
+<span>         main <span class="op">=</span> <span class="st">"Euclidean Sample Distances"</span><span class="op">)</span></span></code></pre></div>
+<div class="figure">
+<span style="display:block;" id="fig:pheatmapDistances"></span>
+<img src="gene_expression_files/figure-html/pheatmapDistances-1.png" alt="Heatmap showing the Euclidean distances between all samples" width="672"><p class="caption">
+Figure 3.4: Heatmap showing the Euclidean distances between all samples
+</p>
+</div>
+<p>The resulting heatmap shows an interesting comparison across all samples where the order of samples is purely determined using the distance and is often different from the order in the data set. Ideally, we want the sample groups to be clustered together as we see with this data. This particular heatmap clearly shows a large difference in overal expression between the induced pluripotent stem cells (iPSCs) and their differentiated cortical neurons while the difference - within cell type - between disomic and trisomic is much lower.</p>
+</div>
+<div id="eda_mds" class="section level3" number="3.4.4">
+<h3>
+<span class="header-section-number">3.4.4</span> Multi-Dimensional Scaling<a class="anchor" aria-label="anchor" href="#eda_mds"><i class="fas fa-link"></i></a>
+</h3>
+<p>The following code example shows how to perform Multi-Dimensional Scaling (MDS) that displays similarly calculated distances in a 2D-plot. With an experiment like this with two groups of samples, we hope to see two clearly separated clusters formed, however as we’ve seen in the heatmap, sample <code>KO1B</code> showed a large deviation which we will also see (confirm) using MDS.</p>
+<div class="rmdtip">
+<p>
+The figure below is plotted using <code>ggplot2</code>, a more
+advanced method of plotting in R. While these plots are preferred over
+base-R plotting, it is always sufficient to use just that as it can be
+very challenging to alter the example code shown in this section. The
+data object plotted is shown and in this case contains simple X- and
+Y-coordinates.
+</p>
+</div>
+<p>For MDS we use a slightly different distance metric (Poisson instead of the default <code>euclidean</code> used in the <code>dist</code> function). The following code shows how to calculate a more fitting distance for sequencing data called the <em>Poisson Distance</em> with a number of optimizations available in the <code>PoiClaClu</code> library. This library was specifically designed to handle read count data and is less influenced by read-count differences across samples. Note that again, the code below is only usable for <strong>count</strong> data as this function requires:</p>
+<blockquote>
+<p>An n-by-p data matrix with observations on the rows, and p features on the columns. The (i,j) element of x is the <strong>number of reads</strong> in observation i that mapped to feature (e.g. gene or exon) j.</p>
+</blockquote>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st">'PoiClaClu'</span><span class="op">)</span></span>
+<span><span class="co"># Note: uses the raw-count data, PoissonDistance performs normalization</span></span>
+<span><span class="co"># set by the 'type' parameter (uses DESeq)</span></span>
+<span><span class="va">dds</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html">assay</a></span><span class="op">(</span><span class="va">ddsMat</span><span class="op">)</span></span>
+<span><span class="va">poisd</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/PoiClaClu/man/PoissonDistance.html">PoissonDistance</a></span><span class="op">(</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/t.html">t</a></span><span class="op">(</span><span class="va">dds</span><span class="op">)</span>, type <span class="op">=</span> <span class="st">"deseq"</span><span class="op">)</span></span>
+<span><span class="co"># Extract the matrix with distances</span></span>
+<span><span class="va">samplePoisDistMatrix</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="va">poisd</span><span class="op">$</span><span class="va">dd</span><span class="op">)</span></span>
+<span><span class="co"># Calculate the MDS and get the X- and Y-coordinates</span></span>
+<span><span class="va">mdsPoisData</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span> <span class="fu"><a href="https://rdrr.io/r/stats/cmdscale.html">cmdscale</a></span><span class="op">(</span><span class="va">samplePoisDistMatrix</span><span class="op">)</span> <span class="op">)</span></span>
+<span></span>
+<span><span class="co"># And set some better readable names for the columns</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">mdsPoisData</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'x_coord'</span>, <span class="st">'y_coord'</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-table"><table style="width:28%;" class="table table-sm">
+<colgroup>
+<col width="13%">
+<col width="13%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">x_coord</th>
+<th align="center">y_coord</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="center">-22016</td>
+<td align="center">-3828</td>
+</tr>
+<tr class="even">
+<td align="center">-22069</td>
+<td align="center">-8.734</td>
+</tr>
+<tr class="odd">
+<td align="center">-19000</td>
+<td align="center">-394.9</td>
+</tr>
+<tr class="even">
+<td align="center">-19955</td>
+<td align="center">1561</td>
+</tr>
+<tr class="odd">
+<td align="center">-21758</td>
+<td align="center">1435</td>
+</tr>
+<tr class="even">
+<td align="center">-18369</td>
+<td align="center">2094</td>
+</tr>
+<tr class="odd">
+<td align="center">17182</td>
+<td align="center">-988.6</td>
+</tr>
+<tr class="even">
+<td align="center">17455</td>
+<td align="center">-28.01</td>
+</tr>
+<tr class="odd">
+<td align="center">22613</td>
+<td align="center">-11249</td>
+</tr>
+<tr class="even">
+<td align="center">19312</td>
+<td align="center">6807</td>
+</tr>
+<tr class="odd">
+<td align="center">16493</td>
+<td align="center">-792.7</td>
+</tr>
+<tr class="even">
+<td align="center">30111</td>
+<td align="center">5392</td>
+</tr>
+</tbody>
+</table></div>
+<p>Table 5: MDS coordinates used for plotting the distances using Poisson Distance</p>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Separate the annotation factor (as the variable name is used as label)</span></span>
+<span><span class="va">groups</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, each<span class="op">=</span><span class="fl">3</span><span class="op">)</span>, </span>
+<span>                 labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"di_IPSC"</span>, <span class="st">"tri_IPSC"</span>, <span class="st">"di_NEUR"</span>, <span class="st">"tri_NEUR"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">coldata</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">counts</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Create the plot using ggplot</span></span>
+<span><span class="fu">ggplot</span><span class="op">(</span><span class="va">mdsPoisData</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">x_coord</span>, <span class="va">y_coord</span>, color <span class="op">=</span> <span class="va">groups</span>, label <span class="op">=</span> <span class="va">coldata</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu">geom_text</span><span class="op">(</span>size <span class="op">=</span> <span class="fl">4</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">'Multi Dimensional Scaling'</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">labs</span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Poisson Distance"</span>, y <span class="op">=</span> <span class="st">"Poisson Distance"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">theme_bw</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="figure">
+<span style="display:block;" id="fig:mdsPoissonPlot"></span>
+<img src="gene_expression_files/figure-html/mdsPoissonPlot-1.png" alt="Multi Dimensional Scaling - Poisson Distance for all samples" width="672"><p class="caption">
+Figure 3.5: Multi Dimensional Scaling - Poisson Distance for all samples
+</p>
+</div>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">## Using base-R plot and legend functions:</span></span>
+<span><span class="co"># plot(mdsPoisData, col=rep(myColors, each=3), pch=20, lwd=2)</span></span>
+<span><span class="co"># legend(x=-20000, y=11000, legend = levels(groups), col=myColors, pch=20)</span></span></code></pre></div>
+<p>We clearly see a separation on cell type and a less clear separation on ploidy. The spread within the disomic groups is much lower compared to the trisomic groups. Note that the y-axis range is about a 4th of the x-axis range. The sample <code>di_NEUR_r3</code> shows a large difference in the MDS plot. Once we have a set of genes identified as being differentially expressed we could repeat this step with the expectation of a more clear clustering.</p>
+</div>
+</div>
+<div id="cleaning-data" class="section level2" number="3.5">
+<h2>
+<span class="header-section-number">3.5</span> Cleaning Data<a class="anchor" aria-label="anchor" href="#cleaning-data"><i class="fas fa-link"></i></a>
+</h2>
+<p>Conclude this chapter by <em>cleaning</em> your dataset if the visualizations show the necessity for this. Cleaning in this case means <em>removing</em> complete samples if they can be classified as an outlier <em>within</em> its group. As with most tasks during this course, there is no clear advice on when to decide to remove one or more samples. The only clear rule is that each group <em>must</em> retain at least three samples. If one of the three samples visibly deviates from the other replicates, even after normalization, it will stay in your data set and it should be mentioned in your analysis report/ final article that noise <em>may</em> be introduced by this sample.
+<strong>Note</strong>: Once you are satisfied with the data and reported on your findings, we do not return to any of these steps in the next chapters. If there are mentions of creating a heatmap for instance, this means a heatmap of <em>expression data</em> instead of the <em>sample distances</em> we’ve shown in this chapter.</p>
+
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="datasets.html"><span class="header-section-number">2</span> Discovering Data Sets</a></div>
+<div class="next"><a href="chapter-4.html"><span class="header-section-number">4</span> Discovering Differentialy Expressed Genes (DEGs)</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#EDA"><span class="header-section-number">3</span> Exploratory Data Analysis</a></li>
+<li><a class="nav-link" href="#loading-data"><span class="header-section-number">3.1</span> Loading data into R</a></li>
+<li><a class="nav-link" href="#ch3_example_data"><span class="header-section-number">3.2</span> Example Data</a></li>
+<li>
+<a class="nav-link" href="#EDA_part1"><span class="header-section-number">3.3</span> Visualizing using boxplot and density plot</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#eda_statistics"><span class="header-section-number">3.3.1</span> Statistics</a></li>
+<li><a class="nav-link" href="#eda_boxplots"><span class="header-section-number">3.3.2</span> Boxplots</a></li>
+<li><a class="nav-link" href="#eda_density_plot"><span class="header-section-number">3.3.3</span> Density Plots</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#EDA_part2"><span class="header-section-number">3.4</span> Visualizing using heatmap and MDS</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#normalization"><span class="header-section-number">3.4.1</span> Normalization</a></li>
+<li><a class="nav-link" href="#eda_distance"><span class="header-section-number">3.4.2</span> Distance Calculation</a></li>
+<li><a class="nav-link" href="#eda_heatmap"><span class="header-section-number">3.4.3</span> Sample Distances using a Heatmap</a></li>
+<li><a class="nav-link" href="#eda_mds"><span class="header-section-number">3.4.4</span> Multi-Dimensional Scaling</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#cleaning-data"><span class="header-section-number">3.5</span> Cleaning Data</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/rstudio/bookdown-demo/blob/master/chapters/eda.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/rstudio/bookdown-demo/edit/master/chapters/eda.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Capstone Project - Gene Expression Analysis</strong>" was written by Marcel Kempenaar. It was last built on 2024-04-23.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title> Discovering Data Sets | Capstone Project - Gene Expression Analysis</title>
+<meta name="author" content="Marcel Kempenaar">
+<meta name="description" content="2.1 Finding Public Data Sets of Interest This chapter describes a method of finding public data sets of interest. A data set in the context of this course refers to all data belonging to a certain...">
+<meta name="generator" content="bookdown 0.36 with bs4_book()">
+<meta property="og:title" content=" Discovering Data Sets | Capstone Project - Gene Expression Analysis">
+<meta property="og:type" content="book">
+<meta property="og:description" content="2.1 Finding Public Data Sets of Interest This chapter describes a method of finding public data sets of interest. A data set in the context of this course refers to all data belonging to a certain...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content=" Discovering Data Sets | Capstone Project - Gene Expression Analysis">
+<meta name="twitter:description" content="2.1 Finding Public Data Sets of Interest This chapter describes a method of finding public data sets of interest. A data set in the context of this course refers to all data belonging to a certain...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.5.1/transition.js"></script><script src="libs/bs3compat-0.5.1/tabs.js"></script><script src="libs/bs3compat-0.5.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<style type="text/css">
+    /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+        }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+  </style>
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Capstone Project - Gene Expression Analysis</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html"><span class="header-section-number">1</span> Introduction</a></li>
+<li><a class="active" href="datasets.html"><span class="header-section-number">2</span> Discovering Data Sets</a></li>
+<li><a class="" href="EDA.html"><span class="header-section-number">3</span> Exploratory Data Analysis</a></li>
+<li><a class="" href="chapter-4.html"><span class="header-section-number">4</span> Discovering Differentialy Expressed Genes (DEGs)</a></li>
+<li><a class="" href="chapter-5.html"><span class="header-section-number">5</span> Data Analysis and Visualization</a></li>
+<li class="book-part">Appendix</li>
+<li><a class="" href="a1-data_loading.html"><span class="header-section-number">A</span> Loading Expression Data in R</a></li>
+<li><a class="" href="a2-annotation.html"><span class="header-section-number">B</span> Annotating an RNA-Seq Experiment</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/rstudio/bookdown-demo">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="datasets" class="section level1" number="2">
+<h1>
+<span class="header-section-number"></span> Discovering Data Sets<a class="anchor" aria-label="anchor" href="#datasets"><i class="fas fa-link"></i></a>
+</h1>
+<div id="finding-public-data" class="section level2" number="2.1">
+<h2>
+<span class="header-section-number">2.1</span> Finding Public Data Sets of Interest<a class="anchor" aria-label="anchor" href="#finding-public-data"><i class="fas fa-link"></i></a>
+</h2>
+<p>This chapter describes a method of finding public data sets of interest. A <em>data set</em> in the context of this course refers to all data belonging to a certain gene-expression experiment, usually consisting of a number of sequencing-samples combined with <em>meta-data</em> describing the experiment.</p>
+<p>There are a number of very large databases online that offer access to thousands of - published - experiments and here we will focus on searching and downloading gene expression data from high-throughput (<code>NGS</code>) sequencing techniques (<code>RNA-Seq</code>).</p>
+<p>With thousands of freely available data sets it is possible to start performing research without the need of actually performing your own lab-experiment. For all common conditions, organisms and tissues you can download samples and compare them over multiple studies to find novel relations between genes and conditions or to verify experiments performed in your laboratory. For instance, the power of public data sets was demonstrated jointly by three of our alumni in an article called <em>Calling genotypes from public RNA-sequencing data enables identification of genetic variants that affect gene-expression levels.</em><span class="citation">(<a href="a2-annotation.html#ref-deelen15">al. 2015</a>)</span>.</p>
+<p>It’s method section begins with the sentence “<em>We downloaded the raw reads for all available human RNA-seq data sets …</em>” of which the amount of data and work will become clear later on. If you are interested in <em>expression Quantitative Trait Loci</em> (<code>eQTLs</code>) or <em>Allele-Specific Expression</em> (<code>ASE</code>) analysis, please read this very interesting paper.</p>
+<p>But before we start diving into large and complex databases potentially containing thousands of experiments with millions of samples and terabytes of data, we need to get a rough idea on what we would like to do once we have found something of interest in order to know what we are looking for in the first place. While there is no definitive guide or protocol that can be followed for processing and analyzing a gene-expression data set, the following goals can be considered:</p>
+<ol style="list-style-type: decimal">
+<li>Re-do (part of) the analysis described in the accompanying publication.
+<ul>
+<li>As all data sets - except for the ones that were added very recently - are accompanied by a publication, you can gather a lot of information regarding experimental design and results from just this paper. Most often, the researchers already performed the most interesting research on this data set and it is therefore a good exercise to try and reproduce their results. Challenges here are getting a proper understanding of the techniques used by the researchers (from the article) and translating these to your own analysis steps. Often though, not all details are clear from the article which requires your own interpretation of their results and performing analysis steps to arrive at the same conclusion.</li>
+</ul>
+</li>
+<li>Alternatively you can come up with your own ideas and (biological) question(s) that you could try and answer given a data set instead of redoing the published work.
+<ul>
+<li>This is of course more challenging and not suitable for all data sets.</li>
+<li>You might notice that some publications only focus on a small set of genes instead of the whole transcriptome. For instance, when you perform an experiment on yeast where you want to measure the activity of genes involved in alcohol fermentation, researchers might only look at genes from the Glycolysis pathway. This leaves the other 6000+ yeast genes for you to explore and possibly come up with novel relations of gene expression and experimental setup.</li>
+<li>If the analysis approach explained in the paper is not focusing on a pre-selected list of genes, depending on the experiment you might come up with comparisons not done in the original research. For instance, in an experiment where the maternal age (at birth) is correlated to autism in their offspring, the paternal age is also known but not addressed in the <a href="http://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE25507">publication</a>. This could be a subject of further research (spoiler alert; no clear conclusion can be drawn from including this extra factor…).</li>
+</ul>
+</li>
+<li>Another type of project is to evaluate different methods of either normalization or statistical analysis to either confirm the published results or find novel genes involved in the experiment.
+<ul>
+<li>This can be viewed more as a technical research subject which is ok to pursue, however the final report should mainly concern the biological impact of your findings.
+<ul>
+<li>This means that when the accompanying publication shows very conclusive results, it will probably come down to <em>acknowledging</em> their results (therefore, you extend on point 1 from this list). Because with a very conclusive result you hope to find the same results and if this is not the case it might become hard to formulate a good conclusion in the end.</li>
+<li>However, if the publication isn’t very specific and only states a conclusion such as ‘<em>Benzene exposure shows increased risk of leukemia</em>’ followed by a list of a few genes that <em>might</em> be involved, you could try to see if you can find other genes that <em>might</em> be involved by changing the analysis approach.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Although this last project goal has many risks involved and will need a very sound project proposal, it might result in the most interesting project. As shown before with the linked article, it is possible to combine data from multiple experiments.
+<ul>
+<li>You could for instance find two very related experiments (i.e. researching the effect of a certain drug) both measuring expression in different tissue types (i.e. liver and brain tissue). After analyzing both experiments, you could present a set of genes that show an effect in both tissues and - more interestingly - genes showing an effect in only one tissue.</li>
+</ul>
+</li>
+</ol>
+<p>The list above is a guideline to be kept in mind while browsing for suitable data sets and it will be extended in week three. Also, don’t worry if some of the terms above are unclear, getting a good understanding on the used terminology is part of these first few weeks</p>
+</div>
+<div id="ncbi-geo" class="section level2" number="2.2">
+<h2>
+<span class="header-section-number">2.2</span> The NCBI <em>Gene Expression Omnibus</em><a class="anchor" aria-label="anchor" href="#ncbi-geo"><i class="fas fa-link"></i></a>
+</h2>
+<p>The easiest method of exploring and finding interesting data sets is by simply using your web-browser to access a data-repository. One such repository is the <a href="https://www.ncbi.nlm.nih.gov/geo/summary">NCBI Gene Expression Omnibus</a> (GEO). This <em>repository</em> was primarily used to store micro array data sets and describe those experiments, linking to raw data, processed data and an accompanying publication. There are however many more sources of data browsable in the GEO, and for this project we will limit our searches to experiments using the RNA-Seq technology for which over 60.000 experiments are listed. Following the “<em>Expression profiling by high throughput sequencing</em>” link in this summary table we get the complete listing in which you can find an interesting experiment. Besides finding an experiment that you are interested in, there are some further important requirements that you need to account for when browsing listed below. Note that at this point we do not need to download the data yet, this is described in chapter 3.</p>
+<ul>
+<li>The experiment <strong>must</strong> be published and the publication must be fully available, free or otherwise through the Hanze University library.</li>
+<li>For each <em>sample group</em>, a minimum of <strong>three</strong> replicates must be present. If one or more groups have less then three replicates, that group cannot be used (the rest of the data might still be usable if there are at minimum two groups that do have 3 replicates).
+<ul>
+<li>Replicates are often not very easy to spot. When lucky samples are named “WildType - rep 2” for instance but most often you need to read the “Overall design” part of the page or click on the samples (with the “GSM…” ID) to make sure.</li>
+</ul>
+</li>
+<li>The available data <strong>must</strong> contain at least the <strong>count</strong> data.
+<ul>
+<li>Data is offered in multiple formats, always including the RAW data (the actual reads which we don’t use), but also in further processed data such as FPKM, RPKM and TPM (see this <a href="https://haroldpimentel.wordpress.com/2014/05/08/what-the-fpkm-a-review-rna-seq-expression-units/">interesting blog-post</a> discussing the use of these data). The tools and R analysis libraries that we will use for the downstream analysis rely on unnormalized and unprocessed data which is the <strong>count</strong> data. These counts simply represent the number of reads mapped to a transcript.</li>
+<li>This is often the hardest part to assess; sometimes it is not clear if the provided data are the actual raw count values. Usually, you can find some (sometimes rather cryptic) information by clicking on a sample ID under the ‘Data processing’ section. In this paragraph of text is often a mention of the ‘<em>Supplementary_files_format_and_content</em>’ that describes the actual content of the downloadable files. Following are a number of examples of valid and invalid data provided by the experiment. These are the single-sample pages where you can find such a description. Unfortunately, the authors of each experiment are free to explain their data as they please, so you will most likely not encounter the exact same descriptions:
+<ul>
+<li>
+<span style="color: green;"><strong>Valid</strong></span>: <a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM3223408"><em>Global effects of SUPT4H1 RNAi on gene expression of HEK293 cells</em></a>; description: <em>Supplementary_files_format_and_content: tab-delimited, gzip-compressed text file with <strong>matrix of raw quantitation</strong> results for each sample.</em> Mentions of <em>raw</em>-anything are most likely valid.</li>
+<li>
+<span style="color: green;"><strong>Valid</strong></span>: <a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM3014578"><em>Transcriptome profiling of normal and transformed mouse urothelial cells</em></a>; description: <em>Supplementary_files_format_and_content: raw_counts_unfiltered.txt.gz: Raw counts.</em>. Even though 4 different file types are available for download, one of these contains the actual raw count data.</li>
+<li>
+<span style="color: green;"><strong>Valid</strong></span>: <a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM3021001"><em>Quantitative Analysis of PPARD RNA-Seq Transcriptomes of Mouse Gastric Corpus Epithenial Cells by Next Generation Sequencing (NGS)</em></a>; description: <em>Supplementary_files_format_and_content: <strong>raw counts</strong> of sequencing reads for the genes</em>. Single file download containing only the raw counts.</li>
+<li>
+<span style="color: green;"><strong>Valid</strong></span>: <a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM3039677"><em>Impact of shRNA-mediated KLF4 down-modulation on the transcriptome profile of human keratinocyte precursor cells</em></a>; description: <em>Supplementary_files_format_and_content: <strong>raw</strong> and normalized counts</em>.</li>
+<li>
+<span style="color: green;"><strong>Valid</strong></span>: <a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM3103304"><em>Role of TAF5L and TAF6L in controlling the mouse ESC state</em></a>; description: <em>Supplementary_files_format_and_content: Comma-separated text files containing <strong>raw counts</strong>, normalized counts, FPKM expression values and TPM expression values.</em>. Very common to include both normalized and raw values.</li>
+<li>
+<span style="color: red;"><strong>Invalid</strong></span>: <a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM3318897"><em>Co-chaperone Mzb1 is a key effector of Blimp1 in plasma cell differentiation and b1 integrin function</em></a>; description: <em>Supplementary_files_format_and_content: The normalized gene expression values (FPKM) calculated by Cuffnorm (v2.2.1) is provided in TXT format</em>. This clearly states that there is only normalized data (FPKM values) available.</li>
+<li>
+<span style="color: red;"><strong>Invalid</strong></span>: <a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM2909402"><em>EGFR-targeted therapy-induced resistance mechanism in glioblastoma</em></a>; description: <em>Supplementary_files_format_and_content: .txt file including gene name, RefSeq id, locus, RPKM value of each gene in each sample</em>. Only the RPKM values are available and these are normalized raw count values, not usable.</li>
+<li>
+<span style="color: red;"><strong>Invalid</strong></span>: <a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM2643080"><em>RNA-seq of subcellular fractions from nESC and EpiLC</em></a>; description: <em>Supplementary_files_format_and_content: </em>_genes.fpkm_table.txt: Tab-delimited text files include FPKM values for each replicate.*. Only FPKM data available.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="index.html"><span class="header-section-number">1</span> Introduction</a></div>
+<div class="next"><a href="EDA.html"><span class="header-section-number">3</span> Exploratory Data Analysis</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#datasets"><span class="header-section-number">2</span> Discovering Data Sets</a></li>
+<li><a class="nav-link" href="#finding-public-data"><span class="header-section-number">2.1</span> Finding Public Data Sets of Interest</a></li>
+<li><a class="nav-link" href="#ncbi-geo"><span class="header-section-number">2.2</span> The NCBI Gene Expression Omnibus</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/rstudio/bookdown-demo/blob/master/chapters/datasets.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/rstudio/bookdown-demo/edit/master/chapters/datasets.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Capstone Project - Gene Expression Analysis</strong>" was written by Marcel Kempenaar. It was last built on 2024-04-23.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

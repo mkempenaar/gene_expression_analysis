@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title> Introduction | Capstone Project - Gene Expression Analysis</title>
+<meta name="author" content="Marcel Kempenaar">
+<meta name="description" content="Capstone Project">
+<meta name="generator" content="bookdown 0.36 with bs4_book()">
+<meta property="og:title" content=" Introduction | Capstone Project - Gene Expression Analysis">
+<meta property="og:type" content="book">
+<meta property="og:description" content="Capstone Project">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content=" Introduction | Capstone Project - Gene Expression Analysis">
+<meta name="twitter:description" content="Capstone Project">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.5.1/transition.js"></script><script src="libs/bs3compat-0.5.1/tabs.js"></script><script src="libs/bs3compat-0.5.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<style type="text/css">
+    /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+        }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+  </style>
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Capstone Project - Gene Expression Analysis</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="active" href="index.html"><span class="header-section-number">1</span> Introduction</a></li>
+<li><a class="" href="datasets.html"><span class="header-section-number">2</span> Discovering Data Sets</a></li>
+<li><a class="" href="EDA.html"><span class="header-section-number">3</span> Exploratory Data Analysis</a></li>
+<li><a class="" href="chapter-4.html"><span class="header-section-number">4</span> Discovering Differentialy Expressed Genes (DEGs)</a></li>
+<li><a class="" href="chapter-5.html"><span class="header-section-number">5</span> Data Analysis and Visualization</a></li>
+<li class="book-part">Appendix</li>
+<li><a class="" href="a1-data_loading.html"><span class="header-section-number">A</span> Loading Expression Data in R</a></li>
+<li><a class="" href="a2-annotation.html"><span class="header-section-number">B</span> Annotating an RNA-Seq Experiment</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/rstudio/bookdown-demo">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><!--bookdown:title:end--><!--bookdown:title:start--><div id="chapter-1" class="section level1" number="1">
+<h1>
+<span class="header-section-number"></span> Introduction<a class="anchor" aria-label="anchor" href="#chapter-1"><i class="fas fa-link"></i></a>
+</h1>
+<div id="capstone-project---analysis-of-gene-expression" class="section level2" number="1.1">
+<h2>
+<span class="header-section-number">1.1</span> Capstone Project - Analysis of Gene Expression<a class="anchor" aria-label="anchor" href="#capstone-project---analysis-of-gene-expression"><i class="fas fa-link"></i></a>
+</h2>
+<p>The use of RNA-Sequencing techniques for measuring gene expression is relatively new and replaces <em>microarrays</em>, though in some cases microarrays are still used. Gene expression data gives valuable insights into the workings of cells in certain conditions. Especially when comparing for instance healthy and diseased samples it can become clear which genes are causal or under influence of a specific condition. Finding the genes of interest (genes showing differing expression accross conditions, called the <em>Differentially Expressed Genes</em> (DEGs)) is the goal of this project.</p>
+<p>While there is no golden standard for analyzing RNA-sequencing datasets as there are many tools (all manufacturers of sequencing equiptment also deliver software packages) we will use R combined with proven libraries for processing, visualizing and analyzing publically available datasets. While in some cases you are allowed to use the actual <em>raw</em> (read) data that is available, it is highly recommended to use the pre-processed data which often is a table with a <em>count</em> value for each gene. This count is the number of reads that was mapped to that gene which corresponds to the relative number of transcripts (mRNA sequences) of that gene present in the cell at the time of sampling.</p>
+</div>
+<div id="project-deliverables" class="section level2" number="1.2">
+<h2>
+<span class="header-section-number">1.2</span> Project Deliverables<a class="anchor" aria-label="anchor" href="#project-deliverables"><i class="fas fa-link"></i></a>
+</h2>
+<p>The end products of this course consist of two deliverables; a PDF output file from an RMarkdown ‘lab journal’ where you have logged all steps performed to get to the end result and a final report in the form of a short article. This chapter briefly describes the requirements and contents of these products and ends with instructions on how to use an RMarkdown <code>template</code> for writing the article.</p>
+</div>
+<div id="project-schedule" class="section level2" number="1.3">
+<h2>
+<span class="header-section-number">1.3</span> Project Schedule<a class="anchor" aria-label="anchor" href="#project-schedule"><i class="fas fa-link"></i></a>
+</h2>
+<p>The aim is to keep to the below schedule during this course. Use the first two weeks to see if you need to focus more on one of the points below (depending on your dataset) and discuss changes to the planning with your teacher.</p>
+<ul>
+<li>Find a public experiment of interest [week one]
+<ul>
+<li>Using online resources (sections <a href="datasets.html#finding-public-data">2.1</a>, <a href="datasets.html#ncbi-geo">2.2</a>)</li>
+</ul>
+</li>
+<li>Data Gathering and Literature Research [week two]
+<ul>
+<li>Make a final project choice</li>
+<li>Retrieve the accompanying publication</li>
+<li>Starting with Exploratory Data Analysis (chapter <a href="EDA.html#EDA">EDA</a>)</li>
+</ul>
+</li>
+<li>Data Analysis [weeks three, four and five]
+<ul>
+<li>Finalizing Exploratory Data Analysis</li>
+<li>Discovering Differentially Expressed Genes (chapter <a href="chapter-4.html#chapter-4">4</a>)</li>
+<li>Data Annotation (optional; appendix <a href="a2-annotation.html#a2-annotation">a2</a>)</li>
+<li>Techniques used: R with bioconductor, the EdgeR and/ or DESeq2 packages, RMarkdown</li>
+</ul>
+</li>
+<li>Result Analysis [week five and six]
+<ul>
+<li>Analyzing and Visualizing your results (chapter <a href="chapter-5.html#chapter-5">5</a>)</li>
+<li>Techniques used: clustering, pathway analysis, gene-enrichment analysis</li>
+</ul>
+</li>
+<li>Finalizing analysis and start writing the final report (article) [weeks 7 and 8]</li>
+</ul>
+</div>
+<div id="grading" class="section level2" number="1.4">
+<h2>
+<span class="header-section-number">1.4</span> Grading<a class="anchor" aria-label="anchor" href="#grading"><i class="fas fa-link"></i></a>
+</h2>
+<p>The final grade consists of a weighted average of the work done for the <em>lab journal</em> containing all performed steps, their code and outputs (<strong>70%</strong>) and the <em>article</em> report (<strong>30%</strong>). A grade &gt;= <strong>5.5</strong> will give a total of 8 EC. The rest of this chapter explains the expected contents for the three graded products (each of these elements is explained in greater detail in other chapters).</p>
+</div>
+<div id="lab-journal" class="section level2" number="1.5">
+<h2>
+<span class="header-section-number">1.5</span> <em>Lab Journal</em><a class="anchor" aria-label="anchor" href="#lab-journal"><i class="fas fa-link"></i></a>
+</h2>
+<p>As you know from previous projects and most likely from working in the laboratory, it is essential to keep a proper lab journal detailing every step you have done during the experiment. Here, the log is to be kept in an R markdown file, showing which steps have been taken in the analysis of the data set. This markdown should be <em>knitted</em> into a single PDF-file once the project is completed thus containing text detailling the steps and any decisions you’ve made, R-code (always visible!) and their resulting output/ images.</p>
+<div class="rmdtip">
+<p>
+<strong>Notes</strong>: As a general advice; do not wait with
+knitting this whole document until the project is done as knitting is
+very prone to errors and trying to fix these in a large document is not
+easy. Give each code chunk the proper attributes, including a name at
+the minimum. This helps spot errors during knitting as that process
+mentiones which chunk has been processed. Note that chunk-names
+<em>must</em> be unique. And try to make proper use of chapters and
+sections and include an (optional) table of contents.
+</p>
+</div>
+</div>
+<div id="article" class="section level2" number="1.6">
+<h2>
+<span class="header-section-number">1.6</span> Article<a class="anchor" aria-label="anchor" href="#article"><i class="fas fa-link"></i></a>
+</h2>
+<p>The final report is written in article form which is a bit different from a usual report, mainly in its size. The article-report has a <em>maximum</em> number of pages of <strong>4</strong> including all images and references (no appendices!). Contents for this article should be extracted from the lab journal combined with part introduction and part conclusion/ discussion. The sections below describe a template that is available for writing this report and example report(s) will be made available for inspiration. Refer to this chapter again once you start writing the report.</p>
+<div id="installing-the-article-template" class="section level3" number="1.6.1">
+<h3>
+<span class="header-section-number">1.6.1</span> Installing the Article Template<a class="anchor" aria-label="anchor" href="#installing-the-article-template"><i class="fas fa-link"></i></a>
+</h3>
+<p>The templates are available in an R package and contains both <code>RMarkdown</code> and (another layer on top of the actual <a href="https://nl.wikipedia.org/wiki/TeX">markup language</a>, yes, another language…) files. RStudio can use templates for a number of documents, including article-templates. These templates can be installed from a package called <code>rticles</code> by running the <code>install.packages</code> function (note: might already be installed):</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"rticles"</span>, type <span class="op">=</span> <span class="st">"source"</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div id="using-the-template" class="section level3" number="1.6.2">
+<h3>
+<span class="header-section-number">1.6.2</span> Using the Template<a class="anchor" aria-label="anchor" href="#using-the-template"><i class="fas fa-link"></i></a>
+</h3>
+<p>Now that you have the templates package (<code>rticles</code>) installed you can download and use the template project (ZIP-file) available from <a href="https://bioinf.nl/~marcelk/capstone/course/report-template.zip">here</a>. Download this file to your project folder, extract its contents and open the <code>report-template.Rmd</code> file contained within the folder in RStudio. Verify that everything is setup correctly by hitting the <code>Knit</code> button at the top, this should create a PDF version of the report. Note that - somehow - the resulting PDF file is named <code>RJwrapper.pdf</code> instead of the expected <code>report-template.pdf</code>. If everything checks out OK you can rename the file to your liking and start editing.</p>
+<p>This template is based on the <code>R Journal Submission</code> template that you can also find in RStudio in the <code>New file -&gt; R Markdown -&gt; From Template</code> menu. Articles published in the <code>R-journal</code> are based on this template which you can browse for inspiration at the <a href="https://journal.r-project.org/archive/2021-2/">R Journal Website</a>.</p>
+<p>The available template shows an <em>example</em> of segments/ chapters and briefly describes what each section could or should contain. If you want to write your report in the Dutch language, you can create a new file from the template and change the segment names and content to Dutch. There will however still be some headings added by the template in English which is fine with me, but if you want to keep everything Dutch you can either edit the <code>RJournal.sty</code> file manually (<em>not recommended</em>) or start a new file by yourself and add some nice headings and page options.</p>
+<p>The top part of the template (between the dashes <code>---</code>) contains some settings that you need to change such as <code>title</code>, <code>authors</code> and <code>abstract</code>. Compare for instance a newly created article from this template with the one offered from the project-repository website.</p>
+
+</div>
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="empty"></div>
+<div class="next"><a href="datasets.html"><span class="header-section-number">2</span> Discovering Data Sets</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#chapter-1"><span class="header-section-number">1</span> Introduction</a></li>
+<li><a class="nav-link" href="#capstone-project---analysis-of-gene-expression"><span class="header-section-number">1.1</span> Capstone Project - Analysis of Gene Expression</a></li>
+<li><a class="nav-link" href="#project-deliverables"><span class="header-section-number">1.2</span> Project Deliverables</a></li>
+<li><a class="nav-link" href="#project-schedule"><span class="header-section-number">1.3</span> Project Schedule</a></li>
+<li><a class="nav-link" href="#grading"><span class="header-section-number">1.4</span> Grading</a></li>
+<li><a class="nav-link" href="#lab-journal"><span class="header-section-number">1.5</span> Lab Journal</a></li>
+<li>
+<a class="nav-link" href="#article"><span class="header-section-number">1.6</span> Article</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#installing-the-article-template"><span class="header-section-number">1.6.1</span> Installing the Article Template</a></li>
+<li><a class="nav-link" href="#using-the-template"><span class="header-section-number">1.6.2</span> Using the Template</a></li>
+</ul>
+</li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/rstudio/bookdown-demo/blob/master/index.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/rstudio/bookdown-demo/edit/master/index.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Capstone Project - Gene Expression Analysis</strong>" was written by Marcel Kempenaar. It was last built on 2024-04-23.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>
