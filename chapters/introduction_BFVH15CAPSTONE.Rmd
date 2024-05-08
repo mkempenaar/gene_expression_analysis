@@ -1,5 +1,5 @@
 ---
-title: "Capstone Project - Gene Expression Analysis"
+title: "2.1.2 Genomics & Transcriptomics"
 author: "Marcel Kempenaar"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
@@ -10,7 +10,7 @@ bibliography: [book.bib, packages.bib]
 biblio-style: apalike
 link-citations: yes
 github-repo: mkempenaar/gene_expression_analysis
-description: "Capstone Project"
+description: "Capstone"
 ---
 
 # Introduction {#chapter-1}

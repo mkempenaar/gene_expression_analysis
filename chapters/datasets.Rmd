@@ -1,4 +1,4 @@
-# Discovering Data Sets {#a3-annotation}
+# Discovering Data Sets {#datasets}
 
 ## Finding Public Data Sets of Interest {#finding-public-data}
 

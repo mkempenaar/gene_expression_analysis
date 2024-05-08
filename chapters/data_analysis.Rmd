@@ -233,7 +233,7 @@ data(gene.idtype.list);
 pander(gene.idtype.list)
 ```
 
-```{r pathview_data_prep, eval=TRUE}
+```{r pathview_data_prep, eval=FALSE}
 ## Prepare data for visualization
 deseq.degs.logfc <- subset(deseq.results, padj < pval_threshold, select = log2FoldChange)
 
@@ -255,12 +255,12 @@ To also look at the *topology* of *how* genes interact with each other, we can u
 
 The code below uses data objects that were not always shown before, see the tables below for their contents.
 
-```{r spia_data_load, echo=FALSE}
+```{r spia_data_load, echo=FALSE, eval=FALSE}
 load("./data/annotated_ipsc_di_vs_tri.RData")
 deseq.results <- ipsc.tri.vs.di
 ```
 
-```{r spia_data_prep, message=FALSE, warning=FALSE, error=FALSE, eval=TRUE}
+```{r spia_data_prep, message=FALSE, warning=FALSE, error=FALSE, eval=FALSE}
 # Bioconductor package for "Signaling Pathway Impact Analysis"
 # (install with biocLite("SPIA") if it is not installed)
 library(SPIA)
@@ -276,7 +276,7 @@ all_genes <- deseq.results$EntrezID
 ```
 
 The input `sig_genes` named vector contents:
-```{r spia_contents, echo=FALSE, eval=TRUE}
+```{r spia_contents, echo=FALSE, eval=FALSE}
 idx = !is.na(names(sig_genes))
 .sig.genes <- head(data.frame(EntrezID=names(sig_genes[idx]),
                               "logFC"=sig_genes[idx], 
@@ -286,7 +286,7 @@ pander(.sig.genes, caption = "(subset) of DESeq2 DEGs with their Entrez ID and l
 ```
 
 And the `all_genes` vector or Entrez IDs input (note that this does not contain any expression information, just IDs):
-```{r, eval=TRUE}
+```{r, eval=FALSE}
 pander(all_genes[which(idx)[100:110]])
 ```
 
@@ -323,6 +323,7 @@ Done pathway 135 : Viral myocarditis..
 The resulting data frame is ordered by a p-value and contains the following information:
 
 ```{r spia_result_table, echo=FALSE, eval=TRUE}
+library(SPIA)
 load(file = "./data/spia.RData")
 pander(head(spia_result[,1:11], n=5), caption = "Top signaling pathways ")
 ```
@@ -330,5 +331,6 @@ pander(head(spia_result[,1:11], n=5), caption = "Top signaling pathways ")
 To get an overal picture we can create a plot where each pathway is a point which is placed according to the `spia` calculated over-representation p-value and pNDE (which is the probability to observe at least nDE genes on the pathway). In this case it is obvious that Alzheimer's and Parkinson's pathways with ID's 05010 and 05012 respectively are the most influenced by this experiment, according to this method.
 
 ```{r spiaResultPlotP, eval=TRUE, fig.cap="SPIA two-way evidence plot showing the most influenced pathways"}
+
 plotP(spia_result)
 ```

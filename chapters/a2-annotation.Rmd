@@ -186,7 +186,7 @@ The `biomaRt` library interfaces with the [biomart.org](http://www.biomart.org) 
 
 You are required to explore a number of objects and the given example code is most likely not suitable for your data/ organism. The project is well documented on the [Bioconductor biomaRt](https://bioconductor.org/packages/release/bioc/html/biomaRt.html) website that links to the [biomaRt users guide](https://bioconductor.org/packages/release/bioc/vignettes/biomaRt/inst/doc/biomaRt.html).
 
-```{r load_biomart, echo=TRUE, eval=FALSE}
+```{r load_biomart, echo=TRUE, eval=TRUE}
 # Load the library
 library(biomaRt)
 
@@ -194,7 +194,7 @@ library(biomaRt)
 ensembl=useMart("ENSEMBL_MART_ENSEMBL", host="https://www.ensembl.org")
 ```
 
-```{r .pander_marts, echo=FALSE, eval=TRUE}
+```{r .pander_marts, echo=FALSE, eval=FALSE}
 ## << LOADED FROM SESSION FILE >>
 pander(listMarts(), caption = 'Available databases in the Ensembl biomaRt')
 ```
@@ -254,7 +254,7 @@ We now have all three needed elements (species, filter and attributes) so we are
 
 The example below retrieves data using a set of five Ensembl gene IDs since not all genes have an Ensembl ID as we've seen above, so we filter those out first and use this as the `values` parameter below.
 
-```{r retrieve_biomart_results, echo=TRUE, eval=TRUE}
+```{r retrieve_biomart_results, echo=TRUE, eval=FALSE}
 # Set the 'attributes' values
 attrs.get <- c("ensembl_gene_id", "chromosome_name", 
                "start_position","end_position", "description")
@@ -270,7 +270,7 @@ results$gene_length <- abs(results$end_position - results$start_position)
 
 The `results` object is a `data.frame` with 5 columns that we can merge with our data set giving us the following annotation columns (combined from the `AnnotationDBI` and `biomaRt` libraries).
 
-```{r .pander_biomart_results, echo=FALSE, eval=TRUE}
+```{r .pander_biomart_results, echo=FALSE, eval=FALSE}
 ipsc.tri.vs.di.annot <- merge(x = ipsc.tri.vs.di, y = results, 
                         by.x = 'Ensembl', by.y = 'ensembl_gene_id')
 
@@ -280,5 +280,3 @@ pander(ipsc.tri.vs.di.annot[, c('Ensembl', 'EntrezID',
 ```
 
 This was just an example on how to use the `biomaRt` library and it comes down to selecting the correct filter and looking for interesting attributes to retrieve. Further information can be found in the documentation avaialble with `vignette('biomaRt')
-
-## References

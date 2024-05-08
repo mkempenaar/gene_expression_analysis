@@ -7,10 +7,11 @@ delete_merged_file: true
 
 rmd_files: ['index.Rmd',
             ## UNCOMMENT FOR BFVH15CAPSTONE BOOK ##
-            ##'chapters/01-introduction_BFVH15CAPSTONE.Rmd',
-            'chapters/02-eda.Rmd',
-            'chapters/03-deg.Rmd',
-            'chapters/04-data_analysis.Rmd',
+            ##'chapters/introduction_BFVH15CAPSTONE.Rmd',
+            'chapters/datasets.Rmd',
+            'chapters/eda.Rmd',
+            'chapters/deg.Rmd',
+            'chapters/data_analysis.Rmd',
             'chapters/a1-batch_data_loading.Rmd',
             'chapters/a2-annotation.Rmd',
-            'chapters/a3-datasets.Rmd']
+            'chapters/a3-read-mapping.Rmd']

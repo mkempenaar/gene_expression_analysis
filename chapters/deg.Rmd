@@ -296,7 +296,7 @@ plotBCV(y)
 
 Or the log-fold changes for all genes, once we have the output of the `exactTest` function (output `et` is an `DGEExact` object) with the `plotSmear` function. The `abline` shows a log-FC threshold:
 
-```{r edgerResults, eval=TRUE, fig.cap="edgeR results; genes marked in red are DEGs"}
+```{r edgerResults, eval=FALSE, fig.cap="edgeR results; genes marked in red are DEGs"}
 deGenes <- decideTestsDGE(qlf, p=0.05)
 deGenes <- rownames(qlf)[as.logical(deGenes)]
 plotSmear(qlf, de.tags=deGenes)

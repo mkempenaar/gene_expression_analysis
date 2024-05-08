@@ -1,6 +1,6 @@
 # (APPENDIX) Appendix {-} 
 
-# Appendix A: Loading Expression Data in R {#a1-data_loading}
+# Loading Expression Data in R {#a1-data_loading}
 
 ## Exploring the Available Project Data {#expl-data}
 

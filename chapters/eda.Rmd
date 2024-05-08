@@ -13,7 +13,7 @@ library(grid)
 source('utils.R')
 ```
 
-# Exploratory Data Analysis {#chapter-3}
+# Exploratory Data Analysis {#EDA}
 
 We start with performing some exploratory data analysis steps with the goal of getting to grips with your chosen data set to properly identify a strategy for the actual analysis steps. During this exploration we will also keep an eye on the quality of the data. Even though the downloadable data is 'processed', there might be samples present that deviate too much from the other group of samples (a so called *outlier*). Creating basic visualizations of the data will give the necessary insight before we continue. 
 
@@ -68,7 +68,7 @@ The following code shows how to load the two available files containing the raw-
 * **`GSE101942_IPSC_rawCounts.txt`**: raw count data for the induced pluripotent stem cells (iPSCs), both *trisomic* and *disomic*
 * **`GSE101942_Neuron_rawCounts.txt`**: raw count data for the IPSC-derived Neurons, both *trisomic* and *disomic*. These cells were treated to remove chromosome 21 from the iPSCs, as described by the treatment protocol as: "Targeted removal of CHR 21 in IPSC using TKNEO transgene".
 
-```{r example_data_gse101-42}
+```{r example_data_gse101-42, eval=TRUE}
 # Load the two sets of 6 samples
 ipsc.data <- read.table('./data/gse101942/GSE101942_IPSC_rawCounts.txt',
                         header = TRUE)
