@@ -73,6 +73,7 @@
 <li class="book-part">Appendix</li>
 <li><a class="" href="a1-data_loading.html"><span class="header-section-number">A</span> Loading Expression Data in R</a></li>
 <li><a class="active" href="a2-annotation.html"><span class="header-section-number">B</span> Annotating an RNA-Seq Experiment</a></li>
+<li><a class="" href="a3-read-mapping.html"><span class="header-section-number">C</span> From Reads to Counts</a></li>
 </ul>
 
         <div class="book-extra">
@@ -848,32 +849,13 @@ name ID(s)</td>
 <span><span class="va">results</span><span class="op">$</span><span class="va">gene_length</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span><span class="op">(</span><span class="va">results</span><span class="op">$</span><span class="va">end_position</span> <span class="op">-</span> <span class="va">results</span><span class="op">$</span><span class="va">start_position</span><span class="op">)</span></span></code></pre></div>
 <p>The <code>results</code> object is a <code>data.frame</code> with 5 columns that we can merge with our data set giving us the following annotation columns (combined from the <code>AnnotationDBI</code> and <code>biomaRt</code> libraries).</p>
 <p>This was just an example on how to use the <code>biomaRt</code> library and it comes down to selecting the correct filter and looking for interesting attributes to retrieve. Further information can be found in the documentation avaialble with `vignette(‘biomaRt’)</p>
-</div>
-</div>
-<div id="references" class="section level2" number="7.3">
-<h2>
-<span class="header-section-number">B.3</span> References<a class="anchor" aria-label="anchor" href="#references"><i class="fas fa-link"></i></a>
-</h2>
 
-<div id="refs" class="references csl-bib-body hanging-indent">
-<div id="ref-deelen15" class="csl-entry">
-al., Patrick Deelen et. 2015. <span>“Calling Genotypes from Public RNA-Sequencing Data Enables Identification of Genetic Variants That Affect Gene-Expression Levels.”</span> <em>Genome Medicine</em> 7 (30).
-</div>
-<div id="ref-R-edgeR" class="csl-entry">
-Chen, Yunshun, Aaron Lun, Davis McCarthy, Xiaobei Zhou, Mark Robinson, and Gordon Smyth. 2018. <em>edgeR: Empirical Analysis of Digital Gene Expression Data in r</em>. <a href="http://bioinf.wehi.edu.au/edgeR">http://bioinf.wehi.edu.au/edgeR</a>.
-</div>
-<div id="ref-R-pander" class="csl-entry">
-Daróczi, Gergely, and Roman Tsegelskyi. 2017. <em>Pander: An r ’Pandoc’ Writer</em>. <a href="https://CRAN.R-project.org/package=pander">https://CRAN.R-project.org/package=pander</a>.
-</div>
-<div id="ref-R-DESeq2" class="csl-entry">
-Love, Michael, Simon Anders, and Wolfgang Huber. 2017. <em>DESeq2: Differential Gene Expression Analysis Based on the Negative Binomial Distribution</em>. <a href="https://github.com/mikelove/DESeq2">https://github.com/mikelove/DESeq2</a>.
-</div>
 </div>
 </div>
 </div>
   <div class="chapter-nav">
 <div class="prev"><a href="a1-data_loading.html"><span class="header-section-number">A</span> Loading Expression Data in R</a></div>
-<div class="empty"></div>
+<div class="next"><a href="a3-read-mapping.html"><span class="header-section-number">C</span> From Reads to Counts</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
@@ -885,7 +867,6 @@ Love, Michael, Simon Anders, and Wolfgang Huber. 2017. <em>DESeq2: Differential 
 <li><a class="nav-link" href="#using-biomart"><span class="header-section-number">B.2.2</span> Using biomaRt</a></li>
 </ul>
 </li>
-<li><a class="nav-link" href="#references"><span class="header-section-number">B.3</span> References</a></li>
 </ul>
 
       <div class="book-extra">
@@ -903,7 +884,7 @@ Love, Michael, Simon Anders, and Wolfgang Huber. 2017. <em>DESeq2: Differential 
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Capstone Project - Gene Expression Analysis</strong>" was written by Marcel Kempenaar. It was last built on 2024-04-23.</p>
+    <p>"<strong>Capstone Project - Gene Expression Analysis</strong>" was written by Marcel Kempenaar. It was last built on 2024-05-08.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

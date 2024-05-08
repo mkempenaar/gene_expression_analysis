@@ -73,6 +73,7 @@
 <li class="book-part">Appendix</li>
 <li><a class="" href="a1-data_loading.html"><span class="header-section-number">A</span> Loading Expression Data in R</a></li>
 <li><a class="" href="a2-annotation.html"><span class="header-section-number">B</span> Annotating an RNA-Seq Experiment</a></li>
+<li><a class="" href="a3-read-mapping.html"><span class="header-section-number">C</span> From Reads to Counts</a></li>
 </ul>
 
         <div class="book-extra">
@@ -107,7 +108,7 @@
 <strong>Note</strong>: if the data set consists of separate files (i.e. one per sample) or for general tips on reading in data, see the <a href="a1-data_loading.html#a1-batch_data_loading">Appendix A: <em>Batch Loading Expression Data</em></a> chapter.</li>
 <li>For the remainder of the document, try to show either the contents, structure or - in this case - dimensions of relevant R objects
 <ul>
-<li>Show the first five lines of the loaded data set. Including tables in a markdown document can be done using the <code>pander</code> function from the <code>pander</code><span class="citation">(<a href="a2-annotation.html#ref-R-pander">Daróczi and Tsegelskyi 2017</a>)</span> R-library.</li>
+<li>Show the first five lines of the loaded data set. Including tables in a markdown document can be done using the <code>pander</code> function from the <code>pander</code><span class="citation">(<a href="a3-read-mapping.html#ref-R-pander">Daróczi and Tsegelskyi 2017</a>)</span> R-library.</li>
 <li>Give the dimensions (with <code><a href="https://rdrr.io/r/base/dim.html">dim()</a></code> and the structure (with <code><a href="https://rdrr.io/r/utils/str.html">str()</a></code>) of the loaded data set.</li>
 <li>Check the output of the <code>str</code> function to see if all columns are of the expected R data type (e.g. <code>values</code>, <code>factors</code>, <code>character</code>, etc.)</li>
 </ul>
@@ -308,7 +309,7 @@ Figure 3.2: Density plot comparing count distribution for 12 samples
 <span class="header-section-number">3.4</span> Visualizing using <code>heatmap</code> and <code>MDS</code><a class="anchor" aria-label="anchor" href="#EDA_part2"><i class="fas fa-link"></i></a>
 </h2>
 <p>This section adds a few Exploratory Data Analysis techniques where we will measure and look at <em>distances</em> between samples based on <em>normalized</em> data. Measuring distances between two data objects (samples in our case) is a common task in cluster analysis to compare similarity (low distance indicates similar data). In this case we will calculate the distances between our samples and visualize them in a <code>heatmap</code> and using a <code>multidimensional scaling</code> (MDS) technique.</p>
-<p>In the previous section we used the raw count data. You might have one or more samples that have different values (i.e. shifted) compared to other samples. While we need the raw count data to use R packages such as <code>edgeR</code> <span class="citation">(<a href="a2-annotation.html#ref-R-edgeR">Chen et al. 2018</a>)</span> and <code>DESeq2</code> <span class="citation">(<a href="a2-annotation.html#ref-R-DESeq2">Love, Anders, and Huber 2017</a>)</span>, calculating sample distances (used in the visualizations in this section) should be done on some form of normalized data. This data can either be RPKM/FPKM/TPM/CPM or vst-transformed (raw-)read counts. A proper method of transforming raw read count data is using the <code>vst</code> method from the <code>DESeq2</code> R Bioconductor library which is shown below. This ‘<em>variance stabilizing transformation</em>’ normalized data will only be used in this chapter, in chapter 4 we will again normalize using a different technique.</p>
+<p>In the previous section we used the raw count data. You might have one or more samples that have different values (i.e. shifted) compared to other samples. While we need the raw count data to use R packages such as <code>edgeR</code> <span class="citation">(<a href="a3-read-mapping.html#ref-R-edgeR">Chen et al. 2018</a>)</span> and <code>DESeq2</code> <span class="citation">(<a href="a3-read-mapping.html#ref-R-DESeq2">Love, Anders, and Huber 2017</a>)</span>, calculating sample distances (used in the visualizations in this section) should be done on some form of normalized data. This data can either be RPKM/FPKM/TPM/CPM or vst-transformed (raw-)read counts. A proper method of transforming raw read count data is using the <code>vst</code> method from the <code>DESeq2</code> R Bioconductor library which is shown below. This ‘<em>variance stabilizing transformation</em>’ normalized data will only be used in this chapter, in chapter 4 we will again normalize using a different technique.</p>
 <p>The following code examples shows how to use this library to normalize the count data from the <strong>GSE101942</strong> experiment to vst-normalized data before we calculate a distance metric.</p>
 <ul>
 <li>new(“standardGeneric”, .Data = function (object, …)</li>
@@ -714,7 +715,7 @@ Figure 3.5: Multi Dimensional Scaling - Poisson Distance for all samples
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Capstone Project - Gene Expression Analysis</strong>" was written by Marcel Kempenaar. It was last built on 2024-04-23.</p>
+    <p>"<strong>Capstone Project - Gene Expression Analysis</strong>" was written by Marcel Kempenaar. It was last built on 2024-05-08.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
