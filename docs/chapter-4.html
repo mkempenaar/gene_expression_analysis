@@ -4,15 +4,15 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title> Discovering Differentialy Expressed Genes (DEGs) | Capstone Project - Gene Expression Analysis</title>
+<title> Discovering Differentialy Expressed Genes (DEGs) | 2.1.2 Genomics &amp; Transcriptomics</title>
 <meta name="author" content="Marcel Kempenaar">
 <meta name="description" content="The first and most important ‘real’ analysis step we will do is finding genes that show a difference in expression between sample groups; the differentially expressed genes (DEGs). The concept...">
 <meta name="generator" content="bookdown 0.36 with bs4_book()">
-<meta property="og:title" content=" Discovering Differentialy Expressed Genes (DEGs) | Capstone Project - Gene Expression Analysis">
+<meta property="og:title" content=" Discovering Differentialy Expressed Genes (DEGs) | 2.1.2 Genomics &amp; Transcriptomics">
 <meta property="og:type" content="book">
 <meta property="og:description" content="The first and most important ‘real’ analysis step we will do is finding genes that show a difference in expression between sample groups; the differentially expressed genes (DEGs). The concept...">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content=" Discovering Differentialy Expressed Genes (DEGs) | Capstone Project - Gene Expression Analysis">
+<meta name="twitter:title" content=" Discovering Differentialy Expressed Genes (DEGs) | 2.1.2 Genomics &amp; Transcriptomics">
 <meta name="twitter:description" content="The first and most important ‘real’ analysis step we will do is finding genes that show a difference in expression between sample groups; the differentially expressed genes (DEGs). The concept...">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
@@ -26,6 +26,7 @@
     div.csl-bib-body { }
     div.csl-entry {
       clear: both;
+          margin-bottom: 0em;
         }
     .hanging div.csl-entry {
       margin-left:2em;
@@ -53,7 +54,7 @@
 
     <div class="d-flex align-items-start justify-content-between">
       <h1>
-        <a href="index.html" title="">Capstone Project - Gene Expression Analysis</a>
+        <a href="index.html" title="">2.1.2 Genomics &amp; Transcriptomics</a>
       </h1>
       <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
     </div>
@@ -66,14 +67,14 @@
       <nav aria-label="Table of contents"><h2>Table of contents</h2>
         <ul class="book-toc list-unstyled">
 <li><a class="" href="index.html"><span class="header-section-number">1</span> Introduction</a></li>
-<li><a class="" href="datasets.html"><span class="header-section-number">2</span> Discovering Data Sets</a></li>
+<li><a class="" href="from-reads-to-counts.html"><span class="header-section-number">2</span> From Reads to Counts</a></li>
 <li><a class="" href="EDA.html"><span class="header-section-number">3</span> Exploratory Data Analysis</a></li>
 <li><a class="active" href="chapter-4.html"><span class="header-section-number">4</span> Discovering Differentialy Expressed Genes (DEGs)</a></li>
 <li><a class="" href="chapter-5.html"><span class="header-section-number">5</span> Data Analysis and Visualization</a></li>
 <li class="book-part">Appendix</li>
-<li><a class="" href="a1-data_loading.html"><span class="header-section-number">A</span> Loading Expression Data in R</a></li>
-<li><a class="" href="a2-annotation.html"><span class="header-section-number">B</span> Annotating an RNA-Seq Experiment</a></li>
-<li><a class="" href="a3-read-mapping.html"><span class="header-section-number">C</span> From Reads to Counts</a></li>
+<li><a class="" href="datasets.html"><span class="header-section-number">A</span> Discovering RNA-Seq Data Sets</a></li>
+<li><a class="" href="a2-data_loading.html"><span class="header-section-number">B</span> Batch Loading Expression Data in R</a></li>
+<li><a class="" href="a2-annotation.html"><span class="header-section-number">C</span> Annotating an RNA-Seq Experiment</a></li>
 </ul>
 
         <div class="book-extra">
@@ -94,7 +95,7 @@
 <p>Given the results of the exploratory data analysis performed in <a href="#chapter-3">chapter 3</a>, you might have concluded that there are one or more samples that show (very) deviating expression patterns compared to samples from the same group. As mentioned before, <em>if</em> you have more then enough (&gt; 3) samples in a group, you might opt to remove a sample to reduce the noise as the statistical tests are very sensitive to this. Since we are performing all analysis steps programatically it is also very easy to test for DEGs with and without the sample(s) in question and see if the removal results in lower p-values (= higher significance). Remember to always properly document your choice and reasoning!</p>
 <p>To perform a few more manual steps on our data before using other libraries, we will re-do the normalization with a different technique. A simple method of normalizing count data is to calculate the <em>fragments per million mapped fragments</em> (FPM, equal to CPM) value and then transform this with log2. Opposed to FPKM and RPKM this does not include the gene-length in its calculation (which you most likely don’t have). If your dataset also includes FPKM or RPKM (pre-normalized), you are allowed to use this data too.</p>
 <p>FPM and CPM are simply dividing the count values for a sample by the total number of reads of that sample divided by 1 million as shown below:</p>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Perform a naive FPM normalization</span></span>
 <span><span class="co"># Note: log transformation includes a pseudocount of 1</span></span>
 <span><span class="va">counts.fpm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">log2</a></span><span class="op">(</span> <span class="op">(</span><span class="va">counts</span> <span class="op">/</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/colSums.html">colSums</a></span><span class="op">(</span><span class="va">counts</span><span class="op">)</span> <span class="op">/</span> <span class="fl">1e6</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fl">1</span> <span class="op">)</span></span></code></pre></div>
@@ -175,7 +176,7 @@
 <span class="header-section-number">4.3.1</span> The <code>Design</code> (matrix)<a class="anchor" aria-label="anchor" href="#deg-design"><i class="fas fa-link"></i></a>
 </h3>
 <p>For all of these packages you need to properly specify <em>how</em> your samples are grouped. We have seen examples of this using an <code>R factor</code> object with the heatmap and MDS visualizations to tell which groups of samples we have and to which group each sample belongs. Reading the documentation for the below packages shows that this is an important part of performing DE-analysis. For example, the following code is shown in the <code>edgeR</code> documentation on page 8 where two sample groups are defined (numbered <code>1</code> and <code>2</code>), placed in a <code>factor</code> object and used as input in the <code>model.matrix</code> function.</p>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">group</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span>, labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Control"</span>, <span class="st">"Case"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">(</span><span class="va">design</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/model.matrix.html">model.matrix</a></span><span class="op">(</span> <span class="op">~</span> <span class="va">group</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code>##   (Intercept) groupCase
@@ -382,7 +383,7 @@ IPSC.trisomic vs IPSC.disomic</td>
 </table></div>
 <p><em>How</em> you call the <code>results</code> function depends heavily on your experiment. As you can see from the output of the <code>summary</code> function, there are no details given about <em>which</em> comparison is shown (and also, by default a p-value of 0.1 is used instead of 0.05).</p>
 <p>Depending on the <em>design</em> used to create the <code>DESeqDataSet</code> with, one or more comparisons can be made (applying the <code>DESeq</code> function calculates all and you filter with the <code>results</code> function). Read the help for the <code>results</code> function carefully; especially regarding the <code>contrast</code> argument where you define the comparison to retrieve. The following code can be used for our example experiment to get the DEGs comparing the celltypes using an adjusted p-value of 0.05:</p>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/DESeq2/man/results.html">results</a></span><span class="op">(</span><span class="va">dds</span>, contrast <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Cell"</span>, <span class="st">"IPSC"</span>, <span class="st">"Neuron"</span><span class="op">)</span>,</span>
 <span>               alpha <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></span></code></pre></div>
 <p>The <code>DESeq2</code> library contains a number of plotting functions that can be applied to a <code>DESeqResults</code> object (output of the <code>results</code> function), the most notable is the <code>plotMA</code> function. Note that the first MA-plot shown below has a very high range for the log fold changes (-10, 10) where the maximum value is 22.4 (shown as a triangle stating it is outside of the plotting range). A <strong>log</strong> fold change of 22 means &gt;5 <em>million</em> increased expression which seems artificially high. DESeq2 includes a function to perform downstream processing of the estimated log fold change values called <code>lfcShrink</code> which is advised to always run afterwards. The reason for executing this function is described in the vignette with:</p>
@@ -422,7 +423,7 @@ Backtrace:
 4. base::.handleSimpleError(<code>&lt;fn&gt;</code>, “object ‘qlf’ not found”, base::quote(topTags(qlf)))
 5. base (local) h(simpleError(msg, call))</p>
 <p>The package also contains a few plotting methods that you can use at intermediate steps during the analysis. For instance, after calculating the normalization factors (<code>calcNormFactors</code>), you can perform multi-dimensional scaling with the <code>plotMDS</code> function which is similar to what we’ve done manually in chapter three:</p>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">plotMDS</span><span class="op">(</span><span class="va">y</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
 <span style="display:block;" id="fig:edgeRPlotMDS"></span>
@@ -431,7 +432,7 @@ Figure 4.2: edgeR MDS plot based on the calculated log2 fold changes
 </p>
 </div>
 <p>Or the <em>dispersion</em> after running the <code>estimateDisp</code> function with the <code>plotBCV</code> function:</p>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">plotBCV</span><span class="op">(</span><span class="va">y</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
 <span style="display:block;" id="fig:edgeRPlotBCV"></span>
@@ -440,7 +441,7 @@ Figure 4.3: edgeR plot of several dispersion methods
 </p>
 </div>
 <p>Or the log-fold changes for all genes, once we have the output of the <code>exactTest</code> function (output <code>et</code> is an <code>DGEExact</code> object) with the <code>plotSmear</code> function. The <code>abline</code> shows a log-FC threshold:</p>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">deGenes</span> <span class="op">&lt;-</span> <span class="fu">decideTestsDGE</span><span class="op">(</span><span class="va">qlf</span>, p<span class="op">=</span><span class="fl">0.05</span><span class="op">)</span></span>
 <span><span class="va">deGenes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/row_colnames.html">rownames</a></span><span class="op">(</span><span class="va">qlf</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/logical.html">as.logical</a></span><span class="op">(</span><span class="va">deGenes</span><span class="op">)</span><span class="op">]</span></span>
 <span><span class="fu">plotSmear</span><span class="op">(</span><span class="va">qlf</span>, de.tags<span class="op">=</span><span class="va">deGenes</span><span class="op">)</span></span>
@@ -488,7 +489,7 @@ Figure 4.3: edgeR plot of several dispersion methods
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Capstone Project - Gene Expression Analysis</strong>" was written by Marcel Kempenaar. It was last built on 2024-05-08.</p>
+    <p>"<strong>2.1.2 Genomics &amp; Transcriptomics</strong>" was written by Marcel Kempenaar. It was last built on 2024-09-08.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

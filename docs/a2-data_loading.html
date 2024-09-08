@@ -4,16 +4,16 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>A Loading Expression Data in R | 2.1.2 Genomics &amp; Transcriptomics</title>
+<title>B Batch Loading Expression Data in R | 2.1.2 Genomics &amp; Transcriptomics</title>
 <meta name="author" content="Marcel Kempenaar">
-<meta name="description" content="A.1 Exploring the Available Project Data Whether you’ve found a dataset through the SRA or GEO, we want to get the data into R to start working with it. For now, we will only download the count...">
+<meta name="description" content="This code example shows how to batch-load multiple files containing expression (count) data for a single sample. The data for this example can be found on GEO with ID GSE109798. Depending on the...">
 <meta name="generator" content="bookdown 0.36 with bs4_book()">
-<meta property="og:title" content="A Loading Expression Data in R | 2.1.2 Genomics &amp; Transcriptomics">
+<meta property="og:title" content="B Batch Loading Expression Data in R | 2.1.2 Genomics &amp; Transcriptomics">
 <meta property="og:type" content="book">
-<meta property="og:description" content="A.1 Exploring the Available Project Data Whether you’ve found a dataset through the SRA or GEO, we want to get the data into R to start working with it. For now, we will only download the count...">
+<meta property="og:description" content="This code example shows how to batch-load multiple files containing expression (count) data for a single sample. The data for this example can be found on GEO with ID GSE109798. Depending on the...">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="A Loading Expression Data in R | 2.1.2 Genomics &amp; Transcriptomics">
-<meta name="twitter:description" content="A.1 Exploring the Available Project Data Whether you’ve found a dataset through the SRA or GEO, we want to get the data into R to start working with it. For now, we will only download the count...">
+<meta name="twitter:title" content="B Batch Loading Expression Data in R | 2.1.2 Genomics &amp; Transcriptomics">
+<meta name="twitter:description" content="This code example shows how to batch-load multiple files containing expression (count) data for a single sample. The data for this example can be found on GEO with ID GSE109798. Depending on the...">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.5.1/transition.js"></script><script src="libs/bs3compat-0.5.1/tabs.js"></script><script src="libs/bs3compat-0.5.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
@@ -71,10 +71,10 @@
 <li><a class="" href="EDA.html"><span class="header-section-number">3</span> Exploratory Data Analysis</a></li>
 <li><a class="" href="chapter-4.html"><span class="header-section-number">4</span> Discovering Differentialy Expressed Genes (DEGs)</a></li>
 <li><a class="" href="chapter-5.html"><span class="header-section-number">5</span> Data Analysis and Visualization</a></li>
-<li><a class="" href="datasets.html"><span class="header-section-number">6</span> Discovering Data Sets</a></li>
 <li class="book-part">Appendix</li>
-<li><a class="active" href="a1-data_loading.html"><span class="header-section-number">A</span> Loading Expression Data in R</a></li>
-<li><a class="" href="a2-annotation.html"><span class="header-section-number">B</span> Annotating an RNA-Seq Experiment</a></li>
+<li><a class="" href="datasets.html"><span class="header-section-number">A</span> Discovering RNA-Seq Data Sets</a></li>
+<li><a class="active" href="a2-data_loading.html"><span class="header-section-number">B</span> Batch Loading Expression Data in R</a></li>
+<li><a class="" href="a2-annotation.html"><span class="header-section-number">C</span> Annotating an RNA-Seq Experiment</a></li>
 </ul>
 
         <div class="book-extra">
@@ -82,128 +82,11 @@
         </div>
       </nav>
 </div>
-  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="a1-data_loading" class="section level1" number="7">
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="a2-data_loading" class="section level1" number="7">
 <h1>
-<span class="header-section-number">A</span> Loading Expression Data in R<a class="anchor" aria-label="anchor" href="#a1-data_loading"><i class="fas fa-link"></i></a>
+<span class="header-section-number">B</span> Batch Loading Expression Data in R<a class="anchor" aria-label="anchor" href="#a2-data_loading"><i class="fas fa-link"></i></a>
 </h1>
-<div id="expl-data" class="section level2" number="7.1">
-<h2>
-<span class="header-section-number">A.1</span> Exploring the Available Project Data<a class="anchor" aria-label="anchor" href="#expl-data"><i class="fas fa-link"></i></a>
-</h2>
-<p>Whether you’ve found a dataset through the SRA or GEO, we want to get the data into R to start working with it. For now, we will only download the <strong>count data</strong> which is most likely stored in a <code>TXT</code> or <code>XLS(X)</code> file format:</p>
-<p><strong>Data formats</strong>:</p>
-<ul>
-<li>
-<strong>TXT</strong>: simple text file containing a minimum of two columns (either tab or comma separated containing i.e. gene / transcript identifier and one of the above mentioned data types).
-<ul>
-<li>However it can also contain up to 10 data columns either including more information regarding the gene/ transcript (i.e. gene ID, name, symbol, chromosome, start/ stop position, length, etc.) or more numerical columns (i.e. raw read count, normalized readcount, FPKM, etc.).</li>
-</ul>
-</li>
-<li>
-<strong>XLS(X)</strong>: Microsoft Excel file containing the same data columns as mentioned in the TXT files.</li>
-</ul>
-<p><strong>Data types</strong>:</p>
-<ul>
-<li>
-<strong>Read Count</strong> (<strong>required</strong>; simple <em>raw</em> count of mapped reads to a certain gene or transcript).</li>
-<li>
-<strong>FPKM</strong> (Fragments Per Kilobase Million, <strong>F</strong> for <em>Fragment</em>, paired-end sequencing),</li>
-<li>
-<strong>RPKM</strong> (Reads Per Kilobase Million, <strong>R</strong> for <em>Read</em>, single-end sequencing),</li>
-<li>
-<strong>TPM</strong> (Transcripts Per Kilobase Million, <strong>T</strong> for <em>Transcript</em>, technique independent),</li>
-</ul>
-<p><strong>Layouts</strong></p>
-<ul>
-<li>Either one or more files <strong>per sample</strong> with one of the above data types or</li>
-<li>One file containing the data types for <strong>all samples</strong> (with the samples as data columns in the file)</li>
-</ul>
-<p><strong>Please watch</strong> the video and read the page found at the <a href="http://www.rna-seqblog.com/rpkm-fpkm-and-tpm-clearly-explained/">RNA-Seq blog</a> regarding the meaning and calculation of the above mentioned expression data formats or a more technical document found at <a href="https://haroldpimentel.wordpress.com/2014/05/08/what-the-fpkm-a-review-rna-seq-expression-units/">The farrago blog page</a>.</p>
-<p>On GEO you can see what data <em>might</em> be availalbe in the <code>Supplementary</code> column, as shown below:</p>
-<div class="figure">
-<span style="display:block;" id="fig:GEODataOverview"></span>
-<img src="chapters/images/geo_data-overview.png" alt="Finding an experiment on GEO with a TXT file as supplementary data" width="1114"><p class="caption">
-Figure A.1: Finding an experiment on GEO with a TXT file as supplementary data
-</p>
-</div>
-<p>This overview on GEO contains many links which are <em>not</em> direct links to the items for that dataset, but can be used as <em>filter</em> for browsing the results. If you want to actually download the data, click on the <strong>GSE</strong> identifier (first column) which brings you to an overview for this experiment containing a lot of information about the experiment (subject, research institute, publication, design, etc.) and links to each individual sample (<strong>GSM</strong> identifier). Following the link to a sample shows information on how this sample was retrieved with often many (lab) protocols used. Sometimes there is a segment regarding “<em>Data Processing</em>” that refers to techniques and software used for the full analysis and might contain something like:</p>
-<blockquote>
-<p>… Differential expression testing between sample groups was performed in Rstudio (v. 1.0.36) using DESeq2 (v.1.14.1) …</p>
-</blockquote>
-<p>Back on the experiment overview page you’ll see a (variable) number of links to data files belonging to this experiment, see <span class="math inline">\(\ref{fig:GEO_Data-download}\)</span>. For now we are only interested in the count-data which is stored in the <code>TXT</code>-file (see the column <code>File type/resource</code>) called <code>GSE97406_RAW.tar</code>. This file contains <em>all</em> the data that we need, even though it is only <strong>220Kb</strong> in size where the experiment started with about <strong>5Gb</strong> of read-data for a small bacteria:</p>
-<div class="figure">
-<span style="display:block;" id="fig:GEODataDownload"></span>
-<img src="chapters/images/geo_data-download.png" alt="Finding the supplementary data in a GEO record" width="697"><p class="caption">
-Figure A.2: Finding the supplementary data in a GEO record
-</p>
-</div>
-<p>As a bioinformatician we love to compress all the files so for this particular example, we download the <code>tar</code>-archive file, extract it to find a folder with another archive file for each sample. After extracting these files we end up with 12 <code>TXT</code>-files with just two columns; a <em>gene</em> identifier and a raw <em>count</em> value (~4500 rows of data per sample):</p>
-<div class="inline-table"><table class="table table-sm">
-<caption>
-<span id="tab:foo">Table A.1: </span> Contents of a <code>TXT</code>-file for sample <a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM2563998"><code>GSM2563998</code></a>
-</caption>
-<thead><tr class="header">
-<th>Gene ID</th>
-<th>Count Value</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td>aaaD</td>
-<td>0</td>
-</tr>
-<tr class="even">
-<td>aaaE</td>
-<td>0</td>
-</tr>
-<tr class="odd">
-<td>aaeR</td>
-<td>50</td>
-</tr>
-<tr class="even">
-<td>aaeX</td>
-<td>0</td>
-</tr>
-<tr class="odd">
-<td>aas</td>
-<td>118</td>
-</tr>
-<tr class="even">
-<td>abgB</td>
-<td>21</td>
-</tr>
-<tr class="odd">
-<td>abgR</td>
-<td>56</td>
-</tr>
-<tr class="even">
-<td>abgT</td>
-<td>0</td>
-</tr>
-<tr class="odd">
-<td>abrB</td>
-<td>11</td>
-</tr>
-<tr class="even">
-<td>accA</td>
-<td>453</td>
-</tr>
-<tr class="odd">
-<td>accB</td>
-<td>2492</td>
-</tr>
-<tr class="even">
-<td>accC</td>
-<td>1197</td>
-</tr>
-</tbody>
-</table></div>
-<p>Other experiments combine their samples in a single file where each column represents a sample. If you do get an experiment with one file per sample, we can programmatically (yes, even in R) load this data in batch.</p>
-</div>
-<div id="a1-batch_data_loading" class="section level2" number="7.2">
-<h2>
-<span class="header-section-number">A.2</span> Batch Loading Expression Data<a class="anchor" aria-label="anchor" href="#a1-batch_data_loading"><i class="fas fa-link"></i></a>
-</h2>
-<p>This code example shows how to batch-load multiple files containing expression (count) data for a <em>single</em> sample. The data for this example can be found on GEO with ID <a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE109798">GSE109798</a>. Downloading the data for this experiment from GEO gives us a single <code>.tar</code> file called <code>GSE109798_RAW.tar</code>. Extracting this archive file nets us a folder with the following files:</p>
+<p>This code example shows how to batch-load multiple files containing expression (count) data for a <em>single</em> sample. The data for this example can be found on GEO with ID <a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE109798">GSE109798</a>. Depending on the tool used to convert the mapping data into a per-sample count file, contents of these files can be (very) different. Downloading the data for this example experiment from GEO gives us a single <code>.tar</code> file called <code>GSE109798_RAW.tar</code>. Extracting this archive file nets us a folder with the following files:</p>
 <div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">file.names</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html">list.files</a></span><span class="op">(</span><span class="st">'./data/GSE109798_RAW/'</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-table"><table class="table table-sm">
@@ -249,9 +132,9 @@ Figure A.2: Finding the supplementary data in a GEO record
 </tr>
 </tbody>
 </table></div>
-<div id="decompressing" class="section level3" number="7.2.1">
+<div id="decompressing" class="section level3" number="7.0.1">
 <h3>
-<span class="header-section-number">A.2.1</span> Decompressing<a class="anchor" aria-label="anchor" href="#decompressing"><i class="fas fa-link"></i></a>
+<span class="header-section-number">B.0.1</span> Decompressing<a class="anchor" aria-label="anchor" href="#decompressing"><i class="fas fa-link"></i></a>
 </h3>
 <p>The file extension of all these files is <code>.txt.gz</code> which means that all files are compressed using <code>gzip</code> and need to be unpacked before they can be loaded. The easiest method is using the system <code>gunzip</code> command on all files which can be done from within R by <em>applying</em> the <code>gunzip</code> command using the <code>system</code> function on each file.</p>
 <div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
@@ -264,9 +147,9 @@ Figure A.2: Finding the supplementary data in a GEO record
 <div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">file.names</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html">list.files</a></span><span class="op">(</span><span class="st">'./data/GSE109798_RAW/'</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div id="determining-data-format" class="section level3" number="7.2.2">
+<div id="determining-data-format" class="section level3" number="7.0.2">
 <h3>
-<span class="header-section-number">A.2.2</span> Determining Data Format<a class="anchor" aria-label="anchor" href="#determining-data-format"><i class="fas fa-link"></i></a>
+<span class="header-section-number">B.0.2</span> Determining Data Format<a class="anchor" aria-label="anchor" href="#determining-data-format"><i class="fas fa-link"></i></a>
 </h3>
 <p>Next, we can inspect what the contents are of these files, assuming that they all have the same layout/ column names etc. to decide what we need to use for our analysis.</p>
 <div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
@@ -413,9 +296,9 @@ function.
 </p>
 </div>
 </div>
-<div id="loading-data-1" class="section level3" number="7.2.3">
+<div id="loading-data-1" class="section level3" number="7.0.3">
 <h3>
-<span class="header-section-number">A.2.3</span> Loading Data<a class="anchor" aria-label="anchor" href="#loading-data-1"><i class="fas fa-link"></i></a>
+<span class="header-section-number">B.0.3</span> Loading Data<a class="anchor" aria-label="anchor" href="#loading-data-1"><i class="fas fa-link"></i></a>
 </h3>
 <p>From all these columns we want to keep the <em>transcript_id</em> and <em>expected_count</em> columns and ignore the rest (we might be interested in this data later on though). As we need to lead each file separately we can define a function that reads in the data, keeping the columns of interest and returning a dataframe with this data. Note that the first line of each file is used as a header, but check before setting the <code>header</code> argument to <code>TRUE</code>, sometimes the expression data starts at line 1. The file name is then also used to name the column in the dataframe so that we know which column is which sample. This is done by splitting the file name (using <code>strsplit</code>) using the dot (‘<code>.</code>’) keeping the first part (i.e. ‘<code>GSM2970156_HCC1806E224A</code>’) and discarding the second part (‘<code>isoforms.results.txt</code>’). The <code>strsplit</code> function however always returns a list, in this case containing a vector with the 5 splitted elements:</p>
 <div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
@@ -563,23 +446,18 @@ function.
 
 </div>
 </div>
-</div>
   <div class="chapter-nav">
-<div class="prev"><a href="datasets.html"><span class="header-section-number">6</span> Discovering Data Sets</a></div>
-<div class="next"><a href="a2-annotation.html"><span class="header-section-number">B</span> Annotating an RNA-Seq Experiment</a></div>
+<div class="prev"><a href="datasets.html"><span class="header-section-number">A</span> Discovering RNA-Seq Data Sets</a></div>
+<div class="next"><a href="a2-annotation.html"><span class="header-section-number">C</span> Annotating an RNA-Seq Experiment</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
-      <ul class="nav navbar-nav">
-<li><a class="nav-link" href="#a1-data_loading"><span class="header-section-number">A</span> Loading Expression Data in R</a></li>
-<li><a class="nav-link" href="#expl-data"><span class="header-section-number">A.1</span> Exploring the Available Project Data</a></li>
-<li>
-<a class="nav-link" href="#a1-batch_data_loading"><span class="header-section-number">A.2</span> Batch Loading Expression Data</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#decompressing"><span class="header-section-number">A.2.1</span> Decompressing</a></li>
-<li><a class="nav-link" href="#determining-data-format"><span class="header-section-number">A.2.2</span> Determining Data Format</a></li>
-<li><a class="nav-link" href="#loading-data-1"><span class="header-section-number">A.2.3</span> Loading Data</a></li>
+      <ul class="nav navbar-nav"><li>
+<a class="nav-link" href="#a2-data_loading"><span class="header-section-number">B</span> Batch Loading Expression Data in R</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#decompressing"><span class="header-section-number">B.0.1</span> Decompressing</a></li>
+<li><a class="nav-link" href="#determining-data-format"><span class="header-section-number">B.0.2</span> Determining Data Format</a></li>
+<li><a class="nav-link" href="#loading-data-1"><span class="header-section-number">B.0.3</span> Loading Data</a></li>
 </ul>
-</li>
-</ul>
+</li></ul>
 
       <div class="book-extra">
         <ul class="list-unstyled">

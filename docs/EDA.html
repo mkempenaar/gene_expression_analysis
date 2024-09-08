@@ -4,15 +4,15 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title> Exploratory Data Analysis | Capstone Project - Gene Expression Analysis</title>
+<title> Exploratory Data Analysis | 2.1.2 Genomics &amp; Transcriptomics</title>
 <meta name="author" content="Marcel Kempenaar">
 <meta name="description" content="We start with performing some exploratory data analysis steps with the goal of getting to grips with your chosen data set to properly identify a strategy for the actual analysis steps. During this...">
 <meta name="generator" content="bookdown 0.36 with bs4_book()">
-<meta property="og:title" content=" Exploratory Data Analysis | Capstone Project - Gene Expression Analysis">
+<meta property="og:title" content=" Exploratory Data Analysis | 2.1.2 Genomics &amp; Transcriptomics">
 <meta property="og:type" content="book">
 <meta property="og:description" content="We start with performing some exploratory data analysis steps with the goal of getting to grips with your chosen data set to properly identify a strategy for the actual analysis steps. During this...">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content=" Exploratory Data Analysis | Capstone Project - Gene Expression Analysis">
+<meta name="twitter:title" content=" Exploratory Data Analysis | 2.1.2 Genomics &amp; Transcriptomics">
 <meta name="twitter:description" content="We start with performing some exploratory data analysis steps with the goal of getting to grips with your chosen data set to properly identify a strategy for the actual analysis steps. During this...">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
@@ -26,6 +26,7 @@
     div.csl-bib-body { }
     div.csl-entry {
       clear: both;
+          margin-bottom: 0em;
         }
     .hanging div.csl-entry {
       margin-left:2em;
@@ -53,7 +54,7 @@
 
     <div class="d-flex align-items-start justify-content-between">
       <h1>
-        <a href="index.html" title="">Capstone Project - Gene Expression Analysis</a>
+        <a href="index.html" title="">2.1.2 Genomics &amp; Transcriptomics</a>
       </h1>
       <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
     </div>
@@ -66,14 +67,14 @@
       <nav aria-label="Table of contents"><h2>Table of contents</h2>
         <ul class="book-toc list-unstyled">
 <li><a class="" href="index.html"><span class="header-section-number">1</span> Introduction</a></li>
-<li><a class="" href="datasets.html"><span class="header-section-number">2</span> Discovering Data Sets</a></li>
+<li><a class="" href="from-reads-to-counts.html"><span class="header-section-number">2</span> From Reads to Counts</a></li>
 <li><a class="active" href="EDA.html"><span class="header-section-number">3</span> Exploratory Data Analysis</a></li>
 <li><a class="" href="chapter-4.html"><span class="header-section-number">4</span> Discovering Differentialy Expressed Genes (DEGs)</a></li>
 <li><a class="" href="chapter-5.html"><span class="header-section-number">5</span> Data Analysis and Visualization</a></li>
 <li class="book-part">Appendix</li>
-<li><a class="" href="a1-data_loading.html"><span class="header-section-number">A</span> Loading Expression Data in R</a></li>
-<li><a class="" href="a2-annotation.html"><span class="header-section-number">B</span> Annotating an RNA-Seq Experiment</a></li>
-<li><a class="" href="a3-read-mapping.html"><span class="header-section-number">C</span> From Reads to Counts</a></li>
+<li><a class="" href="datasets.html"><span class="header-section-number">A</span> Discovering RNA-Seq Data Sets</a></li>
+<li><a class="" href="a2-data_loading.html"><span class="header-section-number">B</span> Batch Loading Expression Data in R</a></li>
+<li><a class="" href="a2-annotation.html"><span class="header-section-number">C</span> Annotating an RNA-Seq Experiment</a></li>
 </ul>
 
         <div class="book-extra">
@@ -105,10 +106,10 @@
 <ul>
 <li>Preferably use the <code>read.table</code> function and carefully set its arguments. Open the file in a text editor first to check its contents; does it have a header? can we set the <code>row.names</code>? Are all columns needed? etc.</li>
 <li>
-<strong>Note</strong>: if the data set consists of separate files (i.e. one per sample) or for general tips on reading in data, see the <a href="a1-data_loading.html#a1-batch_data_loading">Appendix A: <em>Batch Loading Expression Data</em></a> chapter.</li>
+<strong>Note</strong>: if the data set consists of separate files (i.e. one per sample) or for general tips on reading in data, see the <a href="#a1-batch_data_loading">Appendix A: <em>Batch Loading Expression Data</em></a> chapter.</li>
 <li>For the remainder of the document, try to show either the contents, structure or - in this case - dimensions of relevant R objects
 <ul>
-<li>Show the first five lines of the loaded data set. Including tables in a markdown document can be done using the <code>pander</code> function from the <code>pander</code><span class="citation">(<a href="a3-read-mapping.html#ref-R-pander">Daróczi and Tsegelskyi 2017</a>)</span> R-library.</li>
+<li>Show the first five lines of the loaded data set. Including tables in a markdown document can be done using the <code>pander</code> function from the <code>pander</code><span class="citation">(<a href="a2-annotation.html#ref-R-pander">Daróczi and Tsegelskyi 2017</a>)</span> R-library.</li>
 <li>Give the dimensions (with <code><a href="https://rdrr.io/r/base/dim.html">dim()</a></code> and the structure (with <code><a href="https://rdrr.io/r/utils/str.html">str()</a></code>) of the loaded data set.</li>
 <li>Check the output of the <code>str</code> function to see if all columns are of the expected R data type (e.g. <code>values</code>, <code>factors</code>, <code>character</code>, etc.)</li>
 </ul>
@@ -139,7 +140,7 @@ make sense of your sample layout.
 </p>
 </div>
 <p>If you want to include external images to your log and to better control properties such as <em>height</em> and <em>width</em> for individual images you can use the following code. Note: the code below is an <em>example</em> and you need to replace the <code>img_to_include.png</code> file path to an actual image.):</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Add the following to the code chunk header to control figure height, width and add a caption:</span></span>
 <span><span class="co">#    {r, fig.height=5, fig.width=8, echo=FALSE, fig.cap="Image description"}</span></span>
 <span><span class="co"># The `dpi` argument is to remove any scaling</span></span>
@@ -163,7 +164,7 @@ make sense of your sample layout.
 <li>
 <strong><code>GSE101942_Neuron_rawCounts.txt</code></strong>: raw count data for the IPSC-derived Neurons, both <em>trisomic</em> and <em>disomic</em>. These cells were treated to remove chromosome 21 from the iPSCs, as described by the treatment protocol as: “Targeted removal of CHR 21 in IPSC using TKNEO transgene”.</li>
 </ul>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Load the two sets of 6 samples</span></span>
 <span><span class="va">ipsc.data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.table</a></span><span class="op">(</span><span class="st">'./data/gse101942/GSE101942_IPSC_rawCounts.txt'</span>,</span>
 <span>                        header <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
@@ -179,7 +180,7 @@ make sense of your sample layout.
 <pre><code>##  [1] "Row.names" "c244A"     "c244B"     "c243"      "c2A"       "c2B"      
 ##  [7] "c2C"       "C3_1"      "C3_2"      "C3_4"      "C2_2_1"    "C2_2_2"   
 ## [13] "C2_2_3"</code></pre>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Set the row names to the gene IDs stored in the 'Row.names' column</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/row.names.html">row.names</a></span><span class="op">(</span><span class="va">counts</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">counts</span><span class="op">$</span><span class="va">Row.names</span></span>
 <span><span class="co"># Remove the gene ID column</span></span>
@@ -194,7 +195,7 @@ make sense of your sample layout.
 <pre><code>##  [1] "di_IPSC_r1"  "di_IPSC_r2"  "di_IPSC_r3"  "tri_IPSC_r1" "tri_IPSC_r2"
 ##  [6] "tri_IPSC_r3" "di_NEUR_r1"  "di_NEUR_r2"  "di_NEUR_r3"  "tri_NEUR_r1"
 ## [11] "tri_NEUR_r2" "tri_NEUR_r3"</code></pre>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Assign column -indices- to variables for later use (i.e. counts[di_NEUR] selects the relevant columns)</span></span>
 <span><span class="va">di_IPSC</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span></span>
 <span><span class="va">tri_IPSC</span> <span class="op">&lt;-</span> <span class="fl">4</span><span class="op">:</span><span class="fl">6</span></span>
@@ -279,7 +280,7 @@ Figure 3.1: Boxplot comparing basic statistics for all genes across multiple sam
 </h3>
 <p>Another form of visualizing the same data is using a density plot. This method shows a distribution of the (log2-transformed) count data for all samples and allows for easy spotting of problems. While this plot is more commonly used in analysing microarrays, it is still useful for comparing the complete dataset. The code and figure below show an example distribution for 12 samples. A few things to note about this figure is that there is a huge peak at exactly <code>-3.321928</code> which can be ignored because this is value is calculated from <code>log2(0.1)</code> explained in the box above. This peak consists of all 0-values (inactive genes) which isn’t very important to us now. Therefore, we added a vertical line to indicate the left-part is of little interest. Note: a lot of the code below is extra, for a simple inspection using <em>only</em> the line <code>plotDensity(log2(counts + 0.1))</code> is enough, the rest is extra example code.</p>
 <p>To assess the quality of the data we look at the peaks in the plot. The heigth of the peak doesn’t matter much, shifted peaks do however as those indicate either a lower or higher amount of reads sequenced for that sample. This can be confirmed with the first plot demonstrated below in the next section where the <em>library-sizes</em> are visualized.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## The affy library has a density plotting function</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">affy</span><span class="op">)</span></span>
 <span></span>
@@ -309,7 +310,7 @@ Figure 3.2: Density plot comparing count distribution for 12 samples
 <span class="header-section-number">3.4</span> Visualizing using <code>heatmap</code> and <code>MDS</code><a class="anchor" aria-label="anchor" href="#EDA_part2"><i class="fas fa-link"></i></a>
 </h2>
 <p>This section adds a few Exploratory Data Analysis techniques where we will measure and look at <em>distances</em> between samples based on <em>normalized</em> data. Measuring distances between two data objects (samples in our case) is a common task in cluster analysis to compare similarity (low distance indicates similar data). In this case we will calculate the distances between our samples and visualize them in a <code>heatmap</code> and using a <code>multidimensional scaling</code> (MDS) technique.</p>
-<p>In the previous section we used the raw count data. You might have one or more samples that have different values (i.e. shifted) compared to other samples. While we need the raw count data to use R packages such as <code>edgeR</code> <span class="citation">(<a href="a3-read-mapping.html#ref-R-edgeR">Chen et al. 2018</a>)</span> and <code>DESeq2</code> <span class="citation">(<a href="a3-read-mapping.html#ref-R-DESeq2">Love, Anders, and Huber 2017</a>)</span>, calculating sample distances (used in the visualizations in this section) should be done on some form of normalized data. This data can either be RPKM/FPKM/TPM/CPM or vst-transformed (raw-)read counts. A proper method of transforming raw read count data is using the <code>vst</code> method from the <code>DESeq2</code> R Bioconductor library which is shown below. This ‘<em>variance stabilizing transformation</em>’ normalized data will only be used in this chapter, in chapter 4 we will again normalize using a different technique.</p>
+<p>In the previous section we used the raw count data. You might have one or more samples that have different values (i.e. shifted) compared to other samples. While we need the raw count data to use R packages such as <code>edgeR</code> <span class="citation">(<a href="a2-annotation.html#ref-R-edgeR">Chen et al. 2018</a>)</span> and <code>DESeq2</code> <span class="citation">(<a href="a2-annotation.html#ref-R-DESeq2">Love, Anders, and Huber 2017</a>)</span>, calculating sample distances (used in the visualizations in this section) should be done on some form of normalized data. This data can either be RPKM/FPKM/TPM/CPM or vst-transformed (raw-)read counts. A proper method of transforming raw read count data is using the <code>vst</code> method from the <code>DESeq2</code> R Bioconductor library which is shown below. This ‘<em>variance stabilizing transformation</em>’ normalized data will only be used in this chapter, in chapter 4 we will again normalize using a different technique.</p>
 <p>The following code examples shows how to use this library to normalize the count data from the <strong>GSE101942</strong> experiment to vst-normalized data before we calculate a distance metric.</p>
 <ul>
 <li>new(“standardGeneric”, .Data = function (object, …)</li>
@@ -387,7 +388,7 @@ Figure 3.3: Library sizes for all samples from GSE101942
 <span class="header-section-number">3.4.1</span> Normalization<a class="anchor" aria-label="anchor" href="#normalization"><i class="fas fa-link"></i></a>
 </h3>
 <p>To use the <code>vst</code> function from the <code>DESeq2</code> library we must construct a <code>DESeqDataSet</code>-object consisting of the count data combined with sample annotation. Since we only want to use it (for now) for performing a vst-transformation we use the most basic form with a very simple <code>design</code> and the sample names as annotation (the <code>colData</code> argument):</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Load the library</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/mikelove/DESeq2">'DESeq2'</a></span><span class="op">)</span></span>
 <span></span>
@@ -406,7 +407,7 @@ Figure 3.3: Library sizes for all samples from GSE101942
 ## colnames(12): di_IPSC_r1 di_IPSC_r2 ... tri_NEUR_r2 tri_NEUR_r3
 ## colData names(1): samples</code></pre>
 <p>We now have a proper <code>DESeqDataSet</code> object as you can see above, containing 56640 rows and 12 columns (genes and samples) with the gene symbols as row names. Usually this object would hold more data, but as this is only a requirement to perform the <code>vst</code> transformation it is good enough for now. Next step is performing this transformation (this can take a while depending on the size of the experiment and results in a <code>Large DESeqTransform</code> object) and retrieving the actual data from this with the <code>assay</code> function as this object too contains a lot of meta-data. The table below shows the updated values which are now comparable across genes whereas the raw count data was harder to compare.</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Perform normalization</span></span>
 <span><span class="va">rld.dds</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/DESeq2/man/vst.html">vst</a></span><span class="op">(</span><span class="va">ddsMat</span><span class="op">)</span></span>
 <span><span class="co"># 'Extract' normalized values</span></span>
@@ -471,7 +472,7 @@ Figure 3.3: Library sizes for all samples from GSE101942
 <span class="header-section-number">3.4.2</span> Distance Calculation<a class="anchor" aria-label="anchor" href="#eda_distance"><i class="fas fa-link"></i></a>
 </h3>
 <p>We now have normalized data that we can use for distance calculation. This is a standard procedure for many data analysis tasks as it calculates a distance metric for each combination of samples that we will use to check for variation <em>within</em> the sample groups. We first need to <a href="https://en.wikipedia.org/wiki/Transpose"><em>transpose</em></a> the matrix (<code>rld</code>) of normalized values using the <code>t</code>-function, because the <code>dist</code> function expects the different samples as rows and the genes as columns. Note that the output matrix is symmetric. Table 3 below shows the calculated distances within the disomic IPSC group where the distance between samples varies from 100 to 140. The maximum distance between any samples is 380 as will be demonstrated with the visualizations in the next sections.</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Calculate basic distance metric (using euclidean distance, see '?dist')</span></span>
 <span><span class="va">sampledists</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/dist.html">dist</a></span><span class="op">(</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/t.html">t</a></span><span class="op">(</span> <span class="va">rld</span> <span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-table"><table style="width:78%;" class="table table-sm">
@@ -516,7 +517,7 @@ Figure 3.3: Library sizes for all samples from GSE101942
 </h3>
 <p>If you have both (raw-)count data <em>and</em> an other normalized format (TPM, RPKM, etc.), you can <em>optionally</em> follow the above procedure for your count data and create a heatmap for <strong>both</strong> formats to see if this makes any difference. The reason for this is that while the RNA-Seq method exists for over 10 years, there are still ongoing discussions on the subject of data processing, especially regarding subjects like which normalization technque to use for which data analysis.</p>
 <p>The following code block creates a heatmap using the <code>pheatmap</code> library which offers on of the many available heatmap functions. Using the <code>annotation</code> data frame (you can inspect the contents of it yourself) we identify the samples based on both the cell type and the ploidy. The clustering shown in the heatmap clearly separates the data based on the cell type and the differences between the ploidy seems to be minimal. Looking further still, the differences <em>within</em> a single group are minimal too meaning that we are not - yet - inclined to remove any outlier-samples. Since we have only have 3 samples per category, we would also lose statistical power if we eventually were to remove one or more samples (also, always check the article to see if they did remove any samples prior to the data analysis).</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># We use the 'pheatmap' library (install with install.packages('pheatmap'))</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">pheatmap</span><span class="op">)</span></span>
 <span></span>
@@ -565,7 +566,7 @@ Y-coordinates.
 <blockquote>
 <p>An n-by-p data matrix with observations on the rows, and p features on the columns. The (i,j) element of x is the <strong>number of reads</strong> in observation i that mapped to feature (e.g. gene or exon) j.</p>
 </blockquote>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st">'PoiClaClu'</span><span class="op">)</span></span>
 <span><span class="co"># Note: uses the raw-count data, PoissonDistance performs normalization</span></span>
 <span><span class="co"># set by the 'type' parameter (uses DESeq)</span></span>
@@ -639,7 +640,7 @@ Y-coordinates.
 </tbody>
 </table></div>
 <p>Table 5: MDS coordinates used for plotting the distances using Poisson Distance</p>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Separate the annotation factor (as the variable name is used as label)</span></span>
 <span><span class="va">groups</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, each<span class="op">=</span><span class="fl">3</span><span class="op">)</span>, </span>
 <span>                 labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"di_IPSC"</span>, <span class="st">"tri_IPSC"</span>, <span class="st">"di_NEUR"</span>, <span class="st">"tri_NEUR"</span><span class="op">)</span><span class="op">)</span></span>
@@ -657,7 +658,7 @@ Y-coordinates.
 Figure 3.5: Multi Dimensional Scaling - Poisson Distance for all samples
 </p>
 </div>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Using base-R plot and legend functions:</span></span>
 <span><span class="co"># plot(mdsPoisData, col=rep(myColors, each=3), pch=20, lwd=2)</span></span>
 <span><span class="co"># legend(x=-20000, y=11000, legend = levels(groups), col=myColors, pch=20)</span></span></code></pre></div>
@@ -674,7 +675,7 @@ Figure 3.5: Multi Dimensional Scaling - Poisson Distance for all samples
 </div>
 </div>
   <div class="chapter-nav">
-<div class="prev"><a href="datasets.html"><span class="header-section-number">2</span> Discovering Data Sets</a></div>
+<div class="prev"><a href="from-reads-to-counts.html"><span class="header-section-number">2</span> From Reads to Counts</a></div>
 <div class="next"><a href="chapter-4.html"><span class="header-section-number">4</span> Discovering Differentialy Expressed Genes (DEGs)</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
@@ -715,7 +716,7 @@ Figure 3.5: Multi Dimensional Scaling - Poisson Distance for all samples
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Capstone Project - Gene Expression Analysis</strong>" was written by Marcel Kempenaar. It was last built on 2024-05-08.</p>
+    <p>"<strong>2.1.2 Genomics &amp; Transcriptomics</strong>" was written by Marcel Kempenaar. It was last built on 2024-09-08.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
