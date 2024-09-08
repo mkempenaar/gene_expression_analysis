@@ -13,7 +13,7 @@ Here we use the `EnhancedVolcano` library that creates a `ggplot2` volcano plot 
 * blue: adjusted p-value indicates significance, but FC below the threshold
 * red: significant DEG
 
-You can adjust the `pCutoff` and `FCcutoff` values depending on your own requirements, see the elaborate [documentation and examples](https://github.com/kevinblighe/EnhancedVolcano) on GitHub.
+You can adjust the `pCutoff` and `FCcutoff` values depending on your own requirements, see the elaborate [documentation and examples](https://github.com/kevinblighe/EnhancedVolcano) on GitHub. The code below *wraps* the `EnhancedVolcano` function in a custom function (`deseq.volcano`) that can be used when there are multiple comparisons to make.
 
 ```{r message=FALSE, warning=FALSE}
 library(EnhancedVolcano)
@@ -39,7 +39,7 @@ deseq.volcano(res = res.neuron.lfc, datasetName = "Neuron")
 ```
 
 ```{r, eval=FALSE}
-# Note that the most simplest case is:
+## Note that the most simplest case is:
 EnhancedVolcano(res.ipsc, x = 'log2FoldChange', y = 'padj', lab = rownames(res.ipsc))
 ```
 
@@ -47,7 +47,6 @@ EnhancedVolcano(res.ipsc, x = 'log2FoldChange', y = 'padj', lab = rownames(res.i
 
 * When you have used edgeR instead you need to change the names of the columns (i.e. `log2FoldChange` == `logFC` and `padj` == `FDR`) used in this example.
 * In this example there are too many DEGs to annotate with their name in the plots. The `EnhancedVolcano` plot function has many options for annotating significant genes, see the linked manual for further information.
-* This section has been rewritten to use the `EnhancedVolcano` function instead of creating a manual ggplot2 plot as can be seen [in the old version](https://bioinf.nl/~marcelk/theme07/chapter-5.html#volcano) of the course manual.
 
 
 ## Venn Diagram {#venn-diagram}
@@ -73,8 +72,7 @@ neur.degs <- row.names(res.neuron.lfc[which(res.neuron.lfc$padj <= pval_threshol
 ```
 
 The two created vectors of gene names can be used by either taking their lengths (for the `VennDiagram` library) or just their names (for the `gplots` library). 
-
-```{r vennDiagram, fig.cap="Venn diagram comparing edgeR and DESeq2 DEGs using 'VennDiagram'"}
+```{r vennDiagram, fig.cap="Venn diagram comparing IPSC and NEUR DEGs using 'VennDiagram' library"}
 ## Venn-diagram using the `VennDiagram` library (see below for alternative method)
 library(VennDiagram)
 # Arguments for a pairwise (two-sets) venn-diagram are sizes for set1, set2 and overlap (intersect)
@@ -93,7 +91,7 @@ grid.draw(venn.plot)
 
 As mentioned, following is an easier alternative (especially when you have > 2 groups) with the `venn` function from the `gplots` library. This only needs a list containing either the row-numbers or the gene-names of the DEGs which is easier (but offers less adjustability to make it prettier).
 
-```{r alternativeVenn, warning=FALSE, message=FALSE, fig.cap="Venn diagram comparing edgeR and DESeq2 DEGs using 'gplots'"}
+```{r alternativeVenn, warning=FALSE, message=FALSE, fig.cap="Venn diagram comparing IPSC and NEUR DEGs using 'gplots' library"}
 ## Alternative method using the `gplots` library
 library(gplots)
 # Create a Venn-diagram given just the list of gene-names for both sets
@@ -148,7 +146,7 @@ pheatmap(heatmap.degs, cluster_cols = FALSE,
          main="IPSC and Neuron shared DEGS with log2(FC) >= 2")
 ```
 
-A limitation of a heatmap will show itself when more then 100 DEGs are found; this just doesn't fit well in a single figure and causes the clustering and especially the gene names/ labels to be unreadable. It is therefore always adviced to not only filter on the adjusted p-value, but also on the log-FC value to reduce the number of genes shown. Alternatively if the data is properly annotated, instead of showing gene names for each row, showing a GO-term clustering might reveal expression patterns for certain gene groups.
+A limitation of such a heatmap will show itself when more then 100 DEGs are found; this just doesn't fit well in a single figure and causes the clustering and especially the gene names/ labels to be unreadable. It is therefore always adviced to not only filter on the adjusted p-value, but also on the log-FC value to reduce the number of genes shown. Alternatively if the data is properly annotated, instead of showing gene names for each row, showing a GO-term clustering might reveal expression patterns for certain gene groups.
 
 ## Pathway Analysis {#pathway-analysis}
 
@@ -158,59 +156,6 @@ One approach for tackling such a large set of DEGs is *pathway analysis* where t
 
 This section will demonstrate two methods for this analysis, one using an online platform for *gene-annotation enrichment* analysis and an R-method for *signaling pathway impact analysis*. 
 
-### Gene Functional Classification using DAVID (>100 DEGs)
-
-The online *Database for Annotation, Visualization and Integrated Discovery* [DAVID](https://david.ncifcrf.gov/home.jsp) tool suite allows for multiple - functional - annotation methods, one of these can be used for enrichment analysis based on gene annotation. To use the DAVID tools we need to have the list of gene names, ID's or other identifyable information (no need for p-values or fold-changes). The basics of this method consist of grouping genes in pathways, count how many genes are in each pathway and compare this with what you would expect if you take a *random* sample from the genome with the same size as the number of your DEGs.
-
-For example, if the **RNA transport** pathway contains a total of 50 genes out of the total of 25.000 for the whole mouse genome. This means **0.2%** of **all** mouse genes have a role in this pathway.
-
-If you uploaded a total of 1000 DEGs for analysis, you expect 0.2% = **2** genes from your DEG list to be placed in this pathway. But, it seems that there are **10** genes from the **RNA transport** pathway in the set of 1000 genes, which is **5** times as much as expected. This difference between expected and observed gene counts per pathway allows to say if a particular pathway is *enriched*. 
-
-DAVID provides a single interface to perform multiple different annotation pipelines, see the table below for available types and their use.
-
-![*DAVID functional annotation methods*](chapters/images/DAVID_what_to_use.jpg)
-
-The following example code writes the gene *symbols* for both analysis approaches to a file for upload on DAVID.
-
-```{r writeDEGs, eval=FALSE}
-# Write gene names to a file
-write.table(edgeR.degs, file = "../data/edger-deg-names.txt",
-            row.names = FALSE, quote = FALSE, col.names = FALSE)
-write.table(DESeq.degs, file = "../data/deseq-deg-names.txt",
-            row.names = FALSE, quote = FALSE, col.names = FALSE)
-```
-
-**Upload data**
-
-Click on the *Start Analysis* button at the top of the DAVID website. Then, copy the genes (**A**) or upload the file (**B**) and select the proper identifier type (*OFFICIAL_GENE_SYMBOL* in this example). Select the *Gene List* option in *Step 3* and click on the *Submit List* button in *Step 4*. 
-
-![*Start analysis by uploading gene information data*](chapters/images/DAVID_upload_gene_symbol.png)
-
-This usually results in a popup that mentions that some of your IDs were found in multiple organisms. Close the popup and select your own organism (Mus musculus in this example) from the Species list. From the 940 uploaded gene-symbols, 881 were found in the mouse which we select followed by clicking on the *Select Species* button.
-
-![*Select the source (organism) for the genes*](chapters/images/DAVID_select_organism.png)
-
-The most useful analysis is the *Functional Annotation Chart*, selectable from the *Start Analysis* page after uploading the set of genes. The output table shows many (in this case ~560) *chart records* in which the genes were grouped. These records orginate from various sources, such as *GO-terms*, *Interpro*, *KEGG-pathways*, *SMART*, etc. See the image below for a quick explaination of what is displayed in such a chart (mostly just a table..).
-
-![*DAVID functional annotation chart - Help*](chapters/images/DAVID_annotation_chart.jpg)
-
-An interesting statistic to add to this table is the *Fold Enrichment* that shows how over- or under-represented this group is. Note that this is not based on *gene-expression* but only on the deviation of the of the amount of genes provided for a certain group from what is expected given the *total number* of uploaded gene IDs. 
-
-![*DAVID functional annotation chart - Settings*](chapters/images/DAVID_chart_settings.png)
-
-Now, looking at the article for a random example set  with GSE ID [GSE80128](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE80128), one of the conclusions mentions the following on their gene-in-research (*Igf2as*):
-
-> It is suggested that Igf2as play a role in energy metabolism, the cell cycle, histone acetylation and muscle contraction pathways.
-
-With almost a 1000 DEGs grouped in 560 different categories, you can find 'evidence' for most conclusions and the difficulty here is finding the *truly* important pathways. Adviced is to only check the KEGG-pathways listed in the table, sort by the corrected p-value and inspect the pathways that look interesting. For this example, amongst others, the following pathways were listed as significant (p-value < 0.05):
-
-* *Metabolic pathways*: includes many pathways, 100 genes in total with a 1.6-fold enrichment
-* *Citrate cycle (TCA)*: major metabolic pathway, 9 genes with a 5.7-fold enrichment
-* *Cardiac Muscle contraction*: 12 genes with a 3.3-fold enrichment
-
-Clicking on the *Term* in the table for a KEGG-pathway shows a graphical representation of this pathway indicating the found DEGs (blinking, even), see below.
-
-![*KEGG TCA-pathway, highlighting DEGs (red stars)*](chapters/images/DAVID_TCA_pathway.png)
 
 ### KEGG-pathway Visualization (>10 DEGs)
 
@@ -247,90 +192,3 @@ pathview(gene.data=deseq.degs.logfc,
 )
 ```
 
-It is fine to use the webtool too for this purpose however it is not notacibly easier to use than the R package.
-
-### Signaling Pathway Impact Analysis (>20 DEGs) {#spia}
-
-To also look at the *topology* of *how* genes interact with each other, we can use the [SPIA](http://bioconductor.org/packages/release/bioc/html/SPIA.html) Bioconductor package. This package takes a list of Entrez gene IDs for all DEGs and the complete list of Entrez IDs for all present genes and evaluates - per pathway - if genes are involved and if the pathway is either inhibited or activated. 
-
-The code below uses data objects that were not always shown before, see the tables below for their contents.
-
-```{r spia_data_load, echo=FALSE, eval=FALSE}
-load("./data/annotated_ipsc_di_vs_tri.RData")
-deseq.results <- ipsc.tri.vs.di
-```
-
-```{r spia_data_prep, message=FALSE, warning=FALSE, error=FALSE, eval=FALSE}
-# Bioconductor package for "Signaling Pathway Impact Analysis"
-# (install with biocLite("SPIA") if it is not installed)
-library(SPIA)
-# Only used for the `subset` function
-library(dplyr)
-
-# Get a vector of log(FC) values for all significant genes
-sig_genes <- subset(deseq.results, padj < pval_threshold, select = log2FoldChange)[[1]]
-# Make it a named vector by assigning the Entrez ID's to each log(FC) value
-names(sig_genes) <- subset(deseq.results, padj < pval_threshold, select = EntrezID)[[1]]
-# A complete list of Entrez IDs for all genes in this experiment
-all_genes <- deseq.results$EntrezID
-```
-
-The input `sig_genes` named vector contents:
-```{r spia_contents, echo=FALSE, eval=FALSE}
-idx = !is.na(names(sig_genes))
-.sig.genes <- head(data.frame(EntrezID=names(sig_genes[idx]),
-                              "logFC"=sig_genes[idx], 
-                              row.names=NULL), n=10)
-
-pander(.sig.genes, caption = "(subset) of DESeq2 DEGs with their Entrez ID and log2(FC) value")
-```
-
-And the `all_genes` vector or Entrez IDs input (note that this does not contain any expression information, just IDs):
-```{r, eval=FALSE}
-pander(all_genes[which(idx)[100:110]])
-```
-
-To start processing all pathways looking for influenced signal pathway, execute the `spia` function for the proper organism (Mus Musculus, or `mmu` in this case):
-
-```{r spia_processing, eval=FALSE, message=FALSE, warning=FALSE}
-# Process all signaling pathways to see if they are inhibited or activated
-spia_result <- spia(de=sig_genes, all=all_genes, organism="hsa", plots=TRUE)
-```
-
-Running this function will print a list of (> 100) pathways it will analyze, so this will take a while:
-
-```
-Done pathway 1 : RNA transport..
-Done pathway 2 : RNA degradation..
-Done pathway 3 : PPAR signaling pathway..
-Done pathway 4 : Fanconi anemia pathway..
-Done pathway 5 : MAPK signaling pathway..
-Done pathway 6 : ErbB signaling pathway..
-Done pathway 7 : Calcium signaling pathway..
-Done pathway 8 : Cytokine-cytokine receptor int..
-Done pathway 9 : Chemokine signaling pathway..
-Done pathway 10 : NF-kappa B signaling pathway..
-Done pathway 11 : Phosphatidylinositol signaling..
-Done pathway 12 : Neuroactive ligand-receptor in..
-Done pathway 13 : Cell cycle..
-...
-Done pathway 132 : Graft-versus-host disease..
-Done pathway 133 : Arrhythmogenic right ventricul..
-Done pathway 134 : Dilated cardiomyopathy..
-Done pathway 135 : Viral myocarditis..
-```
-
-The resulting data frame is ordered by a p-value and contains the following information:
-
-```{r spia_result_table, echo=FALSE, eval=TRUE}
-library(SPIA)
-load(file = "./data/spia.RData")
-pander(head(spia_result[,1:11], n=5), caption = "Top signaling pathways ")
-```
-
-To get an overal picture we can create a plot where each pathway is a point which is placed according to the `spia` calculated over-representation p-value and pNDE (which is the probability to observe at least nDE genes on the pathway). In this case it is obvious that Alzheimer's and Parkinson's pathways with ID's 05010 and 05012 respectively are the most influenced by this experiment, according to this method.
-
-```{r spiaResultPlotP, eval=TRUE, fig.cap="SPIA two-way evidence plot showing the most influenced pathways"}
-
-plotP(spia_result)
-```

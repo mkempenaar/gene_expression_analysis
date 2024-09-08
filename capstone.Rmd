@@ -1,3 +1,18 @@
+---
+title: "Capstone Project - Gene Expression Analysis"
+author: "Marcel Kempenaar"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+output: bookdown::gitbook
+fig_caption: yes
+documentclass: book
+bibliography: [book.bib, packages.bib]
+biblio-style: apalike
+link-citations: yes
+github-repo: mkempenaar/gene_expression_analysis
+description: "Capstone Project"
+---
+
 # Introduction {#chapter-1}
 
 ## Capstone Project - Analysis of Gene Expression
@@ -19,7 +34,7 @@ The aim is to keep to the below schedule during this course. Use the first two w
 * Data Gathering and Literature Research [week two]
     + Make a final project choice
     + Retrieve the accompanying publication
-    + Starting with Exploratory Data Analysis (chapter [3](#chapter-3))
+    + Starting with Exploratory Data Analysis (chapter [EDA](#EDA))
 * Data Analysis [weeks three, four and five]
     + Finalizing Exploratory Data Analysis
     + Discovering Differentially Expressed Genes (chapter [4](#chapter-4))

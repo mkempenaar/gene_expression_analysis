@@ -1,8 +1,10 @@
-# Discovering Data Sets {#datasets}
+# (APPENDIX) Appendix {-} 
+
+# Discovering RNA-Seq Data Sets {#datasets}
+
+This chapter describes a method of finding public RNA-Seq data sets of interest. A *data set* in the context of this course refers to all data belonging to a certain gene-expression experiment, usually consisting of a number of sequencing-samples combined with *meta-data* describing the experiment. 
 
 ## Finding Public Data Sets of Interest {#finding-public-data}
-
-This chapter describes a method of finding public data sets of interest. A *data set* in the context of this course refers to all data belonging to a certain gene-expression experiment, usually consisting of a number of sequencing-samples combined with *meta-data* describing the experiment. 
 
 There are a number of very large databases online that offer access to thousands of - published - experiments and here we will focus on searching and downloading gene expression data from high-throughput (`NGS`) sequencing techniques (`RNA-Seq`).
 

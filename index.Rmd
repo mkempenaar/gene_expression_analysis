@@ -1,5 +1,5 @@
 ---
-title: "Capstone Project - Gene Expression Analysis"
+title: "2.1.2 Genomics & Transcriptomics"
 author: "Marcel Kempenaar"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
@@ -10,72 +10,487 @@ bibliography: [book.bib, packages.bib]
 biblio-style: apalike
 link-citations: yes
 github-repo: mkempenaar/gene_expression_analysis
-description: "Capstone Project"
+description: "Course Syllabus for course 2.1.2"
 ---
 
 # Introduction {#chapter-1}
 
-## Capstone Project - Analysis of Gene Expression
+Course 2.1.2 involves two separate projects performed on a single, published, data set. First, we start by performing a *Genomics* analysis similar to the case study from module 2.1.1. Then, we take the result of the mapping step, process this into read counts and perform a subsequent *Transcriptomics* analysis. 
 
-The use of RNA-Sequencing techniques for measuring gene expression is relatively new and replaces *microarrays*, though in some cases microarrays are still used. Gene expression data gives valuable insights into the workings of cells in certain conditions. Especially when comparing for instance healthy and diseased samples it can become clear which genes are causal or under influence of a specific condition. Finding the genes of interest (genes showing differing expression accross conditions, called the *Differentially Expressed Genes* (DEGs)) is the goal of this project.
+## 2.1.2 Genomics
 
-While there is no golden standard for analyzing RNA-sequencing datasets as there are many tools (all manufacturers of sequencing equiptment also deliver software packages) we will use R combined with proven libraries for processing, visualizing and analyzing publically available datasets. While in some cases you are allowed to use the actual *raw* (read) data that is available, it is highly recommended to use the pre-processed data which often is a table with a *count* value for each gene. This count is the number of reads that was mapped to that gene which corresponds to the relative number of transcripts (mRNA sequences) of that gene present in the cell at the time of sampling.
+For this Genomics analysis we are going to look at variants between the chosen data and a reference genome. One important aspect during the analysis is often assessing the quality, both from the input data set as well as the output of certain steps. Once a set of variants have been determined they can be annotated and finally linked to the biology underlying the original experiment, either reproducing their findings or aiming for novel ideas.
 
-## Project Deliverables
+### Project Deliverables
 
-The end products of this course consist of two deliverables; a PDF output file from an RMarkdown 'lab journal' where you have logged all steps performed to get to the end result and a final report in the form of a short article. This chapter briefly describes the requirements and contents of these products and ends with instructions on how to use an RMarkdown `template` for writing the article.
+* **Genomics pipeline**: The genomics analysis pipeline is well documented in one or more *lab journals* and contains the correct tools based on the research question and data set.
+* **Presentation**: The research results will be presented in an attractive method and proper level given the target audience.
 
-## Project Schedule
+### Data Processing
 
-The aim is to keep to the below schedule during this course. Use the first two weeks to see if you need to focus more on one of the points below (depending on your dataset) and discuss changes to the planning with your teacher.
+Similar to the 2.1.1 NGS & Mapping course we will go through similar steps to process the data (i.e. quality control, trimming, mapping, variant calling, etc.). This time however, we are not using a workflow manager such as Galaxy, but execute all the tools *command line*. Two reasons for this are that the number and size of the input files are far larger compared to the previously used data sets and the Galaxy server is not capable of handling that many large data sets. Also, having some proper terminal experience is very valuable.
 
-* Find a public experiment of interest [week one]
-    + Using online resources (sections [2.1](#finding-public-data), [2.2](#ncbi-geo))
-* Data Gathering and Literature Research [week two]
-    + Make a final project choice
-    + Retrieve the accompanying publication
-    + Starting with Exploratory Data Analysis (chapter [EDA](#EDA))
-* Data Analysis [weeks three, four and five]
-    + Finalizing Exploratory Data Analysis
-    + Discovering Differentially Expressed Genes (chapter [4](#chapter-4))
-    + Data Annotation (optional; appendix [a2](#a2-annotation))
-    + Techniques used: R with bioconductor, the EdgeR and/ or DESeq2 packages, RMarkdown
-* Result Analysis [week five and six]
-    + Analyzing and Visualizing your results (chapter [5](#chapter-5))
-    + Techniques used: clustering, pathway analysis, gene-enrichment analysis
-* Finalizing analysis and start writing the final report (article) [weeks 7 and 8]
+::: rmdnote
 
-## Grading {#grading}
+**Note on writing the pipeline**: all steps need to be documented in RMarkdown documents. Each step must be introduced with a short description of the tool used, the version and followed by the command used to execute the tool. As this is a terminal command, we use code cells with the `bash` language. **All** the code cells **must** have the option `eval=FALSE` set. This is to prevent the code from being executed when knitting the document. 
 
-The final grade consists of a weighted average of the work done for the *lab journal* containing all performed steps, their code and outputs (**70%**) and the *article* report (**30%**). A grade >= **5.5** will give a total of 8 EC. The rest of this chapter explains the expected contents for the three graded products (each of these elements is explained in greater detail in other chapters).
+Furthermore, it is also required to run any command on the RStudio server provided at [https://bioinf.nl/rstudio](https://bioinf.nl/rstudio). This RStudio server is hosted on our `assemblix` server which is capable of both accessing the data and running tools on large data sets. The workstations we provide in the classrooms are *not* capable of these tasks. Also, this server already has a number of tools pre-installed (FastQC, trimmomatic, BWA/STAR mappers, etc.). Lastly, by running them from and RMarkdown document on the RStudio server forces you to document the commands compared to simply using `ssh`.
+
+**Note on storing (intermediate) data**: **all** data relevant to this project **must** be stored in the `/students/2024-2025/Thema05/` directory. In here, create a project directory for your team and create sub-directories as you go. Your home folder has a hard limit of 25GB of data and is therefore not sufficient for storing these project files. Use commands such as `chmod` and `chown` to allow your project partners to access the data too.
+
+**Note on processing large amounts of data**: building correct terminal commands to execute for instance a trimming step on a large number of files can be quite challenging. It is therefore **required** that test-data is used for **all** steps. Reasons for this are:
+
+* Spotting errors quickly instead of having to wait several hours to see an error message
+* Inspecting resource usage (CPU, memory, disk space) to prevent overloading the system
+  - Some steps can be very memory intensive (over 1 TB on large data sets!) and can crash the system
+* Creates a small output set that can be used as a test set for the next step
+
+**Note on the use of GATK**: The Genome Analysis Toolkit (GATK) is an often used set of tools for variant calling. Many publications cite the use of GATK but unfortunately do not include all needed details to reproduce the results. Due to the complexity of GATK we do not recommend its use, unless the publication is very clear on the exact workflow and settings used. Prepare to spend a lot of time on the official [GATK website](https://gatk.broadinstitute.org/hc/en-us) browsing manuals before you can use it effectively.
+
+:::
+
+### Finding a Data Set
+
+Finding a suitable data set can be challenging as there are a few requirements such a data set needs to meet:
+
+* It needs to have both a DNA- and RNA-Seq data set available.
+* The data set needs to be published (publication should be open access)
+* For the RNA-Seq part, there is a minimum amount of samples required
+  - At least two sample *groups* with a minimum of 3 samples per group (*replicates*)
+  - See the appendix [chapter A1](#datasets) for example valid experimental setups, this chapter also contains tips on what to do with it (mostly relevant for Transcriptomics).
+
+Data is available from the NCBI [Sequence Read Archive](https://www.ncbi.nlm.nih.gov/sra) and Gene Expression Omnibus.
+
+The proper way to search for a data set suitable for both Genomics and Transcriptomics projects is by creating a query that searches for both: [("expression profiling by high throughput sequencing"[DataSet Type]) AND "genome variation profiling by high throughput sequencing"[DataSet Type]](https://www.ncbi.nlm.nih.gov/gds/?term=(%22expression+profiling+by+high+throughput+sequencing%22%5BDataSet+Type%5D)+AND+%22genome+variation+profiling+by+high+throughput+sequencing%22%5BDataSet+Type%5D).
+
+Note that for the genomics part, not all available samples have to be processed. Other than for transcriptomics, it is not common that there is a case/control experimental setup but rather a single condition of group with possibly a few replicates. If the data set does include many samples, it is recommended to select a subset of samples to process (do discuss the reasoning behind this selection).
+
+## 2.1.2 Transcriptomics
+
+The use of RNA-Sequencing techniques for measuring gene expression is relatively new and replaces *microarrays*, though in some cases microarrays are still used. Gene expression data gives valuable insights into the workings of cells in certain conditions. Especially when comparing for instance healthy and diseased samples it can become clear which genes are causal or under influence of a specific condition. Finding the genes of interest (genes showing differing expression accross conditions, called the Differentially Expressed Genes (DEGs)) is the goal of this project.
+
+While there is no golden standard for analyzing RNA-sequencing data sets as there are many tools (all manufacturers of sequencing equipment also deliver software packages) we will use proven R libraries for processing, visualizing and analyzing publicly available data sets. This manual describes the steps often performed in a transcriptomics experiment. Use this as a very general guideline to process data accompanying the chosen published research. Note that this manual was originally written for processing *count* data and therefore does not describe the processing of NGS read files up to the count data as part of the *Genomics* analysis performed in this course. RNA-Seq counts describe the number of reads mapped to a gene which corresponds to the relative number of transcripts (mRNA sequences) of that gene present in the cell at the time of sampling.
+
+### Project Deliverables
+
+* **Lab Journal**: The lab journal is readable, complete and aimed at the reproducability of the research. Relevant visualisations are include and statistical methods performed to support the biological interpretation of the results.
 
 ## *Lab Journal*
 
-As you know from previous projects and most likely from working in the laboratory, it is essential to keep a proper lab journal detailing every step you have done during the experiment. Here, the log is to be kept in an R markdown file, showing which steps have been taken in the analysis of the data set. This markdown should be *knitted* into a single PDF-file once the project is completed thus containing text detailling the steps and any decisions you've made, R-code (always visible!) and their resulting output/ images. 
+As you may know from previous projects, it is essential to keep a proper journal detailing every step you have done during the analysis. This journal is to be kept in an R markdown file, showing which steps have been taken in the analysis of the data set. This markdown should be *knitted* into a single PDF-file once the project is completed thus containing text detailing the steps and any decisions you've made, R-code (always visible!) and their resulting output/ images. 
 
 ```{block, type='rmdtip'}
 **Notes**:
 As a general advice; do not wait with knitting this whole document until the project is done as knitting is very prone to errors and trying to fix these in a large document is not easy. Give each code chunk the proper attributes, including a name at the minimum. This helps spot errors during knitting as that process mentiones which chunk has been processed. Note that chunk-names *must* be unique. And try to make proper use of chapters and sections and include an (optional) table of contents.
 ```
 
-## Article {#article}
+## Schedule
 
-The final report is written in article form which is a bit different from a usual report, mainly in its size. The article-report has a *maximum* number of pages of **4** including all images and references (no appendices!). Contents for this article should be extracted from the lab journal combined with part introduction and part conclusion/ discussion. The sections below describe a template that is available for writing this report and example report(s) will be made available for inspiration. Refer to this chapter again once you start writing the report.
+The Genomics and Transcriptomics parts both have their own schedule as listed below
 
-### Installing the Article Template
+### Genomics
+Empty rows means the previous topic or task will most likely take more than one session.
 
-The templates are available in an R package and contains both `RMarkdown` and \LaTeX (another layer on top of the actual [\TeX markup language](https://nl.wikipedia.org/wiki/TeX), yes, another language...) files. RStudio can use templates for a number of documents, including article-templates. These templates can be installed from a package called `rticles` by running the `install.packages` function (note: might already be installed):
+<style type="text/css">
+.tg  {border-collapse:collapse;border-color:#ccc;border-spacing:0;}
+.tg td{background-color:#fff;border-color:#ccc;border-style:solid;border-width:1px;color:#333;
+  font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg th{background-color:#f0f0f0;border-color:#ccc;border-style:solid;border-width:1px;color:#333;
+  font-family:Arial, sans-serif;font-size:14px;font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg .tg-baqh{text-align:center;vertical-align:top}
+.tg .tg-c3ow{border-color:inherit;text-align:center;vertical-align:top}
+.tg .tg-0pky{border-color:inherit;text-align:left;vertical-align:top}
+</style>
+<table class="tg">
+<thead>
+  <tr>
+    <th class="tg-baqh">Week</th>
+    <th class="tg-baqh">Lesson</th>
+    <th class="tg-baqh">Subject</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td class="tg-0pky" rowspan="3">1</td>
+    <td class="tg-c3ow">1</td>
+    <td class="tg-0pky">Finding a suitable experiment</td>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">2</td>
+    <td class="tg-0pky">Statistics - recap and experimental setup</td>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">3</td>
+    <td class="tg-0pky">Writing a Project Proposal</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky" rowspan="3">2</td>
+    <td class="tg-c3ow">1</td>
+    <td class="tg-0pky">Presenting Project Proposal</td>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">2</td>
+    <td class="tg-0pky">NGS Quality Control</td>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">3</td>
+    <td class="tg-0pky"></td>
+  </tr>
+  <tr>
+    <td class="tg-0pky" rowspan="3">3</td>
+    <td class="tg-c3ow">1</td>
+    <td class="tg-0pky">Read Mapping and QC</td>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">2</td>
+    <td class="tg-0pky"></td>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">3</td>
+    <td class="tg-0pky">Variant Calling</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky" rowspan="4">4</td>
+    <td class="tg-c3ow">1</td>
+    <td class="tg-0pky">Annotation</td>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">2</td>
+    <td class="tg-0pky"></td>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">3</td>
+    <td class="tg-0pky"></td>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">4</td>
+    <td class="tg-0pky"></td>
+  </tr>
+  <tr>
+    <td class="tg-0pky" rowspan="2">5</td>
+    <td class="tg-c3ow">1</td>
+    <td class="tg-0pky">Visualisation</td>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">2</td>
+    <td class="tg-0pky"></td>
+  </tr>
+</tbody>
+</table>
 
-```{r install_rticles, eval=FALSE}
-install.packages("rticles", type = "source")
+### Transcriptomics
+
+<style type="text/css">
+.tg  {border-collapse:collapse;border-color:#ccc;border-spacing:0;}
+.tg td{background-color:#fff;border-color:#ccc;border-style:solid;border-width:1px;color:#333;
+  font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg th{background-color:#f0f0f0;border-color:#ccc;border-style:solid;border-width:1px;color:#333;
+  font-family:Arial, sans-serif;font-size:14px;font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg .tg-baqh{text-align:center;vertical-align:top}
+.tg .tg-0lax{text-align:left;vertical-align:top}
+</style>
+<table class="tg">
+<thead>
+  <tr>
+    <th class="tg-baqh">Week</th>
+    <th class="tg-baqh">Lesson</th>
+    <th class="tg-baqh">Subject</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td class="tg-0lax" rowspan="2">5</td>
+    <td class="tg-baqh">1</td>
+    <td class="tg-0lax">Writing a Project Proposal</td>
+  </tr>
+  <tr>
+    <td class="tg-baqh">2</td>
+    <td class="tg-0lax"></td>
+  </tr>
+  <tr>
+    <td class="tg-0lax" rowspan="4">6</td>
+    <td class="tg-baqh">1</td>
+    <td class="tg-0lax">Presenting Project Proposal</td>
+  </tr>
+  <tr>
+    <td class="tg-baqh">2</td>
+    <td class="tg-0lax">Read Mapping and Quantification</td>
+  </tr>
+  <tr>
+    <td class="tg-baqh">3</td>
+    <td class="tg-0lax"></td>
+  </tr>
+  <tr>
+    <td class="tg-baqh">4</td>
+    <td class="tg-0lax">Statistics (distributions, normalization, PCA)</td>
+  </tr>
+  <tr>
+    <td class="tg-0lax" rowspan="5">7</td>
+    <td class="tg-baqh">1</td>
+    <td class="tg-0lax">Exploratory Data Analysis (<a href="#chapter-3">chapter 3</a>)</td>
+  </tr>
+  <tr>
+    <td class="tg-baqh">2</td>
+    <td class="tg-0lax"></td>
+  </tr>
+  <tr>
+    <td class="tg-baqh">3</td>
+    <td class="tg-0lax">Statistics (batch effects, regression, linear models)</td>
+  </tr>
+  <tr>
+    <td class="tg-baqh">4</td>
+    <td class="tg-0lax">Finding Differentially Expressed Genes (<a href="#chapter-4">chapter 4</a>)</td>
+  </tr>
+  <tr>
+    <td class="tg-baqh">5</td>
+    <td class="tg-0lax">Statistics (Enrichment analysis)</td>
+  </tr>
+  <tr>
+    <td class="tg-0lax" rowspan="6">8</td>
+    <td class="tg-baqh">1</td>
+    <td class="tg-0lax">Data Analysis and Visualization (<a href="#chapter-5">chapter 5</a>)</td>
+  </tr>
+  <tr>
+    <td class="tg-baqh">2</td>
+    <td class="tg-0lax"></td>
+  </tr>
+  <tr>
+    <td class="tg-baqh">3</td>
+    <td class="tg-0lax"></td>
+  </tr>
+  <tr>
+    <td class="tg-baqh">4</td>
+    <td class="tg-0lax"></td>
+  </tr>
+  <tr>
+    <td class="tg-baqh">5</td>
+    <td class="tg-0lax"></td>
+  </tr>
+  <tr>
+    <td class="tg-baqh">6</td>
+    <td class="tg-0lax">Hand in Lab Journal</td>
+  </tr>
+</tbody>
+</table>
+
+## Literature
+
+The following (online) documents can be used throughout this course:
+
+* Gene Set Enrichment Analysis – Theory. Available from: <a href="https://www.pathwaycommons.org/guide/primers/data_analysis/gsea/">https://www.pathwaycommons.org/guide/primers/data_analysis/gsea/</a>
+* Li D. Statistical Methods for RNA Sequencing Data Analysis. In: Husi H, editor. Computational Biology [Internet]. Brisbane (AU): Codon Publications; 2019 Nov 21. Chapter 6. Available from: <a href="https://www.ncbi.nlm.nih.gov/books/NBK550334/">https://www.ncbi.nlm.nih.gov/books/NBK550334/</a>
+* Yu, L., Fernandez, S. & Brock, G. Power analysis for RNA-Seq differential expression studies. BMC Bioinformatics 18, 234 (2017). <a href="https://doi.org/10.1186/s12859-017-1648-2">https://doi.org/10.1186/s12859-017-1648-2</a>
+* Sun, S., Hood, M., Scott, L., Peng, Q., Mukherjee, S., Tung, J., & Zhou, X. (2017). Differential expression analysis for RNAseq using Poisson mixed models. Nucleic acids research, 45(11), e106. <a href="https://doi.org/10.1093/nar/gkx204">https://doi.org/10.1093/nar/gkx204</a>
+
+# From Reads to Counts
+
+Step one in any RNA-Seq data analysis is generating the gene or transcript counts for each sample. This overlaps partly with steps taken in a genomics workflow:
+
+* Download SRA files and extract FastQ files
+* Perform quality control on raw reads (FastQC)
+* Perform trimming as needed (Trimmomatic)
+* Perform quality control post trimming (FastQC)
+* Perform mapping against reference genome (most often STAR)
+* Generate gene/ transcript counts (either STAR, HTseq or featurecounts)
+* *Downstream analysis* (chapter 4 of this document)
+
+This chapter shows these steps for an example data set (`GSE149995`)
+
+## Downloading and extracting FastQ files
+
+Given the SRA identifier for this project, select all samples and download as accession file (SRX identifiers). Using these identifiers as input for the `prefetch` system command (requires the NCBI SRA-Toolkit installed) downloads the SRA files and we convert them using the `fasterq-dump` command to fastq files.
+```{bash SRA_download, eval=FALSE}
+prefetch $(<GSE149995_SRA_ACC_RNA-Seq.csv) --output-directory \
+  /local-fs/staff/marcel/GSE149995/SRA
 ```
 
-### Using the Template
+The `fasterq-dump` by default performs a `split 3` operation, see [the SRA toolkit manual](https://github.com/ncbi/sra-tools/wiki/HowTo:-fasterq-dump) for further details.
 
-Now that you have the templates package (`rticles`) installed you can download and use the template project (ZIP-file) available from [here](https://bioinf.nl/~marcelk/capstone/course/report-template.zip). Download this file to your project folder, extract its contents and open the `report-template.Rmd` file contained within the folder in RStudio. Verify that everything is setup correctly by hitting the `Knit` button at the top, this should create a PDF version of the report. Note that - somehow - the resulting PDF file is named `RJwrapper.pdf` instead of the expected `report-template.pdf`. If everything checks out OK you can rename the file to your liking and start editing.
+```{bash extract_fastq, eval=FALSE}
+find /local-fs/staff/marcel/GSE149995/SRA/ -name "*.sra" | \
+  parallel 'fasterq-dump -O /local-fs/staff/marcel/GSE149995/fastq/ {}'
+```
 
-This template is based on the `R Journal Submission` template that you can also find in RStudio in the `New file -> R Markdown -> From Template` menu. Articles published in the `R-journal` are based on this template which you can browse for inspiration at the [R Journal Website](https://journal.r-project.org/archive/2021-2/). 
+## (Optional) Annotation
 
-The available template shows an *example* of segments/ chapters and briefly describes what each section could or should contain. If you want to write your report in the Dutch language, you can create a new file from the template and change the segment names and content to Dutch. There will however still be some headings added by the template in English which is fine with me, but if you want to keep everything Dutch you can either edit the `RJournal.sty` file manually (*not recommended*) or start a new file by yourself and add some nice headings and page options. 
+The NCBI GEO page lists 9 samples with 3 conditions (`WT`, `potent` and `arf7`). However, this experiment includes 18 sequence files. By downloading the 'series matrix file' from the GEO (using the `GEOquery` library) and combining this with the run info downloadable from the SRA, we can list the mapping of run to sample. 
 
-The top part of the template (between the dashes `---`) contains some settings that you need to change such as `title`, `authors` and `abstract`. Compare for instance a newly created article from this template with the one offered from the project-repository website.
+**Note**: This is an optional step for now and is only useful when there are doubts about the group/sample setup.
+
+```{r, echo=FALSE}
+library(tidyr)
+library(pander)
+```
+
+```{r sample_annotation, message=FALSE, warning=FALSE}
+library(GEOquery)
+gse <- getGEO(GEO = "GSE149995")
+# Combine the condition with a sample number and replicate number
+Condition = paste(rep(gse[[1]]@phenoData@data$`genotype/variation:ch1`, each = 2),
+                  rep(1:3, each = 2),
+                  paste0('r', rep(1:2, 9)), sep = '_')
+run_info <- read.csv(file = "data/GSE149995_Sra_RunInfo.csv")
+setup <- cbind(run_info %>% dplyr::select(Run, Experiment), Condition)
+pander(setup)
+```
+
+## Quality Control
+
+Here we perform the FastQC -> Trimmomatic -> FastQC steps
+
+### FastQC
+
+Running FastQC 
+```{r fastQC, eval=FALSE}
+fqdir <- "/local-fs/staff/marcel/GSE149995/fastq/"
+fastqc(fq.dir = "/local-fs/staff/marcel/GSE149995/fastq/",
+       qc.dir = "/local-fs/staff/marcel/GSE149995/fqc",
+       fastqc.path = "/usr/bin/fastqc",
+       threads = 32)
+```
+
+QC-report using `multiqc`
+
+```{bash MultiQC, eval=FALSE}
+multiqc \
+  --filename ~/Development/2.1.2-Transcriptomics/GSE149995_FQC_multiqc_report.html \
+  /local-fs/staff/marcel/GSE149995/fqc/ 
+```
+
+## Trimming
+
+Proper trimming requires experimentation and research regarding the used sequencing technology. The following command uses Trimmomatic (release 0.39, available on [Github](https://github.com/usadellab/Trimmomatic/releases)) to trim all fastq files. Note that this example is for *single-end* sequencing only, use the `TrimmomaticPE` command for paired-end data processing and the `TruSeq` FASTA file ending in `PE` instead.
+
+```{bash Trimmomatic, eval=FALSE}
+cat data/GSE149995_Sra_RunInfo.csv | \
+  parallel 'TrimmomaticSE -threads 4 ' \
+                  '/local-fs/staff/marcel/GSE149995/fastq/{}.fastq.gz ' \
+                  '/local-fs/staff/marcel/GSE149995/fastq-trimmed/{}.trimmed.fastq.gz ' \
+                  'ILLUMINACLIP:/homes/marcelk/Development/2.1.2-Transcriptomics/TruSeq3-SE.fa:2:30:10 ' \
+                  'MINLEN:40 ' \
+                  'SLIDINGWINDOW:4:20'
+```
+
+
+Re-running FastQC
+```{r fastQC-trimmed, eval=FALSE}
+fastqc(fq.dir = "/local-fs/staff/marcel/GSE149995/fastq-trimmed/",
+       qc.dir = "/local-fs/staff/marcel/GSE149995/fqc-trimmed",
+       fastqc.path = "/usr/bin/fastqc",
+       threads = 32)
+```
+
+```{bash multiqc-fastqc-trimmed, eval=FALSE}
+multiqc --filename \
+  ~/Development/2.1.2-Transcriptomics/GSE149995_FQC_Trimmed.html \
+  /local-fs/staff/marcel/GSE149995/fqc-trimmed/
+```
+
+## Mapping with STAR
+
+### Building STAR index
+
+Other than with `bwa`, STAR requires an extra annotation file (GFF or GTF format) describing features on the genome. This data set requires the FASTA of the Arabidopsis thaliana genome and its accompanying annotation file. The `genomeDir` specifies the output location for the index.
+```{bash star_index, eval=FALSE}
+cd /local-fs/staff/marcel/GSE149995/reference
+mkdir star; cd star
+STAR \
+  --runThreadN 12 \
+  --runMode genomeGenerate \
+  --genomeDir /local-fs/staff/marcel/GSE149995/reference/star \
+  --genomeFastaFiles /local-fs/staff/marcel/GSE149995/reference/TAIR10_chr_all.fas \
+  --sjdbGTFfile /local-fs/staff/marcel/GSE149995/reference/TAIR10_GTF_genes.gtf \
+  --genomeSAindexNbases 12 \
+  --sjdbOverhang 49
+```
+
+### Read mapping and transcript counting
+
+The following command performs mapping against the reference genome, saves this as a sorted BAM file and directly performs a read count for all transcripts (NOTE: requires the `--sjdbGTFfile` parameter during index building). For each input file, there is a `ReadsPerGenes.out.tab` file generated containing 4 columns:
+
+* column 1: gene ID
+* column 2: counts for unstranded RNA-seq
+* column 3: counts for the 1st read strand aligned with RNA (htseq-count option -s yes)
+* column 4: counts for the 2nd read strand aligned with RNA (htseq-count option -s reverse)
+
+See an interesting discussion on [BioStars](https://www.biostars.org/p/218995/) regarding which column to use.
+
+When planning to use a different tool for calculating gene counts, you can remove the `quantMode` argument which will only generate the sorted BAM files. Please read the manual of the tool of choice to see if an indexed BAM file as the BAM file does not have an index.
+```{bash star_mapping, eval=FALSE}
+find /local-fs/staff/marcel/GSE149995/fastq-trimmed/ -name "*.fastq.gz" -exec basename {} \; | \
+  sed 's/\.fastq.gz$//' | parallel 'STAR --runThreadN 6 ' \
+    '--genomeDir /local-fs/staff/marcel/GSE149995/reference/star ' \
+    '--readFilesIn /local-fs/staff/marcel/GSE149995/fastq-trimmed/{}.fastq ' \
+    '--outSAMtype BAM SortedByCoordinate ' \
+    '--quantMode GeneCounts ' \
+    '--outFileNamePrefix /local-fs/staff/marcel/GSE149995/mapping/star/{}_star_'
+```
+
+Generating MultiQC report for STAR mapping phase
+
+```{bash multiqc-star-mapping, eval=FALSE}
+~/miniconda3/bin/multiqc --filename \
+  ~/Development/2.1.2-Transcriptomics/STAR-mapping.html \
+  /local-fs/staff/marcel/GSE149995/mapping/star/
+```
+
+### Combining STAR Count Files
+
+STAR generates a `[sample]_star_ReadsPerGene.out.tab` file for each sample, containing the gene IDs and the count numbers. We can merge these files into a single data frame for further processing (see also [Appendix A1 in the manual](https://mkempenaar.github.io/gene_expression_analysis/a1-data_loading.html#a1-batch_data_loading)). This example takes the 2nd column for the count values. Make sure that you know which column to use based on the description above. The reason that we're merging the data is because it might not always be guaranteed that you get the exact same transcripts in each file.
+
+Note: if you use the `featurecounts` tool, you will already get a single file containing the count values for all samples.
+
+```{r merge_count_files_function, eval=FALSE}
+file.names <- list.files('/local-fs/staff/marcel/GSE149995/mapping/star/',
+                         pattern = '*_star_ReadsPerGene.out.tab')
+
+## Function for reading in files
+read_sample <- function(file.name) {
+  ## Extract the sample name for naming the column (retaining the 'SRR....' part)
+  sample.name <- strsplit(file.name, ".", fixed = TRUE)[[1]][1]
+  sample <- read.table(file.name, header = FALSE, sep="\t", 
+                       row.names = NULL, skip = 4)
+  ## Rename the count column
+  names(sample)[2] <- sample.name
+  ## Return a subset containing the transcript ID and sample name columns
+  return(sample[c(1, 2)])
+}
+```
+
+Now we read all count files and merge them into a single data frame.
+
+```{r merge_count_files, eval=FALSE}
+setwd('/local-fs/staff/marcel/GSE149995/mapping/star/')
+
+## Read the FIRST sample
+counts <- read_sample(file.names[1])
+
+## Read the remaining files and merge the contents
+for (file.name in file.names[2:length(file.names)]) {
+  sample <- read_sample(file.name)
+  counts <- merge(counts, sample, by = 1)
+}
+
+# Set the row names to the transcript IDs
+rownames(counts) <- counts$V1
+counts <- counts[-1]
+```
+
+We now have a single data frame with count values for all samples and transcripts. The names however are nondescriptive since they are just the `SRR` identifiers. Since we already did some annotation, we're going to rename the columns to something more meaningful:
+
+```{r rename_cols, eval=FALSE}
+# For each SRR id, find the corresponding column in counts and rename
+# using the name in the 'Condition' column
+for (i in 1:nrow(setup)) {
+  idx <- grep(setup$Run[i], names(counts))
+  names(counts)[idx] <- setup$Condition[i]
+}
+
+# Show first 6 columns and rows
+pander(counts[1:6, 1:6])
+```
+
+```{r, echo=FALSE}
+load("data/star_counts.RData")
+pander(counts[1:6, 1:6])
+```

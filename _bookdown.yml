@@ -6,12 +6,9 @@ highlighter: pygments
 delete_merged_file: true
 
 rmd_files: ['index.Rmd',
-            ## UNCOMMENT FOR BFVH15CAPSTONE BOOK ##
-            ##'chapters/introduction_BFVH15CAPSTONE.Rmd',
-            'chapters/datasets.Rmd',
             'chapters/eda.Rmd',
             'chapters/deg.Rmd',
             'chapters/data_analysis.Rmd',
-            'chapters/a1-batch_data_loading.Rmd',
-            'chapters/a2-annotation.Rmd',
-            'chapters/a3-read-mapping.Rmd']
+            'chapters/a1-rnaseq-dataset-requirements.Rmd',
+            'chapters/a2-batch_data_loading.Rmd',
+            'chapters/a3-annotation.Rmd']
