@@ -23,6 +23,7 @@ For this Genomics analysis we are going to look at variants between the chosen d
 
 ### Project Deliverables
 
+* **Project Proposal**: A short written proposal of the project clearly describing the data set, the research question and the methods + tools to be used.
 * **Genomics pipeline**: The genomics analysis pipeline is well documented in one or more *lab journals* and contains the correct tools based on the research question and data set.
 * **Presentation**: The research results will be presented in an attractive method and proper level given the target audience.
 
@@ -61,7 +62,7 @@ Finding a suitable data set can be challenging as there are a few requirements s
 
 Data is available from the NCBI [Sequence Read Archive](https://www.ncbi.nlm.nih.gov/sra) and Gene Expression Omnibus.
 
-The proper way to search for a data set suitable for both Genomics and Transcriptomics projects is by creating a query that searches for both: [("expression profiling by high throughput sequencing"[DataSet Type]) AND "genome variation profiling by high throughput sequencing"[DataSet Type]](https://www.ncbi.nlm.nih.gov/gds/?term=(%22expression+profiling+by+high+throughput+sequencing%22%5BDataSet+Type%5D)+AND+%22genome+variation+profiling+by+high+throughput+sequencing%22%5BDataSet+Type%5D).
+The proper way to search for a data set suitable for both Genomics and Transcriptomics projects is by creating a query that searches for both: [("expression profiling by high throughput sequencing"[DataSet Type]) AND "genome variation profiling by high throughput sequencing"[DataSet Type]](https://www.ncbi.nlm.nih.gov/gds/?term=(%22expression+profiling+by+high+throughput+sequencing%22%5BDataSet+Type%5D)+AND+%22genome+variation+profiling+by+high+throughput+sequencing%22%5BDataSet+Type%5D). If this selection actually contains anything of interest is up to you; if you cannot find something interesting please use a different search strategy. One could be to search for RNA-Seq experiments in the GEO where one of the groups is preferably a mutant. 
 
 Note that for the genomics part, not all available samples have to be processed. Other than for transcriptomics, it is not common that there is a case/control experimental setup but rather a single condition of group with possibly a few replicates. If the data set does include many samples, it is recommended to select a subset of samples to process (do discuss the reasoning behind this selection).
 
@@ -73,6 +74,7 @@ While there is no golden standard for analyzing RNA-sequencing data sets as ther
 
 ### Project Deliverables
 
+* **Project Proposal**: A short written proposal of the project clearly describing the data set, the research question and the methods + libraries to be used.
 * **Lab Journal**: The lab journal is readable, complete and aimed at the reproducability of the research. Relevant visualisations are include and statistical methods performed to support the biological interpretation of the results.
 
 ## *Lab Journal*
