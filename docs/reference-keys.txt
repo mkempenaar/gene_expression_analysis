@@ -10,11 +10,13 @@ fig:vennDiagram
 fig:alternativeVenn
 fig:expressionHeatmap
 chapter-1
-capstone-project---analysis-of-gene-expression
+transcriptomics-project---analysis-of-gene-expression
 project-deliverables
 project-schedule
+learning-outcomes-los
 grading
 lab-journal
+dashboard
 article
 installing-the-article-template
 using-the-template
@@ -56,5 +58,3 @@ download-geo
 manually-annotate
 annotationDBI
 using-biomart
-learning-outcomes-los
-dashboard
