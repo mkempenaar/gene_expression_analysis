@@ -1,175 +1,322 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="" xml:lang="">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title> Introduction | 2.1.2 Genomics &amp; Transcriptomics</title>
-<meta name="author" content="Marcel Kempenaar">
-<meta name="description" content="Course Syllabus for course 2.1.2">
-<meta name="generator" content="bookdown 0.36 with bs4_book()">
-<meta property="og:title" content=" Introduction | 2.1.2 Genomics &amp; Transcriptomics">
-<meta property="og:type" content="book">
-<meta property="og:description" content="Course Syllabus for course 2.1.2">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content=" Introduction | 2.1.2 Genomics &amp; Transcriptomics">
-<meta name="twitter:description" content="Course Syllabus for course 2.1.2">
-<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
-<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.5.1/transition.js"></script><script src="libs/bs3compat-0.5.1/tabs.js"></script><script src="libs/bs3compat-0.5.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
-<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
-    
-    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-  </style>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Capstone Project - Gene Expression Analysis</title>
+  <meta name="description" content="Capstone Project" />
+  <meta name="generator" content="bookdown 0.43 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Capstone Project - Gene Expression Analysis" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="Capstone Project" />
+  <meta name="github-repo" content="mkempenaar/gene_expression_analysis" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Capstone Project - Gene Expression Analysis" />
+  
+  <meta name="twitter:description" content="Capstone Project" />
+  
+
+<meta name="author" content="Marcel Kempenaar" />
+
+
+<meta name="date" content="2025-04-25" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+
+<link rel="next" href="datasets.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
 <style type="text/css">
-    /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
-    div.csl-bib-body { }
-    div.csl-entry {
-      clear: both;
-          margin-bottom: 0em;
-        }
-    .hanging div.csl-entry {
-      margin-left:2em;
-      text-indent:-2em;
-    }
-    div.csl-left-margin {
-      min-width:2em;
-      float:left;
-    }
-    div.csl-right-inline {
-      margin-left:2em;
-      padding-left:1em;
-    }
-    div.csl-indent {
-      margin-left: 2em;
-    }
-  </style>
-<link rel="stylesheet" href="style.css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
 </head>
-<body data-spy="scroll" data-target="#toc">
 
-<div class="container-fluid">
-<div class="row">
-  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+<body>
 
-    <div class="d-flex align-items-start justify-content-between">
-      <h1>
-        <a href="index.html" title="">2.1.2 Genomics &amp; Transcriptomics</a>
-      </h1>
-      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Capstone Project</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#capstone-project---analysis-of-gene-expression"><i class="fa fa-check"></i><b>1.1</b> Capstone Project - Analysis of Gene Expression</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#project-deliverables"><i class="fa fa-check"></i><b>1.2</b> Project Deliverables</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#project-schedule"><i class="fa fa-check"></i><b>1.3</b> Project Schedule</a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#learning-outcomes-los"><i class="fa fa-check"></i><b>1.4</b> Learning Outcomes (LOs)</a></li>
+<li class="chapter" data-level="1.5" data-path="index.html"><a href="index.html#grading"><i class="fa fa-check"></i><b>1.5</b> Grading</a></li>
+<li class="chapter" data-level="1.6" data-path="index.html"><a href="index.html#lab-journal"><i class="fa fa-check"></i><b>1.6</b> <em>Lab Journal</em></a></li>
+<li class="chapter" data-level="1.7" data-path="index.html"><a href="index.html#dashboard"><i class="fa fa-check"></i><b>1.7</b> Dashboard</a></li>
+<li class="chapter" data-level="1.8" data-path="index.html"><a href="index.html#article"><i class="fa fa-check"></i><b>1.8</b> Article</a>
+<ul>
+<li class="chapter" data-level="1.8.1" data-path="index.html"><a href="index.html#installing-the-article-template"><i class="fa fa-check"></i><b>1.8.1</b> Installing the Article Template</a></li>
+<li class="chapter" data-level="1.8.2" data-path="index.html"><a href="index.html#using-the-template"><i class="fa fa-check"></i><b>1.8.2</b> Using the Template</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="datasets.html"><a href="datasets.html"><i class="fa fa-check"></i><b>2</b> Discovering RNA-Seq Data Sets</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="datasets.html"><a href="datasets.html#finding-public-data"><i class="fa fa-check"></i><b>2.1</b> Finding Public Data Sets of Interest</a></li>
+<li class="chapter" data-level="2.2" data-path="datasets.html"><a href="datasets.html#ncbi-geo"><i class="fa fa-check"></i><b>2.2</b> The NCBI <em>Gene Expression Omnibus</em></a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="EDA.html"><a href="EDA.html"><i class="fa fa-check"></i><b>3</b> Exploratory Data Analysis</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="EDA.html"><a href="EDA.html#loading-data"><i class="fa fa-check"></i><b>3.1</b> Loading data into R</a></li>
+<li class="chapter" data-level="3.2" data-path="EDA.html"><a href="EDA.html#ch3_example_data"><i class="fa fa-check"></i><b>3.2</b> Example Data</a></li>
+<li class="chapter" data-level="3.3" data-path="EDA.html"><a href="EDA.html#EDA_part1"><i class="fa fa-check"></i><b>3.3</b> Visualizing using <code>boxplot</code> and <code>density plot</code></a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="EDA.html"><a href="EDA.html#eda_statistics"><i class="fa fa-check"></i><b>3.3.1</b> Statistics</a></li>
+<li class="chapter" data-level="3.3.2" data-path="EDA.html"><a href="EDA.html#eda_boxplots"><i class="fa fa-check"></i><b>3.3.2</b> Boxplots</a></li>
+<li class="chapter" data-level="3.3.3" data-path="EDA.html"><a href="EDA.html#eda_density_plot"><i class="fa fa-check"></i><b>3.3.3</b> Density Plots</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="EDA.html"><a href="EDA.html#EDA_part2"><i class="fa fa-check"></i><b>3.4</b> Visualizing using <code>heatmap</code> and <code>MDS</code></a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="EDA.html"><a href="EDA.html#normalization"><i class="fa fa-check"></i><b>3.4.1</b> Normalization</a></li>
+<li class="chapter" data-level="3.4.2" data-path="EDA.html"><a href="EDA.html#eda_distance"><i class="fa fa-check"></i><b>3.4.2</b> Distance Calculation</a></li>
+<li class="chapter" data-level="3.4.3" data-path="EDA.html"><a href="EDA.html#eda_heatmap"><i class="fa fa-check"></i><b>3.4.3</b> Sample Distances using a Heatmap</a></li>
+<li class="chapter" data-level="3.4.4" data-path="EDA.html"><a href="EDA.html#eda_mds"><i class="fa fa-check"></i><b>3.4.4</b> Multi-Dimensional Scaling</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="EDA.html"><a href="EDA.html#cleaning-data"><i class="fa fa-check"></i><b>3.5</b> Cleaning Data</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="chapter-4.html"><a href="chapter-4.html"><i class="fa fa-check"></i><b>4</b> Discovering Differentialy Expressed Genes (DEGs)</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="chapter-4.html"><a href="chapter-4.html#deg-preprocessing"><i class="fa fa-check"></i><b>4.1</b> Pre-processing</a></li>
+<li class="chapter" data-level="4.2" data-path="chapter-4.html"><a href="chapter-4.html#deg-fc"><i class="fa fa-check"></i><b>4.2</b> The <em>Fold Change</em> Value</a></li>
+<li class="chapter" data-level="4.3" data-path="chapter-4.html"><a href="chapter-4.html#deg-bioconductor"><i class="fa fa-check"></i><b>4.3</b> Using Bioconductor Packages</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="chapter-4.html"><a href="chapter-4.html#deg-design"><i class="fa fa-check"></i><b>4.3.1</b> The <code>Design</code> (matrix)</a></li>
+<li class="chapter" data-level="4.3.2" data-path="chapter-4.html"><a href="chapter-4.html#deg-deseq2"><i class="fa fa-check"></i><b>4.3.2</b> <code>DESeq2</code></a></li>
+<li class="chapter" data-level="4.3.3" data-path="chapter-4.html"><a href="chapter-4.html#deg-edger"><i class="fa fa-check"></i><b>4.3.3</b> <code>edgeR</code></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="chapter-5.html"><a href="chapter-5.html"><i class="fa fa-check"></i><b>5</b> Data Analysis and Visualization</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="chapter-5.html"><a href="chapter-5.html#volcano"><i class="fa fa-check"></i><b>5.1</b> Volcano Plot</a></li>
+<li class="chapter" data-level="5.2" data-path="chapter-5.html"><a href="chapter-5.html#venn-diagram"><i class="fa fa-check"></i><b>5.2</b> Venn Diagram</a></li>
+<li class="chapter" data-level="5.3" data-path="chapter-5.html"><a href="chapter-5.html#clustering"><i class="fa fa-check"></i><b>5.3</b> Clustering</a></li>
+<li class="chapter" data-level="5.4" data-path="chapter-5.html"><a href="chapter-5.html#pathway-analysis"><i class="fa fa-check"></i><b>5.4</b> Pathway Analysis</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="chapter-5.html"><a href="chapter-5.html#kegg-pathway-visualization-10-degs"><i class="fa fa-check"></i><b>5.4.1</b> KEGG-pathway Visualization (&gt;10 DEGs)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="a2-data_loading.html"><a href="a2-data_loading.html"><i class="fa fa-check"></i><b>6</b> Batch Loading Expression Data in R</a>
+<ul>
+<li class="chapter" data-level="6.0.1" data-path="a2-data_loading.html"><a href="a2-data_loading.html#decompressing"><i class="fa fa-check"></i><b>6.0.1</b> Decompressing</a></li>
+<li class="chapter" data-level="6.0.2" data-path="a2-data_loading.html"><a href="a2-data_loading.html#determining-data-format"><i class="fa fa-check"></i><b>6.0.2</b> Determining Data Format</a></li>
+<li class="chapter" data-level="6.0.3" data-path="a2-data_loading.html"><a href="a2-data_loading.html#loading-data-1"><i class="fa fa-check"></i><b>6.0.3</b> Loading Data</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="a3-annotation.html"><a href="a3-annotation.html"><i class="fa fa-check"></i><b>7</b> Annotating an RNA-Seq Experiment</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="a3-annotation.html"><a href="a3-annotation.html#download-geo"><i class="fa fa-check"></i><b>7.1</b> Downloading annotation data from GEO</a></li>
+<li class="chapter" data-level="7.2" data-path="a3-annotation.html"><a href="a3-annotation.html#manually-annotate"><i class="fa fa-check"></i><b>7.2</b> Manual Data Annotation</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="a3-annotation.html"><a href="a3-annotation.html#annotationDBI"><i class="fa fa-check"></i><b>7.2.1</b> Using <code>AnnotationDBI</code></a></li>
+<li class="chapter" data-level="7.2.2" data-path="a3-annotation.html"><a href="a3-annotation.html#using-biomart"><i class="fa fa-check"></i><b>7.2.2</b> Using <code>biomaRt</code></a></li>
+</ul></li>
+</ul></li>
+</ul>
+
+      </nav>
     </div>
 
-    <div id="main-nav" class="collapse-lg">
-      <form role="search">
-        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
-</form>
-
-      <nav aria-label="Table of contents"><h2>Table of contents</h2>
-        <ul class="book-toc list-unstyled">
-<li><a class="active" href="index.html"><span class="header-section-number">1</span> Introduction</a></li>
-<li><a class="" href="from-reads-to-counts.html"><span class="header-section-number">2</span> From Reads to Counts</a></li>
-<li><a class="" href="EDA.html"><span class="header-section-number">3</span> Exploratory Data Analysis</a></li>
-<li><a class="" href="chapter-4.html"><span class="header-section-number">4</span> Discovering Differentialy Expressed Genes (DEGs)</a></li>
-<li><a class="" href="chapter-5.html"><span class="header-section-number">5</span> Data Analysis and Visualization</a></li>
-<li class="book-part">Appendix</li>
-<li><a class="" href="datasets.html"><span class="header-section-number">A</span> Discovering RNA-Seq Data Sets</a></li>
-<li><a class="" href="a2-data_loading.html"><span class="header-section-number">B</span> Batch Loading Expression Data in R</a></li>
-<li><a class="" href="a2-annotation.html"><span class="header-section-number">C</span> Annotating an RNA-Seq Experiment</a></li>
-</ul>
-
-        <div class="book-extra">
-          <p><a id="book-repo" href="https://github.com/rstudio/bookdown-demo">View book source <i class="fab fa-github"></i></a></p>
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Capstone Project - Gene Expression Analysis</a>
+          </h1>
         </div>
-      </nav>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="header">
+<h1 class="title">Capstone Project - Gene Expression Analysis</h1>
+<p class="author"><em>Marcel Kempenaar</em></p>
+<p class="date"><em>2025-04-25</em></p>
 </div>
-  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><!--bookdown:title:end--><!--bookdown:title:start--><div id="chapter-1" class="section level1" number="1">
-<h1>
-<span class="header-section-number"></span> Introduction<a class="anchor" aria-label="anchor" href="#chapter-1"><i class="fas fa-link"></i></a>
-</h1>
-<p>Course 2.1.2 involves two separate projects performed on a single, published, data set. First, we start by performing a <em>Genomics</em> analysis similar to the case study from module 2.1.1. Then, we take the result of the mapping step, process this into read counts and perform a subsequent <em>Transcriptomics</em> analysis.</p>
-<div id="genomics" class="section level2" number="1.1">
-<h2>
-<span class="header-section-number">1.1</span> 2.1.2 Genomics<a class="anchor" aria-label="anchor" href="#genomics"><i class="fas fa-link"></i></a>
-</h2>
-<p>For this Genomics analysis we are going to look at variants between the chosen data and a reference genome. One important aspect during the analysis is often assessing the quality, both from the input data set as well as the output of certain steps. Once a set of variants have been determined they can be annotated and finally linked to the biology underlying the original experiment, either reproducing their findings or aiming for novel ideas.</p>
-<div id="project-deliverables" class="section level3" number="1.1.1">
-<h3>
-<span class="header-section-number">1.1.1</span> Project Deliverables<a class="anchor" aria-label="anchor" href="#project-deliverables"><i class="fas fa-link"></i></a>
-</h3>
+<div id="chapter-1" class="section level1 hasAnchor" number="1">
+<h1><span class="header-section-number"></span> Introduction<a href="index.html#chapter-1" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="capstone-project---analysis-of-gene-expression" class="section level2 hasAnchor" number="1.1">
+<h2><span class="header-section-number">1.1</span> Capstone Project - Analysis of Gene Expression<a href="index.html#capstone-project---analysis-of-gene-expression" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The use of RNA-Sequencing techniques for measuring gene expression is relatively new and replaces <em>microarrays</em>, though in some cases microarrays are still used. Gene expression data gives valuable insights into the workings of cells in certain conditions. Especially when comparing for instance healthy and diseased samples it can become clear which genes are causal or under influence of a specific condition. Finding the genes of interest (genes showing differing expression accross conditions, called the <em>Differentially Expressed Genes</em> (DEGs)) is the goal of this project.</p>
+<p>While there is no golden standard for analyzing RNA-sequencing datasets as there are many tools (all manufacturers of sequencing equiptment also deliver software packages) we will use R combined with proven libraries for processing, visualizing and analyzing publically available datasets. While in some cases you are allowed to use the actual <em>raw</em> (read) data that is available, it is highly recommended to use the pre-processed data which often is a table with a <em>count</em> value for each gene. This count is the number of reads that was mapped to that gene which corresponds to the relative number of transcripts (mRNA sequences) of that gene present in the cell at the time of sampling.</p>
+</div>
+<div id="project-deliverables" class="section level2 hasAnchor" number="1.2">
+<h2><span class="header-section-number">1.2</span> Project Deliverables<a href="index.html#project-deliverables" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The end products of this course consist of three deliverables; a knitted ‘lab journal’ where you have logged all steps performed to get to the end result, a separate Shiny dashboard application and a final report in the form of a short article. This chapter briefly describes the requirements and contents of these products and ends with instructions on how to use an RMarkdown <code>template</code> for writing the article.</p>
+</div>
+<div id="project-schedule" class="section level2 hasAnchor" number="1.3">
+<h2><span class="header-section-number">1.3</span> Project Schedule<a href="index.html#project-schedule" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The aim is to keep to the below schedule during this course. Use the first two weeks to see if you need to focus more on one of the points below (depending on your dataset) and discuss changes to the planning with your teacher.</p>
 <ul>
-<li>
-<strong>Project Proposal</strong>: A short written proposal of the project clearly describing the data set, the research question and the methods + tools to be used.</li>
-<li>
-<strong>Genomics pipeline</strong>: The genomics analysis pipeline is well documented in one or more <em>lab journals</em> and contains the correct tools based on the research question and data set.</li>
-<li>
-<strong>Presentation</strong>: The research results will be presented in an attractive method and proper level given the target audience.</li>
+<li>Find a public experiment of interest [week one]
+<ul>
+<li>Using online resources (sections <a href="datasets.html#finding-public-data">2.1</a>, <a href="datasets.html#ncbi-geo">2.2</a>)</li>
+</ul></li>
+<li>Data Gathering and Literature Research [week two]
+<ul>
+<li>Make a final project choice</li>
+<li>Retrieve the accompanying publication</li>
+<li>Starting with Exploratory Data Analysis (chapter <a href="EDA.html#EDA">3</a>)</li>
+</ul></li>
+<li>Data Analysis [weeks three and four]
+<ul>
+<li>Finalizing Exploratory Data Analysis</li>
+<li>Discovering Differentially Expressed Genes (chapter <a href="chapter-4.html#chapter-4">4</a>)</li>
+<li>Data Annotation</li>
+<li>Techniques used: R with bioconductor, the EdgeR and/ or DESeq2 packages, RMarkdown</li>
+</ul></li>
+<li>Result Analysis [week five and six]
+<ul>
+<li>Analyzing and Visualizing your results (chapter <a href="chapter-5.html#chapter-5">5</a>)</li>
+<li>Techniques used: clustering, pathway analysis, gene-enrichment analysis</li>
+</ul></li>
+<li>Creating an Interactive Shiny Dashboard [week six and seven]
+<ul>
+<li>Techniques used: Shiny, <a href="https://rstudio.github.io/shinydashboard/index.html">shinydashboard</a></li>
+<li>Note: final techniques will be presented later</li>
+</ul></li>
+<li>Finalizing analysis and start writing the final report (article) [weeks seven and eigth]</li>
+</ul>
+<p>Further reading material supplied are in the appendices:</p>
+<ul>
+<li><a href="a2-data_loading.html#a2-data_loading">A1</a>: Batch Loading Expression Data in R</li>
+<li><a href="a3-annotation.html#a3-annotation">A2</a>: Annotating an RNA-Seq Experiment</li>
 </ul>
 </div>
-<div id="data-processing" class="section level3" number="1.1.2">
-<h3>
-<span class="header-section-number">1.1.2</span> Data Processing<a class="anchor" aria-label="anchor" href="#data-processing"><i class="fas fa-link"></i></a>
-</h3>
-<p>Similar to the 2.1.1 NGS &amp; Mapping course we will go through similar steps to process the data (i.e. quality control, trimming, mapping, variant calling, etc.). This time however, we are not using a workflow manager such as Galaxy, but execute all the tools <em>command line</em>. Two reasons for this are that the number and size of the input files are far larger compared to the previously used data sets and the Galaxy server is not capable of handling that many large data sets. Also, having some proper terminal experience is very valuable.</p>
-<div class="rmdnote">
-<p><strong>Note on writing the pipeline</strong>: all steps need to be documented in RMarkdown documents. Each step must be introduced with a short description of the tool used, the version and followed by the command used to execute the tool. As this is a terminal command, we use code cells with the <code>bash</code> language. <strong>All</strong> the code cells <strong>must</strong> have the option <code>eval=FALSE</code> set. This is to prevent the code from being executed when knitting the document.</p>
-<p>Furthermore, it is also required to run any command on the RStudio server provided at <a href="https://bioinf.nl/rstudio">https://bioinf.nl/rstudio</a>. This RStudio server is hosted on our <code>assemblix</code> server which is capable of both accessing the data and running tools on large data sets. The workstations we provide in the classrooms are <em>not</em> capable of these tasks. Also, this server already has a number of tools pre-installed (FastQC, trimmomatic, BWA/STAR mappers, etc.). Lastly, by running them from and RMarkdown document on the RStudio server forces you to document the commands compared to simply using <code>ssh</code>.</p>
-<p><strong>Note on storing (intermediate) data</strong>: <strong>all</strong> data relevant to this project <strong>must</strong> be stored in the <code>/students/2024-2025/Thema05/</code> directory. In here, create a project directory for your team and create sub-directories as you go. Your home folder has a hard limit of 25GB of data and is therefore not sufficient for storing these project files. Use commands such as <code>chmod</code> and <code>chown</code> to allow your project partners to access the data too.</p>
-<p><strong>Note on processing large amounts of data</strong>: building correct terminal commands to execute for instance a trimming step on a large number of files can be quite challenging. It is therefore <strong>required</strong> that test-data is used for <strong>all</strong> steps. Reasons for this are:</p>
-<ul>
-<li>Spotting errors quickly instead of having to wait several hours to see an error message</li>
-<li>Inspecting resource usage (CPU, memory, disk space) to prevent overloading the system
-<ul>
-<li>Some steps can be very memory intensive (over 1 TB on large data sets!) and can crash the system</li>
-</ul>
-</li>
-<li>Creates a small output set that can be used as a test set for the next step</li>
-</ul>
-<p><strong>Note on the use of GATK</strong>: The Genome Analysis Toolkit (GATK) is an often used set of tools for variant calling. Many publications cite the use of GATK but unfortunately do not include all needed details to reproduce the results. Due to the complexity of GATK we do not recommend its use, unless the publication is very clear on the exact workflow and settings used. Prepare to spend a lot of time on the official <a href="https://gatk.broadinstitute.org/hc/en-us">GATK website</a> browsing manuals before you can use it effectively.</p>
+<div id="learning-outcomes-los" class="section level2 hasAnchor" number="1.4">
+<h2><span class="header-section-number">1.4</span> Learning Outcomes (LOs)<a href="index.html#learning-outcomes-los" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>This module has the following learning outcomes:</p>
+<ol style="list-style-type: decimal">
+<li>You write a project proposal in which you explain the processing steps to be followed and the materials to be used in the context of selected research found in a relevant database.</li>
+<li>You apply statistical analyses to transcriptomics data in relation to phenotypes and external factors and visually represent and interpret the results.</li>
+<li>You link biological knowledge through annotation to the findings. For example, interpreting the effects of a transcriptomics experiment based on pathway and/or (gene-set) enrichment analysis results.</li>
+<li>You can develop a basic interactive R Shiny dashboard displaying the relevant results from the downstream DEG-analysis within the biological context.</li>
+<li>You describe the findings and key results of the analysis in article form according to the style of a relevant journal.</li>
+</ol>
 </div>
-</div>
-<div id="finding-a-data-set" class="section level3" number="1.1.3">
-<h3>
-<span class="header-section-number">1.1.3</span> Finding a Data Set<a class="anchor" aria-label="anchor" href="#finding-a-data-set"><i class="fas fa-link"></i></a>
-</h3>
-<p>Finding a suitable data set can be challenging as there are a few requirements such a data set needs to meet:</p>
+<div id="grading" class="section level2 hasAnchor" number="1.5">
+<h2><span class="header-section-number">1.5</span> Grading<a href="index.html#grading" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>This project is assessed by taking the weighted average of the following deliverables:</p>
 <ul>
-<li>It needs to have both a DNA- and RNA-Seq data set available.</li>
-<li>The data set needs to be published (publication should be open access)</li>
-<li>For the RNA-Seq part, there is a minimum amount of samples required
+<li>Analysis, 7EC
 <ul>
-<li>At least two sample <em>groups</em> with a minimum of 3 samples per group (<em>replicates</em>)</li>
-<li>See the appendix <a href="datasets.html#datasets">chapter A1</a> for example valid experimental setups, this chapter also contains tips on what to do with it (mostly relevant for Transcriptomics).</li>
-</ul>
-</li>
-</ul>
-<p>Data is available from the NCBI <a href="https://www.ncbi.nlm.nih.gov/sra">Sequence Read Archive</a> and Gene Expression Omnibus.</p>
-<p>The proper way to search for a data set suitable for both Genomics and Transcriptomics projects is by creating a query that searches for both: <a href="https://www.ncbi.nlm.nih.gov/gds/?term=(%22expression+profiling+by+high+throughput+sequencing%22%5BDataSet+Type%5D)+AND+%22genome+variation+profiling+by+high+throughput+sequencing%22%5BDataSet+Type%5D">(“expression profiling by high throughput sequencing”[DataSet Type]) AND “genome variation profiling by high throughput sequencing”[DataSet Type]</a>. If this selection actually contains anything of interest is up to you; if you cannot find something interesting please use a different search strategy. One could be to search for RNA-Seq experiments in the GEO where one of the groups is preferably a mutant.</p>
-<p>Note that for the genomics part, not all available samples have to be processed. Other than for transcriptomics, it is not common that there is a case/control experimental setup but rather a single condition of group with possibly a few replicates. If the data set does include many samples, it is recommended to select a subset of samples to process (do discuss the reasoning behind this selection).</p>
-</div>
-</div>
-<div id="transcriptomics" class="section level2" number="1.2">
-<h2>
-<span class="header-section-number">1.2</span> 2.1.2 Transcriptomics<a class="anchor" aria-label="anchor" href="#transcriptomics"><i class="fas fa-link"></i></a>
-</h2>
-<p>The use of RNA-Sequencing techniques for measuring gene expression is relatively new and replaces <em>microarrays</em>, though in some cases microarrays are still used. Gene expression data gives valuable insights into the workings of cells in certain conditions. Especially when comparing for instance healthy and diseased samples it can become clear which genes are causal or under influence of a specific condition. Finding the genes of interest (genes showing differing expression accross conditions, called the Differentially Expressed Genes (DEGs)) is the goal of this project.</p>
-<p>While there is no golden standard for analyzing RNA-sequencing data sets as there are many tools (all manufacturers of sequencing equipment also deliver software packages) we will use proven R libraries for processing, visualizing and analyzing publicly available data sets. This manual describes the steps often performed in a transcriptomics experiment. Use this as a very general guideline to process data accompanying the chosen published research. Note that this manual was originally written for processing <em>count</em> data and therefore does not describe the processing of NGS read files up to the count data as part of the <em>Genomics</em> analysis performed in this course. RNA-Seq counts describe the number of reads mapped to a gene which corresponds to the relative number of transcripts (mRNA sequences) of that gene present in the cell at the time of sampling.</p>
-<div id="project-deliverables-1" class="section level3" number="1.2.1">
-<h3>
-<span class="header-section-number">1.2.1</span> Project Deliverables<a class="anchor" aria-label="anchor" href="#project-deliverables-1"><i class="fas fa-link"></i></a>
-</h3>
+<li>The written project proposal clearly describes the experimental setup, the techniques and tools used for processing the raw RNA-Seq sequencing reads into count matrices for further downstream analysis (LO 1).</li>
+<li>Proven methods have been researched and applied to the count data to identify the differentially expressed genes. The lab journal clearly specifies the decisions used to determine the performed comparison(s) and reflects on the acquired results (LOs 2, 3).</li>
+<li>Results of the DEG analysis are clearly presented using an interactive dashboard that – depending on the experimental setup and experiment – can be used to browse through taken steps and allows comparing between sample groups (LO 4).</li>
+</ul></li>
+<li>Article, 3EC
 <ul>
-<li>
-<strong>Project Proposal</strong>: A short written proposal of the project clearly describing the data set, the research question and the methods + libraries to be used.</li>
-<li>
-<strong>Lab Journal</strong>: The lab journal is readable, complete and aimed at the reproducability of the research. Relevant visualisations are include and statistical methods performed to support the biological interpretation of the results.</li>
+<li>Results from multiple functional analysis steps (e.g. clustering, pathway and enrichment analysis) are related to the context of the experiment (LO 5)</li>
+</ul></li>
 </ul>
 </div>
-</div>
-<div id="lab-journal" class="section level2" number="1.3">
-<h2>
-<span class="header-section-number">1.3</span> <em>Lab Journal</em><a class="anchor" aria-label="anchor" href="#lab-journal"><i class="fas fa-link"></i></a>
-</h2>
-<p>As you may know from previous projects, it is essential to keep a proper journal detailing every step you have done during the analysis. This journal is to be kept in an R markdown file, showing which steps have been taken in the analysis of the data set. This markdown should be <em>knitted</em> into a single PDF-file once the project is completed thus containing text detailing the steps and any decisions you’ve made, R-code (always visible!) and their resulting output/ images.</p>
+<div id="lab-journal" class="section level2 hasAnchor" number="1.6">
+<h2><span class="header-section-number">1.6</span> <em>Lab Journal</em><a href="index.html#lab-journal" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>As you know from previous projects and most likely from working in the laboratory, it is essential to keep a proper lab journal detailing every step you have done during the experiment. Here, the log is to be kept in an R markdown file, showing which steps have been taken in the analysis of the data set. This markdown should be <em>knitted</em> into a single PDF-file once the project is completed thus containing text detailling the steps and any decisions you’ve made, R-code (always visible!) and their resulting output/ images.</p>
 <div class="rmdtip">
 <p>
 <strong>Notes</strong>: As a general advice; do not wait with
@@ -183,437 +330,95 @@ sections and include an (optional) table of contents.
 </p>
 </div>
 </div>
-<div id="schedule" class="section level2" number="1.4">
-<h2>
-<span class="header-section-number">1.4</span> Schedule<a class="anchor" aria-label="anchor" href="#schedule"><i class="fas fa-link"></i></a>
-</h2>
-<p>The Genomics and Transcriptomics parts both have their own schedule as listed below</p>
-<div id="genomics-1" class="section level3" number="1.4.1">
-<h3>
-<span class="header-section-number">1.4.1</span> Genomics<a class="anchor" aria-label="anchor" href="#genomics-1"><i class="fas fa-link"></i></a>
-</h3>
-<p>Empty rows means the previous topic or task will most likely take more than one session.</p>
-<style type="text/css">
-.tg  {border-collapse:collapse;border-color:#ccc;border-spacing:0;}
-.tg td{background-color:#fff;border-color:#ccc;border-style:solid;border-width:1px;color:#333;
-  font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;word-break:normal;}
-.tg th{background-color:#f0f0f0;border-color:#ccc;border-style:solid;border-width:1px;color:#333;
-  font-family:Arial, sans-serif;font-size:14px;font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
-.tg .tg-baqh{text-align:center;vertical-align:top}
-.tg .tg-c3ow{border-color:inherit;text-align:center;vertical-align:top}
-.tg .tg-0pky{border-color:inherit;text-align:left;vertical-align:top}
-</style>
-<div class="inline-table"><table class="tg">
-<thead><tr>
-<th class="tg-baqh">
-Week
-</th>
-<th class="tg-baqh">
-Lesson
-</th>
-<th class="tg-baqh">
-Subject
-</th>
-</tr></thead>
-<tbody>
-<tr>
-<td class="tg-0pky" rowspan="3">
-1
-</td>
-<td class="tg-c3ow">
-1
-</td>
-<td class="tg-0pky">
-Finding a suitable experiment
-</td>
-</tr>
-<tr>
-<td class="tg-c3ow">
-2
-</td>
-<td class="tg-0pky">
-Statistics - recap and experimental setup
-</td>
-</tr>
-<tr>
-<td class="tg-c3ow">
-3
-</td>
-<td class="tg-0pky">
-Writing a Project Proposal
-</td>
-</tr>
-<tr>
-<td class="tg-0pky" rowspan="3">
-2
-</td>
-<td class="tg-c3ow">
-1
-</td>
-<td class="tg-0pky">
-Presenting Project Proposal
-</td>
-</tr>
-<tr>
-<td class="tg-c3ow">
-2
-</td>
-<td class="tg-0pky">
-NGS Quality Control
-</td>
-</tr>
-<tr>
-<td class="tg-c3ow">
-3
-</td>
-<td class="tg-0pky">
-</td>
-</tr>
-<tr>
-<td class="tg-0pky" rowspan="3">
-3
-</td>
-<td class="tg-c3ow">
-1
-</td>
-<td class="tg-0pky">
-Read Mapping and QC
-</td>
-</tr>
-<tr>
-<td class="tg-c3ow">
-2
-</td>
-<td class="tg-0pky">
-</td>
-</tr>
-<tr>
-<td class="tg-c3ow">
-3
-</td>
-<td class="tg-0pky">
-Variant Calling
-</td>
-</tr>
-<tr>
-<td class="tg-0pky" rowspan="4">
-4
-</td>
-<td class="tg-c3ow">
-1
-</td>
-<td class="tg-0pky">
-Annotation
-</td>
-</tr>
-<tr>
-<td class="tg-c3ow">
-2
-</td>
-<td class="tg-0pky">
-</td>
-</tr>
-<tr>
-<td class="tg-c3ow">
-3
-</td>
-<td class="tg-0pky">
-</td>
-</tr>
-<tr>
-<td class="tg-c3ow">
-4
-</td>
-<td class="tg-0pky">
-</td>
-</tr>
-<tr>
-<td class="tg-0pky" rowspan="2">
-5
-</td>
-<td class="tg-c3ow">
-1
-</td>
-<td class="tg-0pky">
-Visualisation
-</td>
-</tr>
-<tr>
-<td class="tg-c3ow">
-2
-</td>
-<td class="tg-0pky">
-</td>
-</tr>
-</tbody>
-</table></div>
-</div>
-<div id="transcriptomics-1" class="section level3" number="1.4.2">
-<h3>
-<span class="header-section-number">1.4.2</span> Transcriptomics<a class="anchor" aria-label="anchor" href="#transcriptomics-1"><i class="fas fa-link"></i></a>
-</h3>
-<style type="text/css">
-.tg  {border-collapse:collapse;border-color:#ccc;border-spacing:0;}
-.tg td{background-color:#fff;border-color:#ccc;border-style:solid;border-width:1px;color:#333;
-  font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;word-break:normal;}
-.tg th{background-color:#f0f0f0;border-color:#ccc;border-style:solid;border-width:1px;color:#333;
-  font-family:Arial, sans-serif;font-size:14px;font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
-.tg .tg-baqh{text-align:center;vertical-align:top}
-.tg .tg-0lax{text-align:left;vertical-align:top}
-</style>
-<div class="inline-table"><table class="tg">
-<thead><tr>
-<th class="tg-baqh">
-Week
-</th>
-<th class="tg-baqh">
-Lesson
-</th>
-<th class="tg-baqh">
-Subject
-</th>
-</tr></thead>
-<tbody>
-<tr>
-<td class="tg-0lax" rowspan="2">
-5
-</td>
-<td class="tg-baqh">
-1
-</td>
-<td class="tg-0lax">
-Writing a Project Proposal
-</td>
-</tr>
-<tr>
-<td class="tg-baqh">
-2
-</td>
-<td class="tg-0lax">
-</td>
-</tr>
-<tr>
-<td class="tg-0lax" rowspan="4">
-6
-</td>
-<td class="tg-baqh">
-1
-</td>
-<td class="tg-0lax">
-Presenting Project Proposal
-</td>
-</tr>
-<tr>
-<td class="tg-baqh">
-2
-</td>
-<td class="tg-0lax">
-Read Mapping and Quantification
-</td>
-</tr>
-<tr>
-<td class="tg-baqh">
-3
-</td>
-<td class="tg-0lax">
-</td>
-</tr>
-<tr>
-<td class="tg-baqh">
-4
-</td>
-<td class="tg-0lax">
-Statistics (distributions, normalization, PCA)
-</td>
-</tr>
-<tr>
-<td class="tg-0lax" rowspan="5">
-7
-</td>
-<td class="tg-baqh">
-1
-</td>
-<td class="tg-0lax">
-Exploratory Data Analysis (<a href="#chapter-3">chapter 3</a>)
-</td>
-</tr>
-<tr>
-<td class="tg-baqh">
-2
-</td>
-<td class="tg-0lax">
-</td>
-</tr>
-<tr>
-<td class="tg-baqh">
-3
-</td>
-<td class="tg-0lax">
-Statistics (batch effects, regression, linear models)
-</td>
-</tr>
-<tr>
-<td class="tg-baqh">
-4
-</td>
-<td class="tg-0lax">
-Finding Differentially Expressed Genes (<a href="chapter-4.html#chapter-4">chapter 4</a>)
-</td>
-</tr>
-<tr>
-<td class="tg-baqh">
-5
-</td>
-<td class="tg-0lax">
-Statistics (Enrichment analysis)
-</td>
-</tr>
-<tr>
-<td class="tg-0lax" rowspan="6">
-8
-</td>
-<td class="tg-baqh">
-1
-</td>
-<td class="tg-0lax">
-Data Analysis and Visualization (<a href="chapter-5.html#chapter-5">chapter 5</a>)
-</td>
-</tr>
-<tr>
-<td class="tg-baqh">
-2
-</td>
-<td class="tg-0lax">
-</td>
-</tr>
-<tr>
-<td class="tg-baqh">
-3
-</td>
-<td class="tg-0lax">
-</td>
-</tr>
-<tr>
-<td class="tg-baqh">
-4
-</td>
-<td class="tg-0lax">
-</td>
-</tr>
-<tr>
-<td class="tg-baqh">
-5
-</td>
-<td class="tg-0lax">
-</td>
-</tr>
-<tr>
-<td class="tg-baqh">
-6
-</td>
-<td class="tg-0lax">
-Hand in Lab Journal
-</td>
-</tr>
-</tbody>
-</table></div>
-</div>
-</div>
-<div id="literature" class="section level2" number="1.5">
-<h2>
-<span class="header-section-number">1.5</span> Literature<a class="anchor" aria-label="anchor" href="#literature"><i class="fas fa-link"></i></a>
-</h2>
-<p>The following (online) documents can be used throughout this course:</p>
+<div id="dashboard" class="section level2 hasAnchor" number="1.7">
+<h2><span class="header-section-number">1.7</span> Dashboard<a href="index.html#dashboard" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The dashboard is an interactive web application that allows you to visualize the results of your analysis. It should be user-friendly and provide clear insights into the data. The dashboard should include the following features:</p>
 <ul>
-<li>Gene Set Enrichment Analysis – Theory. Available from: <a href="https://www.pathwaycommons.org/guide/primers/data_analysis/gsea/">https://www.pathwaycommons.org/guide/primers/data_analysis/gsea/</a>
-</li>
-<li>Li D. Statistical Methods for RNA Sequencing Data Analysis. In: Husi H, editor. Computational Biology [Internet]. Brisbane (AU): Codon Publications; 2019 Nov 21. Chapter 6. Available from: <a href="https://www.ncbi.nlm.nih.gov/books/NBK550334/">https://www.ncbi.nlm.nih.gov/books/NBK550334/</a>
-</li>
-<li>Yu, L., Fernandez, S. &amp; Brock, G. Power analysis for RNA-Seq differential expression studies. BMC Bioinformatics 18, 234 (2017). <a href="https://doi.org/10.1186/s12859-017-1648-2">https://doi.org/10.1186/s12859-017-1648-2</a>
-</li>
-<li>Sun, S., Hood, M., Scott, L., Peng, Q., Mukherjee, S., Tung, J., &amp; Zhou, X. (2017). Differential expression analysis for RNAseq using Poisson mixed models. Nucleic acids research, 45(11), e106. <a href="https://doi.org/10.1093/nar/gkx204">https://doi.org/10.1093/nar/gkx204</a>
-</li>
+<li>A summary of the dataset, including the number of samples, genes, and any relevant metadata.</li>
+<li>Interactive visualizations of the data, such as heatmaps, PCA plots, and volcano plots.</li>
+<li>The ability to filter and subset the data based on user-defined criteria.</li>
+<li>A section for displaying the results of the differential expression analysis, including tables of DEGs and their associated statistics.</li>
 </ul>
+<p>The techniques used will be further explained during lectures.</p>
 </div>
+<div id="article" class="section level2 hasAnchor" number="1.8">
+<h2><span class="header-section-number">1.8</span> Article<a href="index.html#article" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The final report is written in article form which is a bit different from a usual report, mainly in its size. The article-report has a <em>maximum</em> number of pages of <strong>4</strong> including all images and references (no appendices!). Contents for this article should be extracted from the lab journal combined with part introduction and part conclusion/ discussion. The sections below describe a template that is available for writing this report and example report(s) will be made available for inspiration. Refer to this chapter again once you start writing the report.</p>
+<div id="installing-the-article-template" class="section level3 hasAnchor" number="1.8.1">
+<h3><span class="header-section-number">1.8.1</span> Installing the Article Template<a href="index.html#installing-the-article-template" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The templates are available in an R package and contains both <code>RMarkdown</code> and (another layer on top of the actual <a href="https://nl.wikipedia.org/wiki/TeX">markup language</a>, yes, another language…) files. RStudio can use templates for a number of documents, including article-templates. These templates can be installed from a package called <code>rticles</code> by running the <code>install.packages</code> function (note: might already be installed):</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="index.html#cb2-1" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;rticles&quot;</span>, <span class="at">type =</span> <span class="st">&quot;source&quot;</span>)</span></code></pre></div>
 </div>
-  <div class="chapter-nav">
-<div class="empty"></div>
-<div class="next"><a href="from-reads-to-counts.html"><span class="header-section-number">2</span> From Reads to Counts</a></div>
-</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
-    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
-      <ul class="nav navbar-nav">
-<li><a class="nav-link" href="#chapter-1"><span class="header-section-number">1</span> Introduction</a></li>
-<li>
-<a class="nav-link" href="#genomics"><span class="header-section-number">1.1</span> 2.1.2 Genomics</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#project-deliverables"><span class="header-section-number">1.1.1</span> Project Deliverables</a></li>
-<li><a class="nav-link" href="#data-processing"><span class="header-section-number">1.1.2</span> Data Processing</a></li>
-<li><a class="nav-link" href="#finding-a-data-set"><span class="header-section-number">1.1.3</span> Finding a Data Set</a></li>
-</ul>
-</li>
-<li>
-<a class="nav-link" href="#transcriptomics"><span class="header-section-number">1.2</span> 2.1.2 Transcriptomics</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#project-deliverables-1"><span class="header-section-number">1.2.1</span> Project Deliverables</a></li></ul>
-</li>
-<li><a class="nav-link" href="#lab-journal"><span class="header-section-number">1.3</span> Lab Journal</a></li>
-<li>
-<a class="nav-link" href="#schedule"><span class="header-section-number">1.4</span> Schedule</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#genomics-1"><span class="header-section-number">1.4.1</span> Genomics</a></li>
-<li><a class="nav-link" href="#transcriptomics-1"><span class="header-section-number">1.4.2</span> Transcriptomics</a></li>
-</ul>
-</li>
-<li><a class="nav-link" href="#literature"><span class="header-section-number">1.5</span> Literature</a></li>
-</ul>
-
-      <div class="book-extra">
-        <ul class="list-unstyled">
-<li><a id="book-source" href="https://github.com/rstudio/bookdown-demo/blob/master/index.Rmd">View source <i class="fab fa-github"></i></a></li>
-          <li><a id="book-edit" href="https://github.com/rstudio/bookdown-demo/edit/master/index.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
-        </ul>
-</div>
-    </nav>
-</div>
+<div id="using-the-template" class="section level3 hasAnchor" number="1.8.2">
+<h3><span class="header-section-number">1.8.2</span> Using the Template<a href="index.html#using-the-template" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Now that you have the templates package (<code>rticles</code>) installed you can download and use the template project (ZIP-file) available from <a href="https://bioinf.nl/~marcelk/capstone/course/report-template.zip">here</a>. Download this file to your project folder, extract its contents and open the <code>report-template.Rmd</code> file contained within the folder in RStudio. Verify that everything is setup correctly by hitting the <code>Knit</code> button at the top, this should create a PDF version of the report. Note that - somehow - the resulting PDF file is named <code>RJwrapper.pdf</code> instead of the expected <code>report-template.pdf</code>. If everything checks out OK you can rename the file to your liking and start editing.</p>
+<p>This template is based on the <code>R Journal Submission</code> template that you can also find in RStudio in the <code>New file -&gt; R Markdown -&gt; From Template</code> menu. Articles published in the <code>R-journal</code> are based on this template which you can browse for inspiration at the <a href="https://journal.r-project.org/archive/2021-2/">R Journal Website</a>.</p>
+<p>The available template shows an <em>example</em> of segments/ chapters and briefly describes what each section could or should contain. If you want to write your report in the Dutch language, you can create a new file from the template and change the segment names and content to Dutch. There will however still be some headings added by the template in English which is fine with me, but if you want to keep everything Dutch you can either edit the <code>RJournal.sty</code> file manually (<em>not recommended</em>) or start a new file by yourself and add some nice headings and page options.</p>
+<p>The top part of the template (between the dashes <code>---</code>) contains some settings that you need to change such as <code>title</code>, <code>authors</code> and <code>abstract</code>. Compare for instance a newly created article from this template with the one offered from the project-repository website.</p>
 
 </div>
-</div> <!-- .container -->
+</div>
+</div>
+            </section>
 
-<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+          </div>
+        </div>
+      </div>
 
-  <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>2.1.2 Genomics &amp; Transcriptomics</strong>" was written by Marcel Kempenaar. It was last built on 2024-09-09.</p>
+<a href="datasets.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
   </div>
-
-  <div class="col-12 col-md-6 mt-3">
-    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
-  </div>
-
-</div></div>
-</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    var src = "true";
-    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:")
-      if (/^https?:/.test(src))
-        src = src.replace(/^https?:/, '');
-    script.src = src;
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
-</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
-for (let popover of popovers) {
-  const div = document.createElement('div');
-  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
-  div.innerHTML = popover.getAttribute('data-content');
-
-  var has_math = div.querySelector("span.math");
-  if (has_math) {
-    document.body.appendChild(div);
-    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
-    MathJax.Hub.Queue(function() {
-      popover.setAttribute('data-content', div.innerHTML);
-      document.body.removeChild(div);
-    })
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
   }
-}
+});
+});
 </script>
+
 </body>
+
 </html>
