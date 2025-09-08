@@ -66,10 +66,9 @@
       <nav aria-label="Table of contents"><h2>Table of contents</h2>
         <ul class="book-toc list-unstyled">
 <li><a class="" href="index.html"><span class="header-section-number">1</span> Introduction</a></li>
-<li><a class="" href="from-reads-to-counts.html"><span class="header-section-number">2</span> From Reads to Counts</a></li>
-<li><a class="" href="EDA.html"><span class="header-section-number">3</span> Exploratory Data Analysis</a></li>
-<li><a class="" href="chapter-4.html"><span class="header-section-number">4</span> Discovering Differentialy Expressed Genes (DEGs)</a></li>
-<li><a class="active" href="chapter-5.html"><span class="header-section-number">5</span> Data Analysis and Visualization</a></li>
+<li><a class="" href="EDA.html"><span class="header-section-number">2</span> Exploratory Data Analysis</a></li>
+<li><a class="" href="chapter-4.html"><span class="header-section-number">3</span> Discovering Differentialy Expressed Genes (DEGs)</a></li>
+<li><a class="active" href="chapter-5.html"><span class="header-section-number">4</span> Data Analysis and Visualization</a></li>
 <li class="book-part">Appendix</li>
 <li><a class="" href="a2-data_loading.html"><span class="header-section-number">A</span> Batch Loading Expression Data in R</a></li>
 <li><a class="" href="a3-annotation.html"><span class="header-section-number">B</span> Annotating an RNA-Seq Experiment</a></li>
@@ -80,14 +79,14 @@
         </div>
       </nav>
 </div>
-  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="chapter-5" class="section level1" number="5">
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="chapter-5" class="section level1" number="4">
 <h1>
 <span class="header-section-number"></span> Data Analysis and Visualization<a class="anchor" aria-label="anchor" href="#chapter-5"><i class="fas fa-link"></i></a>
 </h1>
 <p>At this point we have one or more sets of DEGs from our experiment. It might be just one set or it might be a large number of comparisons made with a set of DEGs per comparison and/ or results from multiple approaches (manual, packages). This chapter offers some guidance to visualize, summarize and - finally - connect some biological relevance to the results. <strong>Browse this chapter first</strong> before choosing the visualization(s) to make for your data! If your article contains relevant figures that you would like to try and reproduce (given that enough data is available) that can be done as well instead of the visualizations shown here. Note however that the Volcano plot described below <strong>is</strong> required.</p>
-<div id="volcano" class="section level2" number="5.1">
+<div id="volcano" class="section level2" number="4.1">
 <h2>
-<span class="header-section-number">5.1</span> Volcano Plot<a class="anchor" aria-label="anchor" href="#volcano"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.1</span> Volcano Plot<a class="anchor" aria-label="anchor" href="#volcano"><i class="fas fa-link"></i></a>
 </h2>
 <p>A volcano plot is often the first visualization of the data once the statistical tests are completed. This plot shows data for <em>all</em> genes and we highlight those genes that are considered DEG by using thresholds for both the (adjusted) p-value and a fold-change. Many articles describe values used for these thresholds in their methods section, otherwise a good default is 0.05 for the adjusted p-value and around 1.0 for the log-FC.</p>
 <p>Here we use the <code>EnhancedVolcano</code> library that creates a <code>ggplot2</code> volcano plot as shown below. This is packaged in a function <code>deseq.volcano</code> just because we create two figures and only need to change the input data set and plot title. The resulting scatterplot places the <code>-log10(pvalue)</code> values on the y-axis and the log-FC on the x-axis. This often results in a plot representing a volcanic ‘eruption’ where the fold-change influences the spread and the significance the height. Coloring is done based on the thresholds (-log10(0.05) for the adjusted and log2(2) for the log-FC) as follows:</p>
@@ -98,7 +97,7 @@
 <li>red: significant DEG</li>
 </ul>
 <p>You can adjust the <code>pCutoff</code> and <code>FCcutoff</code> values depending on your own requirements, see the elaborate <a href="https://github.com/kevinblighe/EnhancedVolcano">documentation and examples</a> on GitHub. The code below <em>wraps</em> the <code>EnhancedVolcano</code> function in a custom function (<code>deseq.volcano</code>) that can be used when there are multiple comparisons to make.</p>
-<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/kevinblighe/EnhancedVolcano">EnhancedVolcano</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">## Simple function for plotting a Volcano plot, returns a ggplot object</span></span>
@@ -118,11 +117,11 @@
 <span></span>
 <span><span class="co">## Note: input data is the corrected DESeq2 output using the 'lfcShrink' function (see chapter 4)</span></span>
 <span><span class="fu">deseq.volcano</span><span class="op">(</span>res <span class="op">=</span> <span class="va">res.ipsc.lfc</span>, datasetName <span class="op">=</span> <span class="st">"IPSC"</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="gene_expression_files/figure-html/unnamed-chunk-10-1.png" width="672"></div>
-<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
+<div class="inline-figure"><img src="gene_expression_files/figure-html/unnamed-chunk-8-1.png" width="672"></div>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">deseq.volcano</span><span class="op">(</span>res <span class="op">=</span> <span class="va">res.neuron.lfc</span>, datasetName <span class="op">=</span> <span class="st">"Neuron"</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="gene_expression_files/figure-html/unnamed-chunk-10-2.png" width="672"></div>
-<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
+<div class="inline-figure"><img src="gene_expression_files/figure-html/unnamed-chunk-8-2.png" width="672"></div>
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Note that the most simplest case is:</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/EnhancedVolcano/man/EnhancedVolcano.html">EnhancedVolcano</a></span><span class="op">(</span><span class="va">res.ipsc</span>, x <span class="op">=</span> <span class="st">'log2FoldChange'</span>, y <span class="op">=</span> <span class="st">'padj'</span>, lab <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/row_colnames.html">rownames</a></span><span class="op">(</span><span class="va">res.ipsc</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><strong>Notes</strong>:</p>
@@ -131,9 +130,9 @@
 <li>In this example there are too many DEGs to annotate with their name in the plots. The <code>EnhancedVolcano</code> plot function has many options for annotating significant genes, see the linked manual for further information.</li>
 </ul>
 </div>
-<div id="venn-diagram" class="section level2" number="5.2">
+<div id="venn-diagram" class="section level2" number="4.2">
 <h2>
-<span class="header-section-number">5.2</span> Venn Diagram<a class="anchor" aria-label="anchor" href="#venn-diagram"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.2</span> Venn Diagram<a class="anchor" aria-label="anchor" href="#venn-diagram"><i class="fas fa-link"></i></a>
 </h2>
 <p>Another common visualization is a Venn-diagram. With our data set we’ve shown two comparisons; trisomic vs disomic in two cell types. Using a Venn-diagram we can show both the <em>shared</em> and <em>unique</em> DEGS for the <em>IPSC trisomic vs IPSC disomic</em> and <em>NEUR trisomic vs NEUR disomic</em> comparisons.</p>
 <p>Creating a Venn-diagram can be a good method for selecting a (sub)set of DEGs, for instance by selecting the set of DEGs that are shared between groups (the <em>Intersection</em>, see the <a href="https://en.wikipedia.org/wiki/Set_theory">Wikipedia page on Set Theory</a> or the other way around, only the DEGs that are unique for a group (the <em>Difference</em>). Keep this in mind when continuing on to the <a href="chapter-5.html#clustering">clustering</a> section below where it is most likely not useful to cluster all combinations you might have.</p>
@@ -149,13 +148,13 @@
 <li>Using the <code>gplots</code> library (third code-chunk): Easier to use and support for complex Venn diagrams, but not good for adjusting appearance.</li>
 </ul>
 <p>See the blog post “<a href="https://www.datanovia.com/en/blog/venn-diagram-with-r-or-rstudio-a-million-ways/">VENN DIAGRAM WITH R OR RSTUDIO: A MILLION WAYS</a>” for more methods of creating Venn diagrams.</p>
-<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Data preparation</span></span>
 <span><span class="va">pval_threshold</span> <span class="op">&lt;-</span> <span class="fl">0.05</span></span>
 <span><span class="va">ipsc.degs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/row.names.html">row.names</a></span><span class="op">(</span><span class="va">res.ipsc.lfc</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/which.html">which</a></span><span class="op">(</span><span class="va">res.ipsc.lfc</span><span class="op">$</span><span class="va">padj</span> <span class="op">&lt;=</span> <span class="va">pval_threshold</span><span class="op">)</span>, <span class="op">]</span><span class="op">)</span></span>
 <span><span class="va">neur.degs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/row.names.html">row.names</a></span><span class="op">(</span><span class="va">res.neuron.lfc</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/which.html">which</a></span><span class="op">(</span><span class="va">res.neuron.lfc</span><span class="op">$</span><span class="va">padj</span> <span class="op">&lt;=</span> <span class="va">pval_threshold</span><span class="op">)</span>, <span class="op">]</span><span class="op">)</span></span></code></pre></div>
 <p>The two created vectors of gene names can be used by either taking their lengths (for the <code>VennDiagram</code> library) or just their names (for the <code>gplots</code> library).</p>
-<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Venn-diagram using the `VennDiagram` library (see below for alternative method)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">VennDiagram</span><span class="op">)</span></span>
 <span><span class="co"># Arguments for a pairwise (two-sets) venn-diagram are sizes for set1, set2 and overlap (intersect)</span></span>
@@ -173,11 +172,11 @@
 <div class="figure">
 <span style="display:block;" id="fig:vennDiagram"></span>
 <img src="gene_expression_files/figure-html/vennDiagram-1.png" alt="Venn diagram comparing IPSC and NEUR DEGs using 'VennDiagram' library" width="672"><p class="caption">
-Figure 5.1: Venn diagram comparing IPSC and NEUR DEGs using ‘VennDiagram’ library
+Figure 4.1: Venn diagram comparing IPSC and NEUR DEGs using ‘VennDiagram’ library
 </p>
 </div>
 <p>As mentioned, following is an easier alternative (especially when you have &gt; 2 groups) with the <code>venn</code> function from the <code>gplots</code> library. This only needs a list containing either the row-numbers or the gene-names of the DEGs which is easier (but offers less adjustability to make it prettier).</p>
-<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Alternative method using the `gplots` library</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/talgalili/gplots">gplots</a></span><span class="op">)</span></span>
 <span><span class="co"># Create a Venn-diagram given just the list of gene-names for both sets</span></span>
@@ -186,14 +185,14 @@ Figure 5.1: Venn diagram comparing IPSC and NEUR DEGs using ‘VennDiagram’ li
 <div class="figure">
 <span style="display:block;" id="fig:alternativeVenn"></span>
 <img src="gene_expression_files/figure-html/alternativeVenn-1.png" alt="Venn diagram comparing IPSC and NEUR DEGs using 'gplots' library" width="672"><p class="caption">
-Figure 5.2: Venn diagram comparing IPSC and NEUR DEGs using ‘gplots’ library
+Figure 4.2: Venn diagram comparing IPSC and NEUR DEGs using ‘gplots’ library
 </p>
 </div>
 <p>While both analysis result in a similar amount of DEGS (849 for the IPSC and 769 for the Neuron cell types) only 96 DEGs are shared between both cell types and most are thus unique.</p>
 </div>
-<div id="clustering" class="section level2" number="5.3">
+<div id="clustering" class="section level2" number="4.3">
 <h2>
-<span class="header-section-number">5.3</span> Clustering<a class="anchor" aria-label="anchor" href="#clustering"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.3</span> Clustering<a class="anchor" aria-label="anchor" href="#clustering"><i class="fas fa-link"></i></a>
 </h2>
 <p>Here, we can create a heatmap of the found DEGs for all samples where the colors show the fold-change value. Usually this heatmap is shown with a two color gradient; from red (downregulated) to green (upregulated). This is however optional and using the default colors from <code>pheatmap</code> for example is perfectly fine as long as a proper legend is present.</p>
 <p>There are multiple methods of creating a heatmap (one of which you’ve already used) and most of these directly apply clustering in the visualization. This clustering can be applied to the expression pattern of a gene (row-clustering), the expression pattern of a sample (column-clustering) or both (default for <code>pheatmap</code>).</p>
@@ -202,28 +201,28 @@ Figure 5.2: Venn diagram comparing IPSC and NEUR DEGs using ‘gplots’ library
 <div class="figure">
 <span style="display:block;" id="fig:expressionHeatmap"></span>
 <img src="gene_expression_files/figure-html/expressionHeatmap-1.png" alt="Heatmap showing the fold changes of the Trisomic vs Disomic comparisons for both cell types. The shown genes are all shared DEGS (the 96 shown in the Venn-diagrams) but also filtered for an absolute log2(FC) value of &gt;2." width="672"><p class="caption">
-Figure 5.3: Heatmap showing the fold changes of the Trisomic vs Disomic comparisons for both cell types. The shown genes are all shared DEGS (the 96 shown in the Venn-diagrams) but also filtered for an absolute log2(FC) value of &gt;2.
+Figure 4.3: Heatmap showing the fold changes of the Trisomic vs Disomic comparisons for both cell types. The shown genes are all shared DEGS (the 96 shown in the Venn-diagrams) but also filtered for an absolute log2(FC) value of &gt;2.
 </p>
 </div>
 <p>A limitation of such a heatmap will show itself when more then 100 DEGs are found; this just doesn’t fit well in a single figure and causes the clustering and especially the gene names/ labels to be unreadable. It is therefore always adviced to not only filter on the adjusted p-value, but also on the log-FC value to reduce the number of genes shown. Alternatively if the data is properly annotated, instead of showing gene names for each row, showing a GO-term clustering might reveal expression patterns for certain gene groups.</p>
 </div>
-<div id="pathway-analysis" class="section level2" number="5.4">
+<div id="pathway-analysis" class="section level2" number="4.4">
 <h2>
-<span class="header-section-number">5.4</span> Pathway Analysis<a class="anchor" aria-label="anchor" href="#pathway-analysis"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.4</span> Pathway Analysis<a class="anchor" aria-label="anchor" href="#pathway-analysis"><i class="fas fa-link"></i></a>
 </h2>
 <p>In some cases you’ll see hundreds or even thousands of DEGs as a result of an analysis. These large amounts of DEGs are too much for most visualization approaches or to easily say something about the biological context for that many genes.</p>
 <p>One approach for tackling such a large set of DEGs is <em>pathway analysis</em> where through different methods genes are grouped by pathway to get an overview of affected pathways in the experiment.</p>
 <p>This section will demonstrate two methods for this analysis, one using an online platform for <em>gene-annotation enrichment</em> analysis and an R-method for <em>signaling pathway impact analysis</em>.</p>
-<div id="kegg-pathway-visualization-10-degs" class="section level3" number="5.4.1">
+<div id="kegg-pathway-visualization-10-degs" class="section level3" number="4.4.1">
 <h3>
-<span class="header-section-number">5.4.1</span> KEGG-pathway Visualization (&gt;10 DEGs)<a class="anchor" aria-label="anchor" href="#kegg-pathway-visualization-10-degs"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.4.1</span> KEGG-pathway Visualization (&gt;10 DEGs)<a class="anchor" aria-label="anchor" href="#kegg-pathway-visualization-10-degs"><i class="fas fa-link"></i></a>
 </h3>
 <p>Knowing the interesting KEGG-pathway(s) upfront (i.e. it is listed in the article) allows for visualizations applied to that selected pathway. For this we can use the <code>pathview</code> <a href="https://pathview.uncc.edu">website</a> or Bioconductor <a href="https://bioconductor.org/packages/release/bioc/html/pathview.html">library</a>:</p>
 <blockquote>
 <p>“… It maps and renders a wide variety of biological data on relevant pathway graphs. All users need is to supply their data and specify the target pathway. Pathview automatically downloads the pathway graph data, parses the data file, maps user data to the pathway, and render pathway graph with the mapped data.”</p>
 </blockquote>
 <p>This section demonstrates only the use of the bioconductor package for visualizing not only the DEGs onto pathways, but also the change in expression for each gene.</p>
-<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Bioconductor library (install with bioclite() if missing)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/datapplab/pathview">pathview</a></span><span class="op">)</span></span>
 <span></span>
@@ -264,17 +263,17 @@ interconversions</td>
 metabolism</td>
 </tr></tbody>
 </table></div>
-<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Check 'gene.idtype' argument possibilities</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">gene.idtype.list</span><span class="op">)</span>; </span>
 <span><span class="fu">pander</span><span class="op">(</span><span class="va">gene.idtype.list</span><span class="op">)</span></span></code></pre></div>
 <p><em>SYMBOL</em>, <em>GENENAME</em>, <em>ENSEMBL</em>, <em>ENSEMBLPROT</em>, <em>UNIGENE</em>, <em>UNIPROT</em>, <em>ACCNUM</em>, <em>ENSEMBLTRANS</em>, <em>REFSEQ</em>, <em>ENZYME</em>, <em>TAIR</em>, <em>PROSITE</em> and <em>ORF</em></p>
-<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Prepare data for visualization</span></span>
 <span><span class="va">deseq.degs.logfc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html">subset</a></span><span class="op">(</span><span class="va">deseq.results</span>, <span class="va">padj</span> <span class="op">&lt;</span> <span class="va">pval_threshold</span>, select <span class="op">=</span> <span class="va">log2FoldChange</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">pander</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">deseq.degs.logfc</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/pathview/man/pathview.html">pathview</a></span><span class="op">(</span>gene.data<span class="op">=</span><span class="va">deseq.degs.logfc</span>,</span>
 <span>         pathway.id<span class="op">=</span><span class="st">"00020"</span>, <span class="co"># TCA-cycle</span></span>
 <span>         species<span class="op">=</span><span class="st">"hsa"</span>     <span class="co"># Organism key</span></span>
@@ -287,17 +286,17 @@ metabolism</td>
 
 
   <div class="chapter-nav">
-<div class="prev"><a href="chapter-4.html"><span class="header-section-number">4</span> Discovering Differentialy Expressed Genes (DEGs)</a></div>
+<div class="prev"><a href="chapter-4.html"><span class="header-section-number">3</span> Discovering Differentialy Expressed Genes (DEGs)</a></div>
 <div class="next"><a href="a2-data_loading.html"><span class="header-section-number">A</span> Batch Loading Expression Data in R</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
-<li><a class="nav-link" href="#chapter-5"><span class="header-section-number">5</span> Data Analysis and Visualization</a></li>
-<li><a class="nav-link" href="#volcano"><span class="header-section-number">5.1</span> Volcano Plot</a></li>
-<li><a class="nav-link" href="#venn-diagram"><span class="header-section-number">5.2</span> Venn Diagram</a></li>
-<li><a class="nav-link" href="#clustering"><span class="header-section-number">5.3</span> Clustering</a></li>
+<li><a class="nav-link" href="#chapter-5"><span class="header-section-number">4</span> Data Analysis and Visualization</a></li>
+<li><a class="nav-link" href="#volcano"><span class="header-section-number">4.1</span> Volcano Plot</a></li>
+<li><a class="nav-link" href="#venn-diagram"><span class="header-section-number">4.2</span> Venn Diagram</a></li>
+<li><a class="nav-link" href="#clustering"><span class="header-section-number">4.3</span> Clustering</a></li>
 <li>
-<a class="nav-link" href="#pathway-analysis"><span class="header-section-number">5.4</span> Pathway Analysis</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#kegg-pathway-visualization-10-degs"><span class="header-section-number">5.4.1</span> KEGG-pathway Visualization (&gt;10 DEGs)</a></li></ul>
+<a class="nav-link" href="#pathway-analysis"><span class="header-section-number">4.4</span> Pathway Analysis</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#kegg-pathway-visualization-10-degs"><span class="header-section-number">4.4.1</span> KEGG-pathway Visualization (&gt;10 DEGs)</a></li></ul>
 </li>
 </ul>
 

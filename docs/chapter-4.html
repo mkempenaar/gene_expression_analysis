@@ -66,10 +66,9 @@
       <nav aria-label="Table of contents"><h2>Table of contents</h2>
         <ul class="book-toc list-unstyled">
 <li><a class="" href="index.html"><span class="header-section-number">1</span> Introduction</a></li>
-<li><a class="" href="from-reads-to-counts.html"><span class="header-section-number">2</span> From Reads to Counts</a></li>
-<li><a class="" href="EDA.html"><span class="header-section-number">3</span> Exploratory Data Analysis</a></li>
-<li><a class="active" href="chapter-4.html"><span class="header-section-number">4</span> Discovering Differentialy Expressed Genes (DEGs)</a></li>
-<li><a class="" href="chapter-5.html"><span class="header-section-number">5</span> Data Analysis and Visualization</a></li>
+<li><a class="" href="EDA.html"><span class="header-section-number">2</span> Exploratory Data Analysis</a></li>
+<li><a class="active" href="chapter-4.html"><span class="header-section-number">3</span> Discovering Differentialy Expressed Genes (DEGs)</a></li>
+<li><a class="" href="chapter-5.html"><span class="header-section-number">4</span> Data Analysis and Visualization</a></li>
 <li class="book-part">Appendix</li>
 <li><a class="" href="a2-data_loading.html"><span class="header-section-number">A</span> Batch Loading Expression Data in R</a></li>
 <li><a class="" href="a3-annotation.html"><span class="header-section-number">B</span> Annotating an RNA-Seq Experiment</a></li>
@@ -80,20 +79,20 @@
         </div>
       </nav>
 </div>
-  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="chapter-4" class="section level1" number="4">
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="chapter-4" class="section level1" number="3">
 <h1>
 <span class="header-section-number"></span> Discovering Differentialy Expressed Genes (DEGs)<a class="anchor" aria-label="anchor" href="#chapter-4"><i class="fas fa-link"></i></a>
 </h1>
 <p>The first and most important ‘real’ analysis step we will do is finding genes that show a difference in expression between sample groups; the <em>differentially expressed genes</em> (DEGs). The concept might sound rather simple; calculate the ratios for all genes between samples to determine the <strong>fold-change</strong> (FC) denoting the factor of change in expression between groups. Then, filter out only those genes that actually show a difference. While this does give a list of genes showing different behaviour across samples, we need to focus on genes that do not only show a difference, but where that observed difference is also <em>statistically significant</em>!</p>
 <p>To determine whether or not a gene can be classified as a significant DEG we are going to use existing libraries, one of which your own article might refer to. Before we do that we’re going to a brief manual examination of the count data to make sure that you properly understand what we’re looking for: significance and the Fold-Change value.</p>
-<div id="deg-preprocessing" class="section level2" number="4.1">
+<div id="deg-preprocessing" class="section level2" number="3.1">
 <h2>
-<span class="header-section-number">4.1</span> Pre-processing<a class="anchor" aria-label="anchor" href="#deg-preprocessing"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.1</span> Pre-processing<a class="anchor" aria-label="anchor" href="#deg-preprocessing"><i class="fas fa-link"></i></a>
 </h2>
 <p>Given the results of the exploratory data analysis performed in <a href="#chapter-3">chapter 3</a>, you might have concluded that there are one or more samples that show (very) deviating expression patterns compared to samples from the same group. As mentioned before, <em>if</em> you have more then enough (&gt; 3) samples in a group, you might opt to remove a sample to reduce the noise as the statistical tests are very sensitive to this. Since we are performing all analysis steps programatically it is also very easy to test for DEGs with and without the sample(s) in question and see if the removal results in lower p-values (= higher significance). Remember to always properly document your choice and reasoning!</p>
 <p>To perform a few more manual steps on our data before using other libraries, we will re-do the normalization with a different technique. A simple method of normalizing count data is to calculate the <em>fragments per million mapped fragments</em> (FPM, equal to CPM) value and then transform this with log2. Opposed to FPKM and RPKM this does not include the gene-length in its calculation (which you most likely don’t have). If your dataset also includes FPKM or RPKM (pre-normalized), you are allowed to use this data too.</p>
 <p>FPM and CPM are simply dividing the count values for a sample by the total number of reads of that sample divided by 1 million as shown below:</p>
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Perform a naive FPM normalization</span></span>
 <span><span class="co"># Note: log transformation includes a pseudocount of 1</span></span>
 <span><span class="va">counts.fpm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">log2</a></span><span class="op">(</span> <span class="op">(</span><span class="va">counts</span> <span class="op">/</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colSums.html">colSums</a></span><span class="op">(</span><span class="va">counts</span><span class="op">)</span> <span class="op">/</span> <span class="fl">1e6</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fl">1</span> <span class="op">)</span></span></code></pre></div>
@@ -112,9 +111,9 @@
 </li>
 </ul>
 </div>
-<div id="deg-fc" class="section level2" number="4.2">
+<div id="deg-fc" class="section level2" number="3.2">
 <h2>
-<span class="header-section-number">4.2</span> The <em>Fold Change</em> Value<a class="anchor" aria-label="anchor" href="#deg-fc"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.2</span> The <em>Fold Change</em> Value<a class="anchor" aria-label="anchor" href="#deg-fc"><i class="fas fa-link"></i></a>
 </h2>
 <p>The FC is usually given as the calculated <code>log2</code> of the <em>case/control</em> ratio. For example, gene A has an average expression of 30 mapped reads in the control group and 88 reads in the experiment group, the <strong>ratio</strong> <em>case/control</em> is <code>2.93</code>. Ratio values &gt; 1 indicate increased expression in the experiment in relation to the control and values between 0 and 1 indicate lower expression. The log2 transformed value of the ratio is calculated with <code>log2(2.93)</code> and results in <code>1.55</code>. If the counts were reversed, the ratio would have been <code>30/88</code>, which is <code>0.34</code>. The previously calculated value of <code>2.93</code> means a 3-fold up regulation while the <code>0.34</code> value means 3-fold down regulation but as you can see the range of numbers is very different. Comparing log2 values this would be <code>1.55</code> and <code>-1.55</code> which compares much better.</p>
 <p>While it is very easy to calculate the FC for all genes at once, a simple FC value doesn’t mean much, yet! We still need to use the power that lie within the replicates we have for each sample group. Using these replicates, we want to determine if the observed FC is not just biological noise or a sequencing error.</p>
@@ -144,9 +143,9 @@
 </blockquote>
 <p>Most often instead of manually performing t-tests or ANOVA analysis, the article mentions the use of one or more R libraries of other software packages for finding DEGs. This is exactly what we will also do in this chapter. The output of finding DEG’s always includes - but is not limited to - a list of <em>p-values</em>; one p-value <strong>per gene</strong>. This value indicates whether that gene is a <em>statistically-significant differentially expressed gene</em> (SDEG) and to find these genes of interest all we need to do is get all genes with a p-value below our threshold (i.e. <code>0.05</code>).</p>
 </div>
-<div id="deg-bioconductor" class="section level2" number="4.3">
+<div id="deg-bioconductor" class="section level2" number="3.3">
 <h2>
-<span class="header-section-number">4.3</span> Using Bioconductor Packages<a class="anchor" aria-label="anchor" href="#deg-bioconductor"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.3</span> Using Bioconductor Packages<a class="anchor" aria-label="anchor" href="#deg-bioconductor"><i class="fas fa-link"></i></a>
 </h2>
 <p>This section demonstrates the use of two packages to perform DEG-analysis on <strong>count</strong> data. There are many packages available on Bioconductor for RNA-Seq analysis, such as <code>DSS</code>, <code>EBSeq</code>, <code>NOISeq</code> and <code>BaySeq</code>, but here we will focus on <code>edgeR</code> and <code>DESeq2</code> for processing our count-based data. Chances are that one of these two packages are mentioned if the article described the use of R for the statistical analysis as they are the most widely accepted methods of processing gene expression data.</p>
 <p>Both packages apply their own normalization methods (described in the sections below) therefore they only work on the <strong>raw</strong> count data. If your data consists of <strong>expected</strong> count data, you need to round these values down (using the <code>floor</code> function). You can choose one of these two packages to use, or use them both since it could increase statistical power and they are not very hard to use once you understand how to <strong>model</strong> the data as we’ll show next.</p>
@@ -161,12 +160,12 @@
 <div class="rmdtip">
 The two listed packages come with a very complete and extensive manual. Therefore, the course manual (this document) does <em>not</em> guide you exactly on how to use them; that is for you to find out. These manuals can be found as PDF on the BioConductor website, or opened from within R using the <code>vignette</code> function given the library name as argument. To see all available manuals (note; these are very different from the function-help documentation) execute the function without arguments: <code><a href="https://rdrr.io/r/utils/vignette.html">vignette()</a></code>.
 </div>
-<div id="deg-design" class="section level3" number="4.3.1">
+<div id="deg-design" class="section level3" number="3.3.1">
 <h3>
-<span class="header-section-number">4.3.1</span> The <code>Design</code> (matrix)<a class="anchor" aria-label="anchor" href="#deg-design"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.3.1</span> The <code>Design</code> (matrix)<a class="anchor" aria-label="anchor" href="#deg-design"><i class="fas fa-link"></i></a>
 </h3>
 <p>For all of these packages you need to properly specify <em>how</em> your samples are grouped. We have seen examples of this using an <code>R factor</code> object with the heatmap and MDS visualizations to tell which groups of samples we have and to which group each sample belongs. Reading the documentation for the below packages shows that this is an important part of performing DE-analysis. For example, the following code is shown in the <code>edgeR</code> documentation on page 8 where two sample groups are defined (numbered <code>1</code> and <code>2</code>), placed in a <code>factor</code> object and used as input in the <code>model.matrix</code> function.</p>
-<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">group</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span>, labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Control"</span>, <span class="st">"Case"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">(</span><span class="va">design</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/model.matrix.html">model.matrix</a></span><span class="op">(</span> <span class="op">~</span> <span class="va">group</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code>##   (Intercept) groupCase
@@ -196,9 +195,9 @@ The two listed packages come with a very complete and extensive manual. Therefor
 </blockquote>
 <p>If you have more then two sample groups and you want to change the <em>question</em> (i.e. test the influence of a different group), read the section about <strong>Releveling</strong> the <code>factor</code>.</p>
 </div>
-<div id="deg-deseq2" class="section level3" number="4.3.2">
+<div id="deg-deseq2" class="section level3" number="3.3.2">
 <h3>
-<span class="header-section-number">4.3.2</span> <code>DESeq2</code><a class="anchor" aria-label="anchor" href="#deg-deseq2"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.3.2</span> <code>DESeq2</code><a class="anchor" aria-label="anchor" href="#deg-deseq2"><i class="fas fa-link"></i></a>
 </h3>
 <p>We have used the <code>DESeq2</code> library before and for DEG analysis we could re-use the <code>DESeqDataSet</code> object but it is adviced to create a new object with the proper design formula instead of the <code>~ 1</code> we used before.</p>
 <p>There is no need to normalize the data using the previously used <code>vst</code> function because the <code>DESeq2</code> library will normalize the count data for you as follows:</p>
@@ -359,7 +358,7 @@ IPSC.trisomic vs IPSC.disomic</td>
 </table></div>
 <p><em>How</em> you call the <code>results</code> function depends heavily on your experiment. As you can see from the output of the <code>summary</code> function, there are no details given about <em>which</em> comparison is shown (and also, by default a p-value of 0.1 is used instead of 0.05).</p>
 <p>Depending on the <em>design</em> used to create the <code>DESeqDataSet</code> with, one or more comparisons can be made (applying the <code>DESeq</code> function calculates all and you filter with the <code>results</code> function). Read the help for the <code>results</code> function carefully; especially regarding the <code>contrast</code> argument where you define the comparison to retrieve. The following code can be used for our example experiment to get the DEGs comparing the celltypes using an adjusted p-value of 0.05:</p>
-<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/DESeq2/man/results.html">results</a></span><span class="op">(</span><span class="va">dds</span>, contrast <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Cell"</span>, <span class="st">"IPSC"</span>, <span class="st">"Neuron"</span><span class="op">)</span>,</span>
 <span>               alpha <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></span></code></pre></div>
 <p>The <code>DESeq2</code> library contains a number of plotting functions that can be applied to a <code>DESeqResults</code> object (output of the <code>results</code> function), the most notable is the <code>plotMA</code> function. Note that the first MA-plot shown below has a very high range for the log fold changes (-10, 10) where the maximum value is 22.4 (shown as a triangle stating it is outside of the plotting range). A <strong>log</strong> fold change of 22 means &gt;5 <em>million</em> increased expression which seems artificially high. DESeq2 includes a function to perform downstream processing of the estimated log fold change values called <code>lfcShrink</code> which is advised to always run afterwards. The reason for executing this function is described in the vignette with:</p>
@@ -369,7 +368,7 @@ IPSC.trisomic vs IPSC.disomic</td>
 <div class="figure">
 <span style="display:block;" id="fig:deseqResultsPlotMA"></span>
 <img src="gene_expression_files/figure-html/deseqResultsPlotMA-1.png" alt="MA-plots with the standard DESeq2 output (left) and after shrinking with 'lfcShrink' (right)" width="960"><p class="caption">
-Figure 4.1: MA-plots with the standard DESeq2 output (left) and after shrinking with ‘lfcShrink’ (right)
+Figure 3.1: MA-plots with the standard DESeq2 output (left) and after shrinking with ‘lfcShrink’ (right)
 </p>
 </div>
 <p><strong>Links</strong></p>
@@ -380,9 +379,9 @@ Figure 4.1: MA-plots with the standard DESeq2 output (left) and after shrinking 
 <a href="https://genomebiology.biomedcentral.com/articles/10.1186/s13059-014-0550-8">Publication</a>, an accompanying article showing differences in performance compared to other methods and packages.</li>
 </ul>
 </div>
-<div id="deg-edger" class="section level3" number="4.3.3">
+<div id="deg-edger" class="section level3" number="3.3.3">
 <h3>
-<span class="header-section-number">4.3.3</span> <code>edgeR</code><a class="anchor" aria-label="anchor" href="#deg-edger"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.3.3</span> <code>edgeR</code><a class="anchor" aria-label="anchor" href="#deg-edger"><i class="fas fa-link"></i></a>
 </h3>
 <p>One of the most mature libraries for RNA-Seq data analysis is the <code>edgeR</code> library available on <a href="http://bioconductor.org/packages/release/bioc/html/edgeR.html">Bioconductor</a>. There is a very complete (sometimes a bit complex) manual available of which you need to read <a href="https://bioconductor.org/packages/release/bioc/vignettes/edgeR/inst/doc/edgeRUsersGuide.pdf">Chapter 2</a> with a focus on 2.1 to 2.7, 2.9 and - if you have a more complex design - 2.10. Section 1.4 (Quickstart) shows a code example on the steps needed to do DEG analysis using count data using the two <code>glm</code> methods (<em>quasi-likelihood F-tests</em> and <em>likelihood ratio tests</em>). All the steps shown there are identical for the non-<code>glm</code> method up to calculating the <code>fit</code> object which can be replaced by performing the <code>exactTest</code> function as shown in section 2.9.2.</p>
 <p>The <code>edgeR</code> library will normalize the count data for you as follows:</p>
@@ -409,25 +408,25 @@ Warning messages:
 5: package ‘pheatmap’ was built under R version 4.3.3
 6: package ‘PoiClaClu’ was built under R version 4.3.3</p>
 <p>The package also contains a few plotting methods that you can use at intermediate steps during the analysis. For instance, after calculating the normalization factors (<code>calcNormFactors</code>), you can perform multi-dimensional scaling with the <code>plotMDS</code> function which is similar to what we’ve done manually in chapter three:</p>
-<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">plotMDS</span><span class="op">(</span><span class="va">y</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
 <span style="display:block;" id="fig:edgeRPlotMDS"></span>
 <img src="gene_expression_files/figure-html/edgeRPlotMDS-1.png" alt="edgeR MDS plot based on the calculated log2 fold changes" width="672"><p class="caption">
-Figure 4.2: edgeR MDS plot based on the calculated log2 fold changes
+Figure 3.2: edgeR MDS plot based on the calculated log2 fold changes
 </p>
 </div>
 <p>Or the <em>dispersion</em> after running the <code>estimateDisp</code> function with the <code>plotBCV</code> function:</p>
-<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">plotBCV</span><span class="op">(</span><span class="va">y</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
 <span style="display:block;" id="fig:edgeRPlotBCV"></span>
 <img src="gene_expression_files/figure-html/edgeRPlotBCV-1.png" alt="edgeR plot of several dispersion methods" width="672"><p class="caption">
-Figure 4.3: edgeR plot of several dispersion methods
+Figure 3.3: edgeR plot of several dispersion methods
 </p>
 </div>
 <p>Or the log-fold changes for all genes, once we have the output of the <code>exactTest</code> function (output <code>et</code> is an <code>DGEExact</code> object) with the <code>plotSmear</code> function. The <code>abline</code> shows a log-FC threshold:</p>
-<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">deGenes</span> <span class="op">&lt;-</span> <span class="fu">decideTestsDGE</span><span class="op">(</span><span class="va">qlf</span>, p<span class="op">=</span><span class="fl">0.05</span><span class="op">)</span></span>
 <span><span class="va">deGenes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/row_colnames.html">rownames</a></span><span class="op">(</span><span class="va">qlf</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/logical.html">as.logical</a></span><span class="op">(</span><span class="va">deGenes</span><span class="op">)</span><span class="op">]</span></span>
 <span><span class="fu">plotSmear</span><span class="op">(</span><span class="va">qlf</span>, de.tags<span class="op">=</span><span class="va">deGenes</span><span class="op">)</span></span>
@@ -443,19 +442,19 @@ Figure 4.3: edgeR plot of several dispersion methods
 </div>
 </div>
   <div class="chapter-nav">
-<div class="prev"><a href="EDA.html"><span class="header-section-number">3</span> Exploratory Data Analysis</a></div>
-<div class="next"><a href="chapter-5.html"><span class="header-section-number">5</span> Data Analysis and Visualization</a></div>
+<div class="prev"><a href="EDA.html"><span class="header-section-number">2</span> Exploratory Data Analysis</a></div>
+<div class="next"><a href="chapter-5.html"><span class="header-section-number">4</span> Data Analysis and Visualization</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
-<li><a class="nav-link" href="#chapter-4"><span class="header-section-number">4</span> Discovering Differentialy Expressed Genes (DEGs)</a></li>
-<li><a class="nav-link" href="#deg-preprocessing"><span class="header-section-number">4.1</span> Pre-processing</a></li>
-<li><a class="nav-link" href="#deg-fc"><span class="header-section-number">4.2</span> The Fold Change Value</a></li>
+<li><a class="nav-link" href="#chapter-4"><span class="header-section-number">3</span> Discovering Differentialy Expressed Genes (DEGs)</a></li>
+<li><a class="nav-link" href="#deg-preprocessing"><span class="header-section-number">3.1</span> Pre-processing</a></li>
+<li><a class="nav-link" href="#deg-fc"><span class="header-section-number">3.2</span> The Fold Change Value</a></li>
 <li>
-<a class="nav-link" href="#deg-bioconductor"><span class="header-section-number">4.3</span> Using Bioconductor Packages</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#deg-design"><span class="header-section-number">4.3.1</span> The Design (matrix)</a></li>
-<li><a class="nav-link" href="#deg-deseq2"><span class="header-section-number">4.3.2</span> DESeq2</a></li>
-<li><a class="nav-link" href="#deg-edger"><span class="header-section-number">4.3.3</span> edgeR</a></li>
+<a class="nav-link" href="#deg-bioconductor"><span class="header-section-number">3.3</span> Using Bioconductor Packages</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#deg-design"><span class="header-section-number">3.3.1</span> The Design (matrix)</a></li>
+<li><a class="nav-link" href="#deg-deseq2"><span class="header-section-number">3.3.2</span> DESeq2</a></li>
+<li><a class="nav-link" href="#deg-edger"><span class="header-section-number">3.3.3</span> edgeR</a></li>
 </ul>
 </li>
 </ul>

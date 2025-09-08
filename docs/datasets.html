@@ -66,9 +66,10 @@
       <nav aria-label="Table of contents"><h2>Table of contents</h2>
         <ul class="book-toc list-unstyled">
 <li><a class="" href="index.html"><span class="header-section-number">1</span> Introduction</a></li>
-<li><a class="" href="from-reads-to-counts.html"><span class="header-section-number">2</span> From Reads to Counts</a></li>
-<li><a class="active" href="datasets.html"><span class="header-section-number">3</span> Discovering RNA-Seq Data Sets</a></li>
-<li><a class="" href="EDA.html"><span class="header-section-number">4</span> Exploratory Data Analysis</a></li>
+<li><a class="active" href="datasets.html"><span class="header-section-number">2</span> Discovering RNA-Seq Data Sets</a></li>
+<li><a class="" href="EDA.html"><span class="header-section-number">3</span> Exploratory Data Analysis</a></li>
+<li><a class="" href="chapter-4.html"><span class="header-section-number">4</span> Discovering Differentialy Expressed Genes (DEGs)</a></li>
+<li><a class="" href="chapter-5.html"><span class="header-section-number">5</span> Data Analysis and Visualization</a></li>
 <li class="book-part">Appendix</li>
 <li><a class="" href="a2-data_loading.html"><span class="header-section-number">A</span> Batch Loading Expression Data in R</a></li>
 <li><a class="" href="a3-annotation.html"><span class="header-section-number">B</span> Annotating an RNA-Seq Experiment</a></li>
@@ -79,14 +80,14 @@
         </div>
       </nav>
 </div>
-  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="datasets" class="section level1" number="3">
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="datasets" class="section level1" number="2">
 <h1>
 <span class="header-section-number"></span> Discovering RNA-Seq Data Sets<a class="anchor" aria-label="anchor" href="#datasets"><i class="fas fa-link"></i></a>
 </h1>
 <p>This chapter describes a method of finding public RNA-Seq data sets of interest. A <em>data set</em> in the context of this course refers to all data belonging to a certain gene-expression experiment, usually consisting of a number of sequencing-samples combined with <em>meta-data</em> describing the experiment.</p>
-<div id="finding-public-data" class="section level2" number="3.1">
+<div id="finding-public-data" class="section level2" number="2.1">
 <h2>
-<span class="header-section-number">3.1</span> Finding Public Data Sets of Interest<a class="anchor" aria-label="anchor" href="#finding-public-data"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.1</span> Finding Public Data Sets of Interest<a class="anchor" aria-label="anchor" href="#finding-public-data"><i class="fas fa-link"></i></a>
 </h2>
 <p>There are a number of very large databases online that offer access to thousands of - published - experiments and here we will focus on searching and downloading gene expression data from high-throughput (<code>NGS</code>) sequencing techniques (<code>RNA-Seq</code>).</p>
 <p>With thousands of freely available data sets it is possible to start performing research without the need of actually performing your own lab-experiment. For all common conditions, organisms and tissues you can download samples and compare them over multiple studies to find novel relations between genes and conditions or to verify experiments performed in your laboratory. For instance, the power of public data sets was demonstrated jointly by three of our alumni in an article called <em>Calling genotypes from public RNA-sequencing data enables identification of genetic variants that affect gene-expression levels.</em><span class="citation">(<a href="a3-annotation.html#ref-deelen15">al. 2015</a>)</span>.</p>
@@ -123,9 +124,9 @@
 </ol>
 <p>The list above is a guideline to be kept in mind while browsing for suitable data sets and it will be extended in week three. Also, don’t worry if some of the terms above are unclear, getting a good understanding on the used terminology is part of these first few weeks</p>
 </div>
-<div id="ncbi-geo" class="section level2" number="3.2">
+<div id="ncbi-geo" class="section level2" number="2.2">
 <h2>
-<span class="header-section-number">3.2</span> The NCBI <em>Gene Expression Omnibus</em><a class="anchor" aria-label="anchor" href="#ncbi-geo"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.2</span> The NCBI <em>Gene Expression Omnibus</em><a class="anchor" aria-label="anchor" href="#ncbi-geo"><i class="fas fa-link"></i></a>
 </h2>
 <p>The easiest method of exploring and finding interesting data sets is by simply using your web-browser to access a data-repository. One such repository is the <a href="https://www.ncbi.nlm.nih.gov/geo/summary">NCBI Gene Expression Omnibus</a> (GEO). This <em>repository</em> was primarily used to store micro array data sets and describe those experiments, linking to raw data, processed data and an accompanying publication. There are however many more sources of data browsable in the GEO, and for this project we will limit our searches to experiments using the RNA-Seq technology for which over 60.000 experiments are listed. Following the “<em>Expression profiling by high throughput sequencing</em>” link in this summary table we get the complete listing in which you can find an interesting experiment. Besides finding an experiment that you are interested in, there are some further important requirements that you need to account for when browsing listed below. Note that at this point we do not need to download the data yet, this is described in chapter 3.</p>
 <ul>
@@ -164,14 +165,14 @@
 </div>
 </div>
   <div class="chapter-nav">
-<div class="prev"><a href="from-reads-to-counts.html"><span class="header-section-number">2</span> From Reads to Counts</a></div>
-<div class="next"><a href="EDA.html"><span class="header-section-number">4</span> Exploratory Data Analysis</a></div>
+<div class="prev"><a href="index.html"><span class="header-section-number">1</span> Introduction</a></div>
+<div class="next"><a href="EDA.html"><span class="header-section-number">3</span> Exploratory Data Analysis</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
-<li><a class="nav-link" href="#datasets"><span class="header-section-number">3</span> Discovering RNA-Seq Data Sets</a></li>
-<li><a class="nav-link" href="#finding-public-data"><span class="header-section-number">3.1</span> Finding Public Data Sets of Interest</a></li>
-<li><a class="nav-link" href="#ncbi-geo"><span class="header-section-number">3.2</span> The NCBI Gene Expression Omnibus</a></li>
+<li><a class="nav-link" href="#datasets"><span class="header-section-number">2</span> Discovering RNA-Seq Data Sets</a></li>
+<li><a class="nav-link" href="#finding-public-data"><span class="header-section-number">2.1</span> Finding Public Data Sets of Interest</a></li>
+<li><a class="nav-link" href="#ncbi-geo"><span class="header-section-number">2.2</span> The NCBI Gene Expression Omnibus</a></li>
 </ul>
 
       <div class="book-extra">
@@ -196,6 +197,34 @@
   </div>
 
 </div></div>
-</footer>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
 </body>
 </html>
