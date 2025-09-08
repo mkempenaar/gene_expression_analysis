@@ -7,7 +7,7 @@
 <title> From Reads to Counts | 2.1.2 Genomics &amp; Transcriptomics</title>
 <meta name="author" content="Marcel Kempenaar">
 <meta name="description" content="Step one in any RNA-Seq data analysis is generating the gene or transcript counts for each sample. This overlaps partly with steps taken in a genomics workflow: Download SRA files and extract...">
-<meta name="generator" content="bookdown 0.36 with bs4_book()">
+<meta name="generator" content="bookdown 0.44 with bs4_book()">
 <meta property="og:title" content=" From Reads to Counts | 2.1.2 Genomics &amp; Transcriptomics">
 <meta property="og:type" content="book">
 <meta property="og:description" content="Step one in any RNA-Seq data analysis is generating the gene or transcript counts for each sample. This overlaps partly with steps taken in a genomics workflow: Download SRA files and extract...">
@@ -16,7 +16,7 @@
 <meta name="twitter:description" content="Step one in any RNA-Seq data analysis is generating the gene or transcript counts for each sample. This overlaps partly with steps taken in a genomics workflow: Download SRA files and extract...">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
-<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.5.1/transition.js"></script><script src="libs/bs3compat-0.5.1/tabs.js"></script><script src="libs/bs3compat-0.5.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.9.0/transition.js"></script><script src="libs/bs3compat-0.9.0/tabs.js"></script><script src="libs/bs3compat-0.9.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
 <script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
     
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
@@ -44,7 +44,6 @@
       margin-left: 2em;
     }
   </style>
-<link rel="stylesheet" href="style.css">
 </head>
 <body data-spy="scroll" data-target="#toc">
 
@@ -72,13 +71,12 @@
 <li><a class="" href="chapter-4.html"><span class="header-section-number">4</span> Discovering Differentialy Expressed Genes (DEGs)</a></li>
 <li><a class="" href="chapter-5.html"><span class="header-section-number">5</span> Data Analysis and Visualization</a></li>
 <li class="book-part">Appendix</li>
-<li><a class="" href="datasets.html"><span class="header-section-number">A</span> Discovering RNA-Seq Data Sets</a></li>
-<li><a class="" href="a2-data_loading.html"><span class="header-section-number">B</span> Batch Loading Expression Data in R</a></li>
-<li><a class="" href="a2-annotation.html"><span class="header-section-number">C</span> Annotating an RNA-Seq Experiment</a></li>
+<li><a class="" href="a2-data_loading.html"><span class="header-section-number">A</span> Batch Loading Expression Data in R</a></li>
+<li><a class="" href="a3-annotation.html"><span class="header-section-number">B</span> Annotating an RNA-Seq Experiment</a></li>
 </ul>
 
         <div class="book-extra">
-          <p><a id="book-repo" href="https://github.com/rstudio/bookdown-demo">View book source <i class="fab fa-github"></i></a></p>
+          
         </div>
       </nav>
 </div>
@@ -103,11 +101,11 @@
 <span class="header-section-number">2.1</span> Downloading and extracting FastQ files<a class="anchor" aria-label="anchor" href="#downloading-and-extracting-fastq-files"><i class="fas fa-link"></i></a>
 </h2>
 <p>Given the SRA identifier for this project, select all samples and download as accession file (SRX identifiers). Using these identifiers as input for the <code>prefetch</code> system command (requires the NCBI SRA-Toolkit installed) downloads the SRA files and we convert them using the <code>fasterq-dump</code> command to fastq files.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="from-reads-to-counts.html#cb1-1" tabindex="-1"></a><span class="ex">prefetch</span> <span class="va">$(</span><span class="op">&lt;</span>GSE149995_SRA_ACC_RNA-Seq.csv<span class="va">)</span> <span class="at">--output-directory</span> <span class="dt">\</span></span>
-<span id="cb1-2"><a href="from-reads-to-counts.html#cb1-2" tabindex="-1"></a>  /local-fs/staff/marcel/GSE149995/SRA</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="from-reads-to-counts.html#cb2-1" tabindex="-1"></a><span class="ex">prefetch</span> <span class="va">$(</span><span class="op">&lt;</span>GSE149995_SRA_ACC_RNA-Seq.csv<span class="va">)</span> <span class="at">--output-directory</span> <span class="dt">\</span></span>
+<span id="cb2-2"><a href="from-reads-to-counts.html#cb2-2" tabindex="-1"></a>  /local-fs/staff/marcel/GSE149995/SRA</span></code></pre></div>
 <p>The <code>fasterq-dump</code> by default performs a <code>split 3</code> operation, see <a href="https://github.com/ncbi/sra-tools/wiki/HowTo:-fasterq-dump">the SRA toolkit manual</a> for further details.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="from-reads-to-counts.html#cb2-1" tabindex="-1"></a><span class="fu">find</span> /local-fs/staff/marcel/GSE149995/SRA/ <span class="at">-name</span> <span class="st">"*.sra"</span> <span class="kw">|</span> <span class="dt">\</span></span>
-<span id="cb2-2"><a href="from-reads-to-counts.html#cb2-2" tabindex="-1"></a>  <span class="ex">parallel</span> <span class="st">'fasterq-dump -O /local-fs/staff/marcel/GSE149995/fastq/ {}'</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="from-reads-to-counts.html#cb3-1" tabindex="-1"></a><span class="fu">find</span> /local-fs/staff/marcel/GSE149995/SRA/ <span class="at">-name</span> <span class="st">"*.sra"</span> <span class="kw">|</span> <span class="dt">\</span></span>
+<span id="cb3-2"><a href="from-reads-to-counts.html#cb3-2" tabindex="-1"></a>  <span class="ex">parallel</span> <span class="st">'fasterq-dump -O /local-fs/staff/marcel/GSE149995/fastq/ {}'</span></span></code></pre></div>
 </div>
 <div id="optional-annotation" class="section level2" number="2.2">
 <h2>
@@ -115,7 +113,7 @@
 </h2>
 <p>The NCBI GEO page lists 9 samples with 3 conditions (<code>WT</code>, <code>potent</code> and <code>arf7</code>). However, this experiment includes 18 sequence files. By downloading the ‘series matrix file’ from the GEO (using the <code>GEOquery</code> library) and combining this with the run info downloadable from the SRA, we can list the mapping of run to sample.</p>
 <p><strong>Note</strong>: This is an optional step for now and is only useful when there are doubts about the group/sample setup.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/seandavi/GEOquery">GEOquery</a></span><span class="op">)</span></span>
 <span><span class="va">gse</span> <span class="op">&lt;-</span> <span class="fu"><a href="http://seandavi.github.io/GEOquery/reference/getGEO.html">getGEO</a></span><span class="op">(</span>GEO <span class="op">=</span> <span class="st">"GSE149995"</span><span class="op">)</span></span>
 <span><span class="co"># Combine the condition with a sample number and replicate number</span></span>
@@ -240,16 +238,16 @@
 <span class="header-section-number">2.3.1</span> FastQC<a class="anchor" aria-label="anchor" href="#fastqc"><i class="fas fa-link"></i></a>
 </h3>
 <p>Running FastQC</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">fqdir</span> <span class="op">&lt;-</span> <span class="st">"/local-fs/staff/marcel/GSE149995/fastq/"</span></span>
 <span><span class="fu">fastqc</span><span class="op">(</span>fq.dir <span class="op">=</span> <span class="st">"/local-fs/staff/marcel/GSE149995/fastq/"</span>,</span>
 <span>       qc.dir <span class="op">=</span> <span class="st">"/local-fs/staff/marcel/GSE149995/fqc"</span>,</span>
 <span>       fastqc.path <span class="op">=</span> <span class="st">"/usr/bin/fastqc"</span>,</span>
 <span>       threads <span class="op">=</span> <span class="fl">32</span><span class="op">)</span></span></code></pre></div>
 <p>QC-report using <code>multiqc</code></p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="from-reads-to-counts.html#cb5-1" tabindex="-1"></a><span class="ex">multiqc</span> <span class="dt">\</span></span>
-<span id="cb5-2"><a href="from-reads-to-counts.html#cb5-2" tabindex="-1"></a>  <span class="at">--filename</span> ~/Development/2.1.2-Transcriptomics/GSE149995_FQC_multiqc_report.html <span class="dt">\</span></span>
-<span id="cb5-3"><a href="from-reads-to-counts.html#cb5-3" tabindex="-1"></a>  /local-fs/staff/marcel/GSE149995/fqc/ </span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="from-reads-to-counts.html#cb6-1" tabindex="-1"></a><span class="ex">multiqc</span> <span class="dt">\</span></span>
+<span id="cb6-2"><a href="from-reads-to-counts.html#cb6-2" tabindex="-1"></a>  <span class="at">--filename</span> ~/Development/2.1.2-Transcriptomics/GSE149995_FQC_multiqc_report.html <span class="dt">\</span></span>
+<span id="cb6-3"><a href="from-reads-to-counts.html#cb6-3" tabindex="-1"></a>  /local-fs/staff/marcel/GSE149995/fqc/ </span></code></pre></div>
 </div>
 </div>
 <div id="trimming" class="section level2" number="2.4">
@@ -257,22 +255,22 @@
 <span class="header-section-number">2.4</span> Trimming<a class="anchor" aria-label="anchor" href="#trimming"><i class="fas fa-link"></i></a>
 </h2>
 <p>Proper trimming requires experimentation and research regarding the used sequencing technology. The following command uses Trimmomatic (release 0.39, available on <a href="https://github.com/usadellab/Trimmomatic/releases">Github</a>) to trim all fastq files. Note that this example is for <em>single-end</em> sequencing only, use the <code>TrimmomaticPE</code> command for paired-end data processing and the <code>TruSeq</code> FASTA file ending in <code>PE</code> instead.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="from-reads-to-counts.html#cb6-1" tabindex="-1"></a><span class="fu">cat</span> data/GSE149995_Sra_RunInfo.csv <span class="kw">|</span> <span class="dt">\</span></span>
-<span id="cb6-2"><a href="from-reads-to-counts.html#cb6-2" tabindex="-1"></a>  <span class="ex">parallel</span> <span class="st">'TrimmomaticSE -threads 4 '</span> <span class="dt">\</span></span>
-<span id="cb6-3"><a href="from-reads-to-counts.html#cb6-3" tabindex="-1"></a>                  <span class="st">'/local-fs/staff/marcel/GSE149995/fastq/{}.fastq.gz '</span> <span class="dt">\</span></span>
-<span id="cb6-4"><a href="from-reads-to-counts.html#cb6-4" tabindex="-1"></a>                  <span class="st">'/local-fs/staff/marcel/GSE149995/fastq-trimmed/{}.trimmed.fastq.gz '</span> <span class="dt">\</span></span>
-<span id="cb6-5"><a href="from-reads-to-counts.html#cb6-5" tabindex="-1"></a>                  <span class="st">'ILLUMINACLIP:/homes/marcelk/Development/2.1.2-Transcriptomics/TruSeq3-SE.fa:2:30:10 '</span> <span class="dt">\</span></span>
-<span id="cb6-6"><a href="from-reads-to-counts.html#cb6-6" tabindex="-1"></a>                  <span class="st">'MINLEN:40 '</span> <span class="dt">\</span></span>
-<span id="cb6-7"><a href="from-reads-to-counts.html#cb6-7" tabindex="-1"></a>                  <span class="st">'SLIDINGWINDOW:4:20'</span></span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="from-reads-to-counts.html#cb7-1" tabindex="-1"></a><span class="fu">cat</span> data/GSE149995_Sra_RunInfo.csv <span class="kw">|</span> <span class="dt">\</span></span>
+<span id="cb7-2"><a href="from-reads-to-counts.html#cb7-2" tabindex="-1"></a>  <span class="ex">parallel</span> <span class="st">'TrimmomaticSE -threads 4 '</span> <span class="dt">\</span></span>
+<span id="cb7-3"><a href="from-reads-to-counts.html#cb7-3" tabindex="-1"></a>                  <span class="st">'/local-fs/staff/marcel/GSE149995/fastq/{}.fastq.gz '</span> <span class="dt">\</span></span>
+<span id="cb7-4"><a href="from-reads-to-counts.html#cb7-4" tabindex="-1"></a>                  <span class="st">'/local-fs/staff/marcel/GSE149995/fastq-trimmed/{}.trimmed.fastq.gz '</span> <span class="dt">\</span></span>
+<span id="cb7-5"><a href="from-reads-to-counts.html#cb7-5" tabindex="-1"></a>                  <span class="st">'ILLUMINACLIP:/homes/marcelk/Development/2.1.2-Transcriptomics/TruSeq3-SE.fa:2:30:10 '</span> <span class="dt">\</span></span>
+<span id="cb7-6"><a href="from-reads-to-counts.html#cb7-6" tabindex="-1"></a>                  <span class="st">'MINLEN:40 '</span> <span class="dt">\</span></span>
+<span id="cb7-7"><a href="from-reads-to-counts.html#cb7-7" tabindex="-1"></a>                  <span class="st">'SLIDINGWINDOW:4:20'</span></span></code></pre></div>
 <p>Re-running FastQC</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">fastqc</span><span class="op">(</span>fq.dir <span class="op">=</span> <span class="st">"/local-fs/staff/marcel/GSE149995/fastq-trimmed/"</span>,</span>
 <span>       qc.dir <span class="op">=</span> <span class="st">"/local-fs/staff/marcel/GSE149995/fqc-trimmed"</span>,</span>
 <span>       fastqc.path <span class="op">=</span> <span class="st">"/usr/bin/fastqc"</span>,</span>
 <span>       threads <span class="op">=</span> <span class="fl">32</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="from-reads-to-counts.html#cb8-1" tabindex="-1"></a><span class="ex">multiqc</span> <span class="at">--filename</span> <span class="dt">\</span></span>
-<span id="cb8-2"><a href="from-reads-to-counts.html#cb8-2" tabindex="-1"></a>  ~/Development/2.1.2-Transcriptomics/GSE149995_FQC_Trimmed.html <span class="dt">\</span></span>
-<span id="cb8-3"><a href="from-reads-to-counts.html#cb8-3" tabindex="-1"></a>  /local-fs/staff/marcel/GSE149995/fqc-trimmed/</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="from-reads-to-counts.html#cb9-1" tabindex="-1"></a><span class="ex">multiqc</span> <span class="at">--filename</span> <span class="dt">\</span></span>
+<span id="cb9-2"><a href="from-reads-to-counts.html#cb9-2" tabindex="-1"></a>  ~/Development/2.1.2-Transcriptomics/GSE149995_FQC_Trimmed.html <span class="dt">\</span></span>
+<span id="cb9-3"><a href="from-reads-to-counts.html#cb9-3" tabindex="-1"></a>  /local-fs/staff/marcel/GSE149995/fqc-trimmed/</span></code></pre></div>
 </div>
 <div id="mapping-with-star" class="section level2" number="2.5">
 <h2>
@@ -283,16 +281,16 @@
 <span class="header-section-number">2.5.1</span> Building STAR index<a class="anchor" aria-label="anchor" href="#building-star-index"><i class="fas fa-link"></i></a>
 </h3>
 <p>Other than with <code>bwa</code>, STAR requires an extra annotation file (GFF or GTF format) describing features on the genome. This data set requires the FASTA of the Arabidopsis thaliana genome and its accompanying annotation file. The <code>genomeDir</code> specifies the output location for the index.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="from-reads-to-counts.html#cb9-1" tabindex="-1"></a><span class="bu">cd</span> /local-fs/staff/marcel/GSE149995/reference</span>
-<span id="cb9-2"><a href="from-reads-to-counts.html#cb9-2" tabindex="-1"></a><span class="fu">mkdir</span> star<span class="kw">;</span> <span class="bu">cd</span> star</span>
-<span id="cb9-3"><a href="from-reads-to-counts.html#cb9-3" tabindex="-1"></a><span class="ex">STAR</span> <span class="dt">\</span></span>
-<span id="cb9-4"><a href="from-reads-to-counts.html#cb9-4" tabindex="-1"></a>  <span class="at">--runThreadN</span> 12 <span class="dt">\</span></span>
-<span id="cb9-5"><a href="from-reads-to-counts.html#cb9-5" tabindex="-1"></a>  <span class="at">--runMode</span> genomeGenerate <span class="dt">\</span></span>
-<span id="cb9-6"><a href="from-reads-to-counts.html#cb9-6" tabindex="-1"></a>  <span class="at">--genomeDir</span> /local-fs/staff/marcel/GSE149995/reference/star <span class="dt">\</span></span>
-<span id="cb9-7"><a href="from-reads-to-counts.html#cb9-7" tabindex="-1"></a>  <span class="at">--genomeFastaFiles</span> /local-fs/staff/marcel/GSE149995/reference/TAIR10_chr_all.fas <span class="dt">\</span></span>
-<span id="cb9-8"><a href="from-reads-to-counts.html#cb9-8" tabindex="-1"></a>  <span class="at">--sjdbGTFfile</span> /local-fs/staff/marcel/GSE149995/reference/TAIR10_GTF_genes.gtf <span class="dt">\</span></span>
-<span id="cb9-9"><a href="from-reads-to-counts.html#cb9-9" tabindex="-1"></a>  <span class="at">--genomeSAindexNbases</span> 12 <span class="dt">\</span></span>
-<span id="cb9-10"><a href="from-reads-to-counts.html#cb9-10" tabindex="-1"></a>  <span class="at">--sjdbOverhang</span> 49</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb10-1"><a href="from-reads-to-counts.html#cb10-1" tabindex="-1"></a><span class="bu">cd</span> /local-fs/staff/marcel/GSE149995/reference</span>
+<span id="cb10-2"><a href="from-reads-to-counts.html#cb10-2" tabindex="-1"></a><span class="fu">mkdir</span> star<span class="kw">;</span> <span class="bu">cd</span> star</span>
+<span id="cb10-3"><a href="from-reads-to-counts.html#cb10-3" tabindex="-1"></a><span class="ex">STAR</span> <span class="dt">\</span></span>
+<span id="cb10-4"><a href="from-reads-to-counts.html#cb10-4" tabindex="-1"></a>  <span class="at">--runThreadN</span> 12 <span class="dt">\</span></span>
+<span id="cb10-5"><a href="from-reads-to-counts.html#cb10-5" tabindex="-1"></a>  <span class="at">--runMode</span> genomeGenerate <span class="dt">\</span></span>
+<span id="cb10-6"><a href="from-reads-to-counts.html#cb10-6" tabindex="-1"></a>  <span class="at">--genomeDir</span> /local-fs/staff/marcel/GSE149995/reference/star <span class="dt">\</span></span>
+<span id="cb10-7"><a href="from-reads-to-counts.html#cb10-7" tabindex="-1"></a>  <span class="at">--genomeFastaFiles</span> /local-fs/staff/marcel/GSE149995/reference/TAIR10_chr_all.fas <span class="dt">\</span></span>
+<span id="cb10-8"><a href="from-reads-to-counts.html#cb10-8" tabindex="-1"></a>  <span class="at">--sjdbGTFfile</span> /local-fs/staff/marcel/GSE149995/reference/TAIR10_GTF_genes.gtf <span class="dt">\</span></span>
+<span id="cb10-9"><a href="from-reads-to-counts.html#cb10-9" tabindex="-1"></a>  <span class="at">--genomeSAindexNbases</span> 12 <span class="dt">\</span></span>
+<span id="cb10-10"><a href="from-reads-to-counts.html#cb10-10" tabindex="-1"></a>  <span class="at">--sjdbOverhang</span> 49</span></code></pre></div>
 </div>
 <div id="read-mapping-and-transcript-counting" class="section level3" number="2.5.2">
 <h3>
@@ -307,17 +305,17 @@
 </ul>
 <p>See an interesting discussion on <a href="https://www.biostars.org/p/218995/">BioStars</a> regarding which column to use.</p>
 <p>When planning to use a different tool for calculating gene counts, you can remove the <code>quantMode</code> argument which will only generate the sorted BAM files. Please read the manual of the tool of choice to see if an indexed BAM file as the BAM file does not have an index.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb10-1"><a href="from-reads-to-counts.html#cb10-1" tabindex="-1"></a><span class="fu">find</span> /local-fs/staff/marcel/GSE149995/fastq-trimmed/ <span class="at">-name</span> <span class="st">"*.fastq.gz"</span> <span class="at">-exec</span> basename {} <span class="dt">\;</span> <span class="kw">|</span> <span class="dt">\</span></span>
-<span id="cb10-2"><a href="from-reads-to-counts.html#cb10-2" tabindex="-1"></a>  <span class="fu">sed</span> <span class="st">'s/\.fastq.gz$//'</span> <span class="kw">|</span> <span class="ex">parallel</span> <span class="st">'STAR --runThreadN 6 '</span> <span class="dt">\</span></span>
-<span id="cb10-3"><a href="from-reads-to-counts.html#cb10-3" tabindex="-1"></a>    <span class="st">'--genomeDir /local-fs/staff/marcel/GSE149995/reference/star '</span> <span class="dt">\</span></span>
-<span id="cb10-4"><a href="from-reads-to-counts.html#cb10-4" tabindex="-1"></a>    <span class="st">'--readFilesIn /local-fs/staff/marcel/GSE149995/fastq-trimmed/{}.fastq '</span> <span class="dt">\</span></span>
-<span id="cb10-5"><a href="from-reads-to-counts.html#cb10-5" tabindex="-1"></a>    <span class="st">'--outSAMtype BAM SortedByCoordinate '</span> <span class="dt">\</span></span>
-<span id="cb10-6"><a href="from-reads-to-counts.html#cb10-6" tabindex="-1"></a>    <span class="st">'--quantMode GeneCounts '</span> <span class="dt">\</span></span>
-<span id="cb10-7"><a href="from-reads-to-counts.html#cb10-7" tabindex="-1"></a>    <span class="st">'--outFileNamePrefix /local-fs/staff/marcel/GSE149995/mapping/star/{}_star_'</span></span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb11-1"><a href="from-reads-to-counts.html#cb11-1" tabindex="-1"></a><span class="fu">find</span> /local-fs/staff/marcel/GSE149995/fastq-trimmed/ <span class="at">-name</span> <span class="st">"*.fastq.gz"</span> <span class="at">-exec</span> basename {} <span class="dt">\;</span> <span class="kw">|</span> <span class="dt">\</span></span>
+<span id="cb11-2"><a href="from-reads-to-counts.html#cb11-2" tabindex="-1"></a>  <span class="fu">sed</span> <span class="st">'s/\.fastq.gz$//'</span> <span class="kw">|</span> <span class="ex">parallel</span> <span class="st">'STAR --runThreadN 6 '</span> <span class="dt">\</span></span>
+<span id="cb11-3"><a href="from-reads-to-counts.html#cb11-3" tabindex="-1"></a>    <span class="st">'--genomeDir /local-fs/staff/marcel/GSE149995/reference/star '</span> <span class="dt">\</span></span>
+<span id="cb11-4"><a href="from-reads-to-counts.html#cb11-4" tabindex="-1"></a>    <span class="st">'--readFilesIn /local-fs/staff/marcel/GSE149995/fastq-trimmed/{}.fastq '</span> <span class="dt">\</span></span>
+<span id="cb11-5"><a href="from-reads-to-counts.html#cb11-5" tabindex="-1"></a>    <span class="st">'--outSAMtype BAM SortedByCoordinate '</span> <span class="dt">\</span></span>
+<span id="cb11-6"><a href="from-reads-to-counts.html#cb11-6" tabindex="-1"></a>    <span class="st">'--quantMode GeneCounts '</span> <span class="dt">\</span></span>
+<span id="cb11-7"><a href="from-reads-to-counts.html#cb11-7" tabindex="-1"></a>    <span class="st">'--outFileNamePrefix /local-fs/staff/marcel/GSE149995/mapping/star/{}_star_'</span></span></code></pre></div>
 <p>Generating MultiQC report for STAR mapping phase</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb11-1"><a href="from-reads-to-counts.html#cb11-1" tabindex="-1"></a><span class="ex">~/miniconda3/bin/multiqc</span> <span class="at">--filename</span> <span class="dt">\</span></span>
-<span id="cb11-2"><a href="from-reads-to-counts.html#cb11-2" tabindex="-1"></a>  ~/Development/2.1.2-Transcriptomics/STAR-mapping.html <span class="dt">\</span></span>
-<span id="cb11-3"><a href="from-reads-to-counts.html#cb11-3" tabindex="-1"></a>  /local-fs/staff/marcel/GSE149995/mapping/star/</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb12-1"><a href="from-reads-to-counts.html#cb12-1" tabindex="-1"></a><span class="ex">~/miniconda3/bin/multiqc</span> <span class="at">--filename</span> <span class="dt">\</span></span>
+<span id="cb12-2"><a href="from-reads-to-counts.html#cb12-2" tabindex="-1"></a>  ~/Development/2.1.2-Transcriptomics/STAR-mapping.html <span class="dt">\</span></span>
+<span id="cb12-3"><a href="from-reads-to-counts.html#cb12-3" tabindex="-1"></a>  /local-fs/staff/marcel/GSE149995/mapping/star/</span></code></pre></div>
 </div>
 <div id="combining-star-count-files" class="section level3" number="2.5.3">
 <h3>
@@ -325,7 +323,7 @@
 </h3>
 <p>STAR generates a <code>[sample]_star_ReadsPerGene.out.tab</code> file for each sample, containing the gene IDs and the count numbers. We can merge these files into a single data frame for further processing (see also <a href="https://mkempenaar.github.io/gene_expression_analysis/a1-data_loading.html#a1-batch_data_loading">Appendix A1 in the manual</a>). This example takes the 2nd column for the count values. Make sure that you know which column to use based on the description above. The reason that we’re merging the data is because it might not always be guaranteed that you get the exact same transcripts in each file.</p>
 <p>Note: if you use the <code>featurecounts</code> tool, you will already get a single file containing the count values for all samples.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">file.names</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html">list.files</a></span><span class="op">(</span><span class="st">'/local-fs/staff/marcel/GSE149995/mapping/star/'</span>,</span>
 <span>                         pattern <span class="op">=</span> <span class="st">'*_star_ReadsPerGene.out.tab'</span><span class="op">)</span></span>
 <span></span>
@@ -341,7 +339,7 @@
 <span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">sample</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
 <p>Now we read all count files and merge them into a single data frame.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html">setwd</a></span><span class="op">(</span><span class="st">'/local-fs/staff/marcel/GSE149995/mapping/star/'</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">## Read the FIRST sample</span></span>
@@ -357,7 +355,7 @@
 <span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">counts</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">counts</span><span class="op">$</span><span class="va">V1</span></span>
 <span><span class="va">counts</span> <span class="op">&lt;-</span> <span class="va">counts</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span><span class="op">]</span></span></code></pre></div>
 <p>We now have a single data frame with count values for all samples and transcripts. The names however are nondescriptive since they are just the <code>SRR</code> identifiers. Since we already did some annotation, we’re going to rename the columns to something more meaningful:</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># For each SRR id, find the corresponding column in counts and rename</span></span>
 <span><span class="co"># using the name in the 'Condition' column</span></span>
 <span><span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">setup</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
@@ -470,8 +468,7 @@
 
       <div class="book-extra">
         <ul class="list-unstyled">
-<li><a id="book-source" href="https://github.com/rstudio/bookdown-demo/blob/master/index.Rmd">View source <i class="fab fa-github"></i></a></li>
-          <li><a id="book-edit" href="https://github.com/rstudio/bookdown-demo/edit/master/index.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+          
         </ul>
 </div>
     </nav>
@@ -483,7 +480,7 @@
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>2.1.2 Genomics &amp; Transcriptomics</strong>" was written by Marcel Kempenaar. It was last built on 2024-09-09.</p>
+    <p>"<strong>2.1.2 Genomics &amp; Transcriptomics</strong>" was written by Marcel Kempenaar. It was last built on 2025-09-08.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

@@ -4,11 +4,12 @@ book_filename: gene_expression
 chapter_name: !expr function(i) {return("")}
 highlighter: pygments
 delete_merged_file: true
+output_dir: docs
 
 rmd_files: ['index.Rmd',
+            #'chapters/public-data.Rmd',
             'chapters/eda.Rmd',
             'chapters/deg.Rmd',
             'chapters/data_analysis.Rmd',
-            'chapters/a1-rnaseq-dataset-requirements.Rmd',
             'chapters/a2-batch_data_loading.Rmd',
             'chapters/a3-annotation.Rmd']

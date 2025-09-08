@@ -1,4 +1,12 @@
+# (APPENDIX) Appendix {-}
+
 # Batch Loading Expression Data in R {#a2-data_loading}
+
+```{r a2-setup}
+source('utils.R')
+library(pander)
+```
+
 
 This code example shows how to batch-load multiple files containing expression (count) data for a *single* sample. The data for this example can be found on GEO with ID [GSE109798](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE109798). Depending on the tool used to convert the mapping data into a per-sample count file, contents of these files can be (very) different. Downloading the data for this example experiment from GEO gives us a single `.tar` file called `GSE109798_RAW.tar`. Extracting this archive file nets us a folder with the following files:
 

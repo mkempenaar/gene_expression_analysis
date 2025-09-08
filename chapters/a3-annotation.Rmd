@@ -1,4 +1,4 @@
-# Annotating an RNA-Seq Experiment {#a2-annotation}
+# Annotating an RNA-Seq Experiment {#a3-annotation}
 
 ```{r, echo=FALSE}
 knitr::opts_chunk$set(cache=TRUE)

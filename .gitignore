@@ -11,3 +11,5 @@ data/
 _main*.*
 gene_expression.Rmd
 rscripts/
+gene_expression_cache
+gene_expression_files

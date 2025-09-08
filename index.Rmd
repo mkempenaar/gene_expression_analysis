@@ -13,11 +13,21 @@ github-repo: mkempenaar/gene_expression_analysis
 description: "Course Syllabus for course 2.1.2"
 ---
 
+```{r}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  cache = TRUE
+)
+```
+
+
 # Introduction {#chapter-1}
 
 Course 2.1.2 involves two separate projects performed on a single, published, data set. First, we start by performing a *Genomics* analysis similar to the case study from module 2.1.1. Then, we take the result of the mapping step, process this into read counts and perform a subsequent *Transcriptomics* analysis. 
 
-## 2.1.2 Genomics
+## Genomics
 
 For this Genomics analysis we are going to look at variants between the chosen data and a reference genome. One important aspect during the analysis is often assessing the quality, both from the input data set as well as the output of certain steps. Once a set of variants have been determined they can be annotated and finally linked to the biology underlying the original experiment, either reproducing their findings or aiming for novel ideas.
 
@@ -37,7 +47,7 @@ Similar to the 2.1.1 NGS & Mapping course we will go through similar steps to pr
 
 Furthermore, it is also required to run any command on the RStudio server provided at [https://bioinf.nl/rstudio](https://bioinf.nl/rstudio). This RStudio server is hosted on our `assemblix` server which is capable of both accessing the data and running tools on large data sets. The workstations we provide in the classrooms are *not* capable of these tasks. Also, this server already has a number of tools pre-installed (FastQC, trimmomatic, BWA/STAR mappers, etc.). Lastly, by running them from and RMarkdown document on the RStudio server forces you to document the commands compared to simply using `ssh`.
 
-**Note on storing (intermediate) data**: **all** data relevant to this project **must** be stored in the `/students/2024-2025/Thema05/` directory. In here, create a project directory for your team and create sub-directories as you go. Your home folder has a hard limit of 25GB of data and is therefore not sufficient for storing these project files. Use commands such as `chmod` and `chown` to allow your project partners to access the data too.
+**Note on storing (intermediate) data**: **all** data relevant to this project **must** be stored in the `/students/2025-2026/Thema05/` directory. In here, create a project directory for your team and create sub-directories as you go. Your home folder has a hard limit of 25GB of data and is therefore not sufficient for storing these project files. Use commands such as `chmod` and `chown` to allow your project partners to access the data too.
 
 **Note on processing large amounts of data**: building correct terminal commands to execute for instance a trimming step on a large number of files can be quite challenging. It is therefore **required** that test-data is used for **all** steps. Reasons for this are:
 
@@ -66,7 +76,7 @@ The proper way to search for a data set suitable for both Genomics and Transcrip
 
 Note that for the genomics part, not all available samples have to be processed. Other than for transcriptomics, it is not common that there is a case/control experimental setup but rather a single condition of group with possibly a few replicates. If the data set does include many samples, it is recommended to select a subset of samples to process (do discuss the reasoning behind this selection).
 
-## 2.1.2 Transcriptomics
+## Transcriptomics
 
 The use of RNA-Sequencing techniques for measuring gene expression is relatively new and replaces *microarrays*, though in some cases microarrays are still used. Gene expression data gives valuable insights into the workings of cells in certain conditions. Especially when comparing for instance healthy and diseased samples it can become clear which genes are causal or under influence of a specific condition. Finding the genes of interest (genes showing differing expression accross conditions, called the Differentially Expressed Genes (DEGs)) is the goal of this project.
 

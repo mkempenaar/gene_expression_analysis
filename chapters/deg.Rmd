@@ -58,10 +58,7 @@ Both packages apply their own normalization methods (described in the sections b
   + Start by documenting the relevant information from the article, also if they used other software for this analysis.
 
 ```{block2, type='rmdtip'}
-The two listed packages come with a very complete and extensive manual. Therefore, the course manual (this document) does *not* guide you exactly on how to use them; that is for you to find out. These manuals can be found as PDF on the BioConductor website, or opened from within R using the `vignette` function. To see all available manuals (note; these are very different from the function-help documentation) execute the function without arguments: `vignette()`. This lists the vignettes for edgeR and DESeq2 as:
-
-* `vignette("DESeq2")` (this whole course is partly designed on this document!)
-* `vignette("edgeR")`
+The two listed packages come with a very complete and extensive manual. Therefore, the course manual (this document) does *not* guide you exactly on how to use them; that is for you to find out. These manuals can be found as PDF on the BioConductor website, or opened from within R using the `vignette` function given the library name as argument. To see all available manuals (note; these are very different from the function-help documentation) execute the function without arguments: `vignette()`.
 ```
 
 ### The `Design` (matrix) {#deg-design}
