@@ -4,19 +4,19 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>B Annotating an RNA-Seq Experiment | 2.1.2 Genomics &amp; Transcriptomics</title>
+<title>B Annotating an RNA-Seq Experiment | Transcriptomics Project - Gene Expression Analysis</title>
 <meta name="author" content="Marcel Kempenaar">
 <meta name="description" content="This chapter describes annotate the data, meaning assigning names and functions to our Differentially Expressed Genes. This step can either be very easy or a bit more challenging depending on the...">
-<meta name="generator" content="bookdown 0.44 with bs4_book()">
-<meta property="og:title" content="B Annotating an RNA-Seq Experiment | 2.1.2 Genomics &amp; Transcriptomics">
+<meta name="generator" content="bookdown 0.46 with bs4_book()">
+<meta property="og:title" content="B Annotating an RNA-Seq Experiment | Transcriptomics Project - Gene Expression Analysis">
 <meta property="og:type" content="book">
 <meta property="og:description" content="This chapter describes annotate the data, meaning assigning names and functions to our Differentially Expressed Genes. This step can either be very easy or a bit more challenging depending on the...">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="B Annotating an RNA-Seq Experiment | 2.1.2 Genomics &amp; Transcriptomics">
+<meta name="twitter:title" content="B Annotating an RNA-Seq Experiment | Transcriptomics Project - Gene Expression Analysis">
 <meta name="twitter:description" content="This chapter describes annotate the data, meaning assigning names and functions to our Differentially Expressed Genes. This step can either be very easy or a bit more challenging depending on the...">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
-<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.9.0/transition.js"></script><script src="libs/bs3compat-0.9.0/tabs.js"></script><script src="libs/bs3compat-0.9.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.10.0/transition.js"></script><script src="libs/bs3compat-0.10.0/tabs.js"></script><script src="libs/bs3compat-0.10.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
 <script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
     
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
@@ -53,7 +53,7 @@
 
     <div class="d-flex align-items-start justify-content-between">
       <h1>
-        <a href="index.html" title="">2.1.2 Genomics &amp; Transcriptomics</a>
+        <a href="index.html" title="">Transcriptomics Project - Gene Expression Analysis</a>
       </h1>
       <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
     </div>
@@ -65,10 +65,12 @@
 
       <nav aria-label="Table of contents"><h2>Table of contents</h2>
         <ul class="book-toc list-unstyled">
-<li><a class="" href="index.html"><span class="header-section-number">1</span> Introduction</a></li>
-<li><a class="" href="EDA.html"><span class="header-section-number">2</span> Exploratory Data Analysis</a></li>
-<li><a class="" href="chapter-4.html"><span class="header-section-number">3</span> Discovering Differentialy Expressed Genes (DEGs)</a></li>
-<li><a class="" href="chapter-5.html"><span class="header-section-number">4</span> Data Analysis and Visualization</a></li>
+<li><a class="" href="index.html">Preface</a></li>
+<li><a class="" href="chapter-1.html"><span class="header-section-number">1</span> Introduction</a></li>
+<li><a class="" href="datasets.html"><span class="header-section-number">2</span> Discovering RNA-Seq Data Sets</a></li>
+<li><a class="" href="EDA.html"><span class="header-section-number">3</span> Exploratory Data Analysis</a></li>
+<li><a class="" href="chapter-4.html"><span class="header-section-number">4</span> Discovering Differentialy Expressed Genes (DEGs)</a></li>
+<li><a class="" href="chapter-5.html"><span class="header-section-number">5</span> Data Analysis and Visualization</a></li>
 <li class="book-part">Appendix</li>
 <li><a class="" href="a2-data_loading.html"><span class="header-section-number">A</span> Batch Loading Expression Data in R</a></li>
 <li><a class="active" href="a3-annotation.html"><span class="header-section-number">B</span> Annotating an RNA-Seq Experiment</a></li>
@@ -79,14 +81,14 @@
         </div>
       </nav>
 </div>
-  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="a3-annotation" class="section level1" number="6">
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="a3-annotation" class="section level1" number="7">
 <h1>
 <span class="header-section-number">B</span> Annotating an RNA-Seq Experiment<a class="anchor" aria-label="anchor" href="#a3-annotation"><i class="fas fa-link"></i></a>
 </h1>
 <p>This chapter describes <em>annotate</em> the data, meaning assigning names and functions to our Differentially Expressed Genes. This step can either be very easy or a bit more challenging depending on the data source of your project. The first example is relevant if your data set originated from the NCBI <strong>GEO</strong>, which ‘should’ always be annotated by default. If you have found your data set elsewhere (and do not have a GEO identifier for your project), skip to the <a href="a3-annotation.html#manually-annotate">Manually annotate your data</a> section below.</p>
 <p>The goal of this chapter is to - at least - find a Gene Symbol or common ID (NCBI/ Ensembl) for each gene. Using this information it will be much easier to find relevant information from other online sources to say something about the functionality and impact of your DEGs.</p>
 <p>Even though you might be lucky and either already have your data or a simple GEO query results in everything you want/ need, you are tasked to <em>also</em> perform the manual annotation phase even if you will not use any of the found annotation data. Having written the code to access these sources is a good excercise in using complex Bioconductor packages. Also, you can always use this to find more information should you require this later on.</p>
-<div id="download-geo" class="section level2" number="6.1">
+<div id="download-geo" class="section level2" number="7.1">
 <h2>
 <span class="header-section-number">B.1</span> Downloading annotation data from GEO<a class="anchor" aria-label="anchor" href="#download-geo"><i class="fas fa-link"></i></a>
 </h2>
@@ -320,14 +322,14 @@ protein modification p…</td>
 </tbody>
 </table></div>
 </div>
-<div id="manually-annotate" class="section level2" number="6.2">
+<div id="manually-annotate" class="section level2" number="7.2">
 <h2>
 <span class="header-section-number">B.2</span> Manual Data Annotation<a class="anchor" aria-label="anchor" href="#manually-annotate"><i class="fas fa-link"></i></a>
 </h2>
 <p>Luckily for us, R offers a number of libraries to automatically retrieve information for large sets of genes, unless you have chosen an organism for which not much data is available. This section demonstrates the use of two such libraries, starting with <code>AnnotationDbi</code> followed by <code>biomaRt</code>.</p>
 <p>The <code>AnnotationDbi</code> library downloads a local copy of an organism-specific database with gene information where <code>biomaRt</code> uses online databases to retrieve data given a <code>query</code>. <code>biomaRt</code> offers far more data (over 1000 data fields per organism) but is more complex to use.</p>
 <p>Since <code>biomaRt</code> is also relying on online databases it might be a good strategy to annotate only the genes of interest (the DEGs) instead of querying for &gt;20.000 genes while we might only retain 20 after statistical analysis. If you are planning to use <code>biomaRt</code>, skip to the <a href="#discover-degs">Discovering Differentialy Expressed Genes (DEGs)</a> chapter first and then return to the <span id="using-biomart">Using R Bioconductors <code>biomaRt</code></span> section to annotate the data.</p>
-<div id="annotationDBI" class="section level3" number="6.2.1">
+<div id="annotationDBI" class="section level3" number="7.2.1">
 <h3>
 <span class="header-section-number">B.2.1</span> Using <code>AnnotationDBI</code><a class="anchor" aria-label="anchor" href="#annotationDBI"><i class="fas fa-link"></i></a>
 </h3>
@@ -571,7 +573,7 @@ regulator</td>
 <p>Statistics for annotation columns using AnnotationDbi</p>
 <p>For other data sets you might have more luck, otherwise continue with the <code>biomaRt</code> method explained below.</p>
 </div>
-<div id="using-biomart" class="section level3" number="6.2.2">
+<div id="using-biomart" class="section level3" number="7.2.2">
 <h3>
 <span class="header-section-number">B.2.2</span> Using <code>biomaRt</code><a class="anchor" aria-label="anchor" href="#using-biomart"><i class="fas fa-link"></i></a>
 </h3>
@@ -849,6 +851,9 @@ name ID(s)</td>
 <p>This was just an example on how to use the <code>biomaRt</code> library and it comes down to selecting the correct filter and looking for interesting attributes to retrieve. Further information can be found in the documentation avaialble with `vignette(‘biomaRt’)</p>
 
 <div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
+<div id="ref-deelen15" class="csl-entry">
+al., Patrick Deelen et. 2015. <span>“Calling Genotypes from Public RNA-Sequencing Data Enables Identification of Genetic Variants That Affect Gene-Expression Levels.”</span> <em>Genome Medicine</em> 7 (30).
+</div>
 <div id="ref-R-edgeR" class="csl-entry">
 Chen, Yunshun, Aaron Lun, Davis McCarthy, Xiaobei Zhou, Mark Robinson, and Gordon Smyth. 2018. <em>edgeR: Empirical Analysis of Digital Gene Expression Data in r</em>. <a href="http://bioinf.wehi.edu.au/edgeR">http://bioinf.wehi.edu.au/edgeR</a>.
 </div>
@@ -892,7 +897,7 @@ Love, Michael, Simon Anders, and Wolfgang Huber. 2017. <em>DESeq2: Differential 
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>2.1.2 Genomics &amp; Transcriptomics</strong>" was written by Marcel Kempenaar. It was last built on 2025-09-08.</p>
+    <p>"<strong>Transcriptomics Project - Gene Expression Analysis</strong>" was written by Marcel Kempenaar. It was last built on 2026-04-19.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

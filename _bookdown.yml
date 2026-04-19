@@ -7,7 +7,8 @@ delete_merged_file: true
 output_dir: docs
 
 rmd_files: ['index.Rmd',
-            #'chapters/public-data.Rmd',
+            'chapters/introduction-transcriptomics.Rmd',
+            'chapters/public-data.Rmd',
             #'chapters/data_processing.Rmd'
             'chapters/eda.Rmd',
             'chapters/deg.Rmd',
