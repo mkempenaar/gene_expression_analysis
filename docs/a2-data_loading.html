@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="B Batch Loading Expression Data in R | 2.1.2 Genomics &amp; Transcriptomics" />
+<meta property="og:type" content="book" />
+
+<meta property="og:description" content="Course Syllabus for course 2.1.2" />
+<meta name="github-repo" content="mkempenaar/gene_expression_analysis" />
+
+<meta name="author" content="Marcel Kempenaar" />
+
+<meta name="date" content="2025-04-25" />
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+});
+</script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<meta name="description" content="Course Syllabus for course 2.1.2">
+
+<title>B Batch Loading Expression Data in R | 2.1.2 Genomics &amp; Transcriptomics</title>
+
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="libs/navigation-1.1/tabsets.js"></script>
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+/* show arrow before summary tag as in bootstrap
+TODO: remove if bootstrap in updated in html_document (rmarkdown#1485) */
+details > summary {
+  display: list-item;
+  cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container-fluid main-container">
+
+
+<div class="row">
+<div class="col-sm-12">
+<div id="TOC">
+<ul>
+<li class="has-sub"><a href="index.html#chapter-1" id="toc-chapter-1"><span class="toc-section-number">1</span> Introduction</a>
+<ul>
+<li class="has-sub"><a href="index.html#genomics" id="toc-genomics"><span class="toc-section-number">1.1</span> 2.1.2 Genomics</a>
+<ul>
+<li><a href="index.html#project-deliverables" id="toc-project-deliverables"><span class="toc-section-number">1.1.1</span> Project Deliverables</a></li>
+<li><a href="index.html#data-processing" id="toc-data-processing"><span class="toc-section-number">1.1.2</span> Data Processing</a></li>
+<li><a href="index.html#finding-a-data-set" id="toc-finding-a-data-set"><span class="toc-section-number">1.1.3</span> Finding a Data Set</a></li>
+</ul></li>
+<li class="has-sub"><a href="index.html#transcriptomics" id="toc-transcriptomics"><span class="toc-section-number">1.2</span> 2.1.2 Transcriptomics</a>
+<ul>
+<li><a href="index.html#project-deliverables-1" id="toc-project-deliverables-1"><span class="toc-section-number">1.2.1</span> Project Deliverables</a></li>
+</ul></li>
+<li><a href="index.html#lab-journal" id="toc-lab-journal"><span class="toc-section-number">1.3</span> <em>Lab Journal</em></a></li>
+<li class="has-sub"><a href="index.html#schedule" id="toc-schedule"><span class="toc-section-number">1.4</span> Schedule</a>
+<ul>
+<li><a href="index.html#genomics-1" id="toc-genomics-1"><span class="toc-section-number">1.4.1</span> Genomics</a></li>
+<li><a href="index.html#transcriptomics-1" id="toc-transcriptomics-1"><span class="toc-section-number">1.4.2</span> Transcriptomics</a></li>
+</ul></li>
+<li><a href="index.html#literature" id="toc-literature"><span class="toc-section-number">1.5</span> Literature</a></li>
+</ul></li>
+<li class="has-sub"><a href="from-reads-to-counts.html#from-reads-to-counts" id="toc-from-reads-to-counts"><span class="toc-section-number">2</span> From Reads to Counts</a>
+<ul>
+<li><a href="from-reads-to-counts.html#downloading-and-extracting-fastq-files" id="toc-downloading-and-extracting-fastq-files"><span class="toc-section-number">2.1</span> Downloading and extracting FastQ files</a></li>
+<li><a href="from-reads-to-counts.html#optional-annotation" id="toc-optional-annotation"><span class="toc-section-number">2.2</span> (Optional) Annotation</a></li>
+<li class="has-sub"><a href="from-reads-to-counts.html#quality-control" id="toc-quality-control"><span class="toc-section-number">2.3</span> Quality Control</a>
+<ul>
+<li><a href="from-reads-to-counts.html#fastqc" id="toc-fastqc"><span class="toc-section-number">2.3.1</span> FastQC</a></li>
+</ul></li>
+<li><a href="from-reads-to-counts.html#trimming" id="toc-trimming"><span class="toc-section-number">2.4</span> Trimming</a></li>
+<li class="has-sub"><a href="from-reads-to-counts.html#mapping-with-star" id="toc-mapping-with-star"><span class="toc-section-number">2.5</span> Mapping with STAR</a>
+<ul>
+<li><a href="from-reads-to-counts.html#building-star-index" id="toc-building-star-index"><span class="toc-section-number">2.5.1</span> Building STAR index</a></li>
+<li><a href="from-reads-to-counts.html#read-mapping-and-transcript-counting" id="toc-read-mapping-and-transcript-counting"><span class="toc-section-number">2.5.2</span> Read mapping and transcript counting</a></li>
+<li><a href="from-reads-to-counts.html#combining-star-count-files" id="toc-combining-star-count-files"><span class="toc-section-number">2.5.3</span> Combining STAR Count Files</a></li>
+</ul></li>
+</ul></li>
+<li class="has-sub"><a href="EDA.html#EDA" id="toc-EDA"><span class="toc-section-number">3</span> Exploratory Data Analysis</a>
+<ul>
+<li><a href="EDA.html#loading-data" id="toc-loading-data"><span class="toc-section-number">3.1</span> Loading data into R</a></li>
+<li><a href="EDA.html#ch3_example_data" id="toc-ch3_example_data"><span class="toc-section-number">3.2</span> Example Data</a></li>
+<li class="has-sub"><a href="EDA.html#EDA_part1" id="toc-EDA_part1"><span class="toc-section-number">3.3</span> Visualizing using <code>boxplot</code> and <code>density plot</code></a>
+<ul>
+<li><a href="EDA.html#eda_statistics" id="toc-eda_statistics"><span class="toc-section-number">3.3.1</span> Statistics</a></li>
+<li><a href="EDA.html#eda_boxplots" id="toc-eda_boxplots"><span class="toc-section-number">3.3.2</span> Boxplots</a></li>
+<li><a href="EDA.html#eda_density_plot" id="toc-eda_density_plot"><span class="toc-section-number">3.3.3</span> Density Plots</a></li>
+</ul></li>
+<li class="has-sub"><a href="EDA.html#EDA_part2" id="toc-EDA_part2"><span class="toc-section-number">3.4</span> Visualizing using <code>heatmap</code> and <code>MDS</code></a>
+<ul>
+<li><a href="EDA.html#normalization" id="toc-normalization"><span class="toc-section-number">3.4.1</span> Normalization</a></li>
+<li><a href="EDA.html#eda_distance" id="toc-eda_distance"><span class="toc-section-number">3.4.2</span> Distance Calculation</a></li>
+<li><a href="EDA.html#eda_heatmap" id="toc-eda_heatmap"><span class="toc-section-number">3.4.3</span> Sample Distances using a Heatmap</a></li>
+<li><a href="EDA.html#eda_mds" id="toc-eda_mds"><span class="toc-section-number">3.4.4</span> Multi-Dimensional Scaling</a></li>
+</ul></li>
+<li><a href="EDA.html#cleaning-data" id="toc-cleaning-data"><span class="toc-section-number">3.5</span> Cleaning Data</a></li>
+</ul></li>
+<li class="has-sub"><a href="chapter-4.html#chapter-4" id="toc-chapter-4"><span class="toc-section-number">4</span> Discovering Differentialy Expressed Genes (DEGs)</a>
+<ul>
+<li><a href="chapter-4.html#deg-preprocessing" id="toc-deg-preprocessing"><span class="toc-section-number">4.1</span> Pre-processing</a></li>
+<li><a href="chapter-4.html#deg-fc" id="toc-deg-fc"><span class="toc-section-number">4.2</span> The <em>Fold Change</em> Value</a></li>
+<li><a href="chapter-4.html#deg-bioconductor" id="toc-deg-bioconductor"><span class="toc-section-number">4.3</span> Using Bioconductor Packages</a></li>
+</ul></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="row">
+<div class="col-sm-12">
+<div id="a2-data_loading" class="section level1" number="7">
+<h1><span class="header-section-number">B</span> Batch Loading Expression Data in R</h1>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="a2-data_loading.html#cb49-1" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&#39;utils.R&#39;</span>)</span>
+<span id="cb49-2"><a href="a2-data_loading.html#cb49-2" tabindex="-1"></a><span class="fu">library</span>(pander)</span></code></pre></div>
+<p>This code example shows how to batch-load multiple files containing expression (count) data for a <em>single</em> sample. The data for this example can be found on GEO with ID <a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE109798">GSE109798</a>. Depending on the tool used to convert the mapping data into a per-sample count file, contents of these files can be (very) different. Downloading the data for this example experiment from GEO gives us a single <code>.tar</code> file called <code>GSE109798_RAW.tar</code>. Extracting this archive file nets us a folder with the following files:</p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="a2-data_loading.html#cb50-1" tabindex="-1"></a>file.names <span class="ot">&lt;-</span> <span class="fu">list.files</span>(<span class="st">&#39;./data/GSE109798_RAW/&#39;</span>)</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Files</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">GSM2970149_4T1E274.isoforms.results.txt</td>
+</tr>
+<tr class="even">
+<td align="left">GSM2970150_4T1E266.isoforms.results.txt</td>
+</tr>
+<tr class="odd">
+<td align="left">GSM2970151_4T1E247D.isoforms.results.txt</td>
+</tr>
+<tr class="even">
+<td align="left">GSM2970152_4T1P2247A.isoforms.results.txt</td>
+</tr>
+<tr class="odd">
+<td align="left">GSM2970153_4T1P2247G.isoforms.results.txt</td>
+</tr>
+<tr class="even">
+<td align="left">GSM2970154_4T1P2247F.isoforms.results.txt</td>
+</tr>
+<tr class="odd">
+<td align="left">GSM2970155_HCC1806E224B.isoforms.results.txt</td>
+</tr>
+<tr class="even">
+<td align="left">GSM2970156_HCC1806E224A.isoforms.results.txt</td>
+</tr>
+<tr class="odd">
+<td align="left">GSM2970157_HCC1806E224C.isoforms.results.txt</td>
+</tr>
+<tr class="even">
+<td align="left">GSM2970158_HCC1806P2232A.isoforms.results.txt</td>
+</tr>
+<tr class="odd">
+<td align="left">GSM2970159_HCC1806P2232B.isoforms.results.txt</td>
+</tr>
+<tr class="even">
+<td align="left">GSM2970160_HCC1806P2230.isoforms.results.txt</td>
+</tr>
+</tbody>
+</table>
+<div id="decompressing" class="section level3" number="7.0.1">
+<h3><span class="header-section-number">B.0.1</span> Decompressing</h3>
+<p>The file extension of all these files is <code>.txt.gz</code> which means that all files are compressed using <code>gzip</code> and need to be unpacked before they can be loaded. The easiest method is using the system <code>gunzip</code> command on all files which can be done from within R by <em>applying</em> the <code>gunzip</code> command using the <code>system</code> function on each file.</p>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="a2-data_loading.html#cb51-1" tabindex="-1"></a><span class="do">## Change directory to where the files are stored</span></span>
+<span id="cb51-2"><a href="a2-data_loading.html#cb51-2" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">&#39;./data/GSE109798_RAW/&#39;</span>)</span>
+<span id="cb51-3"><a href="a2-data_loading.html#cb51-3" tabindex="-1"></a><span class="fu">sapply</span>(file.names, <span class="at">FUN =</span> <span class="cf">function</span>(file.name) {</span>
+<span id="cb51-4"><a href="a2-data_loading.html#cb51-4" tabindex="-1"></a>  <span class="fu">system</span>(<span class="fu">paste</span>(<span class="st">&quot;gunzip&quot;</span>, file.name)) </span>
+<span id="cb51-5"><a href="a2-data_loading.html#cb51-5" tabindex="-1"></a>  })</span></code></pre></div>
+<p>Now we can update the <code>file.names</code> variable since each file name has changed.</p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="a2-data_loading.html#cb52-1" tabindex="-1"></a>file.names <span class="ot">&lt;-</span> <span class="fu">list.files</span>(<span class="st">&#39;./data/GSE109798_RAW/&#39;</span>)</span></code></pre></div>
+</div>
+<div id="determining-data-format" class="section level3" number="7.0.2">
+<h3><span class="header-section-number">B.0.2</span> Determining Data Format</h3>
+<p>Next, we can inspect what the contents are of these files, assuming that they all have the same layout/ column names etc. to decide what we need to use for our analysis.</p>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="a2-data_loading.html#cb53-1" tabindex="-1"></a><span class="do">## Call the system &#39;head&#39; tool to &#39;peek&#39; inside the file</span></span>
+<span id="cb53-2"><a href="a2-data_loading.html#cb53-2" tabindex="-1"></a><span class="fu">system</span>(<span class="fu">paste0</span>(<span class="st">&quot;head &quot;</span>, <span class="st">&quot;./data/GSE109798_RAW/&quot;</span>, file.names[<span class="dv">1</span>]))</span></code></pre></div>
+<table>
+<colgroup>
+<col width="17%" />
+<col width="10%" />
+<col width="8%" />
+<col width="21%" />
+<col width="19%" />
+<col width="6%" />
+<col width="6%" />
+<col width="8%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">transcript_id</th>
+<th align="left">gene_id</th>
+<th align="left">length</th>
+<th align="left">effective_length</th>
+<th align="left">expected_count</th>
+<th align="left">TPM</th>
+<th align="left">FPKM</th>
+<th align="left">IsoPct</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">uc007aet.1</td>
+<td align="left">1</td>
+<td align="left">3608</td>
+<td align="left">3608.00</td>
+<td align="left">1.82</td>
+<td align="left">0.44</td>
+<td align="left">0.24</td>
+<td align="left">100.00</td>
+</tr>
+<tr class="even">
+<td align="left">uc007aeu.1</td>
+<td align="left">1</td>
+<td align="left">3634</td>
+<td align="left">3634.00</td>
+<td align="left">0.00</td>
+<td align="left">0.00</td>
+<td align="left">0.00</td>
+<td align="left">0.00</td>
+</tr>
+<tr class="odd">
+<td align="left">uc011whv.1</td>
+<td align="left">10</td>
+<td align="left">26</td>
+<td align="left">26.00</td>
+<td align="left">0.00</td>
+<td align="left">0.00</td>
+<td align="left">0.00</td>
+<td align="left">0.00</td>
+</tr>
+<tr class="even">
+<td align="left">uc007amd.1</td>
+<td align="left">100</td>
+<td align="left">1823</td>
+<td align="left">1823.00</td>
+<td align="left">0.00</td>
+<td align="left">0.00</td>
+<td align="left">0.00</td>
+<td align="left">0.00</td>
+</tr>
+<tr class="odd">
+<td align="left">uc007ame.1</td>
+<td align="left">100</td>
+<td align="left">4355</td>
+<td align="left">4355.00</td>
+<td align="left">1.32</td>
+<td align="left">0.26</td>
+<td align="left">0.15</td>
+<td align="left">100.00</td>
+</tr>
+<tr class="even">
+<td align="left">uc007dac.1</td>
+<td align="left">1000</td>
+<td align="left">1403</td>
+<td align="left">1403.00</td>
+<td align="left">2.00</td>
+<td align="left">1.25</td>
+<td align="left">0.70</td>
+<td align="left">100.00</td>
+</tr>
+<tr class="odd">
+<td align="left">uc008ajp.1</td>
+<td align="left">10000</td>
+<td align="left">1078</td>
+<td align="left">1078.00</td>
+<td align="left">0.00</td>
+<td align="left">0.00</td>
+<td align="left">0.00</td>
+<td align="left">0.00</td>
+</tr>
+<tr class="even">
+<td align="left">uc012ajs.1</td>
+<td align="left">10000</td>
+<td align="left">1753</td>
+<td align="left">1753.00</td>
+<td align="left">0.00</td>
+<td align="left">0.00</td>
+<td align="left">0.00</td>
+<td align="left">0.00</td>
+</tr>
+<tr class="odd">
+<td align="left">uc008ajq.1</td>
+<td align="left">10001</td>
+<td align="left">2046</td>
+<td align="left">2046.00</td>
+<td align="left">0.00</td>
+<td align="left">0.00</td>
+<td align="left">0.00</td>
+<td align="left">0.00</td>
+</tr>
+</tbody>
+</table>
+<p>These files contain (much) more then just a count value for each gene as we can see columns such as (transcript) <em>length</em>, <em>TPM</em>, <em>FPKM</em>, etc. Also, the count-column is called <em>expected_count</em> which raises a few questions as well.</p>
+<div class="rmdtip">
+<p>
+The <em>expected count</em> value is usable as it contains more
+information - compared to the raw count - then we actually require. The
+<em>expected</em> part results from <em>multimapped reads</em> where a
+single read mapped to multiple positions in the genome. As each
+transcript originates only from one location, this multimapped read is
+usually discarded. With the <em>expected count</em> though, instead of
+discarding the read completely it is <em>estimated</em> where it
+originates from and this is added as a <em>fraction</em> to the count
+value. So the value of <code>1.32</code> that we see on line 5 in the
+example above means an true count of <code>1</code> (uniquely mapped
+read) and the <code>.32</code> (the estimated part) results from an
+algorithm and can mean multiple things.
+</p>
+<p>
+As mentioned before, we require integer count data for use with
+packages such as <code>DESeq2</code> and <code>edgeR</code> and there
+are two methods to convert the expected count to raw count data: +
+<em>round</em> the value to the nearest integer (widely accepted method
+and is well within the expected sampling variation), or + discard the
+fraction part by using for example the <code>floor()</code>
+function.
+</p>
+</div>
+</div>
+<div id="loading-data-1" class="section level3" number="7.0.3">
+<h3><span class="header-section-number">B.0.3</span> Loading Data</h3>
+<p>From all these columns we want to keep the <em>transcript_id</em> and <em>expected_count</em> columns and ignore the rest (we might be interested in this data later on though). As we need to lead each file separately we can define a function that reads in the data, keeping the columns of interest and returning a dataframe with this data. Note that the first line of each file is used as a header, but check before setting the <code>header</code> argument to <code>TRUE</code>, sometimes the expression data starts at line 1. The file name is then also used to name the column in the dataframe so that we know which column is which sample. This is done by splitting the file name (using <code>strsplit</code>) using the dot (‘<code>.</code>’) keeping the first part (i.e. ‘<code>GSM2970156_HCC1806E224A</code>’) and discarding the second part (‘<code>isoforms.results.txt</code>’). The <code>strsplit</code> function however always returns a list, in this case containing a vector with the 5 splitted elements:</p>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="a2-data_loading.html#cb54-1" tabindex="-1"></a><span class="do">## String splitting in R</span></span>
+<span id="cb54-2"><a href="a2-data_loading.html#cb54-2" tabindex="-1"></a><span class="do">## (the fixed = TRUE is required as the dot is a special character, see &#39;?strsplit&#39;)</span></span>
+<span id="cb54-3"><a href="a2-data_loading.html#cb54-3" tabindex="-1"></a><span class="fu">strsplit</span>(<span class="st">&#39;GSM2970155_HCC1806E224B.isoforms.results.txt.gz&#39;</span>, <span class="st">&#39;.&#39;</span>, <span class="at">fixed =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## [[1]]
+## [1] &quot;GSM2970155_HCC1806E224B&quot; &quot;isoforms&quot;               
+## [3] &quot;results&quot;                 &quot;txt&quot;                    
+## [5] &quot;gz&quot;</code></pre>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="a2-data_loading.html#cb56-1" tabindex="-1"></a><span class="do">## Keeping the sample identifier</span></span>
+<span id="cb56-2"><a href="a2-data_loading.html#cb56-2" tabindex="-1"></a><span class="fu">strsplit</span>(<span class="st">&#39;GSM2970155_HCC1806E224B.isoforms.results.txt.gz&#39;</span>, <span class="st">&#39;.&#39;</span>, <span class="at">fixed =</span> <span class="cn">TRUE</span>)[[<span class="dv">1</span>]][<span class="dv">1</span>]</span></code></pre></div>
+<pre><code>## [1] &quot;GSM2970155_HCC1806E224B&quot;</code></pre>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="a2-data_loading.html#cb58-1" tabindex="-1"></a><span class="do">## Function for reading in files</span></span>
+<span id="cb58-2"><a href="a2-data_loading.html#cb58-2" tabindex="-1"></a>read_sample <span class="ot">&lt;-</span> <span class="cf">function</span>(file.name) {</span>
+<span id="cb58-3"><a href="a2-data_loading.html#cb58-3" tabindex="-1"></a>  <span class="do">## Extract the sample name for naming the column</span></span>
+<span id="cb58-4"><a href="a2-data_loading.html#cb58-4" tabindex="-1"></a>  sample.name <span class="ot">&lt;-</span> <span class="fu">strsplit</span>(file.name, <span class="st">&quot;.&quot;</span>, <span class="at">fixed =</span> <span class="cn">TRUE</span>)[[<span class="dv">1</span>]][<span class="dv">1</span>]</span>
+<span id="cb58-5"><a href="a2-data_loading.html#cb58-5" tabindex="-1"></a>  <span class="do">## Read the data, setting the &#39;transcript_id&#39; as row.names (column 1)</span></span>
+<span id="cb58-6"><a href="a2-data_loading.html#cb58-6" tabindex="-1"></a>  sample <span class="ot">&lt;-</span> <span class="fu">read.table</span>(file.name, <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">sep=</span><span class="st">&quot;</span><span class="sc">\t</span><span class="st">&quot;</span>, <span class="at">row.names =</span> <span class="cn">NULL</span>)</span>
+<span id="cb58-7"><a href="a2-data_loading.html#cb58-7" tabindex="-1"></a>  <span class="do">## Rename the count column</span></span>
+<span id="cb58-8"><a href="a2-data_loading.html#cb58-8" tabindex="-1"></a>  <span class="fu">names</span>(sample)[<span class="dv">5</span>] <span class="ot">&lt;-</span> sample.name</span>
+<span id="cb58-9"><a href="a2-data_loading.html#cb58-9" tabindex="-1"></a>  <span class="do">## Return a subset containing the &#39;transcript_id&#39; and sample name columns</span></span>
+<span id="cb58-10"><a href="a2-data_loading.html#cb58-10" tabindex="-1"></a>  <span class="fu">return</span>(sample[<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">5</span>)])</span>
+<span id="cb58-11"><a href="a2-data_loading.html#cb58-11" tabindex="-1"></a>}</span></code></pre></div>
+<p>Applying the <code>read_sample</code> function to all file names gives us a set of data frames that we can merge together using the <code>merge</code> function. We merge the data based on the transcript id defined with the <code>by = 1</code> argument pointing to the first column. We start by reading in just one file which is the ‘base’ dataframe to which we will merge the other files.</p>
+<p>During processing it seemed that this data set is divided into two groups which is also listed on the GEO website for this project:</p>
+<ul>
+<li>GPL11154 Illumina HiSeq 2000 (Homo sapiens)</li>
+<li>GPL13112 Illumina HiSeq 2000 (Mus musculus)</li>
+</ul>
+<p>where the first 6 files are from human source and the last 6 from the mouse. Therefore, the following code only shows how to read the first 6 samples and merge these into a single dataframe. Repeating this process for the other 6 files would result into another dataframe for those samples.</p>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="a2-data_loading.html#cb59-1" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">&#39;./data/GSE109798_RAW/&#39;</span>)</span>
+<span id="cb59-2"><a href="a2-data_loading.html#cb59-2" tabindex="-1"></a></span>
+<span id="cb59-3"><a href="a2-data_loading.html#cb59-3" tabindex="-1"></a><span class="do">## Read the FIRST sample</span></span>
+<span id="cb59-4"><a href="a2-data_loading.html#cb59-4" tabindex="-1"></a>dataset <span class="ot">&lt;-</span> <span class="fu">read_sample</span>(file.names[<span class="dv">1</span>])</span>
+<span id="cb59-5"><a href="a2-data_loading.html#cb59-5" tabindex="-1"></a></span>
+<span id="cb59-6"><a href="a2-data_loading.html#cb59-6" tabindex="-1"></a><span class="do">## Read first sample group (6)</span></span>
+<span id="cb59-7"><a href="a2-data_loading.html#cb59-7" tabindex="-1"></a><span class="cf">for</span> (file.name <span class="cf">in</span> file.names[<span class="dv">2</span><span class="sc">:</span><span class="dv">6</span>]) {</span>
+<span id="cb59-8"><a href="a2-data_loading.html#cb59-8" tabindex="-1"></a>  sample <span class="ot">&lt;-</span> <span class="fu">read_sample</span>(file.name)</span>
+<span id="cb59-9"><a href="a2-data_loading.html#cb59-9" tabindex="-1"></a>  dataset <span class="ot">&lt;-</span> <span class="fu">merge</span>(dataset, sample, <span class="at">by =</span> <span class="dv">1</span>)</span>
+<span id="cb59-10"><a href="a2-data_loading.html#cb59-10" tabindex="-1"></a>}</span>
+<span id="cb59-11"><a href="a2-data_loading.html#cb59-11" tabindex="-1"></a></span>
+<span id="cb59-12"><a href="a2-data_loading.html#cb59-12" tabindex="-1"></a><span class="fu">pander</span>(<span class="fu">head</span>(dataset))</span></code></pre></div>
+<table>
+<colgroup>
+<col width="20%" />
+<col width="26%" />
+<col width="26%" />
+<col width="27%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">transcript_id</th>
+<th align="center">GSM2970149_4T1E274</th>
+<th align="center">GSM2970150_4T1E266</th>
+<th align="center">GSM2970151_4T1E247D</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">uc007aet.1</td>
+<td align="center">1.82</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr class="even">
+<td align="center">uc007aeu.1</td>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">0.24</td>
+</tr>
+<tr class="odd">
+<td align="center">uc007aev.1</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr class="even">
+<td align="center">uc007aew.1</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0.97</td>
+</tr>
+<tr class="odd">
+<td align="center">uc007aex.2</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr class="even">
+<td align="center">uc007aey.1</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+</tbody>
+</table>
+<p>Table continues below</p>
+<table style="width:96%;">
+<colgroup>
+<col width="31%" />
+<col width="31%" />
+<col width="31%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">GSM2970152_4T1P2247A</th>
+<th align="center">GSM2970153_4T1P2247G</th>
+<th align="center">GSM2970154_4T1P2247F</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr class="even">
+<td align="center">0.13</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr class="odd">
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr class="even">
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">0</td>
+</tr>
+<tr class="odd">
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr class="even">
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+</tbody>
+</table>
+<p>The <code>dataset</code> variable now contains all data for the first 6 samples in this experiment. It is advisable to compare the number of rows in this data set with the number of rows in a single sample. It is not guaranteed that all samples have exactly the same number of genes/transcripts present (i.e., 0-values might have been discarded) which results in a final data set that has as many rows as the <em>smallest</em> sample. See the help of <code>merge</code> if this is the case because the <code>all</code> argument can be used to introduce extra rows for missing data.</p>
+
+</div>
+</div>
+<p style="text-align: center;">
+<a href="datasets.html"><button class="btn btn-default">Previous</button></a>
+<a href="a2-annotation.html"><button class="btn btn-default">Next</button></a>
+</p>
+</div>
+</div>
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+$(document).ready(function () {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+});
+
+</script>
+
+</body>
+</html>
