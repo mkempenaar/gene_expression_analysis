@@ -4,6 +4,7 @@ _book/
 _bookdown_files/
 libs/
 rscripts/
+scripts/
 data/
 gene_expression_*/
 
