@@ -3,7 +3,7 @@ title: "Analysis of Gene Expression"
 author: "Marcel Kempenaar"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
-output: bookdown::gitbook
+output: bookdown::bs4_book
 fig_caption: yes
 documentclass: book
 bibliography: [book.bib, packages.bib]

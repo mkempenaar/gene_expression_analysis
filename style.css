@@ -62,6 +62,9 @@ h1.title {
   font-weight: 500;
 }
 div {
-    text-align: justify;
-    text-justify: inter-word;
+  text-align: justify;
+  text-justify: inter-word;
 }
+.book .book-body .page-wrapper .page-inner { 
+  max-width: 1200px !important; 
+} 

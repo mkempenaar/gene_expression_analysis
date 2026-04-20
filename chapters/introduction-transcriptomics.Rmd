@@ -26,9 +26,9 @@ knitr::opts_chunk$set(
 
 ## Transcriptomics Project - Analysis of Gene Expression {-}
 
-The use of RNA-Sequencing techniques for measuring gene expression is relatively new and replaces *microarrays*, though in some cases microarrays are still used. Gene expression data gives valuable insights into the workings of cells in certain conditions. Especially when comparing for instance healthy and diseased samples it can become clear which genes are causal or under influence of a specific condition. Finding the genes of interest (genes showing differing expression across conditions, called the *Differentially Expressed Genes* (DEGs)) is the goal of this project.
+The use of RNA-Sequencing techniques for measuring gene expression is relatively new and replaces *micro arrays*, though in some cases micro arrays are still used. Gene expression data gives valuable insights into the workings of cells in certain conditions. Especially when comparing for instance healthy and diseased samples it can become clear which genes are causal or under influence of a specific condition. Finding the genes of interest (genes showing differing expression across conditions, called the *Differentially Expressed Genes* (DEGs)) is the goal of this project.
 
-While there is no golden standard for analyzing RNA-sequencing datasets as there are many tools (all manufacturers of sequencing equipment also deliver software packages) we will use R combined with proven libraries for processing, visualizing and analyzing publicly available data sets. While in some cases you are allowed to use the actual *raw* (read) data that is available, it is highly recommended to use the pre-processed data which often is a table with a *count* value for each gene. This count is the number of reads that was mapped to that gene which corresponds to the relative number of transcripts (mRNA sequences) of that gene present in the cell at the time of sampling.
+While there is no golden standard for analyzing RNA-sequencing data sets as there are many tools (all manufacturers of sequencing equipment also deliver software packages) we will use R combined with proven libraries for processing, visualizing and analyzing publicly available data sets. While in some cases you are allowed to use the actual *raw* (read) data that is available, it is highly recommended to use the pre-processed data which often is a table with a *count* value for each gene. This count is the number of reads that was mapped to that gene which corresponds to the relative number of transcripts (mRNA sequences) of that gene present in the cell at the time of sampling.
 
 ## Project Deliverables {-}
 
@@ -55,7 +55,7 @@ The aim is to keep to the below schedule during this course. Use the first two w
 * Creating an Interactive Shiny Dashboard [week six and seven]
     + Techniques used: Shiny, [shinydashboard](https://rstudio.github.io/shinydashboard/index.html)
     + Note: final techniques will be presented later
-* Finalizing analysis and start writing the final report (article) [weeks seven and eigth]
+* Finalizing analysis and start writing the final report (article) [weeks seven and eight]
 
 Further reading material supplied are in the appendices:
 
@@ -86,19 +86,20 @@ This project is assessed by taking the weighted average of the following deliver
 
 ## *Lab Journal* {-}
 
-As you know from previous projects and most likely from working in the laboratory, it is essential to keep a proper lab journal detailing every step you have done during the experiment. Here, the log is to be kept in an R markdown file, showing which steps have been taken in the analysis of the data set. This markdown should be *knitted* into a single PDF-file once the project is completed thus containing text detailling the steps and any decisions you've made, R-code (always visible!) and their resulting output/ images. 
+As you know from previous projects and most likely from working in the laboratory, it is essential to keep a proper lab journal detailing every step you have done during the experiment. Here, the log is to be kept in an R markdown file, showing which steps have been taken in the analysis of the data set. This markdown should be *knitted* into a single PDF-file once the project is completed thus containing text detailing the steps and any decisions you've made, R-code (always visible!) and their resulting output/ images. 
 
 ```{block, type='rmdtip'}
 **Notes**:
-As a general advice; do not wait with knitting this whole document until the project is done as knitting is very prone to errors and trying to fix these in a large document is not easy. Give each code chunk the proper attributes, including a name at the minimum. This helps spot errors during knitting as that process mentiones which chunk has been processed. Note that chunk-names *must* be unique. And try to make proper use of chapters and sections and include an (optional) table of contents.
+As a general advice; do not wait with knitting this whole document until the project is done as knitting is very prone to errors and trying to fix these in a large document is not easy. Give each code chunk the proper attributes, including a name at the minimum. This helps spot errors during knitting as that process mentions which chunk has been processed. Note that chunk-names *must* be unique. And try to make proper use of chapters and sections and include an (optional) table of contents.
+When installing R packages, keep the installation-code out of the lab journal, only include the `library(...)` function calls.
 ```
 
 ## Dashboard {-}
 
 The dashboard is an interactive web application that allows you to visualize the results of your analysis. It should be user-friendly and provide clear insights into the data. The dashboard should include the following features:
 
-* A summary of the dataset, including the number of samples, genes, and any relevant metadata.
-* Interactive visualizations of the data, such as heatmaps, PCA plots, and volcano plots.
+* A summary of the data set, including the number of samples, genes, and any relevant metadata.
+* Interactive visualizations of the data, such as heat maps, PCA plots, and volcano plots.
 * The ability to filter and subset the data based on user-defined criteria.
 * A section for displaying the results of the differential expression analysis, including tables of DEGs and their associated statistics.
 
@@ -106,7 +107,7 @@ The techniques used will be further explained during lectures.
 
 ## Article {-}
 
-The final report is written in article form which is a bit different from a usual report, mainly in its size. The article-report has a *maximum* number of pages of **4** including all images and references (no appendices!). Contents for this article should be extracted from the lab journal combined with part introduction and part conclusion/ discussion. The sections below describe a template that is available for writing this report and example report(s) will be made available for inspiration. Refer to this chapter again once you start writing the report.
+The final report is written in article form which is a bit different from a usual report, mainly in its size. The article-report has a *maximum* number of pages of **4** including all images and references (no appendices!). Contents for this article should be extracted from the lab journal combined with part introduction and part conclusion/ discussion. The sections below describe a template that is available for writing this report and example report(s) will be made available for inspiration. Refer to this chapter again once you start writing the report (not needed at the moment!).
 
 ### Installing the Article Template {-}
 
