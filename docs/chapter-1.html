@@ -65,12 +65,12 @@
 
       <nav aria-label="Table of contents"><h2>Table of contents</h2>
         <ul class="book-toc list-unstyled">
-<li><a class="" href="index.html">Preface</a></li>
-<li><a class="active" href="chapter-1.html"><span class="header-section-number">1</span> Introduction</a></li>
-<li><a class="" href="datasets.html"><span class="header-section-number">2</span> Discovering RNA-Seq Data Sets</a></li>
-<li><a class="" href="EDA.html"><span class="header-section-number">3</span> Exploratory Data Analysis</a></li>
-<li><a class="" href="chapter-4.html"><span class="header-section-number">4</span> Discovering Differentialy Expressed Genes (DEGs)</a></li>
-<li><a class="" href="chapter-5.html"><span class="header-section-number">5</span> Data Analysis and Visualization</a></li>
+<li><a class="" href="index.html"><span class="header-section-number">1</span> Introduction</a></li>
+<li><a class="active" href="chapter-1.html"><span class="header-section-number">2</span> Introduction</a></li>
+<li><a class="" href="datasets.html"><span class="header-section-number">3</span> Discovering RNA-Seq Data Sets</a></li>
+<li><a class="" href="EDA.html"><span class="header-section-number">4</span> Exploratory Data Analysis</a></li>
+<li><a class="" href="chapter-4.html"><span class="header-section-number">5</span> Discovering Differentialy Expressed Genes (DEGs)</a></li>
+<li><a class="" href="chapter-5.html"><span class="header-section-number">6</span> Data Analysis and Visualization</a></li>
 <li class="book-part">Appendix</li>
 <li><a class="" href="a2-data_loading.html"><span class="header-section-number">A</span> Batch Loading Expression Data in R</a></li>
 <li><a class="" href="a3-annotation.html"><span class="header-section-number">B</span> Annotating an RNA-Seq Experiment</a></li>
@@ -81,7 +81,7 @@
         </div>
       </nav>
 </div>
-  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="chapter-1" class="section level1" number="1">
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="chapter-1" class="section level1" number="2">
 <h1>
 <span class="header-section-number"></span> Introduction<a class="anchor" aria-label="anchor" href="#chapter-1"><i class="fas fa-link"></i></a>
 </h1>
@@ -91,8 +91,8 @@
 <p>The use of RNA-Sequencing techniques for measuring gene expression is relatively new and replaces <em>micro arrays</em>, though in some cases micro arrays are still used. Gene expression data gives valuable insights into the workings of cells in certain conditions. Especially when comparing for instance healthy and diseased samples it can become clear which genes are causal or under influence of a specific condition. Finding the genes of interest (genes showing differing expression across conditions, called the <em>Differentially Expressed Genes</em> (DEGs)) is the goal of this project.</p>
 <p>While there is no golden standard for analyzing RNA-sequencing data sets as there are many tools (all manufacturers of sequencing equipment also deliver software packages) we will use R combined with proven libraries for processing, visualizing and analyzing publicly available data sets. While in some cases you are allowed to use the actual <em>raw</em> (read) data that is available, it is highly recommended to use the pre-processed data which often is a table with a <em>count</em> value for each gene. This count is the number of reads that was mapped to that gene which corresponds to the relative number of transcripts (mRNA sequences) of that gene present in the cell at the time of sampling.</p>
 </div>
-<div id="project-deliverables" class="section level2 unnumbered">
-<h2>Project Deliverables<a class="anchor" aria-label="anchor" href="#project-deliverables"><i class="fas fa-link"></i></a>
+<div id="project-deliverables-2" class="section level2 unnumbered">
+<h2>Project Deliverables<a class="anchor" aria-label="anchor" href="#project-deliverables-2"><i class="fas fa-link"></i></a>
 </h2>
 <p>The end products of this course consist of three deliverables; a knitted ‘lab journal’ where you have logged all steps performed to get to the end result, a separate Shiny dashboard application and a final report in the form of a short article. This chapter briefly describes the requirements and contents of these products and ends with instructions on how to use an RMarkdown <code>template</code> for writing the article. See the grading section below for more details on the grading of these products.</p>
 </div>
@@ -175,9 +175,9 @@
 </li>
 </ul>
 </div>
-<div id="lab-journal" class="section level2 unnumbered">
+<div id="lab-journal-1" class="section level2 unnumbered">
 <h2>
-<em>Lab Journal</em><a class="anchor" aria-label="anchor" href="#lab-journal"><i class="fas fa-link"></i></a>
+<em>Lab Journal</em><a class="anchor" aria-label="anchor" href="#lab-journal-1"><i class="fas fa-link"></i></a>
 </h2>
 <p>As you know from previous projects and most likely from working in the laboratory, it is essential to keep a proper lab journal detailing every step you have done during the experiment. Here, the log is to be kept in an R markdown file, showing which steps have been taken in the analysis of the data set. This markdown should be <em>knitted</em> into a single PDF-file once the project is completed thus containing text detailing the steps and any decisions you’ve made, R-code (always visible!) and their resulting output/ images.</p>
 <div class="rmdtip">
@@ -215,7 +215,7 @@ include the <code>library(…)</code> function calls.
 <h3>Installing the Article Template<a class="anchor" aria-label="anchor" href="#installing-the-article-template"><i class="fas fa-link"></i></a>
 </h3>
 <p>The templates are available in an R package and contains both <code>RMarkdown</code> and (another layer on top of the actual <a href="https://nl.wikipedia.org/wiki/TeX">markup language</a>, yes, another language…) files. RStudio can use templates for a number of documents, including article-templates. These templates can be installed from a package called <code>rticles</code> by running the <code>install.packages</code> function (note: might already be installed):</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"rticles"</span>, type <span class="op">=</span> <span class="st">"source"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div id="using-the-template" class="section level3 unnumbered">
@@ -230,18 +230,18 @@ include the <code>library(…)</code> function calls.
 </div>
 </div>
   <div class="chapter-nav">
-<div class="prev"><a href="index.html">Preface</a></div>
-<div class="next"><a href="datasets.html"><span class="header-section-number">2</span> Discovering RNA-Seq Data Sets</a></div>
+<div class="prev"><a href="index.html"><span class="header-section-number">1</span> Introduction</a></div>
+<div class="next"><a href="datasets.html"><span class="header-section-number">3</span> Discovering RNA-Seq Data Sets</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
-<li><a class="nav-link" href="#chapter-1"><span class="header-section-number">1</span> Introduction</a></li>
+<li><a class="nav-link" href="#chapter-1"><span class="header-section-number">2</span> Introduction</a></li>
 <li><a class="nav-link" href="#transcriptomics-project---analysis-of-gene-expression">Transcriptomics Project - Analysis of Gene Expression</a></li>
-<li><a class="nav-link" href="#project-deliverables">Project Deliverables</a></li>
+<li><a class="nav-link" href="#project-deliverables-2">Project Deliverables</a></li>
 <li><a class="nav-link" href="#project-schedule">Project Schedule</a></li>
 <li><a class="nav-link" href="#learning-outcomes-los">Learning Outcomes (LOs)</a></li>
 <li><a class="nav-link" href="#grading">Grading</a></li>
-<li><a class="nav-link" href="#lab-journal">Lab Journal</a></li>
+<li><a class="nav-link" href="#lab-journal-1">Lab Journal</a></li>
 <li><a class="nav-link" href="#dashboard">Dashboard</a></li>
 <li>
 <a class="nav-link" href="#article">Article</a><ul class="nav navbar-nav">
@@ -265,7 +265,7 @@ include the <code>library(…)</code> function calls.
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Transcriptomics Project - Gene Expression Analysis</strong>" was written by Marcel Kempenaar. It was last built on 2026-04-20.</p>
+    <p>"<strong>Transcriptomics Project - Gene Expression Analysis</strong>" was written by Marcel Kempenaar. It was last built on 2026-08-31.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
